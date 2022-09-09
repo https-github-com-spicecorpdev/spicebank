@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <div>
+        <h1>Olá {{ name }}!</h1>
+        <h3>{{ agencia }}/{{ conta }}</h3>
+        <h3>{{ saldo }}</h3>
+    </div>
+    <div>
+        <a href="/depositform">
+            <button type="button">Depósito</button>
+        </a>
+        <br>
+        <a href="/withdrawform">
+            <button type="button">Saque</button>
+        </a>
+        <a href="/logout">
+            <button type="button">Logout</button>
+        </a>
+    </div>
+</body>
+</html>
