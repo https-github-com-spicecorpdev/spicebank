@@ -6,8 +6,8 @@ services:
     image: mariadb
     restart: always
     environment:
-      MARIADB_ROOT_USER: 
-      MARIADB_ROOT_PASSWORD: 
+      MARIADB_ROOT_USER: root
+      MARIADB_ROOT_PASSWORD: 123456
       MARIADB_DATABASE: spicebank
     ports:
       - 3308:3306
