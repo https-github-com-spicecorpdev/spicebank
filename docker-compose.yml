@@ -13,5 +13,5 @@ services:
       - 3308:3306
     volumes:
       - ./database-volume:/var/lib/mysql
-      - ./database/init.sql:/data/application/init.sql
+      - ./backend/database/init.sql:/data/application/init.sql
     command: --init-file /data/application/init.sql
