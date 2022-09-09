@@ -10,7 +10,7 @@ try:
         password="",
         host="127.0.0.1",
         port=3308,
-        database = ""
+        database = "spicebank"
     )
 except mariadb.Error as e:
    print(f"Error connecting to the database: {e}")

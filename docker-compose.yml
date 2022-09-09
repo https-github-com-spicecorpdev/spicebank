@@ -6,10 +6,12 @@ services:
     image: mariadb
     restart: always
     environment:
-      MARIADB_ROOT_USER:
-      MARIADB_ROOT_PASSWORD:
-      MARIADB_DATABASE:
+      MARIADB_ROOT_USER: 
+      MARIADB_ROOT_PASSWORD: 
+      MARIADB_DATABASE: spicebank
     ports:
       - 3308:3306
     volumes:
       - ./database-volume:/var/lib/mysql
+      - ./database/init.sql:/data/application/init.sql
+    command: --init-file /data/application/init.sql
