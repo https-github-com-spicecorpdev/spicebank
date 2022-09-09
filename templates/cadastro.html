@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+</head>
+<body>
+    <h1>Criar Conta</h1>
+    <form method="POST" action="/register" name="cadastro">
+        <label for="fname">Nome:</label>
+        <input type="text" id="fname" name="fname"><br><br>
+        <label for="fcpf">CPF:</label>
+        <input type="text" placeholder="000.000.000-00" id="fcpf" name="fcpf"><br><br>
+        <label for="fpassword">Senha:</label>
+        <input type="password" id="fpassword" name="fpassword"><br><br>
+        <input type="submit" value="Efetuar Cadastro">
+    </form>
+</body>
+</html>
