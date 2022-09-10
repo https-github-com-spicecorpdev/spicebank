@@ -1,21 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilo-cadastro.css">
     <title>Cadastro</title>
 </head>
 <body>
-    <h1>Criar Conta</h1>
+    <div class="center">
+        <img src="imagens/logo-banco.png" alt="logo banco">
+    <br>
+    </div>
+        <hr color="#00BFFF" >
+    <div class="center">
+        <img src="imagens/crie_sua_conta.png" alt="Crie sua conta">
+        <hr color="#00BFFF" >
+    </div>
+    <div style="margin-top: 5%;">
     <form method="POST" action="/register" name="cadastro">
         <label for="fname">Nome:</label>
-        <input type="text" id="fname" name="fname"><br><br>
+        <input type="text" id="fname" name="fname"> <br><br>
         <label for="fcpf">CPF:</label>
-        <input type="text" placeholder="000.000.000-00" id="fcpf" name="fcpf"><br><br>
+        <input type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf"> <br><br>
+        <label for="fendereço">Endereço:</label>
+        <input type="text" id="fendereço" name="fendereço"><br><br>
         <label for="fpassword">Senha:</label>
-        <input type="password" id="fpassword" name="fpassword"><br><br>
-        <input type="submit" value="Efetuar Cadastro">
+        <input type="password" id="fpassword" name="fpassword"> <br><br>
+        <label for="fdatanascimento">Data de nascimento:</label>
+        <input type="date" id="datanascimento" name="datanascimento"><br>
+        </div>
+        <div class="genero">
+        <p>Gênero:</p>
+        <input type="radio" id="fmasculino" name="fgenero" value="Masculino">
+        <label for="fmasculino">Masculino</label>
+        <input type="radio" id="ffeminino" name="fgenero" value="Feminino">
+        <label for="ffeminino">Feminino</label>
+        <input type="radio" id="foutros" name="fgenero" value="Outros">
+        <label for="foutros">Outros</label>
+
+        </div>
+        <div class="center">
+        <button type="submit">Efetuar Cadastro</button>
+         </div>
     </form>
 </body>
 </html>
+
+    

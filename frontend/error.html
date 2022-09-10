@@ -1,21 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erro</title>
+    <link rel="stylesheet" href="css/estilo_error.css">
+    <title>ERROR</title>
 </head>
 <body>
+<div class="center">
+        <img src="imagens/logo-banco.png" alt="logo banco">
+    <hr color="#00BFFF" >
+</div>
+<div class="center_2">
     <h1>{{ message }}</h1>
+</div>
+<div class="center_2">
     <form action="/">
-        <input type="submit" value="Login">
+        <button type="submit">Login</button>
     </form>
     <form action="/registerform">
-        <input type="submit" value="Cadastrar nova conta">
+        <button type="submit">Cadastrar nova conta</button>
     </form>
     <form action="/">
-        <input type="submit" value="Home">
+        <button type="submit">Home</button>
     </form>
+</div>
 </body>
 </html>
