@@ -25,12 +25,22 @@ input{
     padding: 0.3%;
     border-radius: 12px;
     font-size: 15px;
-    width: 70%;
-    display: flex;
+    width: 30%;
+    display: block;
+    
+    margin: 0 0%;
 }
 
 .genero {
     display: block;
-    padding-left: 35px;
+    padding-left: 41%;
   }
+
+  label{
+    display: block;
+    border-left: 30%;
+    margin: 0 auto;
+  }
+
+
 
