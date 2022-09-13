@@ -7,7 +7,7 @@ CREATE TABLE users(
     password varchar(20),
     agency int default 1,
     account int UNIQUE,
-    balance float,
+    balance float DEFAULT 0,
     primary key(id)
 ) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
