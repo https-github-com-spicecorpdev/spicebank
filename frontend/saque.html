@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/estilo-saque.css') }}">
 
+    <link rel="shortcut icon" href="imagens/dinheiro.ico" type="image/x-icon">
     <title>Saque</title>
 </head>
 <body>
     <div class="center">
         <img src="imagens/logo-banco.png" alt="logo banco">
+        <br><br><br>
     <hr color="#00BFFF" >
     </div>
     <div class="formulario">
@@ -18,14 +20,14 @@
         <hr color="#00BFFF" >
     </div>
     <div class="mensagem">
-        <h1>Olá {{ name }}!</h1>
+        <h3>Olá {{ name }}!</h3>
         <h3>{{ agencia }}/{{ conta }}</h3>
-        <h3>{{ saldo }}</h3>
+        <h3>R${{ saldo }}</h3>
     </div>
     <div class="center">
     <form method="POST" action="/withdraw" name="saque">
         <label for="fvalor">Valor:</label>
-        <input type="text" id="fvalor" name="fvalor" placeholder="R$ 0000.00"><br><br>
+        <input type="text" id="fvalor" name="fvalor" placeholder="R$ 0000.00"><br><br><br>
     <div >
         <button type="submit">Sacar</button>
     </div>

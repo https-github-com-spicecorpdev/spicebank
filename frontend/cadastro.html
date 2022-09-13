@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/estilo-cadastro.css') }}">
+    <link rel="shortcut icon" href="imagens/cadastro.ico" type="image/x-icon">
     <title>Cadastro</title>
 </head>
 <body>
     <div class="center">
         <img src="imagens/logo-banco.png" alt="logo banco">
-    <br>
+    <br><br><br>
     </div>
         <hr color="#00BFFF" >
     <div class="center">
         <img src="imagens/crie_sua_conta.png" alt="Crie sua conta">
         <hr color="#00BFFF" >
     </div>
-    <div style="margin-top: 5%;">
+    <div style="margin-top: 3%; margin-left: 41%; ">
     <form method="POST" action="/register" name="cadastro">
         <label for="fname">Nome:</label>
         <input type="text" id="fname" name="fname"> <br><br>
@@ -37,7 +39,7 @@
         <input type="radio" id="ffeminino" name="fgenero" value="Feminino">
         <label for="ffeminino">Feminino</label>
         <input type="radio" id="foutros" name="fgenero" value="Outros">
-        <label for="foutros">Outros</label>
+        <label for="foutros">Outros</label><br>
 
         </div>
         <div class="center">
