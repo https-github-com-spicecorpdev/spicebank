@@ -1,3 +1,5 @@
 #!/bin/bash
 
-cp frontend/* backend/templates
+cp frontend/*.html backend/templates
+
+cp frontend/css/*.css backend/static/styles

@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/estilo_saque.css">
+
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/estilo-deposito.css') }}">
     <link rel="shortcut icon" href="imagens/deposito.ico" type="image/x-icon">
+
     <title>Depósito</title>
 </head>
 <body>
@@ -24,7 +26,7 @@
         <h3>R${{ saldo }}</h3>
     </div>
     <div class="center">
-    <form method="POST" action="/withdraw" name="saque">
+    <form method="POST" action="/deposit" name="saque">
         <label for="fvalor">Valor:</label>
         <input type="text" id="fvalor" name="fvalor" placeholder="R$ 0000.00"><br><br><br>
     <div >
