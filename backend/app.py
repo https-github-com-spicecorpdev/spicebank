@@ -145,8 +145,23 @@ def depositform():
 @app.route('/deposit', methods = ['POST'])
 def deposit():
     if session.get("autenticado"):
-        message = 'Não implementado!'
-        return render_template('error.html', message=message), 400
+        if not validate_form(request.form):
+            message = 'Preencha um valor para depositar!'
+            return render_template('error.html', message=message), 400
+        valor = float(request.form['fvalor'])
+        if valor <= 0:
+            message = 'Valor de saque deve ser maior que R$00,00!'
+            return render_template('error.html', message=message), 400
+        try:
+            bank_id = 1
+            user_account = session.get("account")
+            update_bank_balance(bank_id, valor)
+            update_user_balance(user_account, valor)
+            return render_template('home.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance']), 200
+        except mariadb.Error as e:
+            print(e)
+            message = f'Falha ao depositar'
+            return render_template('error.html', message=message), 500
     else:
         session['autenticado']=False
         return render_template('login.html'), 200
@@ -164,5 +179,30 @@ def validate_form(form):
         if not form[key]:
             return False
     return True
+
+def update_bank_balance(bank_id, valor):
+    cursor = connection.cursor()
+    query = "SELECT balance FROM bank WHERE BINARY id = ?"
+    parameters = (bank_id,)
+    cursor.execute(query, parameters)
+    balance = float(cursor.fetchone()[0])
+    new_bank_balance = balance + valor
+    query = "UPDATE bank SET balance = ? WHERE id = ?"
+    parameters = (new_bank_balance, bank_id,)
+    cursor.execute(query, parameters)
+    connection.commit()
+
+def update_user_balance(user_account, valor):
+    cursor = connection.cursor()
+    query = "SELECT balance FROM users WHERE BINARY account = ?"
+    parameters = (user_account,)
+    cursor.execute(query, parameters)
+    balance = float(cursor.fetchone()[0])
+    new_user_balance = balance + valor
+    query = "UPDATE users SET balance = ? WHERE account = ?"
+    parameters = (new_user_balance, user_account,)
+    cursor.execute(query, parameters)
+    connection.commit()
+    session['balance'] = float(new_user_balance)
 
 app.run(host='0.0.0.0', port=8081)
