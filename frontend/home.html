@@ -1,28 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+
+    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/estilo_home.css') }}">
+    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
+    <img src="static/img/logo-banco2.png" alt="Logo SPICEBANk">
     <div>
-        <h1>Olá {{ name }}!</h1>
-        <h3>{{ agencia }}/{{ conta }}</h3>
-        <h3>{{ saldo }}</h3>
+        <pre>
+
+   Olá {{ name }}!
+   {{ agencia }}/{{ conta }}
+   R${{ saldo }}</pre>
     </div>
-    <div>
-        <a href="/depositform">
-            <button type="button">Depósito</button>
-        </a>
-        <br>
-        <a href="/withdrawform">
-            <button type="button">Saque</button>
-        </a>
-        <a href="/logout">
-            <button type="button">Logout</button>
-        </a>
-    </div>
+    <br>
+    <hr>
+    <a href="/depositform">
+        <button type="submit"><i class="fas fa-coins"></i></button>
+    </a>
+    <a href="/withdrawform">
+        <button type="submit"><i class="fas fa-donate"></i></button>
+    </a>
+    <a href="/">
+        <button type="submit"><i class="fas fa-exchange"></i></button>
+    </a>
+    <a href="/">
+        <button type="submit"><i class="fas fa-receipt"></i></button>
+    </a>
+    <a href="/logout">
+        <button type="button">Logout</button>
+    </a>
 </body>
+
 </html>
