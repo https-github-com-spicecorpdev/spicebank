@@ -34,6 +34,7 @@ database-volume/
 flask_session/
 backend/templates
 backend/static/styles
+backend/static/img
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
