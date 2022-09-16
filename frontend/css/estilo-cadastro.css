@@ -8,7 +8,8 @@ body {
 }
 
 button {
-    background-color: aqua;
+    background-color: #1ABBEE;
+    border-color: #112DBC;
     padding: 1%;
     width: 265px;
     border-radius: 10px;
@@ -35,12 +36,13 @@ input{
     display: block;
     padding-left: 41%;
   }
+td{
+    size: 25%;
+}
 
   label{
     display: block;
     border-left: 30%;
     margin: 0 auto;
   }
-
-
 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="shortcut icon" href="imagens/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/estilo_home.css">
+    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <img src="imagens/logo-banco2.png" alt="Logo Spice Bank">
+     <div>
+        <pre>
+
+            
+   Olá, {{ name }}!
+   Agência:{{ agencia }}/Conta:{{ conta }}
+   Saldo disponível: R${{ saldo }}</pre>
+    </div>
+    <br>
+    <hr>
+        <button type="button"><i class="fas fa-money-bill-wave"></i><div>Depósito</div></button> <!-- Depósito -->
+        <button type="button"><i class="fa-solid fa-hand-holding-dollar"></i><div>Saque</div></button> <!-- Saque -->
+</body>
+</html>
