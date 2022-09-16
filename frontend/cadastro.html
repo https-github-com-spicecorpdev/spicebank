@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-cadastro.css') }}">
-    <link rel="shortcut icon" href="static/img/cadastro.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/estilo-cadastro.css">
+    <link rel="shortcut icon" href="imagens/cadastro.ico" type="image/x-icon">
     <title>Cadastro</title>
 </head>
-
 <body>
     <div class="center">
-        <img src="static/img/logo-banco.png" alt="logo banco">
-        <br><br><br>
+        <img src="imagens/logo-banco.png" alt="logo banco">
+    <br><br><br>
     </div>
-    <hr color="#00BFFF">
+        <hr color="#00BFFF" >
     <div class="center">
-        <img src="static/img/crie_sua_conta.png" alt="Crie sua conta">
-        <hr color="#00BFFF">
+        <img src="imagens/crie_sua_conta.png" alt="Crie sua conta">
+        <hr color="#00BFFF" >
     </div>
-    <div style="margin-top: 3%; margin-left: 41%; ">
+    <div style="margin-top: 3%; margin-left: 41%;">
         <form method="POST" action="/register" name="cadastro">
             <label for="fname">Nome:</label>
             <input type="text" id="fname" name="fname"> <br><br>
@@ -33,21 +30,23 @@
             <input type="password" id="fpassword" name="fpassword"> <br><br>
             <label for="fdatanascimento">Data de nascimento:</label>
             <input type="date" id="datanascimento" name="datanascimento"><br>
-    </div>
-    <div class="genero">
-        <p>Gênero:</p>
-        <input type="radio" id="fmasculino" name="fgenero" value="Masculino">
-        <label for="fmasculino">Masculino</label>
-        <input type="radio" id="ffeminino" name="fgenero" value="Feminino">
-        <label for="ffeminino">Feminino</label>
-        <input type="radio" id="foutros" name="fgenero" value="Outros">
-        <label for="foutros">Outros</label><br>
-
-    </div>
-    <div class="center">
-        <button type="submit">Efetuar Cadastro</button>
-    </div>
-    </form>
-</body>
-
+        </div>
+        <div class="genero">
+                Gênero:
+                <div>
+                <input type="radio" id="fmasculino" name="fgenero" value="Masculino">
+                <label for="fmasculino">Masculino</label>
+                </div>
+                <input type="radio" id="ffeminino" name="fgenero" value="Feminino">
+                <label for="ffeminino">Feminino</label>
+                <input type="radio" id="foutros" name="fgenero" value="Outros">
+                <label for="foutros">Outros</label><br>
+        </div>
+        <div class="center">
+             <button type="submit">Efetuar Cadastro</button></div>
+            <button type="submit">&#8592 Voltar</button>
+        </form>
+    </body>
 </html>
+
+    

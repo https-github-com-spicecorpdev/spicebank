@@ -3,7 +3,7 @@
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 40px;
-    color:#00BFFF ;
+    color:#1ABBEE ;
     
 }
 
@@ -13,7 +13,8 @@
 }
 
 button {
-    background-color: aqua;
+    background-color: #1ABBEE;
+    border-color: #112DBC;
     padding: 0.5%;
     width: 350px;
     border-radius: 10px;
