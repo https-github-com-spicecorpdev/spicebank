@@ -22,6 +22,17 @@
         <input type="text" placeholder="000.000.000-00" id="fcpf" name="fcpf"><br><br>
         <label for="fpassword">Senha:</label>
         <input type="password" id="fpassword" name="fpassword"><br><br>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}
          
         <div class="center">
         <button type="submit">Login</button>
