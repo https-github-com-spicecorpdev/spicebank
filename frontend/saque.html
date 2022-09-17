@@ -26,6 +26,16 @@
     <form method="POST" action="/withdraw" name="saque">
         <label for="fvalor">Valor para saque:</label>
         <input type="text" id="fvalor" name="fvalor" placeholder="R$ 0000.00"><br><br><br>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}
         <button type="submit">Sacar</button>
     </div>
     <div>

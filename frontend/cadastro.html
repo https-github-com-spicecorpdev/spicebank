@@ -41,6 +41,17 @@
                 <label for="ffeminino">Feminino</label>
                 <input type="radio" id="foutros" name="fgenero" value="Outros">
                 <label for="foutros">Outros</label><br>
+                
+                {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}
         </div>
         <div class="center">
              <button type="submit">Efetuar Cadastro</button></div>
