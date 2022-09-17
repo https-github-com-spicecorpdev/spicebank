@@ -34,8 +34,8 @@ def login():
             message = flash('Preencha todos os campos!')
             return render_template('login.html', message=message), 400
     cursor = connection.cursor()
-    query = "SELECT name, cpf, agency, account, balance FROM users WHERE BINARY cpf = ? AND password = ?"
-    parameters = (request.form['fcpf'], request.form['fpassword'], )
+    query = "SELECT name, cpf, agency, account, balance FROM users WHERE BINARY agency = ? AND account = ? AND password = ?"
+    parameters = (request.form['fagency'], request.form['faccount'], request.form['fpassword'], )
     print(parameters)
     cursor.execute(query, parameters)
     user = cursor.fetchone()
