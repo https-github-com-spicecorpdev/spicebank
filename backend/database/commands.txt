@@ -1,0 +1,69 @@
+/* CRIE O BANCO DE DADOS E INICIALIZE */
+
+create database spicebank;
+
+use spicebank;
+
+___________________________________________________________________
+
+/* TABELA USUÁRIO */
+create table tUser
+(idUser int not null auto_increment primary key,
+nameUser varchar(255),
+typeUser varchar(30),
+cpfUser int(12),
+cnpjUser int(15),
+profileUser int(1),
+roadUser varchar(255),
+districtUser varchar(255),
+numberHouseUser int,
+cepUser int(9),
+celUser int(12),
+celContactUser int (12),
+passwordUser varchar(255),
+genreUser varchar(1),
+agencyUser int(1),
+birthdateUser date,
+login varchar(50));
+
+_______________________________________________________________________
+
+/*TABELA EXTRATO*/
+
+CREATE TABLE `spicebank`.`textract` (
+  `idExtract` INT NOT NULL AUTO_INCREMENT,
+  `userExtract` INT NOT NULL,
+  `depositExtract` FLOAT NULL,
+  `withdrawExtract` FLOAT NULL,
+  `dateExtract` DATE NULL,
+  PRIMARY KEY (`idtExtract`),
+  UNIQUE INDEX `idtExtract_UNIQUE` (`idtExtract` ASC) VISIBLE);
+  
+_______________________________________________________________________
+
+/* TABELA PERFIL */
+
+create table tProfile
+(idProfile int not null auto_increment primary key,
+nameProfile varchar(30));
+
+_______________________________________________________________________
+
+
+/* TABELA AGÊNCIA */
+
+create table tAgency
+(idAgency int not null auto_increment primary key,
+accountAgency int,
+locAgency varchar(255));
+
+________________________________________________________________________
+
+/* TABELA CONTA*/
+
+create table taccount 
+(idAccount int not null primary key auto_increment,
+typeAccount varchar(50),
+totalBalance float);
+
+________________________________________________________________________
