@@ -1,5 +1,5 @@
 from crypt import methods
-from flask import Flask, request, render_template, session
+from flask import Flask, request, render_template, session, flash, redirect, url_for
 from flask_session import Session
 import mariadb
 import sys
@@ -26,16 +26,16 @@ def index():
     if session.get('autenticado'):
         return render_template('home.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance']), 200
     else:
-        return render_template('login.html'), 20
+        return render_template('login.html'), 200
 
 @app.route('/login', methods = ['POST'])
 def login():
     if not validate_form(request.form):
-            message = f'Preencha todos os campos!'
-            return render_template('error.html', message=message), 400
+            message = flash('Preencha todos os campos!')
+            return render_template('login.html', message=message), 400
     cursor = connection.cursor()
-    query = "SELECT name, cpf, agency, account, balance FROM users WHERE BINARY cpf = ? AND password = ?"
-    parameters = (request.form['fcpf'], request.form['fpassword'], )
+    query = "SELECT name, cpf, agency, account, balance FROM users WHERE BINARY agency = ? AND account = ? AND password = ?"
+    parameters = (request.form['fagency'], request.form['faccount'], request.form['fpassword'], )
     print(parameters)
     cursor.execute(query, parameters)
     user = cursor.fetchone()
@@ -50,8 +50,8 @@ def login():
     else:
         session['autenticado']=False
         requestCpf = request.form['fcpf']
-        message = f'Usuário com cpf {requestCpf} não encontrado!'
-        return render_template('error.html', message=message), 404
+        message = flash(f'Usuário com cpf {requestCpf} não encontrado!')
+    return render_template('login.html', message=message), 400
 
 @app.route('/logout')
 def logout():
@@ -67,8 +67,8 @@ def registerForm():
 def register():
         cursor = connection.cursor()
         if not validate_form(request.form):
-            message = f'Preencha todos os campos!'
-            return render_template('error.html', message=message), 400
+            message = flash('Preencha todos os campos!')
+            return render_template('cadastro.html', message=message), 400
         if not userExists(request.form['fcpf']):
             try:
                 query = "INSERT INTO users (name, cpf, password, account) values(?, ?, ?, next value for account_number)"
@@ -81,8 +81,8 @@ def register():
                 return "Erro ao cadastrar usuário", 400
         else:
             requestCpf = request.form['fcpf']
-            message = f'CPF {requestCpf} já cadastrado!'
-            return render_template('error.html', message=message), 404
+            message = flash(f'CPF {requestCpf} já cadastrado!')
+        return render_template('cadastro.html', message=message), 400
 
 @app.route('/withdrawform')
 def withdrawform():
@@ -96,12 +96,12 @@ def withdrawform():
 def withdraw():
     if session.get("autenticado"):
         if not validate_form(request.form):
-            message = 'Preencha um valor para sacar!'
-            return render_template('error.html', message=message), 400
+            message = flash('Preencha um valor para sacar!')
+            return render_template('saque.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance'], message=message), 400
         valor = float(request.form['fvalor'])
         if valor <= 0:
-            message = 'Valor de saque deve ser maior que R$00,00!'
-            return render_template('error.html', message=message), 400
+            message = flash('Valor de saque deve ser maior que R$00,00!')
+            return render_template('saque.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance'], message=message), 400
         try:
             cursor = connection.cursor()
             query = "SELECT balance FROM bank WHERE BINARY id = ?"
@@ -123,10 +123,11 @@ def withdraw():
                 cursor.execute(queryuser, parametersUser)
                 connection.commit()
                 session['balance'] = float(novoSaldoUser)
-                return render_template('home.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance']), 200
+                message = flash(f'Saque efetuado com sucesso! Saldo: R${novoSaldoUser}')
+                return render_template('saque.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance'], message=message), 200
             else:
-                message = 'Valor indisponível!'
-                return render_template('error.html', message=message), 400
+                message = flash('Valor maior que o saldo disponível!')
+                return render_template('saque.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance'], message=message), 400
         except mariadb.Error as e:
             print(e)
             return "Erro ao cadastrar usuário", 400
@@ -146,22 +147,24 @@ def depositform():
 def deposit():
     if session.get("autenticado"):
         if not validate_form(request.form):
-            message = 'Preencha um valor para depositar!'
-            return render_template('error.html', message=message), 400
+            message = flash('Preencha um valor para depositar!')
+            return render_template('deposito.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance'], message=message), 400
         valor = float(request.form['fvalor'])
         if valor <= 0:
-            message = 'Valor de saque deve ser maior que R$00,00!'
-            return render_template('error.html', message=message), 400
+            message = flash('Valor de depósito deve ser maior que R$00,00!')
+            return render_template('deposito.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance'], message=message), 400
         try:
             bank_id = 1
             user_account = session.get("account")
             update_bank_balance(bank_id, valor)
             update_user_balance(user_account, valor)
-            return render_template('home.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance']), 200
+            saldo=session['balance']
+            message = flash(f'Depósito efetuado com sucesso! Saldo: R${saldo}')
+            return render_template('deposito.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance'], message=message), 200
         except mariadb.Error as e:
             print(e)
-            message = f'Falha ao depositar'
-            return render_template('error.html', message=message), 500
+            message = flash('Falha ao depositar')
+            return render_template('deposito.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance'], message=message), 400
     else:
         session['autenticado']=False
         return render_template('login.html'), 200
