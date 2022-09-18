@@ -19,13 +19,37 @@ O objetivo do projeto é criar um sistema para gerenciamento de transações em 
 
 # Equipe
 
-Aline Cristiane Correa Costa  GitHub: https://github.com/acorreac Linkedin: https://www.linkedin.com/in/alinecorrea/
-Ana Tainara da Silva Rosa  GitHub: https://github.com/anatainararosa
-Eshilley Hiury Minicucci Vianna Barbosa  GitHub:
-Gabriel Lucena  GitHub: https://github.com/tGrimR34per Linkedin : https://www.linkedin.com/in/lucena-gabriel/
-Igor Pereira  GitHub : https://github.com/igorpereira28
-Isabela Silva  GitHub: https://github.com/Caris19
-Vitor Garcez de Oliveira  GitHub: https://github.com/Vitaog  Linkedin: https://www.linkedin.com/in/vitorgarcezdeoliveira/
+**Aline Cristiane Correa Costa**  
+
+GitHub: https://github.com/acorreac                            
+Linkedin: https://www.linkedin.com/in/alinecorrea/
+
+**Ana Tainara da Silva Rosa**  
+
+GitHub: https://github.com/anatainararosa           
+Linkedin: https://www.linkedin.com/in/anatainararosa/
+
+**Eshilley Hiury Minicucci Vianna Barbosa**  
+
+GitHub: https://github.com/EshilleyBa
+
+**Gabriel Lucena**
+
+GitHub: https://github.com/tGrimR34per                         
+Linkedin : https://www.linkedin.com/in/lucena-gabriel/
+
+**Igor Pereira**  
+
+GitHub : https://github.com/igorpereira28
+
+**Isabela Silva** 
+
+GitHub: https://github.com/Caris19
+
+**Vitor Garcez de Oliveira** 
+
+GitHub: https://github.com/Vitaog                             
+Linkedin: https://www.linkedin.com/in/vitorgarcezdeoliveira/
 
 
 ## Instruções
@@ -57,16 +81,16 @@ Os passos para a utilização do banco de dados estão na pasta backned/database
 
 # Cronograma de Entregas 
 Foi utilizado o arquivo Product Backlog para validação das estregas de acordo com as prioridades do cliente, sendo elas: 
-Entrega I 18/9
-Entrega II 9/10
-Entrega III 6/11
-Entrega IV 27/11
+- Entrega I 18/9
+- Entrega II 9/10
+- Entrega III 6/11
+- Entrega IV 27/11
 
 # Tecnologias Utilizadas
--Flask
--Python
--MariaDB
--HTML
--CSS
+ - Flask
+ - Python
+ - MariaDB
+ - HTML
+ - CSS
 
 
