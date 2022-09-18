@@ -23,6 +23,7 @@
         <h3>Saldo disponível: R${{ saldo }}}</h3>
     </div>
     <div class="center">
+
     <form method="POST" action="/withdraw" name="saque">
         <label for="fvalor">Valor para saque:</label>
         <input type="text" id="fvalor" name="fvalor" placeholder="R$ 0000.00"><br><br><br>
@@ -37,10 +38,17 @@
             {% endwith %}
             {% block body %}{% endblock %}
         <button type="submit">Sacar</button>
-    </div>
-    <div>
-    <button type="submit">&#8592 Voltar</button>
     </form>
     </div>
+    <form method="GET" action="{{ url_for('index') }}">
+        <div class="center">
+            <button type="submit">Voltar</button>
+        </div>
+    </form>
+    <br>
+    </form>
+   
+    
+
 </body>
 </html>

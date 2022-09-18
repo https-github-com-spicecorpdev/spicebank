@@ -30,6 +30,7 @@
             <input type="password" id="fpassword" name="fpassword"> <br><br>
             <label for="fdatanascimento">Data de nascimento:</label>
             <input type="date" id="datanascimento" name="datanascimento"><br>
+    
         </div>
         <div class="genero">
                 Gênero:
@@ -55,9 +56,18 @@
         </div>
         <div class="center">
              <button type="submit">Efetuar Cadastro</button></div>
-            <button type="submit">&#8592 Voltar</button>
+       
+       </div>
         </form>
+        <form method="GET" action="{{ url_for('index') }}">
+        <div class="center">
+            <button type="submit">Voltar</button>
+        </div>
+    </form>
+    <br>
+   
     </body>
 </html>
+
 
     
