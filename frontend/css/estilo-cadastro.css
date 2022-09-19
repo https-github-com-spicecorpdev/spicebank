@@ -1,48 +1,45 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
-
 .center {
-    margin-top: 1%;
+    margin: 0 auto;
     text-align: center;
 }
-
+.formulario {
+    margin-top:3%;
+    margin-left: 38%;
+    margin-right: 38%;
+    width: 15%;
+    border-radius: 15px;
+}
+input{
+    padding: 1%;
+    border-radius: 12px;
+    font-size: 20px;   
+}
 button {
     background-color: #1ABBEE;
-    border-color: #112DBC;
-    padding: 1%;
+    border-color: rgb(80, 80, 100);
+    padding: 8%;
     width: 265px;
     border-radius: 10px;
     color: rgb(255, 255, 255);
     font-size: 20px;
     cursor:pointer;
 }
-
 button:hover {
     background-color:rgb(69, 168, 224)
 }
 
-input{
-    padding: 0.3%;
-    border-radius: 12px;
-    font-size: 15px;
-    width: 30%;
-    display: block;
-    
-    margin: 0 0%;
+.linha-cabeçalho {
+    margin-top: 4%;
 }
 
-.genero {
-    display: block;
-    padding-left: 41%;
-  }
-td{
-    size: 25%;
+hr{
+    border-color: aqua;
 }
 
-  label{
-    display: block;
+label{
     border-left: 30%;
-    margin: 0 auto;
+    font-size: 150%;
   }
-

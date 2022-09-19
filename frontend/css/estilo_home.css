@@ -4,28 +4,22 @@ button{
   height: 200px;
   background-color:white;
   border-color:#1ABBEE;
-  margin: 44px;
+  margin: 5%;
   border-radius: 60px;
-  font-size: 50px;
-  margin-top: 5%;
-  margin-left: 20%;
+  font-size: 25px;
+  
 }
 button:hover {
   background-color:rgb(69, 168, 224)
 }
 hr{
-  border-color: #112DBC;
+  border-color:#1ABBEE;
 }
-body{
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 40px;
-  margin-top: 2%;
-}
+
 img{
   width: 15%;
   height: 8%;
-  position: fixed;
-  left: 80%;
+  margin-left: 80%;
 }
 div{
   font-family: Arial, Helvetica, sans-serif;
