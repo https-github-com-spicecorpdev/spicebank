@@ -76,7 +76,7 @@ O build é um arquivo que contém os comandos necessários para copiar arquivos 
 
 
 ### Banco de Dados
-Os passos para a utilização do banco de dados estão na pasta backned/database no arquivo commands.txt
+Os passos para a utilização do banco de dados estão na pasta backned/database no arquivo commands-sql.txt
 
 
 # Cronograma de Entregas 
