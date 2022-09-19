@@ -1,21 +1,25 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
+.center {
+    margin: 0 auto;
+    text-align: center;
+}
 .formulario {
     margin-top:3%;
-    display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 14%;
-        border-radius: 15px;
+    margin-left: 40%;
+    margin-right: 38%;
+    width: 15%;
+    border-radius: 15px;
 }
 input{
-    padding: 3%;
+    padding: 0.5%;
     border-radius: 12px;
-    font-size: 20px;   
+    font-size: 20px; 
 }
 button {
     background-color: #1ABBEE;
+    border-color: rgb(80, 80, 100);
     padding: 8%;
     width: 265px;
     border-radius: 10px;
@@ -26,16 +30,18 @@ button {
 button:hover {
     background-color:rgb(69, 168, 224)
 }
-a {
-    cursor:pointer
-}
+
 .linha-cabeçalho {
     margin-top: 4%;
 }
-.center {
-    margin-top: 9%;
-    text-align: center;
-}
+
 hr{
     border-color: aqua;
+}
+
+label{
+    display: block;
+    border-left: 30%;
+    margin: 0 auto;
+    font-size: 150%;
 }

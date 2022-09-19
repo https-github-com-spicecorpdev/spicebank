@@ -1,3 +1,34 @@
+--Instalar o MariaDB no seu computador.
+--No momento de instalar o MariaDB colocar os seguintes dados de acesso ao banco.
+        user="root",
+        password="123456",
+        host="127.0.0.1",
+        port=3308,
+        database = "spicebank" 
+
+--Após a instalação entrar no ambiente MariaDB pelo prompt de comando Windows, terminal(linux) ou software de execução do MariaDB.
+
+--1º Opção: Entrar no ambiente do mariaDB pelo cmd windows ou linux: executar o comando abaixo informando a senha criada ao instalar o mariaDB:
+> mysql -u root -p
+
+--2º Opção: Terminal Linux: O comando abaixo entra no ambiente mariaDB com a senha do computador.
+sudo mysql -u root
+
+--3º Opção: No CDM Windows o comando abaixo executa o arquivo init.sql para a de criação do banco, assim não se faz necessário os passos anteriores.
+--É necessário estar dentro da pasta onde contém o arquivo init.sql.
+mysql -u root -p spicebank < init.sql
+
+--4º Opção: Caso não esteja na pasta do arquivo execute:
+mysql -u root -p spicebank < "caminho onde o aquivo esta salvo no computador\init.sql"
+
+--Se preferir executar um script por vez, faça os seguintes passos:
+
+--No ambiente do MariaDB execute o comando a seguir para criar o database 'spicebank'.
+CREATE DATABASE IF NOT EXISTS spicebank;
+
+--Comando para usar o database criado.
+USE spicebank;
+
 --Comando que cria automaticamente o número da conta do usuário na tabela.
 CREATE SEQUENCE account_number START WITH 0 INCREMENT BY 1 MINVALUE=0 MAXVALUE=999999;
 

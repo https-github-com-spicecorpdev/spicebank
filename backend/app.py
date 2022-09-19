@@ -49,8 +49,7 @@ def login():
         return render_template('home.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance']), 200
     else:
         session['autenticado']=False
-        requestCpf = request.form['fcpf']
-        message = flash(f'Usuário com cpf {requestCpf} não encontrado!')
+        message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('login.html', message=message), 400
 
 @app.route('/logout')
@@ -81,7 +80,7 @@ def register():
                 return "Erro ao cadastrar usuário", 400
         else:
             requestCpf = request.form['fcpf']
-            message = flash(f'CPF {requestCpf} já cadastrado!')
+            message = flash(f'CPF {requestCpf} com cadastrado existente!')
         return render_template('cadastro.html', message=message), 400
 
 @app.route('/withdrawform')

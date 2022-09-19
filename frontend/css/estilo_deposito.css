@@ -1,20 +1,11 @@
-.formulario {
-    
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 40px;
-    color:#1ABBEE ;
-    
-}
-
-.center {
-    margin-top: 1%;
-    text-align: center;
+.mensagem{
+    margin-left: 5%;
+    font-size: 20px;
 }
 
 button {
     background-color: #1ABBEE;
-    border-color: #112DBC;
+    border-color: rgb(80, 80, 100);
     padding: 0.5%;
     width: 350px;
     border-radius: 10px;
@@ -27,14 +18,19 @@ button:hover {
     background-color:rgb(69, 168, 224)
 }
 
-.mensagem{
-    margin-top: 5%;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 30px;
-}
 input{
     padding: 0.5%;
-    border-radius: 12px;
+    border-radius: 8px;
+    width: 150px;
     font-size: 20px; 
+}
+
+img{
+    width: 15%;
+    height: 8%;
+    margin-left: 80%;
+}
+p{
+    font-size: 25px;
+    font-weight: 200;
 }

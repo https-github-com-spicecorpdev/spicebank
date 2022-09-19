@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/estilo_saque.css">
-    <link rel="shortcut icon" href="imagens/dinheiro.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_saque.css') }}">
+    <link rel="shortcut icon" href="static/img/dinheiro.ico" type="image/x-icon">
     <title>Saque</title>
 </head>
+
 <body>
-    <div class="center">
-        <img src="imagens/logo-banco.png" alt="logo banco">
-        <br><br><br>
-    <hr color="#00BFFF" >
+    <img src="static/img/logo-banco.png" alt="logo banco">
+    <div style="font-size: 30px">
+        <pre>
+    Saque
+        </pre>
     </div>
-    <div class="formulario">
-        <p>Saque</p>
-        <hr color="#00BFFF" >
-    </div>
+    <hr color="#00BFFF">
     <div class="mensagem">
         <h3>Agência:{{ agencia }}/Conta:{{ conta }}</h3>
-        <h3>Saldo disponível: R${{ saldo }}}</h3>
+        <h3>Saldo disponível: R${{ saldo }}</h3>
     </div>
-    <div class="center">
+    <div style="margin-left: 5%;">
+        <form method="POST" action="/withdraw" name="saque">
+            <label for="fvalor">Valor para saque:</label>
+            <input type="text" id="fvalor" name="fvalor" placeholder="R$00,00"><br><br>
 
-    <form method="POST" action="/withdraw" name="saque">
-        <label for="fvalor">Valor para saque:</label>
-        <input type="text" id="fvalor" name="fvalor" placeholder="R$ 0000.00"><br><br><br>
-        {% with messages = get_flashed_messages() %}
+            {% with messages = get_flashed_messages() %}
             {% if messages %}
             <ul class=flashes>
                 {% for message in messages %}
@@ -37,18 +37,17 @@
             {% endif %}
             {% endwith %}
             {% block body %}{% endblock %}
-        <button type="submit">Sacar</button>
-    </form>
+
+            <button type="submit">Sacar</button>
+        </form>
     </div>
+    <br>
     <form method="GET" action="{{ url_for('index') }}">
-        <div class="center">
-            <button type="submit">Voltar</button>
+        <div style="margin-left: 5%;">
+            <button type="submit">&#8592 Cancelar e voltar</button>
         </div>
     </form>
     <br>
-    </form>
-   
-    
-
 </body>
+
 </html>
