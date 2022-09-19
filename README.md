@@ -53,15 +53,15 @@ Linkedin: https://www.linkedin.com/in/vitorgarcezdeoliveira/
 
 
 ## Instruções
-1.  Clonar o repositorio do projeto com o comando git clone https://github.com/https-github-com-spicecorpdev/spicebank.git
-2. Acessar a pasta do projeto clonado.
+1. No terminal clonar o repositorio do projeto com o comando git clone https://github.com/https-github-com-spicecorpdev/spicebank.git
+2. Acessar a pasta do projeto clonado
 3. Instale todos os pacotes python necessarios usando o comando: pip install -r requirements.txt
-4. Se o sistema operacional for Windows, executar o arquivo build.bat 
-5. Se o sistema operacional for Linux, executar o arquivo build.sh
+4. Se o sistema operacional for Windows, executar o arquivo usando o comando: build.bat
+5. Se o sistema operacional for Linux, executar o arquivo usando o comando: sh build.sh
 6. Instalar todos os programas para o devido funcionamento do projeto
-7. Executar o script contido na pasta /backend/database/scriptdb_spicebank.sql para inicializar o banco de dados da aplicação.
+7. Na pasta backend/database o arquivo 'command-sql.txt' contém um passo a passo de como criar e executar o banco de dados
 8. Para inicializar o projeto entre na pasta backend e execute o seguinte comando: flask run
-9. Acesse o aplicativo usando o localhost:5000
+9. Acesse o aplicativo usando o link que aparecerá para visualização das páginas, geralmente localhost:5000
 
 ## Dependências do Projeto
 - flask;
