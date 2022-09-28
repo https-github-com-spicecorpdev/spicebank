@@ -1,4 +1,3 @@
-from crypt import methods
 from flask import Flask, request, render_template, session, flash, redirect, url_for
 from flask_session import Session
 import mariadb
@@ -9,7 +8,7 @@ try:
         user="root",
         password="123456",
         host="127.0.0.1",
-        port=3308,
+        port=3306,
         database = "spicebank"
     )
 except mariadb.Error as e:
@@ -121,8 +120,8 @@ def withdraw():
                 parametersUser = (novoSaldoUser, session.get("account"))
                 cursor.execute(queryuser, parametersUser)
                 connection.commit()
-                session['balance'] = float(novoSaldoUser)
-                message = flash(f'Saque efetuado com sucesso! Saldo: R${novoSaldoUser}')
+                session['balance'] = float(f'{novoSaldoUser:.2f}')
+                message = flash(f'Saque efetuado com sucesso! Saldo: R${novoSaldoUser:.2f}')
                 return render_template('saque.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance'], message=message), 200
             else:
                 message = flash('Valor maior que o saldo disponível!')
@@ -158,7 +157,7 @@ def deposit():
             update_bank_balance(bank_id, valor)
             update_user_balance(user_account, valor)
             saldo=session['balance']
-            message = flash(f'Depósito efetuado com sucesso! Saldo: R${saldo}')
+            message = flash(f'Depósito efetuado com sucesso! Saldo: R${saldo:.2f}')
             return render_template('deposito.html', name=session['name'], agencia=session['agency'], conta=session['account'], saldo=session['balance'], message=message), 200
         except mariadb.Error as e:
             print(e)
@@ -205,6 +204,6 @@ def update_user_balance(user_account, valor):
     parameters = (new_user_balance, user_account,)
     cursor.execute(query, parameters)
     connection.commit()
-    session['balance'] = float(new_user_balance)
+    session['balance'] = float(f'{new_user_balance:.2f}')
 
 app.run(host='0.0.0.0', port=8081)
