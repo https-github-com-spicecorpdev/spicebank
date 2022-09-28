@@ -66,7 +66,9 @@ O build é um arquivo que contém os comandos necessários para copiar arquivos 
 Os passos para a utilização do banco de dados estão na pasta backned/database no arquivo commands-sql.txt
 
 # Product Backlog 1ªSprint
-Foto do Product Backlog
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/192898074-bc98496f-cc9b-47ae-9f59-9d5bee54b543.png" width="1000px", height="500px", />
+</div>
 
 # Product Backlog Total
 Foto do Product Backlog
