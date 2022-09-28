@@ -19,37 +19,24 @@ O objetivo do projeto é criar um sistema para gerenciamento de transações em 
 
 # Equipe
 
-**Aline Cristiane Correa Costa**  
-
-GitHub: https://github.com/acorreac                            
-Linkedin: https://www.linkedin.com/in/alinecorrea/
-
+**Aline Cristiane Correa Costa**<br>
+GitHub: https://github.com/acorreac          
+Linkedin: https://www.linkedin.com/in/alinecorrea/<br><br>
 **Ana Tainara da Silva Rosa**  
-
-GitHub: https://github.com/anatainararosa           
-Linkedin: https://www.linkedin.com/in/anatainararosa/
-
-**Eshilley Hiury Minicucci Vianna Barbosa**  
-
-GitHub: https://github.com/EshilleyBa
-
-**Gabriel Lucena**
-
-GitHub: https://github.com/tGrimR34per                         
-Linkedin : https://www.linkedin.com/in/lucena-gabriel/
-
-**Igor Pereira**  
-
-GitHub : https://github.com/igorpereira28
-
-**Isabela Silva** 
-
-GitHub: https://github.com/Caris19
-
-**Vitor Garcez de Oliveira** 
-
-GitHub: https://github.com/Vitaog                             
-Linkedin: https://www.linkedin.com/in/vitorgarcezdeoliveira/
+GitHub: https://github.com/anatainararosa          
+Linkedin: https://www.linkedin.com/in/anatainararosa/<br><br>
+**Eshilley Hiury Minicucci Vianna Barbosa**<br>
+GitHub: https://github.com/EshilleyBa<br><br>
+**Gabriel Lucena**<br>
+GitHub: https://github.com/tGrimR34per                        
+Linkedin : https://www.linkedin.com/in/lucena-gabriel/<br><br>
+**Igor Pereira**<br> 
+GitHub : https://github.com/igorpereira28<br><br>
+**Isabela Silva**<br>
+GitHub: https://github.com/Caris19<br><br>
+**Vitor Garcez de Oliveira**<br>
+GitHub: https://github.com/Vitaog                           
+Linkedin: https://www.linkedin.com/in/vitorgarcezdeoliveira/<br>
 
 
 ## Instruções
@@ -77,6 +64,19 @@ O build é um arquivo que contém os comandos necessários para copiar arquivos 
 
 ### Banco de Dados
 Os passos para a utilização do banco de dados estão na pasta backned/database no arquivo commands-sql.txt
+
+# Product Backlog 1ªSprint
+Foto do Product Backlog
+
+# Product Backlog Total
+Foto do Product Backlog
+
+# Minimum Viable Product(MVP) 1ªSprint
+- Tela de Login (Navegavél e funcional)
+- Tela de Cadastro (Navegavél e funcional)
+- Tela Home (Navegavél e funcional)
+- Tela de Depósito (Navegavél e funcional)
+- Tela de Saque (Navegavél e funcional)
 
 
 # Cronograma de Entregas 
