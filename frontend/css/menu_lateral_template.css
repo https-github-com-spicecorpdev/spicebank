@@ -1,0 +1,45 @@
+*{
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #868686;
+}
+
+.justify{
+    float: right;
+    width: 85%;
+}
+
+nav{
+    padding: 0;
+    background-color: #4e4e4e;
+    position: fixed;
+  top: 0;
+  width: 15%; 
+  height: 100%;
+  float: left;
+}
+nav >  ul {
+    text-transform: uppercase;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+   }
+
+nav > ul > li > a{
+    color: #F0F2F2;
+    text-decoration: none; 
+    display: block;
+padding: 20px;
+    transition: background .4s;}
+
+nav > ul > li > a:hover{
+    background-color: #1f1f1f;
+    transition: background .4s;}
+
+    /*Login*/
+    /**/

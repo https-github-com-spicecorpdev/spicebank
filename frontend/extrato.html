@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+    <title>extrato</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-extrato.css') }}">
+
+    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
+    <hr>
+<div class="justify">
+
+    <form method="GET" action="{{ url_for('index') }}">
+            <button type="submit">&#8592 voltar</button>
+    </form>
+
+    <div class="box1">
+        <h2>extrato</h2> <br>
+         <pre>{{ nome }}
+ agência: {{ agencia }}/ conta:{{ conta }} 
+ <span style="font-size: 150%;">Saldo: R${{ saldo }}</span></pre>
+    </div>
+
+    <table class="table-extrato">
+        <tr>
+            <th>.</th>
+            <th>.</div></th>
+            <th>.</th>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>
