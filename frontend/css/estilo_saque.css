@@ -4,7 +4,7 @@
 }
 
 button {
-    background-color: #1ABBEE;
+    background-color: #212121;
     border-color: rgb(80, 80, 100);
     padding: 0.5%;
     width: 350px;
@@ -15,7 +15,7 @@ button {
 }
 
 button:hover {
-    background-color:rgb(69, 168, 224)
+    background-color:rgb(0, 0, 0)
 }
 
 input{

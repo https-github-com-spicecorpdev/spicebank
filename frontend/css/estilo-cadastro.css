@@ -18,7 +18,7 @@ input{
     font-size: 20px;   
 }
 button {
-    background-color: #1ABBEE;
+    background-color: #212121;
     border-color: rgb(80, 80, 100);
     padding: 8%;
     width: 265px;
@@ -28,7 +28,7 @@ button {
     cursor:pointer;
 }
 button:hover {
-    background-color:rgb(69, 168, 224)
+    background-color:rgb(0, 0, 0)
 }
 
 .linha-cabeçalho {
@@ -36,10 +36,39 @@ button:hover {
 }
 
 hr{
-    border-color: aqua;
+    border-color: rgb(0, 0, 0);
 }
 
 label{
     border-left: 30%;
     font-size: 150%;
   }
+
+  nav {
+    list-style: none;
+    padding: 0;
+    background-color: #212121;
+    position: sticky;
+  top: 0;
+  width: 100%; 
+  z-index: 100;}
+
+nav > ul {
+margin: 0;}
+
+nav >  ul > li {
+    display: inline;
+text-align: end;}
+
+nav >  ul > li > a{
+    color: #F0F2F2;
+    text-decoration: none;
+    padding: 0;
+    display: inline-block;
+    margin: auto;
+    padding: 20px;
+    transition: background .4s;}
+
+nav >  ul > li > a:hover{
+    background-color: #000000;
+    transition: background .4s;}
