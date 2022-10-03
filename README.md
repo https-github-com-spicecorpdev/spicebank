@@ -65,20 +65,31 @@ O build é um arquivo que contém os comandos necessários para copiar arquivos 
 ### Banco de Dados
 Os passos para a utilização do banco de dados estão na pasta backned/database no arquivo commands-sql.txt
 
-# Product Backlog 1ªSprint
+# Product Backlog Atual
 <div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/192898074-bc98496f-cc9b-47ae-9f59-9d5bee54b543.png" width="1000px", height="500px", />
+<img src="https://user-images.githubusercontent.com/86271800/193682233-5003e5b0-4f18-4d23-8d23-310e36984dcd.png" width="1000px", height="500px", />
 </div>
 
 # Product Backlog Total
-Foto do Product Backlog
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/193682481-2f99d47a-32e6-41d3-aa10-aa7b91f3506c.png" width="1000px", height="500px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/193682233-5003e5b0-4f18-4d23-8d23-310e36984dcd.png" width="1000px", height="500px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/193682506-31a9e778-d1e0-4e06-afa6-cf42b7f8d1df.png" width="1000px", height="500px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/193682521-d1dcdb2d-e1ec-4742-bd2e-b31eb2703128.png" width="1000px", height="500px", />
+</div>
 
 # Minimum Viable Product(MVP) 1ªSprint
-- Tela de Login (Navegavél e funcional)
-- Tela de Cadastro (Navegavél e funcional)
-- Tela Home (Navegavél e funcional)
-- Tela de Depósito (Navegavél e funcional)
-- Tela de Saque (Navegavél e funcional)
+- Tela de Login de usuário personalizado (Navegavél e funcional)
+- Tela Administrativas de Gerente de Agência (Navegavél e funcional)
+- Tela de Comprovante de Saque e Depósito (Navegavél e funcional)
+- Tela de Status de Solicitação de Conta (Navegavél e funcional)
+- Tela de Extrato (Navegavél e funcional)
 
 
 # Cronograma de Entregas 
