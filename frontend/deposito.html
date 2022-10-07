@@ -29,8 +29,8 @@
     </div>
     <div style="margin-left: 5%;">
         <form method="POST" action="/deposit" name="deposit">
-            <label for="fvalor">Valor para depósito: </label>
-            <input type="text" id="fvalor" name="fvalor" placeholder="R$00,00"><br><br>
+            <label for="fvalor">Valor para depósito:R$ </label>
+            <input type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
 
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}

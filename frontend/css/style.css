@@ -1,5 +1,5 @@
-/*saque e depósito*/
-.mensagem{
+/*depósito*/
+.messagedeposit{
     margin-left: 5%;
     font-size: 20px;
 }
@@ -36,13 +36,62 @@
     font-weight: 200;
 }
 
+.flashesdeposit{
+    color: red;
+}
+
+
+/*SAQUE*/
+
+.messagewithdraw{
+    margin-left: 5%;
+    font-size: 20px;
+}
+
+.buttonwithdraw {
+    background-color: #212121;
+    border-color: rgb(80, 80, 100);
+    padding: 0.5%;
+    width: 350px;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    cursor:pointer;
+}
+
+.buttonwithdraw:hover {
+    background-color:rgb(0, 0, 0)
+}
+
+.inputwithdraw{
+    padding: 0.5%;
+    border-radius: 8px;
+    width: 150px;
+    font-size: 20px; 
+}
+
+.imgwithdraw{
+    width: 15%;
+    height: 8%;
+    margin-left: 80%;
+}
+.pwithdraw{
+    font-size: 25px;
+    font-weight: 200;
+}
+
+.flasheswithdraw{
+    color: red;
+}
+
+
 /*login*/
 
-body {
+.bodylogin {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0 auto;
 }
-.center {
+.centerlogin {
     margin: 0 auto;
     text-align: center;
 }
