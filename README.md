@@ -27,9 +27,6 @@ GitHub: https://github.com/anatainararosa
 Linkedin: https://www.linkedin.com/in/anatainararosa/<br><br>
 **Eshilley Hiury Minicucci Vianna Barbosa**<br>
 GitHub: https://github.com/EshilleyBa<br><br>
-**Gabriel Lucena**<br>
-GitHub: https://github.com/tGrimR34per                        
-Linkedin : https://www.linkedin.com/in/lucena-gabriel/<br><br>
 **Igor Pereira**<br> 
 GitHub : https://github.com/igorpereira28<br><br>
 **Isabela Silva**<br>
@@ -59,11 +56,11 @@ Linkedin: https://www.linkedin.com/in/vitorgarcezdeoliveira/<br>
 
 
 ## Arquivos build
-O build é um arquivo que contém os comandos necessários para copiar arquivos HTML, CSS, imagens para pasta backend na qual se faz necessário tais arquivos para a correta execução e vizualização da aplicação.
+O build é um arquivo que contém os comandos necessários para copiar arquivos HTML, CSS, imagens para pasta backend na qual se faz necessário tais arquivos para a correta execução e visualização da aplicação.
 
 
 ### Banco de Dados
-Os passos para a utilização do banco de dados estão na pasta backned/database no arquivo commands-sql.txt
+Os passos para a utilização do banco de dados estão na pasta backend/database no arquivo commands-sql.txt
 
 # Product Backlog Atual
 |  ID    | Sprint  | User Story  |   Critério de Aceitação  |  Teste de Aceitação   |
@@ -95,7 +92,7 @@ Os passos para a utilização do banco de dados estão na pasta backned/database
 <img src="https://user-images.githubusercontent.com/86271800/193682521-d1dcdb2d-e1ec-4742-bd2e-b31eb2703128.png" width="1000px", height="500px", />
 </div>
 
-# Minimum Viable Product(MVP) 1ªSprint
+# Minimum Viable Product(MVP) 2ªSprint
 - Tela de Login de usuário personalizado (Navegavél e funcional)
 - Tela Administrativas de Gerente de Agência (Navegavél e funcional)
 - Tela de Comprovante de Saque e Depósito (Navegavél e funcional)
