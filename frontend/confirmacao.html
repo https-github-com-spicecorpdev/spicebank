@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-cadastro.css') }}">-->
+    <link rel="stylesheet" href="css/estilo_extrato.css">
+    <link rel="shortcut icon" href="static/img/cadastro.ico" type="image/x-icon">
+    <title>Confirmação</title>
+</head>
+
+<body>
+ <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
+    <hr>
+<div class="justify">
+    <div class="box1">
+        <h2>Confirmar abertura de conta</h2> <br>
+        <p>Nome:{{fname}} CPF:{{fcpf}} Gênero {{fgender}}</p>
+        <p> Data de nascimento:{{fdatadenascimento}}</p>
+        <h3>Endereço</h3>
+        <p>Rua/Avenida:{{faddress}} Número:{{fnumber}}</p>
+        <p>Bairro: {{fdistrict}} CEP:{{fcef}}</p>
+        <p>Cidade: {{fcity}} Estado:{{fstate}}</p>
+    </div>
+
+    <form action="">
+        <button type=""> Confirmar Abertura de Conta </button>
+    </form>
+
+    <form method="GET" action="{{ url_for('index') }}">
+        <button type="submit">&#8592 voltar</button>
+</form>
+
+
+</div>
+
+</body>
