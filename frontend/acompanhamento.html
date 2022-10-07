@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-login.css') }}">
     <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon">
-    <title>Login</title>
+    <title>Acompanhamento</title>
 </head>
 
 <body>
     
    <nav>
     <ul>
-        <li> <a href="/login.html">Entrar na sua Conta</a> </li>
+        <li> <a href="/login"> Entrar na sua Conta </a> </li>
     </ul>
 </nav>
     <div class="center">
@@ -24,10 +24,8 @@
 
     <div class="formulario">
         <form method="POST" action="/login" name="cadastro">
-            <label for="fagency">Agência:</label>
-            <input type="text" placeholder="1" id="fagency" name="fagency"><br><br>
-            <label for="faccount">Conta:</label>
-            <input type="text" placeholder="0000" id="faccount" name="faccount"><br><br>
+            <label for="fcpf">CPF:</label>
+            <input type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf"> <br><br>
             <label for="fpassword">Senha:</label>
             <input type="password" id="fpassword" name="fpassword"><br><br>
 
@@ -49,8 +47,8 @@
         </form>
         <br>
         <div>
-            <form action="/registerform">
-                <button type="submit">Cadastrar nova conta</button>
+            <form action="">
+                <button type=""> Voltar </button>
             </form>
         </div>
     </div>
