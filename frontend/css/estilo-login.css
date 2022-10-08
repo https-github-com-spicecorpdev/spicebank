@@ -18,7 +18,7 @@ input{
     border-radius: 12px;
     font-size: 20px; 
 }
-.button {
+button {
     background-color: #212121;
     border-color: rgb(80, 80, 100);
     padding: 8%;
@@ -28,6 +28,7 @@ input{
     font-size: 20px;
     cursor:pointer;
 }
+
 
 button:hover {
     background-color:rgb(0, 0, 0)

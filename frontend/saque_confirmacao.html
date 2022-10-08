@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+    <title>confirmação de depósito</title>
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_saque_confirmacao.css') }}">
+    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
+    <hr>
+    <div class="justify">
+        <br><br>
+        <div class="box1">
+            <h2>confirme o saque</h2>
+            <br>
+            <p>origem: {{nome}}</p>
+            <p>agência/conta: {{agencia}} {{conta}}</p>
+            <h2>R${{valor}}</h2>
+        </div>
+        <div>
+            <button type="submit">&#8592 Cancelar e voltar</button>
+            <button type="submit">Depositar</button>
+
+        </div>
+
+
+    </div>

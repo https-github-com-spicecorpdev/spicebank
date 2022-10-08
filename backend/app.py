@@ -6,7 +6,7 @@ import sys
 try:
     connection = mariadb.connect(
         user="root",
-        password="1234",
+        password="123456",
         host="127.0.0.1",
         port=3306,
         database = "spicebank"
@@ -82,9 +82,22 @@ def loginAcomp():
         session['nameUser']=user[1]
         session['cpfUser']=user[2]
         session['solicitacao']=user[6]
-        
-        return render_template('homeAcomp.html', name=session['nameUser'], solicitacao=session['solicitacao'],), 200
+        if user[6] == "aprovado":
+            cursor = connection.cursor()
+            query = "SELECT U.idUser AS idUser, U.nameUser AS nameUser, U.cpfUser AS cpfUser, U.passwordUser AS passwordUser, A.idAccount AS idAccount, A.idAccountUser AS idAccountUser, A.solicitacao AS solicitacao, A.numberAccount AS numberAccount, A.agencyUser AS agencyUser FROM tuser AS U INNER JOIN taccount AS A ON idUser = idAccountUser WHERE cpfUser = ? AND passwordUser = ? "
+            parameters = (request.form['fcpf'], request.form['fpassword'], )
+            print(parameters)
+            cursor.execute(query, parameters)
+            user = cursor.fetchone()
+            session['agencyUser']=user[8]
+            session['numberAccount']=user[7]
+            message = flash(f'Agência:{user[8]} / Conta:{user[7]}')
+            message = flash('Grave sua agencia e conta')
+            return render_template('homeAcomp.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], solicitacao=session['solicitacao'], message=(message)), 200
             
+        else:
+            message = flash('Aguardando análise de solicitação')
+            return render_template('homeAcomp.html', name=session['nameUser'],cpf=session['cpfUser'], solicitacao=session['solicitacao']), 200
     else:
         session['autenticado']=False
         message = flash(f'Login inválido, verifique os dados de acesso!')
