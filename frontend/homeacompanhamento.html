@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhamento</title>
+
+    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_saque.css') }}"> 
+    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
+    <div>
+        <pre>
+    Olá, {{ name }}!
+    Sua agência é:{{ agencia }} e sua Conta é: {{ conta }}
+    Guarde seus dados, está é a única vez que será possível acessá-lo!
+        </pre>
+    </div>
+
+    <div class="center">
+        <button type="submit">Login</button>
+    </div>
+    <br>
+    <div>
+        <form action="">
+            <button type=""> Sair </button>
+        </form>
+    </div>
+
+
+</body>
+
+</html>
