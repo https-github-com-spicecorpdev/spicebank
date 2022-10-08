@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-cadastro.css') }}">
+    <link rel="stylesheet" href="css/estilo-cadastro.css">
+    <link rel="shortcut icon" href="static/img/cadastro.ico" type="image/x-icon">
+    <title>Cadastro Administrativo </title>
+</head>
+
+<body>
+   <!--?--> <nav>
+    <ul>
+        <li> <a href="">Acompanhamento</a> </li>
+    </ul>
+</nav>
+    <div class="center">
+        <img src="static/img/logo-banco.png" alt="logo banco">
+    </div>
+    <hr color="#00BFFF">
+    <div class="center">
+        <img src="static/img/crie_sua_conta.png" alt="Crie sua conta">
+        <hr color="#00BFFF">
+    </div> <!--?-->
+
+<!--alteração do endereço para address-->
+<!--Add number-numero - district=bairro-city = cidade  state - estado -->
+    <div class="formulario">
+        <form method="POST" action="/register" name="cadastro">
+            <label for="fname">Nome:</label>
+            <input type="text" id="fname" name="fname"> <br><br>
+            <label for="fcpf">CPF:</label>
+            <input type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf"> <br><br>
+            <label for="faddress">Endereço: Rua/Avenida: </label>
+            <input type="text" id="faddress" name="faddress"><br><br>
+            <label for="fnumber">Número: </label>
+            <input type="text" id="fnumber" name="fnumber"><br><br>
+            <label for="fdistrict">Bairro: </label>
+            <input type="text" id="fdistrict" name="fdistrict"><br><br>
+            <label for="fcep">CEP:</label>
+            <input type="text" id="fcep" name="fcpf"> <br><br>
+            <label for="fcity"> Cidade: </label>
+            <input type="text" id="fcity" name="fcity"><br><br>
+            <label for="fstate"> Estado: </label>
+            <input type="text" id="fstate" name="fstate"><br><br>
+            <label for="fpassword">Senha:</label>
+            <input type="password" id="fpassword" name="fpassword"><br><br>
+            <label for="fdatanascimento">Data de nascimento:<input type="date" id="datanascimento" name="datanascimento"></label>
+            <br><br>
+
+            <label>Gênero:</label><br><br>
+            <label for="fmasculino"><input type="radio" id="fmasculino" name="fgenero"
+                value="Masculino"> Masculino</label><br>
+            <label for="ffeminino"><input type="radio" id="ffeminino" name="fgenero"
+                value="Feminino"> Feminino</label><br>
+            <label for="foutros"><input type="radio" id="foutros" name="fgenero"
+                value="Outros"> Outros</label><br><br>
+
+            <label>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}</label><br>
+
+            <div class="center">
+                <button type="submit">Efetuar Cadastro</button>
+            </div>
+        </form>
+        <br>
+        <form method="GET" action="{{ url_for('index') }}">
+            <button type="submit">Voltar</button>
+        </form>
+    </div>
+</body>
+
+</html>
