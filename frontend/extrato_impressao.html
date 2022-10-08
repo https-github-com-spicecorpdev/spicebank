@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
     <title>extrato</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_extrato.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_extrato_impresso.css') }}">
 
     <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
     <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
@@ -13,19 +13,17 @@
     <hr>
 <div class="justify">
 
-    <form method="GET" action="{{ url_for('index') }}">
-        <button type="submit">&#8592 voltar</button>
-</form>
 
-<form><button type="">Imprimir</button></form>
         
+
     <div class="box1">
         <h2>extrato</h2> <br>
-         <pre>{{ nome }}
- agência: {{ agencia }}/ conta:{{ conta }} 
- <span style="font-size: 150%;">Saldo: R${{ saldo }}</span></pre>
     </div>
-
+<hr>
+         <pre>{{ nome }}
+ agência: {{ agencia }} conta:{{ conta }} 
+ <span style="font-size: 150%;">Saldo: R${{ saldo }}</span></pre>
+ 
     <table class="table-extrato">
 
         <!--linha com títulos-->
@@ -34,15 +32,13 @@
             <th>acão</th>
             <th>saldo</th>
         </tr>
-        <!--linha dos itens (exemplo)-->
-
-        <tr>
-            <td>02/02/2022</td>
-            <td>saque R$-90</td>
-            <td>saldo</td>
-        </tr>
 
          <!--linha de itens-->
+        <tr>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+        </tr>
         <tr>
             <td>.</td>
             <td>.</td>
