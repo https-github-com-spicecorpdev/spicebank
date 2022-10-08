@@ -6,7 +6,7 @@ import sys
 try:
     connection = mariadb.connect(
         user="root",
-        password="123456",
+        password="1234",
         host="127.0.0.1",
         port=3306,
         database = "spicebank"
@@ -41,6 +41,7 @@ def login():
     print(user)
     if user and not (user[0] == ''):
         session['autenticado'] = True
+        session['idUser']=user[0]
         session['nameUser']=user[1]
         session['cpfUser']=user[4]
         session['agencyUser']=user[3]
@@ -103,6 +104,66 @@ def loginAcomp():
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('login.html', message=message), 400
 
+@app.route('/admForm')
+def admForm():
+    return render_template('loginGerente.html'), 200
+
+@app.route('/loginGerente', methods = ['POST'])
+def loginGerente():
+    if not validate_form(request.form):
+            message = flash('Preencha todos os campos!')
+            return render_template('login.html', message=message), 400
+    cursor = connection.cursor()
+    query = "SELECT U.idUser AS idUser, U.nameUser AS nameUser, U.cpfUser AS cpfUser, U.profileUser AS profileUser, U.passwordUser AS passwordUser, Ag.idAgency AS idAgency, Ag.accountAgency AS accountAgency, Ag.idManager AS idManager FROM tuser AS U INNER JOIN tagency AS Ag ON idUser = idManager WHERE cpfUser = ? AND profileUser != 3 AND passwordUser = ? "
+    parameters = (request.form['fcpf'], request.form['fpassword'], )
+    print(parameters)
+    cursor.execute(query, parameters)
+    user = cursor.fetchone()
+    print(user)
+
+    if user and not (user[0] == ''):
+        session['autenticado'] = True
+        session['nameManager']=user[1]
+        session['cpfUser']=user[2]
+        session['profileUser']=user[3]
+        session['accountAgency']=user[6]
+        message = flash(f'Olá, {user[1]}!')
+        message = flash(f'Bem-vindo gerente da agência: {user[6]}')
+        message = flash(f'Estas são as contas de usuários que aguardam confirmação!')
+        if user[3] == 2:
+            cursor = connection.cursor()
+            query = "SELECT U.idUser AS idUser, U.nameUser AS nameUser, U.cpfUser AS cpfUser, A.idAccount AS idAccount, A.idAccountUser AS idAccountUser, A.solicitacao AS solicitacao, A.numberAccount AS numberAccount FROM tuser AS U INNER JOIN taccount AS A ON idUser = idAccountUser WHERE solicitacao = 'pendente'"
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            print(rows)
+
+            if cursor.rowcount > 0:
+                print(cursor.rowcount)
+                for user in rows:
+                    print(user)
+                while user[0] > 0:    
+                    session['nameUser']=user[1]
+                    session['cpfUser']=user[2]
+                    session['idAccount']=user[3]
+                    session['solicitacao']=user[5]
+                    session['numberAccount']=user[6]
+                    # message = flash(f'Nome:{user[1]} / Conta:{user[6]}')
+
+                    #CONTAS ATRELADAS AQUELA AGÊNCIA
+
+                    return render_template('homeGerente.html', name=session['nameUser'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], userDetails = rows, numeroConta=session['numberAccount'], message=(message)), 200
+
+            else:
+                return render_template('homeGerente.html', message=(message)), 200
+
+            
+        else:
+            message = flash('Bem-Vindo Gerente Geral!')
+            return render_template('homeGerente.html', name=session['nameUser'],cpf=session['cpfUser']), 200
+    else:
+        session['autenticado']=False
+        message = flash(f'Esta conta não é da gerência, faça login como Usuário!')
+    return render_template('login.html', message=message), 400
 
 @app.route('/registerform')
 def registerForm():
@@ -117,20 +178,42 @@ def register():
         else:
             if not userExists(request.form['fcpf']):
                 try:
-                    query = "INSERT INTO tuser (nameUser, cpfUser, passwordUser, roadUser, districtUser, numberHouseUser, cepUser, celUser, celContactUser, genreUser, birthdateUser, loginUser) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
-
-                    parameters = (request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fcity'], request.form['fstate'], request.form['fnumberhouse'], request.form['fcep'], request.form['fcel'], request.form['fcelcontato'], request.form['fgenre'], request.form['fbirthday'], request.form['femail'],)
+                    query = "INSERT INTO tuser (nameUser, cpfUser, passwordUser, roadUser, districtUser, numberHouseUser, cepUser, celUser, genreUser, birthdateUser, fdistrict) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+                    parameters = (request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fcity'], request.form['fstate'], request.form['fnumberhouse'], request.form['fcep'], request.form['fcel'], request.form['fgenre'], request.form['fbirthday'], request.form['fdistrict'],)
                     print(parameters)
                     cursor.execute(query, parameters)
                     connection.commit()
+                    query = "INSERT INTO taccount (numberAccount, totalbalance, idAccountUser, statusAccount, solicitacao) values (next value for account_number, 0, LAST_INSERT_ID(), 0, 'pendente');"
+                    cursor.execute(query)
+                    connection.commit()
+                    print(cursor.execute(query))
                     return render_template('login.html'), 201
                 except mariadb.Error as e:
                     print(e)
                     return "Erro ao cadastrar usuário", 400
             else:
                 requestCpf = request.form['fcpf']
-                message = flash(f'CPF {requestCpf} com cadastrado existente!')
+                message = flash(f'CPF {requestCpf} com cadastra já existente!')
         return render_template('cadastro.html', message=message), 400
+
+@app.route('/aprovar')
+def aprovar():
+        # cursor = connection.cursor()
+        # query = "SELECT * from taccount"
+        # cursor.execute(query)
+        # user = cursor.fetchone()
+        # print(user)
+        # session['idAccount']=user[0]
+        cursor = connection.cursor()
+        query = "UPDATE taccount SET agencyUser = ?, statusAccount = 1, solicitacao = 'aprovado' WHERE idAccount = ?"
+        parameters = (session.get("accountAgency"))
+        parameters2 = (session['idAccount'])
+        numeroDConta = (parameters, parameters2,)
+        print(numeroDConta)
+        cursor.execute(query, numeroDConta)
+        connection.commit()
+        message = flash(f'Este usuário foi para a sua agência')
+        return render_template('homeGerente.html', message=(message)), 200
 
 #Abertura de conta
 
@@ -183,6 +266,14 @@ def withdraw():
                     cursor.execute(query, parameters)
                     connection.commit()
                     session['totalbalance'] = float(novoSaldo)
+                    import time    
+                    today = time.strftime('%Y-%m-%d %H:%M:%S')
+                    query = "INSERT INTO textract (userExtract, depositExtract, withdrawExtract, dateExtract) values (?, 0, ?, ?);"
+                    print(valor)
+                    parameters = (session.get("idUser"), valor, today)
+                    print(parameters)
+                    cursor.execute(query, parameters)
+                    connection.commit()
                     message = flash(f'Saque de R${valor} efetuado com sucesso! Saldo: R${novoSaldo}')
                     return render_template('saque.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], saldo=session['totalbalance'], idAccount=session['idAccount'], message=message), 200
                 else:
@@ -198,7 +289,7 @@ def withdraw():
 @app.route('/depositform')
 def depositform():
     if session.get("autenticado"):
-        return render_template('deposito.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], saldo=session['totalbalance']), 200
+        return render_template('deposito.html', id=session['idUser'], name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], saldo=session['totalbalance']), 200
     else:
         session['autenticado']=False
         return render_template('login.html'), 200
@@ -236,6 +327,14 @@ def deposit():
                 cursor.execute(query, parameters)
                 connection.commit()
                 session['totalbalance'] = float(novoSaldo)
+                import time    
+                today = time.strftime('%Y-%m-%d %H:%M:%S')
+                query = "INSERT INTO textract (userExtract, depositExtract, withdrawExtract, dateExtract) values (?, ?, 0, ?);"
+                parameters = (session.get("idUser"), valor, today)
+                print(parameters)
+                print(valor)
+                cursor.execute(query, parameters)
+                connection.commit()
                 message = flash(f'Depósito de R${valor} efetuado com sucesso! Saldo: R${novoSaldo}')
                 return render_template('deposito.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], saldo=session['totalbalance'], idAccount=session['idAccount'], message=message), 200
 
