@@ -18,22 +18,16 @@ O objetivo do projeto é criar um sistema para gerenciamento de transações em 
 - Tecnologias Utilizadas
 
 # Equipe
+||Integrantes|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194735815-b3fc4048-bce9-4a70-af44-36583c8ca0e7.png" width=115></div>|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737247-64ed8ec4-2b71-46ff-8d22-539b4015d7be.png" width=115></div>|
+|--|-----------|------|--------|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194735729-e1a6aea7-ec46-4318-83b1-51a4958f6fc1.jpeg" width=115></div>|**Aline Cristiane Correa Costa**|<div align="center">[GitHub](https://github.com/acorreac)</div>|<div align="center">[Linkedin](www.linkedin.com/in/alinecorrea)</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737529-8081336b-55c0-48fe-a852-b26fe1e15246.jpeg" width=115></div>|**Ana Tainara da Silva Rosa**|<div align="center">[GitHub](https://github.com/anatainararosa)</div>|<div align="center">[Linkedin](https://www.linkedin.com/in/anatainararosa/)</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737614-116ff444-4c9b-4448-b0b3-8dad2d650c4d.jpeg" width=115></div>|**Eshilley Hiury Minicucci Vianna Barbosa**|<div align="center">[GitHub](https://github.com/EshilleyBa)</div>|<div align="center">[]()</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737664-ca9340f1-9ed0-4c20-8230-0573abcca4dc.jpeg" width=115></div>|**Igor Pereira**|<div align="center">[GitHub](https://github.com/igorpereira28)</div>|<div align="center">[]()</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737706-47003b65-a94d-4562-8d9d-86c2fee022ba.jpeg" width=115></div>|Isabela Silva|<div align="center">[GitHub](https://github.com/Caris19)</div>|<div align="center">[]()</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737727-491badc5-6dfb-4648-af3e-1ba7be0d5a4d.jpeg" width=115></div>|**Vitor Garcez de Oliveira**|<div align="center">[GitHub](https://github.com/Vitaog)</div>|<div align="center">[Linkedin](https://www.linkedin.com/in/vitorgarcezdeoliveira/)</div>|
 
-**Aline Cristiane Correa Costa**<br>
-GitHub: https://github.com/acorreac          
-Linkedin: https://www.linkedin.com/in/alinecorrea/<br><br>
-**Ana Tainara da Silva Rosa**  
-GitHub: https://github.com/anatainararosa          
-Linkedin: https://www.linkedin.com/in/anatainararosa/<br><br>
-**Eshilley Hiury Minicucci Vianna Barbosa**<br>
-GitHub: https://github.com/EshilleyBa<br><br>
-**Igor Pereira**<br> 
-GitHub : https://github.com/igorpereira28<br><br>
-**Isabela Silva**<br>
-GitHub: https://github.com/Caris19<br><br>
-**Vitor Garcez de Oliveira**<br>
-GitHub: https://github.com/Vitaog                           
-Linkedin: https://www.linkedin.com/in/vitorgarcezdeoliveira/<br>
+
 
 
 ## Instruções
