@@ -65,7 +65,7 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 # Product Backlog Atual
 |  ID    | Sprint  | User Story  |   Critério de Aceitação  |  Teste de Aceitação   |
 | -------|---------|-------------|--------------------------|-----------------------|
-| US05   |    2    | Eu, enquanto desenvolvedor, desejo ajustar as funcionalidades do saque, para que a visualização do saldo ao sacar seja de até duas casas decimais.| Acrescentar inputs de dados cadastrais do usuário para um cadastro completo do mesmo.| Se preenchido todos os campos corretamente, deverá exibir um print com a informação recebida no input para o desenvolvedor validar o correto funcionamento do input. Caso contrário, deverá aparecer uma mensagem de erro para que o desenvolvedor possa corrigir a falha na adição do input.|
+| US05   |    2    | Eu, enquanto desenvolvedor, desejo ajustar as funcionalidades do saque, para que a visualização do saldo ao sacar seja de até duas casas decimais.| Realizar saque com valores com duas casas decimais.| Se sua operação for realizada com sucesso,  o saldo atual será visualizado com até duas casas decimais.|
 |US06| 2  | Eu, enquanto desenvolvedor, desejo modificar o layout da tela de cadastro do usuário, para acrescentar dados do usuário ao se cadastrar.| Visualização da tela com os dados de usuário acrescentados.| Se os dados de usuário acrescentados forem visualizados, será possível realizar o cadastro dos usuários com os novos dados.|
 |US07| 2| EU, enquanto desenvolvedor, desejo criar a tela de login do usuário especializado, para que seja possivel criar um gerente de agência e o mesmo possa realizar login.|Tela de Login para usuário especializado com validação de acesso através de agencia, conta e senha.|Se a funcionalidade de validação for implementada aparecerá print de validação de acesso no terminal do desenvolvedor e na tela de teste. Caso contrário aparecerá print de erro no terminal e na tela de teste do desenvolvedor para que o mesmo possa corrigi-lo.|
 |US08|2| EU, enquanto gerente de agência, desejo solicitar abertura de conta,para fazer acesso a mesma.|Preencher nome completo, cpf, endereço, gênero, data de nascimento, senha.|Se preenchido tudo corretamente, deverá levar para página de acesso de conta. Caso contrário, deverá aparecer em destaque qual o erro digitado ou complemento faltante.|
@@ -80,17 +80,12 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 
 # Product Backlog Total
 <div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/193682481-2f99d47a-32e6-41d3-aa10-aa7b91f3506c.png" width="1000px", height="500px", />
+<img src="https://user-images.githubusercontent.com/86271800/194734847-efdff6b6-4333-44db-8a7b-91335cea0ede.png" width="1000px", height="10000px", />
 </div>
 <div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/193682233-5003e5b0-4f18-4d23-8d23-310e36984dcd.png" width="1000px", height="500px", />
+<img src="https://user-images.githubusercontent.com/86271800/194734995-38015285-74bf-4125-adaa-bc1f53817f72.png" width="1000px", height="10000px", />
 </div>
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/193682506-31a9e778-d1e0-4e06-afa6-cf42b7f8d1df.png" width="1000px", height="500px", />
-</div>
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/193682521-d1dcdb2d-e1ec-4742-bd2e-b31eb2703128.png" width="1000px", height="500px", />
-</div>
+
 
 # Minimum Viable Product(MVP) 2ªSprint
 - Tela de Login de usuário personalizado (Navegavél e funcional)
