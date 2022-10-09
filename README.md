@@ -18,22 +18,16 @@ O objetivo do projeto é criar um sistema para gerenciamento de transações em 
 - Tecnologias Utilizadas
 
 # Equipe
+||Integrantes|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194735815-b3fc4048-bce9-4a70-af44-36583c8ca0e7.png" width=115></div>|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737247-64ed8ec4-2b71-46ff-8d22-539b4015d7be.png" width=115></div>|
+|--|-----------|------|--------|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194735729-e1a6aea7-ec46-4318-83b1-51a4958f6fc1.jpeg" width=115></div>|**Aline Cristiane Correa Costa**|<div align="center">[GitHub](https://github.com/acorreac)</div>|<div align="center">[Linkedin](www.linkedin.com/in/alinecorrea)</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737529-8081336b-55c0-48fe-a852-b26fe1e15246.jpeg" width=115></div>|**Ana Tainara da Silva Rosa**|<div align="center">[GitHub](https://github.com/anatainararosa)</div>|<div align="center">[Linkedin](https://www.linkedin.com/in/anatainararosa/)</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737614-116ff444-4c9b-4448-b0b3-8dad2d650c4d.jpeg" width=115></div>|**Eshilley Hiury Minicucci Vianna Barbosa**|<div align="center">[GitHub](https://github.com/EshilleyBa)</div>|<div align="center">[]()</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737664-ca9340f1-9ed0-4c20-8230-0573abcca4dc.jpeg" width=115></div>|**Igor Pereira**|<div align="center">[GitHub](https://github.com/igorpereira28)</div>|<div align="center">[Linkedin](https://www.linkedin.com/mwlite/in/igor-da-silva-pereira-119794159)</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737706-47003b65-a94d-4562-8d9d-86c2fee022ba.jpeg" width=115></div>|Isabela Silva|<div align="center">[GitHub](https://github.com/Caris19)</div>|<div align="center">[]()</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737727-491badc5-6dfb-4648-af3e-1ba7be0d5a4d.jpeg" width=115></div>|**Vitor Garcez de Oliveira**|<div align="center">[GitHub](https://github.com/Vitaog)</div>|<div align="center">[Linkedin](https://www.linkedin.com/in/vitorgarcezdeoliveira/)</div>|
 
-**Aline Cristiane Correa Costa**<br>
-GitHub: https://github.com/acorreac          
-Linkedin: https://www.linkedin.com/in/alinecorrea/<br><br>
-**Ana Tainara da Silva Rosa**  
-GitHub: https://github.com/anatainararosa          
-Linkedin: https://www.linkedin.com/in/anatainararosa/<br><br>
-**Eshilley Hiury Minicucci Vianna Barbosa**<br>
-GitHub: https://github.com/EshilleyBa<br><br>
-**Igor Pereira**<br> 
-GitHub : https://github.com/igorpereira28<br><br>
-**Isabela Silva**<br>
-GitHub: https://github.com/Caris19<br><br>
-**Vitor Garcez de Oliveira**<br>
-GitHub: https://github.com/Vitaog                           
-Linkedin: https://www.linkedin.com/in/vitorgarcezdeoliveira/<br>
+
 
 
 ## Instruções
@@ -65,7 +59,7 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 # Product Backlog Atual
 |  ID    | Sprint  | User Story  |   Critério de Aceitação  |  Teste de Aceitação   |
 | -------|---------|-------------|--------------------------|-----------------------|
-| US05   |    2    | Eu, enquanto desenvolvedor, desejo ajustar as funcionalidades do saque, para que a visualização do saldo ao sacar seja de até duas casas decimais.| Acrescentar inputs de dados cadastrais do usuário para um cadastro completo do mesmo.| Se preenchido todos os campos corretamente, deverá exibir um print com a informação recebida no input para o desenvolvedor validar o correto funcionamento do input. Caso contrário, deverá aparecer uma mensagem de erro para que o desenvolvedor possa corrigir a falha na adição do input.|
+| US05   |    2    | Eu, enquanto desenvolvedor, desejo ajustar as funcionalidades do saque, para que a visualização do saldo ao sacar seja de até duas casas decimais.| Realizar saque com valores com duas casas decimais.| Se sua operação for realizada com sucesso,  o saldo atual será visualizado com até duas casas decimais.|
 |US06| 2  | Eu, enquanto desenvolvedor, desejo modificar o layout da tela de cadastro do usuário, para acrescentar dados do usuário ao se cadastrar.| Visualização da tela com os dados de usuário acrescentados.| Se os dados de usuário acrescentados forem visualizados, será possível realizar o cadastro dos usuários com os novos dados.|
 |US07| 2| EU, enquanto desenvolvedor, desejo criar a tela de login do usuário especializado, para que seja possivel criar um gerente de agência e o mesmo possa realizar login.|Tela de Login para usuário especializado com validação de acesso através de agencia, conta e senha.|Se a funcionalidade de validação for implementada aparecerá print de validação de acesso no terminal do desenvolvedor e na tela de teste. Caso contrário aparecerá print de erro no terminal e na tela de teste do desenvolvedor para que o mesmo possa corrigi-lo.|
 |US08|2| EU, enquanto gerente de agência, desejo solicitar abertura de conta,para fazer acesso a mesma.|Preencher nome completo, cpf, endereço, gênero, data de nascimento, senha.|Se preenchido tudo corretamente, deverá levar para página de acesso de conta. Caso contrário, deverá aparecer em destaque qual o erro digitado ou complemento faltante.|
@@ -80,17 +74,12 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 
 # Product Backlog Total
 <div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/193682481-2f99d47a-32e6-41d3-aa10-aa7b91f3506c.png" width="1000px", height="500px", />
+<img src="https://user-images.githubusercontent.com/86271800/194734847-efdff6b6-4333-44db-8a7b-91335cea0ede.png" width="1000px", height="10000px", />
 </div>
 <div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/193682233-5003e5b0-4f18-4d23-8d23-310e36984dcd.png" width="1000px", height="500px", />
+<img src="https://user-images.githubusercontent.com/86271800/194734995-38015285-74bf-4125-adaa-bc1f53817f72.png" width="1000px", height="10000px", />
 </div>
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/193682506-31a9e778-d1e0-4e06-afa6-cf42b7f8d1df.png" width="1000px", height="500px", />
-</div>
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/193682521-d1dcdb2d-e1ec-4742-bd2e-b31eb2703128.png" width="1000px", height="500px", />
-</div>
+
 
 # Minimum Viable Product(MVP) 2ªSprint
 - Tela de Login de usuário personalizado (Navegavél e funcional)
@@ -108,10 +97,11 @@ Foi utilizado o arquivo Product Backlog para validação das estregas de acordo 
 - Entrega IV 27/11
 
 # Tecnologias Utilizadas
- - Flask
- - Python
- - MariaDB
- - HTML
- - CSS
+  <img src="https://user-images.githubusercontent.com/86271800/194738779-f117d6f3-852b-40c1-a5ea-8fec628c3a15.png" width=115px>
+  <img src="https://user-images.githubusercontent.com/86271800/194738843-7a2b8a5c-e9e1-48ba-88ac-d0a880f98878.png" width=115px>
+  <img src="https://user-images.githubusercontent.com/86271800/194738872-9317607d-e5ab-42dc-8715-4091cf252ed4.png" width=115px>
+  <img src="https://user-images.githubusercontent.com/86271800/194738913-a6d23a32-ee53-4958-b62e-bafdb78b79d3.png" width=115px>
+  <img src="https://user-images.githubusercontent.com/86271800/194738937-05603160-1c22-490f-ab26-d49f3e87a400.png" width=115px>
+  
 
 
