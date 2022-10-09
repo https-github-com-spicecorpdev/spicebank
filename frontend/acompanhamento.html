@@ -14,7 +14,7 @@
     
    <nav>
     <ul>
-        <li> <a href="/login"> Entrar na sua Conta </a> </li>
+        <li> <a href="/"> Entrar na sua Conta </a> </li>
     </ul>
 </nav>
     <div class="center">
@@ -23,7 +23,7 @@
     <hr color="#00BFFF">
 
     <div class="formulario">
-        <form method="POST" action="/login" name="cadastro">
+        <form method="POST" action="/loginAcomp" name="cadastro">
             <label for="fcpf">CPF:</label>
             <input type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf"> <br><br>
             <label for="fpassword">Senha:</label>
@@ -47,8 +47,8 @@
         </form>
         <br>
         <div>
-            <form action="">
-                <button type=""> Voltar </button>
+            <form method="GET" action="{{ url_for('index') }}">
+                <button type="submit">Voltar</button>
             </form>
         </div>
     </div>

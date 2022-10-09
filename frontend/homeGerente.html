@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_home.css') }}">
+    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
+    <div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                {{ message }} <br>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}
+    </div>
+    {% for user in userDetails %}
+    <tr> 
+        <td>
+            {{user[0]}}
+            {{user[1]}}
+            {{user[5]}}
+            {{user[6]}}
+            <a href="/aprovar">
+                Aprovar
+            </a>
+        </td>
+    </tr>
+    <br>
+    {% endfor %}
+
+
+    <!-- <a href="/withdrawform">
+        <button type="button"><i class="fa-solid fa-hand-holding-dollar"></i><div>Solicitar abertura de Conta</div></button>
+    </a> -->
+    <a href="/logout">
+        <button type="button"><i class="fa-solid fa-right-from-bracket"></i><div>Logout</div></button>
+    </a>
+
+</body>
+
+</html>
