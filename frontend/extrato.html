@@ -17,7 +17,7 @@
         <button type="submit">&#8592 voltar</button>
 </form>
 
-<form><button type="">Imprimir</button></form>
+<form method="GET" action="{{ url_for('extract') }}"><button type="">Imprimir</button></form>
         
     <div class="box1">
         <h2>extrato</h2> <br>
@@ -48,9 +48,6 @@
             <td>.</td>
             <td>.</td>
         </tr>
-
-        
-
     </table>
 
 </div>

@@ -65,6 +65,12 @@ def logout():
     session.clear()
     return render_template('login.html'), 200
 
+@app.route('/logoutmanager')
+def logoutmanager():
+    session['autenticado']=False
+    session.clear()
+    return render_template('loginGerente.html'), 200
+
 @app.route('/acompanhamentoform')
 def acompanhamentoform():
     return render_template('acompanhamento.html'), 200
@@ -109,7 +115,8 @@ def loginAcomp():
 
 @app.route('/admForm')
 def admForm():
-    return render_template('loginGerente.html'), 200
+    if session.get('autenticado'):
+        return render_template('homeGerente.html'), 200
 
 @app.route('/loginGerente', methods = ['POST'])
 def loginGerente():
@@ -148,19 +155,16 @@ def loginGerente():
                     session['idAccount']=user[3]
                     session['solicitacao']=user[5]
                     session['numberAccount']=user[6]
-                    # message = flash(f'Nome:{user[1]} / Conta:{user[6]}')
-
-                    #CONTAS ATRELADAS AQUELA AGÊNCIA
-
-                    return render_template('homeGerente.html', name=session['nameUser'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], userDetails = rows, numeroConta=session['numberAccount'], message=(message)), 200
+                    message = flash(f'Este usuário foi para a sua agência')
+                    return render_template('homeGerente.html', nameManager=session['nameManager'], name=session['nameUser'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], userDetails = rows, numeroConta=session['numberAccount'], message=(message)), 200
             else:
-                return render_template('homeGerente.html', message=(message)), 200
+                return render_template('homeGerente.html', nameManager=session['nameManager'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], numeroConta=session['numberAccount'], message=(message)), 200
         else:
             message = flash('Bem-Vindo Gerente Geral!')
-            return render_template('homeGerente.html', name=session['nameUser'],cpf=session['cpfUser']), 200
+            return render_template('homeGerente.html', name=session['nameUser'],cpf=session['cpfUser'], nameManager=session['nameManager'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], numeroConta=session['numberAccount'], message=(message)), 200
     else:
         session['autenticado']=False
-        message = flash(f'Esta conta não é da gerência, faça login como Usuário!')
+        message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('loginGerente.html', message=message), 400
 
 @app.route('/registerFormManager')
@@ -242,8 +246,28 @@ def aprovar():
         print(numeroDConta)
         cursor.execute(query, numeroDConta)
         connection.commit()
-        message = flash(f'Este usuário foi para a sua agência')
-        return render_template('homeGerente.html', message=(message)), 200
+        if user[3] == 2:
+            cursor = connection.cursor()
+            query = "SELECT U.idUser AS idUser, U.nameUser AS nameUser, U.cpfUser AS cpfUser, A.idAccount AS idAccount, A.idAccountUser AS idAccountUser, A.solicitacao AS solicitacao, A.numberAccount AS numberAccount FROM tuser AS U INNER JOIN taccount AS A ON idUser = idAccountUser WHERE solicitacao = 'pendente'"
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            print(rows)
+            if cursor.rowcount > 0:
+                print(cursor.rowcount)
+                for user in rows:
+                    print(user)
+                while user[0] > 0:    
+                    session['nameUser']=user[1]
+                    session['cpfUser']=user[2]
+                    session['idAccount']=user[3]
+                    session['solicitacao']=user[5]
+                    session['numberAccount']=user[6]
+                    message = flash(f'Este usuário foi para a sua agência')
+                    return render_template('homeGerente.html', nameManager=session['nameManager'], name=session['nameUser'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], userDetails = rows, numeroConta=session['numberAccount'], message=(message)), 200
+            else:
+                return render_template('homeGerente.html', nameManager=session['nameManager'], name=session['nameUser'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], numeroConta=session['numberAccount'], message=(message)), 200
+        else:
+            return render_template('homeGerente.html', nameManager=session['nameManager'], name=session['nameUser'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], numeroConta=session['numberAccount'], message=(message)), 200
 
 #Abertura de conta
 
@@ -314,8 +338,7 @@ def withdraw():
                     session['totalbalance'] = float(newUserBalance)
                     saldo = session['totalbalance']
                     saldoFormatado=(f'{saldo:.2f}')
-                    message = flash(f'Saque de R${value} efetuado com sucesso! Saldo: R${saldoFormatado}')
-                    return render_template('saque.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], saldo=saldoFormatado, idAccount=session['idAccount'], message=message), 200
+                    return render_template('saque_confirmacao.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], saldo=saldoFormatado, data=today), 200
                 else:
                     saldo = session['totalbalance']
                     saldoFormatado=(f'{saldo:.2f}')
@@ -323,9 +346,42 @@ def withdraw():
                     return render_template('saque.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], saldo=saldoFormatado, idAccount=session['idAccount'], message=message), 400
             except mariadb.Error as e:
                 print(e)
-                return "Erro ao sacar valor desejado!", 400
+                message=flash('Erro ao sacar valor desejado!')
+                return render_template('saque_confirmacao.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], saldo=saldoFormatado, message=message), 400
     else:
         session['autenticado']=False
+        return render_template('login.html'), 200
+
+@app.route('/withdrawconfirm', methods = ['POST'])
+def withdrawconfirm():
+    if session.get('autenticado'):
+        valor = float(request.form['fvalor'])
+        try:
+            bank_id = 1
+            user_account = session.get("idUser")
+            print(user_account)
+            update_bank_balance(bank_id, valor)
+            update_user_balance(user_account, valor)
+            cursor = connection.cursor()
+            import time    
+            today = time.strftime('%Y-%m-%d %H:%M:%S')
+            query = "INSERT INTO textract (userExtract, depositExtract, withdrawExtract, dateExtract) values (?, ?, 0, ?);"
+            parameters = (session.get("idUser"), valor, today)
+            print(parameters)
+            print(valor)
+            cursor.execute(query, parameters)
+            connection.commit()
+            saldo = session['value']=valor
+            saldoFormatado=(f'{saldo:.2f}')
+            return render_template('saque_comprovante.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], saldo=saldoFormatado, data=today), 200
+
+        except mariadb.Error as e:
+            print(e)
+            saldo = session['totalbalance']
+            saldoFormatado=(f'{saldo:.2f}')
+            message = flash('Falha ao depositar')
+            return render_template('saque_confirmacao.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], saldo=saldoFormatado, message=message), 400
+    else:
         return render_template('login.html'), 200
 
 @app.route('/depositform')
@@ -359,6 +415,7 @@ def deposit():
         session['autenticado']=False
         return render_template('login.html'), 200
 
+
 @app.route('/depositconfirm', methods = ['POST'])
 def depositconfirm():
     if session.get('autenticado'):
@@ -370,27 +427,6 @@ def depositconfirm():
             update_bank_balance(bank_id, valor)
             update_user_balance(user_account, valor)
             cursor = connection.cursor()
-            # query = "SELECT totalbalance FROM taccount WHERE idAccount = ?"
-            # contaUser = session['idAccount']
-            # parameters = (contaUser,)
-            # print(parameters)
-            # cursor.execute(query, parameters)
-            # balance = float(cursor.fetchone()[0])
-            # print(balance)
-            # query = "SELECT U.idUser AS idUser, U.cpfUser AS cpfUser, A.idAccount AS idAccount, A.totalbalance AS totalbalance, A.idAccountUser AS idAccountUser, A.numberAccount AS numberAccount FROM tuser AS U INNER JOIN taccount AS A ON idUser = idAccountUser WHERE idAccount = ?"
-            # # query = "SELECT total FROM users WHERE BINARY cpf = ?"
-            # contaUser = session['idAccount']
-            # parameters = (contaUser,)
-            # print(parameters)
-            # cursor.execute(query, parameters)
-            # balanceUser = float(cursor.fetchone()[0])
-            # novoSaldo = balance + valor
-            # query = "UPDATE taccount SET totalbalance = ? WHERE idAccount = ?"
-            # parameters = (novoSaldo, session.get("idAccount"))
-            # print(parameters)
-            # cursor.execute(query, parameters)
-            # connection.commit()
-            # session['totalbalance'] = float(novoSaldo)   
             import time    
             today = time.strftime('%Y-%m-%d %H:%M:%S')
             query = "INSERT INTO textract (userExtract, depositExtract, withdrawExtract, dateExtract) values (?, ?, 0, ?);"
@@ -401,7 +437,6 @@ def depositconfirm():
             connection.commit()
             saldo = session['value']=valor
             saldoFormatado=(f'{saldo:.2f}')
-            # message = flash(f'Depósito de R${valor:.2f} efetuado com sucesso! Saldo: R${saldoFormatado}')
             return render_template('comprovante_deposito.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], saldo=saldoFormatado, data=today), 200
 
         except mariadb.Error as e:
@@ -410,11 +445,6 @@ def depositconfirm():
             saldoFormatado=(f'{saldo:.2f}')
             message = flash('Falha ao depositar')
             return render_template('deposito_confirmacao.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], saldo=saldoFormatado, message=message), 400
-        #saldo = session['totalbalance']
-        # saldoFormatado=(f'{saldo:.2f}')
-        # value = float(request.form['fvalor'])
-        # valorOperation = (f'{value:.2f}')
-        # return render_template('deposito_confirmacao.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], valor=valorOperation), 200
     else:
         return render_template('login.html'), 200
 

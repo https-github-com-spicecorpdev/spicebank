@@ -65,7 +65,22 @@ table, th, td {
     border-collapse: collapse;
   }
 
+  button {
+    background-color: #212121;
+    border-color: rgb(80, 80, 100);
+    padding: 0.5%;
+    width: 10%;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    cursor:pointer;
+    display: inline-block;
+    margin-left: 10px;
+}
 
+button:hover {
+    background-color:rgb(0, 0, 0)
+}
 /**/
 /**/
 /**/

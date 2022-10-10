@@ -19,8 +19,12 @@
     </div>
     <hr color="#00BFFF">
     <div class="mensagem">
-        <h3>Agência:{{ agencia }}/Conta:{{ conta }}</h3>
-        <h3>Saldo disponível: R${{ saldo }}</h3>
+        <h3>
+            Agência: {{ agencia }} / Conta: {{ conta }}
+        </h3>
+        <h3>
+            Saldo disponível: R${{ saldo }}
+        </h3>
     </div>
     <div style="margin-left: 5%;">
         <form method="POST" action="/withdraw" name="saque">
