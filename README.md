@@ -22,12 +22,12 @@ O objetivo do projeto é criar um sistema para gerenciamento de transações em 
 # Equipe
 ||Integrantes|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194735815-b3fc4048-bce9-4a70-af44-36583c8ca0e7.png" width=115></div>|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737247-64ed8ec4-2b71-46ff-8d22-539b4015d7be.png" width=115></div>|
 |--|-----------|------|--------|
-|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194735729-e1a6aea7-ec46-4318-83b1-51a4958f6fc1.jpeg" width=115></div>|**Aline Cristiane Correa Costa**|<div align="center">[GitHub](https://github.com/acorreac)</div>|<div align="center">[Linkedin](www.linkedin.com/in/alinecorrea)</div>|
-|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737529-8081336b-55c0-48fe-a852-b26fe1e15246.jpeg" width=115></div>|**Ana Tainara da Silva Rosa**|<div align="center">[GitHub](https://github.com/anatainararosa)</div>|<div align="center">[Linkedin](https://www.linkedin.com/in/anatainararosa/)</div>|
-|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737614-116ff444-4c9b-4448-b0b3-8dad2d650c4d.jpeg" width=115></div>|**Eshilley Hiury Minicucci Vianna Barbosa**|<div align="center">[GitHub](https://github.com/EshilleyBa)</div>|<div align="center">[]()</div>|
-|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737664-ca9340f1-9ed0-4c20-8230-0573abcca4dc.jpeg" width=115></div>|**Igor Pereira**|<div align="center">[GitHub](https://github.com/igorpereira28)</div>|<div align="center">[Linkedin](https://www.linkedin.com/mwlite/in/igor-da-silva-pereira-119794159)</div>|
-|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737706-47003b65-a94d-4562-8d9d-86c2fee022ba.jpeg" width=115></div>|Isabela Silva|<div align="center">[GitHub](https://github.com/Caris19)</div>|<div align="center">[]()</div>|
-|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737727-491badc5-6dfb-4648-af3e-1ba7be0d5a4d.jpeg" width=115></div>|**Vitor Garcez de Oliveira**|<div align="center">[GitHub](https://github.com/Vitaog)</div>|<div align="center">[Linkedin](https://www.linkedin.com/in/vitorgarcezdeoliveira/)</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194735729-e1a6aea7-ec46-4318-83b1-51a4958f6fc1.jpeg" width=50></div>|**Aline Cristiane Correa Costa**|<div align="center">[GitHub](https://github.com/acorreac)</div>|<div align="center">[Linkedin](www.linkedin.com/in/alinecorrea)</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737529-8081336b-55c0-48fe-a852-b26fe1e15246.jpeg" width=50></div>|**Ana Tainara da Silva Rosa**|<div align="center">[GitHub](https://github.com/anatainararosa)</div>|<div align="center">[Linkedin](https://www.linkedin.com/in/anatainararosa/)</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737614-116ff444-4c9b-4448-b0b3-8dad2d650c4d.jpeg" width=50></div>|**Eshilley Hiury Minicucci Vianna Barbosa**|<div align="center">[GitHub](https://github.com/EshilleyBa)</div>|<div align="center">[]()</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737664-ca9340f1-9ed0-4c20-8230-0573abcca4dc.jpeg" width=50></div>|**Igor Pereira**|<div align="center">[GitHub](https://github.com/igorpereira28)</div>|<div align="center">[Linkedin](https://www.linkedin.com/mwlite/in/igor-da-silva-pereira-119794159)</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737706-47003b65-a94d-4562-8d9d-86c2fee022ba.jpeg" width=50></div>|Isabela Silva|<div align="center">[GitHub](https://github.com/Caris19)</div>|<div align="center">[]()</div>|
+|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737727-491badc5-6dfb-4648-af3e-1ba7be0d5a4d.jpeg" width=50></div>|**Vitor Garcez de Oliveira**|<div align="center">[GitHub](https://github.com/Vitaog)</div>|<div align="center">[Linkedin](https://www.linkedin.com/in/vitorgarcezdeoliveira/)</div>|
 
 
 
@@ -89,13 +89,25 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 - Tela de Extrato (Navegavél e funcional)
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/194793362-a1275a01-6fc4-4525-84bc-84d941f345e3.png" width="1000px", height="10000px", />
+<img src="https://user-images.githubusercontent.com/86271800/194793362-a1275a01-6fc4-4525-84bc-84d941f345e3.png" width="1000px", height="500px", />
 </div>
 <div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/194793443-af47a470-4810-48cd-ba89-0a356fca4c87.png" width="1000px", height="10000px", />
+<img src="https://user-images.githubusercontent.com/86271800/194793443-af47a470-4810-48cd-ba89-0a356fca4c87.png" width="1000px", height="500px", />
 </div>
 <div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/194793467-22774d63-ca2f-44eb-b18c-e0af36acbb92.png" width="1000px", height="10000px", />
+<img src="https://user-images.githubusercontent.com/86271800/194793467-22774d63-ca2f-44eb-b18c-e0af36acbb92.png" width="1000px", height="500px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/194793473-92f7fef5-1b99-4f34-821d-701dca135f6e.png" width="1000px", height="500px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/194793476-cbd39460-3dd7-4d10-a42d-0fee04aef74c.png" width="1000px", height="500px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/194793485-2e96c666-ae47-4b69-b132-744532d7b162.png" width="1000px", height="500px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/194793490-f46ee1de-9777-4322-ae4e-7eb5c980f607.png" width="1000px", height="500px", />
 </div>
 
 # Cronograma de Entregas 
