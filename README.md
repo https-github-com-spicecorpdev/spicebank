@@ -11,9 +11,11 @@ O objetivo do projeto é criar um sistema para gerenciamento de transações em 
 - Objetivo
 - Equipe
 - Instruções
-- Dependências do Projeto
 - Arquivos build
 - Banco de Dados
+- Product Backlog Atual
+- Product Backlog Total
+- Minimum Viable Product(MVP) 2ªSprint
 - Cronograma de Entregas
 - Tecnologias Utilizadas
 
@@ -31,22 +33,30 @@ O objetivo do projeto é criar um sistema para gerenciamento de transações em 
 
 
 ## Instruções
-1. No terminal clonar o repositorio do projeto com o comando git clone https://github.com/https-github-com-spicecorpdev/spicebank.git
-2. Acessar a pasta do projeto clonado
-3. Instale todos os pacotes python necessarios usando o comando: pip install -r requirements.txt
-4. Se o sistema operacional for Windows, executar o arquivo usando o comando: build.bat
-5. Se o sistema operacional for Linux, executar o arquivo usando o comando: sh build.sh
-6. Instalar todos os programas para o devido funcionamento do projeto
-7. Na pasta backend/database o arquivo 'command-sql.txt' contém um passo a passo de como criar e executar o banco de dados
-8. Para inicializar o projeto entre na pasta backend e execute o seguinte comando: flask run
-9. Acesse o aplicativo usando o link que aparecerá para visualização das páginas, geralmente localhost:5000
+### Para utilizar o projeto será necessário seguir os seguintes passos:
+Tenha instalado em sua máquina o Python 3.10 e o MariaDB 10.11; <br>
+1. No terminal, clone o repositório do projeto utilizando o comando: <br>
+`git clone https://github.com/https-github-com-spicecorpdev/spicebank.git`<br>
+1.1 Após realizar o “clone” do repositório, você pode criar um ambiente virtual* seguindo os seguintes comandos no terminal de sua máquina: <br>
+`py-3 -m venv venv(criando um ambiente virtual com o nome venv`<br>
+`python –m venv venv`<br>
+*Ative o ambiente virtual de sua máquina com o comando:*<br>
+`venv\Scripts\activate`<br>
+**Essa etapa é opcional.*
+2. No editor de código de sua preferência, abra a pasta do projeto clonado e instale as bibliotecas necessárias com os comandos:<br>
+`pip install flask`<br>
+`pip install flask_session`<br>
+`pip install mariadb`<br>
+3. Se o sistema operacional for **Windows**, executar o arquivo usando o comando:
+`$ build.bat`<br>
+Se o sistema operacional for **Linux**, executar o arquivo usando o comando: 
+`$ sh build.sh`<br>
+4. Na pasta “backend/database” o arquivo “database_spicebank.sql” contém o script para criar e executar o banco de dados;
+5. Para inicializar o projeto, entre na pasta “backend” e execute o seguinte comando:<br>
+`flask run`<br>
+6. Acesse o aplicativo usando o link que que aparecerá para visualização das páginas, geralmente localhost:5000<br>
+**É necessário instalar todos os programas para o devido funcionamento do projeto!** 
 
-## Dependências do Projeto
-- flask;
-- flask session
-- mariadb 1.0.1
-- Python 3.8
-- requirements.txt
 
 
 ## Arquivos build
@@ -78,6 +88,15 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 - Tela de Status de Solicitação de Conta (Navegavél e funcional)
 - Tela de Extrato (Navegavél e funcional)
 
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/194793362-a1275a01-6fc4-4525-84bc-84d941f345e3.png" width="1000px", height="10000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/194793443-af47a470-4810-48cd-ba89-0a356fca4c87.png" width="1000px", height="10000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/194793467-22774d63-ca2f-44eb-b18c-e0af36acbb92.png" width="1000px", height="10000px", />
+</div>
 
 # Cronograma de Entregas 
 Foi utilizado o arquivo Product Backlog para validação das estregas de acordo com as prioridades do cliente, sendo elas: 
