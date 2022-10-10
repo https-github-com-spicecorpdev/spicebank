@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, session, flash, redirect, url_for
 from flask_session import Session
+from datetime import datetime
 import mariadb
 import sys
 
@@ -466,6 +467,35 @@ def update_user_balance(user_account, value):
     cursor.execute(query, parameters)
     connection.commit()
     session['totalbalance'] = float(newUserBalance)
+
+@app.route('/extract',methods = ['GET'])
+def extract():
+    if session.get("autenticado"):
+        try:
+            cursor= connection.cursor()
+            query = "SELECT E.userExtract AS userExtract, E.depositExtract AS depositExtract, E.withdrawExtract AS withdrawExtract, E.dateExtract AS dateExtract, U.idUser AS idUser, U.nameUser AS nameUser FROM tuser AS U INNER JOIN textract AS E ON idUser=userExtract WHERE userExtract = ?"
+            contaUser = session['idUser']
+            parameters = (contaUser,)
+            print(parameters)
+            cursor.execute(query, parameters)
+            rows =cursor.fetchall()
+            print(rows)
+            if cursor.rowcount > 0:
+                print(cursor.rowcount)
+                for user in rows:
+                    print(user)
+                while user[0] > 0:
+                        session['depositExtract']=user[1]
+                        session['withdrawExtract']=user[2]
+                        session['dateExtract']=user[3]
+                        session['nameUser']=user[5]
+                        return render_template('extrato.html', name=session['nameUser'],saldo=session['totalbalance'], agencia=session['agencyUser'], conta=session['numberAccount'], deposit=session['depositExtract'], withdraw=session['withdrawExtract'], extractDetails=rows),200
+        except mariadb.Error as e:
+            message = flash('Falha ao verificar extrato')
+            return render_template('extrato.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'],  message=message ), 400
+    else:
+        session['autenticado']=False                                  
+        return render_template('login.html'), 200
 
 if __name__ == "__main__":
 
