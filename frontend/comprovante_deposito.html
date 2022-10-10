@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <link rel="stylesheet" type="text/css" href="">
+    
+    <link rel="" href="" type=""> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css"
+        href="{{ url_for('static',filename='styles/estilo_deposito_confirmacao.css') }}">
+    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
+    <title>Comprovante de Depósito</title>
+</head>
+
+<body>
+    <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
+    <div style="font-size: 30px;">
+        <pre>
+            Comprovante de Depósito
+         </pre>
+    </div>
+    <hr color="#00BFFF">
+    <div class="justify">
+        <br><br>
+        <div class="box1">
+            <p>origem: {{ name }}</p>
+            <p>agência:{{ agencia }} /conta: {{ conta }}</p><br><br>
+            <p>Destino: {{ name }}</p>
+            <p>agência:{{ agencia }} /conta: {{ conta }}</p> 
+            <p>Data: {{ data }}</p><br>
+            <h2>R${{valor}}</h2><br>
+        </div>
+        <form method="GET" action="{{ url_for('index') }}" name="index">
+            <div>
+                <button type="submit">&#8592 Voltar</button>
+            </div>
+        </form>
+    </div>
+    
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-login.css') }}">
+    <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon">
+    <title>Login</title>
+</head>
+
+<body>
+    
+   <nav>
+    <ul>
+        <li> <a href="/login.html">Entrar na sua Conta</a> </li>
+    </ul>
+</nav>
+    <div class="center">
+        <img src="static/img/logo-banco.png" alt="logo banco">
+    </div>
+    <hr color="#00BFFF">
+
+    <div class="center">Entre com seu cpf e senha da conta de Gerente!</div>
+
+    <div class="formulario">
+        <form method="POST" action="/loginGerente" name="loginGerente">
+            <label for="fcpf">CPF:</label>
+            <input type="text" id="fcpf" name="fcpf" placeholder="Digite seu CPF"><br><br>
+            <label for="fpassword">Senha:</label>
+            <input type="password" id="fpassword" name="fpassword"><br><br>
+
+            <label>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}</label>
+
+            <div class="center">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+        <br>
+        <br>
+        <div class="center">
+            <form action="/registerFormManager">
+                <button type="submit">Cadastrar nova conta</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

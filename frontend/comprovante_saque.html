@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+    <title>Comprovante de Saque</title>
+    <link rel="stylesheet" type="text/css" href="">
+
+    <link rel="" href="" type="">
+</head>
+<body>
+    <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
+    <hr>
+<div class="justify">
+
+<form method="GET" action="{{ url_for('index') }}">
+            <button type="submit">Voltar</button>
+    </form>
+
+    <div class="box1">
+        <h2>Comprovante de Saque</h2> <br>
+    </div>
+<hr>
+         <pre>{{ nome }}
+agência: {{ agencia }}/ conta:{{ conta }} <br>
+ <span style="font-size: 150%;">Valor: R${{ valor do saque }}</span> <br>
+Data: {{ data }}</pre>
+</div>
+    <p> Operação realizada com sucesso!<p>
+
+</body>
+</html>
