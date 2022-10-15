@@ -2,19 +2,9 @@ from flask import Flask, request, render_template, session, flash, redirect, url
 from flask_session import Session
 from datetime import datetime
 import mariadb
-import sys
+import db
 
-try:
-    connection = mariadb.connect(
-        user="root",
-        password="123456",
-        host="127.0.0.1",
-        port=3308,
-        database = "spicebank"
-    )
-except mariadb.Error as e:
-   print(f"Error connecting to the database: {e}")
-   sys.exit(1)
+connection = db.connect()
 
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
