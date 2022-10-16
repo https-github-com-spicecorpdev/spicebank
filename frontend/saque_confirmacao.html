@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title>Confirmação de Saque</title>
-   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_saque_confirmacao.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ url_for('static',filename='styles/estilo_saque_confirmacao.css') }}">
     <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
     <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
     <hr>
     <div class="justify">
         <br><br>
-        <div class="box1">
-            <h2>Confirme o Saque</h2>
-            <br>
-            <p>origem: {{ name }}</p>
-            <p>agência: {{ agencia }} /conta: {{ conta }}</p>
-            <h2>R${{ valor }}</h2>
-        </div>
-         <!-- <div class="center"> -->
-            <form method="POST" action="{{ url_for('withdrawConfirm') }}" name="depositconfirm">
-                <div>
-                    <button type="submit">Depositar</button>
-                </div>
-            </form>
-            <br>
-    
-            <form method="GET" action="{{ url_for('withdrawform') }}" name="depositform">
-                <div>
-                    <button type="submit">&#8592 Cancelar e voltar</button>
-                </div>
-            </form>
+        <!-- <div class="center"> -->
+        <form method="POST" action="{{ url_for('withdrawConfirm') }}" name="depositconfirm">
+            <div class="box1">
+                <h2>Confirme o Saque</h2>
+                <br>
+                <p>origem: {{ name }}</p>
+                <p>agência: {{ agencia }} /conta: {{ conta }}</p>
+                <label for="fvalor">Valor R$</label>
+                <input type="text" id="fvalor" name="fvalor" readonly="readonly" value={{ valor }}><br><br>
+            </div>
+            <div>
+                <button type="submit">Sacar</button>
+            </div>
+        </form>
+        <br>
 
+        <form method="GET" action="{{ url_for('withdrawform') }}" name="depositform">
+            <div>
+                <button type="submit">&#8592 Cancelar e voltar</button>
+            </div>
+        </form>
     </div>
+</body>
+
+</html>

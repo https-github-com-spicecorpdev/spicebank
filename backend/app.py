@@ -1,30 +1,12 @@
-from symbol import parameters
-from flask import Flask, request, render_template, session, flash, redirect, url_for, jsonify
-from flask_session import Session
-from flask_login import LoginManager, login_user, current_user, login_required, logout_user
-from http import HTTPStatus
-from datetime import datetime
-import json
+from flask import request, render_template, session, flash
+from flask_login import login_user, current_user, login_required, logout_user
 import mariadb
-from user import User
-import db
+from . import create_app
+from .user import User
 import time
 import logging
 
-connection = db.connect()
-
-app = Flask(__name__)
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
-
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view='login'
-login_manager.login_message='Realize o login para acessar sua conta'
-
-logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
-logging.info('iniciando a aplicação')
+app, connection, login_manager = create_app()
 
 @app.route('/')
 @login_required

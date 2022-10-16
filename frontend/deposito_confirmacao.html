@@ -23,16 +23,16 @@
     <hr color="#00BFFF">
     <div class="justify">
         <br><br>
-        <div class="box1">
-            <p>origem: {{ name }}</p>
-            <p>agência:{{ agencia }} /conta: {{ conta }}</p> <br><br> <br>
-            <h2>R${{valor}}</h2>
-        </div>
-        <!-- </div> -->
-        <br>
-
         <!-- <div class="center"> -->
         <form method="POST" action="{{ url_for('depositconfirm') }}" name="depositconfirm">
+            <div class="box1">
+                <p>origem: {{ name }}</p>
+                <p>agência:{{ agencia }} /conta: {{ conta }}</p> <br><br> <br>
+                <label for="fvalor">Valor R$</label>
+                <input type="text" id="fvalor" name="fvalor" readonly="readonly" value={{ valor }}><br><br>
+            </div>
+            <!-- </div> -->
+            <br>
             <div>
                 <button type="submit">Depositar</button>
             </div>
