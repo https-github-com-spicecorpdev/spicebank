@@ -1,7 +1,11 @@
-from flask import Flask, request, render_template, session, flash, redirect, url_for
+from symbol import parameters
+from flask import Flask, request, render_template, session, flash, redirect, url_for, jsonify
 from flask_session import Session
+from flask_login import LoginManager, login_user, current_user
 from datetime import datetime
+import json
 import mariadb
+from user import User
 import db
 
 connection = db.connect()
@@ -10,6 +14,10 @@ app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view='login'
 
 @app.route('/')
 def index():
@@ -20,27 +28,47 @@ def index():
     else:
         return render_template('login.html'), 200
 
+@login_manager.user_loader
+def load_user(user_id):
+    cursor = connection.cursor()
+    query = """
+    SELECT USR.idUser, USR.nameUser, USR.cpfUser, USR.passwordUser, USR.birthdateUser, USR.genreUser, USR.profileUser, ACCOUNT.idAccount, ACCOUNT.numberAccount, ACCOUNT.totalbalance, ACCOUNT.idAccountUser, ACCOUNT.agencyUser, ACCOUNT.statusAccount 
+	FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+	WHERE USR.idUser = ?
+    """
+    parameters = (user_id,)
+    cursor.execute(query, parameters)
+    userFromDB = cursor.fetchone()
+    return User(userFromDB[0], userFromDB[1], userFromDB[2], userFromDB[3], userFromDB[4], userFromDB[5], userFromDB[8], userFromDB[11], userFromDB[9], userFromDB[6])
+    
+
 @app.route('/login', methods = ['POST'])
 def login():
     if not validate_form(request.form):
             message = flash('Preencha todos os campos!')
             return render_template('login.html', message=message), 400
     cursor = connection.cursor()
-    query = "SELECT U.idUser AS idUser, U.nameUser AS nameUser, U.passwordUser AS passwordUser, A.agencyUser AS agencyUser, U.cpfUser AS cpfUser, A.idAccount AS idAccount, A.numberAccount AS numberAccount, A.totalbalance AS totalbalance, A.idAccountUser AS idAccountUser, A.statusAccount AS statusAccount FROM tuser AS U INNER JOIN taccount AS A ON idUser = idAccountUser WHERE agencyUser = ? AND numberAccount = ? AND passwordUser = ? "
+    query = """
+    SELECT USR.idUser, USR.nameUser, USR.cpfUser, USR.passwordUser, USR.birthdateUser, USR.genreUser, USR.profileUser, ACCOUNT.idAccount, ACCOUNT.numberAccount, ACCOUNT.totalbalance, ACCOUNT.idAccountUser, ACCOUNT.agencyUser, ACCOUNT.statusAccount 
+	FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+	WHERE ACCOUNT.agencyUser = ?
+	AND ACCOUNT.numberAccount = ?
+	AND USR.passwordUser = ?
+    """
     parameters = (request.form['fagency'], request.form['faccount'], request.form['fpassword'], )
-    print(parameters)
     cursor.execute(query, parameters)
-    user = cursor.fetchone()
-    print(user)
-    if user and not (user[0] == ''):
+    userFromDB = cursor.fetchone()
+    if userFromDB and not (userFromDB[0] == ''):
+        user = User(userFromDB[0], userFromDB[1], userFromDB[2], request.form['fpassword'], userFromDB[4], userFromDB[5], request.form['faccount'], userFromDB[11], userFromDB[9], userFromDB[6])
+        login_user(user)
         session['autenticado'] = True
-        session['idUser']=user[0]
-        session['nameUser']=user[1]
-        session['cpfUser']=user[4]
-        session['agencyUser']=user[3]
-        session['numberAccount']=user[6]
-        session['totalbalance']=float(user[7])
-        session['idAccount']=user[5]
+        session['idUser']=userFromDB[0]
+        session['nameUser']=userFromDB[1]
+        session['cpfUser']=userFromDB[2]
+        session['agencyUser']=userFromDB[11]
+        session['numberAccount']=userFromDB[8]
+        session['totalbalance']=float(userFromDB[9])
+        session['idAccount']=userFromDB[7]
         saldo = session['totalbalance']
         saldoFormatado=(f'{saldo:.2f}')
         return render_template('home.html', name=session['nameUser'], agencia=session['agencyUser'], conta=session['numberAccount'], saldo=saldoFormatado, idAccount=session['idAccount']), 200
