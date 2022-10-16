@@ -34,3 +34,9 @@ class User:
 
     def __str__(self):
         return f'Id: {self.id}, name: {self.name}, cpf: {self.cpf}, secret: {self.password}, nascimento:{self.birthDate}, genero: {self.gender}, perfil:{self.profile}'
+
+    def withdraw(self, value):
+        self.balance = self.balance - value
+   
+    def deposit(self, value):
+        self.balance = self.balance + value
