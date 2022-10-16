@@ -1,66 +1,120 @@
 --Instalar o MariaDB no seu computador.
---No momento de instalar o MariaDB colocar os seguintes dados de acesso ao banco.
+--No momento de configurar o MariaDB colocar os seguintes dados de acesso ao banco.
         user="root",
         password="123456",
         host="127.0.0.1",
         port=3308,
         database = "spicebank" 
 
---Após a instalação entrar no ambiente MariaDB pelo prompt de comando Windows, terminal(linux) ou software de execução do MariaDB.
+--Após a instalação entrar no ambiente MariaDB pelo prompt de comando Windows, terminal(linux) ou software de execução do MariaDB(Workbench, DBeaver ou outro).
 
 --1º Opção: Entrar no ambiente do mariaDB pelo cmd windows ou linux: executar o comando abaixo informando a senha criada ao instalar o mariaDB:
-> mysql -u root -p
+$ mysql -u root -p
 
---2º Opção: Terminal Linux: O comando abaixo entra no ambiente mariaDB com a senha do computador.
-sudo mysql -u root
+--2º Opção: Se utilizado o Terminal Linux: O comando abaixo entra no ambiente mariaDB com a senha do computador.
+$ sudo mysql -u root
 
---3º Opção: No CDM Windows o comando abaixo executa o arquivo init.sql para a de criação do banco, assim não se faz necessário os passos anteriores.
---É necessário estar dentro da pasta onde contém o arquivo init.sql.
-mysql -u root -p spicebank < init.sql
+--3º Opção: No CDM Windows o comando abaixo executa o arquivo db-spicebank.sql para a de criação do banco de dados, assim não se faz necessário as opções anteriores.
+    --É necessário estar dentro da pasta onde contém o arquivo db-spicebank.sql.
+$ mysql -u root -p spicebank < db-spicebank.sql
 
 --4º Opção: Caso não esteja na pasta do arquivo execute:
-mysql -u root -p spicebank < "caminho onde o aquivo esta salvo no computador\init.sql"
+$ mysql -u root -p spicebank < "caminho onde o aquivo esta salvo no computador\db-spicebank.sql"
 
 --Se preferir executar um script por vez, faça os seguintes passos:
 
 --No ambiente do MariaDB execute o comando a seguir para criar o database 'spicebank'.
-CREATE DATABASE IF NOT EXISTS spicebank;
+$ CREATE DATABASE IF NOT EXISTS spicebank;
 
 --Comando para usar o database criado.
-USE spicebank;
+$ USE spicebank;
 
 --Comando que cria automaticamente o número da conta do usuário na tabela.
-CREATE SEQUENCE account_number START WITH 0 INCREMENT BY 1 MINVALUE=0 MAXVALUE=999999;
+$ CREATE SEQUENCE IF NOT EXISTS account_number START WITH 1001 INCREMENT BY 1 MINVALUE=0 MAXVALUE=999999;
 
---Comandos que cria a tabela de usuários.
-CREATE TABLE users(
-    id int not null auto_increment,
-    name varchar(16),
-    cpf varchar(16),
-    password varchar(20),
-    agency int default 1,
-    account int UNIQUE,
-    balance float DEFAULT 0,
-    primary key(id)
+--Comando que cria automaticamente o número da agência na tabela.
+$ CREATE SEQUENCE IF NOT EXISTS agency_manager START WITH 1 INCREMENT BY 1 MINVALUE=0 MAXVALUE=999999;
+
+-- Comando que cria a tabela com os dados da conta do usuário
+$ CREATE TABLE IF NOT EXISTS `taccount` (
+  `idAccount` int(11) NOT NULL AUTO_INCREMENT,
+  `numberAccount` int(11) DEFAULT NULL,
+  `totalbalance` float DEFAULT NULL,
+  `idAccountUser` int(11) DEFAULT NULL,
+  `agencyUser` int(11) DEFAULT NULL,
+  `statusAccount` int(11) DEFAULT NULL,
+  `solicitacao` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idAccount`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+
+-- Comando que cria a tabela o perfil do usuário
+$ CREATE TABLE IF NOT EXISTS `tprofile` (
+  `idProfile` int(11) NOT NULL AUTO_INCREMENT,
+  `nameProfile` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`idProfile`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+-- Comando para popular a tabela perfil dos tipos de usuários
+$ INSERT INTO `tprofile` (`idProfile`, `nameProfile`) VALUES
+	(1, 'gerente geral'),
+	(2, 'gerente regional'),
+	(3, 'usuario');
+
+-- Comando que cria a tabela agência
+$ CREATE TABLE IF NOT EXISTS `tagency` (
+  `idAgency` int(11) NOT NULL AUTO_INCREMENT,
+  `accountAgency` int(11) DEFAULT NULL,
+  `idManager` int(11) DEFAULT NULL,
+  PRIMARY KEY (idAgency)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+
+
+-- Comando que cria a tabela de extrato
+$ CREATE TABLE IF NOT EXISTS `bank_statement` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `balance` int(11) NOT NULL,
+  `deposit` float DEFAULT NULL,
+  `withdraw` float DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  constraint `fk_tuser_bank_statement`
+  foreign key (id_user) references tuser(idUser)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+
+-- Comando que cria a tabela dos dados cadastrais do usuário
+$ CREATE TABLE IF NOT EXISTS `tuser` (
+  `idUser` int(11) NOT NULL AUTO_INCREMENT,
+  `nameUser` varchar(255) DEFAULT NULL,
+  `cpfUser` int(12) DEFAULT NULL,
+  `roadUser` varchar(255) DEFAULT NULL,
+  `numberHouseUser` int(11) DEFAULT NULL,
+  `districtUser` varchar(255) DEFAULT NULL,
+  `cepUser` int(9) DEFAULT NULL,
+  `cityUser` varchar(255) DEFAULT NULL,
+  `stateUser` varchar(255) DEFAULT NULL,
+  `birthdateUser` date DEFAULT NULL,
+  `genreUser` varchar(1) DEFAULT NULL,
+  `passwordUser` varchar(255) DEFAULT NULL,
+  `profileUser` int(1) DEFAULT NULL,
+  PRIMARY KEY (`idUser`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
+
+--Comando que cria a tabela do banco
+$ CREATE TABLE `tbank`(
+    `id` int unsigned not null auto_increment primary key,
+    `capital` float not null,
+    `agency` int not null default 1,
+    `generalManager` varchar(20) not null
 ) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
---Comando que cria a tabela do banco.
-CREATE TABLE bank(
-    id int not null auto_increment,
-    balance float not null,
-    primary key (id)
-) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
---Comando para popular a tabela bank.
-insert into bank (balance) values(1000);
+--Comando para popular a tabela tbank.
+$ INSERT INTO `tbank`(`capital`, `agency`, `generalManager`) VALUES(1000, 1, 'Ronaldo');
 
---Comando para popular a tabela users.
-insert into users(name, cpf, password, account, balance) values('User1', '00000000001', '123456', next value for account_number, 100);
-insert into users(name, cpf, password, account, balance) values('User2', '00000000002', '123456',  next value for account_number, 150);
-insert into users(name, cpf, password, account, balance) values('User3', '00000000003', '123456',  next value for account_number, 200);
+--Comando para visualizar todos os dados existentes na tabela tuser.
+$ Select * from users;
 
---Comando para visualizar todos os dados existentes na tabela users.
-Select * from users;
-
---Comando para visualizar todos os dados existentes na tabela bank.
-Select * from bank;
+--Comando para visualizar todos os dados existentes na tabela tbank.
+$ Select * from bank;

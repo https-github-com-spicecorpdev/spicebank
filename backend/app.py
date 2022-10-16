@@ -22,16 +22,18 @@ def unauthorized():
 
 @login_manager.user_loader
 def load_user(user_id):
-    cursor = connection.cursor()
+    cursor = connection.cursor(dictionary=True)
     query = """
-    SELECT USR.idUser, USR.nameUser, USR.cpfUser, USR.passwordUser, USR.birthdateUser, USR.genreUser, USR.profileUser, ACCOUNT.idAccount, ACCOUNT.numberAccount, ACCOUNT.totalbalance, ACCOUNT.idAccountUser, ACCOUNT.agencyUser, ACCOUNT.statusAccount 
-	FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
-	WHERE USR.idUser = ?
+    SELECT USR.*, ACCOUNT.* 
+    FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+	WHERE ACCOUNT.agencyUser = ?
+	AND ACCOUNT.numberAccount = ?
+	AND USR.passwordUser = ?
     """
-    parameters = (user_id,)
-    cursor.execute(query, parameters)
+    parameters = (request.form['fagency'], request.form['faccount'], request.form['fpassword'], )
+    cursor.execute(query, parameters) 
     userFromDB = cursor.fetchone()
-    return User(userFromDB[0], userFromDB[1], userFromDB[2], userFromDB[3], userFromDB[4], userFromDB[5], userFromDB[8], userFromDB[11], userFromDB[9], userFromDB[6])
+    return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], request.form['fpassword'], userFromDB['birthdateUser'], userFromDB['genreUser'], request.form['faccount'], userFromDB['agencyUser'], userFromDB['totalbalance'], userFromDB['profileUser'])
     
 
 @app.route('/login', methods = ['POST'])
@@ -39,19 +41,19 @@ def login():
     if not validate_form(request.form):
             message = flash('Preencha todos os campos!')
             return render_template('login.html', message=message), 400
-    cursor = connection.cursor()
+    cursor = connection.cursor(dictionary=True)
     query = """
-    SELECT USR.idUser, USR.nameUser, USR.cpfUser, USR.passwordUser, USR.birthdateUser, USR.genreUser, USR.profileUser, ACCOUNT.idAccount, ACCOUNT.numberAccount, ACCOUNT.totalbalance, ACCOUNT.idAccountUser, ACCOUNT.agencyUser, ACCOUNT.statusAccount 
-	FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+    SELECT USR.*, ACCOUNT.* 
+    FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
 	WHERE ACCOUNT.agencyUser = ?
 	AND ACCOUNT.numberAccount = ?
 	AND USR.passwordUser = ?
     """
     parameters = (request.form['fagency'], request.form['faccount'], request.form['fpassword'], )
-    cursor.execute(query, parameters)
+    cursor.execute(query, parameters) 
     userFromDB = cursor.fetchone()
-    if userFromDB and not (userFromDB[0] == ''):
-        user = User(userFromDB[0], userFromDB[1], userFromDB[2], request.form['fpassword'], userFromDB[4], userFromDB[5], request.form['faccount'], userFromDB[11], userFromDB[9], userFromDB[6])
+    if userFromDB and not (userFromDB['idUser'] == ''):
+        user = User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], request.form['fpassword'], userFromDB['birthdateUser'], userFromDB['genreUser'], request.form['faccount'], userFromDB['agencyUser'], userFromDB['totalbalance'], userFromDB['profileUser'])
         login_user(user)
         saldo = user.balance
         saldoFormatado=(f'{saldo:.2f}')
@@ -80,29 +82,19 @@ def loginAcomp():
     if not validate_form(request.form):
         message = flash('Preencha todos os campos!')
         return render_template('acompanhamento.html', message=message), 400
-    cursor = connection.cursor()
-    query = "SELECT U.idUser AS idUser, U.nameUser AS nameUser, U.cpfUser AS cpfUser, U.passwordUser AS passwordUser, A.idAccount AS idAccount, A.idAccountUser AS idAccountUser, A.solicitacao AS solicitacao FROM tuser AS U INNER JOIN taccount AS A ON idUser = idAccountUser WHERE cpfUser = ? AND passwordUser = ? "
+    cursor = connection.cursor(dictionary=True)
+    query = "SELECT USR.*, ACCOUNT.* FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON idUser = idAccountUser WHERE cpfUser = ? AND passwordUser = ? "
     parameters = (request.form['fcpf'], request.form['fpassword'], )
     cursor.execute(query, parameters)
     user = cursor.fetchone()
-    if user and not (user[0] == ''):
-        nameUser=user[1]
-        cpfUser=user[2]
-        status=user[6]
-        if user[6] == "aprovado":
-            cursor = connection.cursor()
-            query = "SELECT U.idUser AS idUser, U.nameUser AS nameUser, U.cpfUser AS cpfUser, U.passwordUser AS passwordUser, A.idAccount AS idAccount, A.idAccountUser AS idAccountUser, A.solicitacao AS solicitacao, A.numberAccount AS numberAccount, A.agencyUser AS agencyUser FROM tuser AS U INNER JOIN taccount AS A ON idUser = idAccountUser WHERE cpfUser = ? AND passwordUser = ? "
-            parameters = (request.form['fcpf'], request.form['fpassword'], )
-            cursor.execute(query, parameters)
-            user = cursor.fetchone()
-            agencyUser=user[8]
-            numberAccount=user[7]
-            message = flash(f'Agência: {user[8]} / Conta: {user[7]}')
+    if user and not (user['idUser'] == ''):
+        if user['solicitacao'] == "aprovado":
+            message = flash(f'Agência: {user["agencyUser"]} / Conta: {user["numberAccount"]}')
             message = flash('Guarde sua agência e conta!')
-            return render_template('homeAcomp.html', name=nameUser, agencia=agencyUser, conta=numberAccount, solicitacao=status, message=(message)), 200
+            return render_template('homeAcomp.html', name=user['nameUser'], agencia=user["agencyUser"], conta=user["numberAccount"], solicitacao=user['solicitacao'], message=(message)), 200
         else:
             message = flash('Aguardando análise de solicitação.')
-            return render_template('homeAcomp.html', name=nameUser,cpf=cpfUser, solicitacao=status), 200
+            return render_template('homeAcomp.html', name=user['nameUser'],cpf=user['cpfUser'], solicitacao=user['solicitacao']), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('acompanhamento.html', message=message), 400
