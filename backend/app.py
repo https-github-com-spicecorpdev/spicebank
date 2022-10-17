@@ -1,20 +1,25 @@
 from flask import request, render_template, session, flash
 from flask_login import login_user, current_user, login_required, logout_user
 import mariadb
-from . import create_app
+from . import create_app, get_db_connection, get_account_repository, get_user_repository
 from .user import User
+from .address import Address
 import time
 import logging
 
-app, connection, login_manager = create_app()
+app, login_manager = create_app()
+connection = get_db_connection()
+userRepository = get_user_repository()
+accountRepository = get_account_repository()
 
 @app.route('/')
 @login_required
 def index():
+    logging.info(current_user)
     user = current_user
-    saldo = user.balance
+    saldo = user.balance()
     saldoFormatado=(f'{saldo:.2f}')
-    return render_template('home.html', name=user.name, agencia=user.agency, conta=user.account, saldo=saldoFormatado), 200
+    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado), 200
 
 @login_manager.unauthorized_handler
 def unauthorized():
@@ -22,42 +27,19 @@ def unauthorized():
 
 @login_manager.user_loader
 def load_user(user_id):
-    cursor = connection.cursor(dictionary=True)
-    query = """
-    SELECT USR.*, ACCOUNT.* 
-    FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
-	WHERE ACCOUNT.agencyUser = ?
-	AND ACCOUNT.numberAccount = ?
-	AND USR.passwordUser = ?
-    """
-    parameters = (request.form['fagency'], request.form['faccount'], request.form['fpassword'], )
-    cursor.execute(query, parameters) 
-    userFromDB = cursor.fetchone()
-    return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], request.form['fpassword'], userFromDB['birthdateUser'], userFromDB['genreUser'], request.form['faccount'], userFromDB['agencyUser'], userFromDB['totalbalance'], userFromDB['profileUser'])
-    
+    return userRepository.findById(user_id)    
 
 @app.route('/login', methods = ['POST'])
 def login():
     if not validate_form(request.form):
             message = flash('Preencha todos os campos!')
             return render_template('login.html', message=message), 400
-    cursor = connection.cursor(dictionary=True)
-    query = """
-    SELECT USR.*, ACCOUNT.* 
-    FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
-	WHERE ACCOUNT.agencyUser = ?
-	AND ACCOUNT.numberAccount = ?
-	AND USR.passwordUser = ?
-    """
-    parameters = (request.form['fagency'], request.form['faccount'], request.form['fpassword'], )
-    cursor.execute(query, parameters) 
-    userFromDB = cursor.fetchone()
-    if userFromDB and not (userFromDB['idUser'] == ''):
-        user = User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], request.form['fpassword'], userFromDB['birthdateUser'], userFromDB['genreUser'], request.form['faccount'], userFromDB['agencyUser'], userFromDB['totalbalance'], userFromDB['profileUser'])
+    user = userRepository.findByAgencyAccountAndPassword(request.form['fagency'],request.form['faccount'], request.form['fpassword'])
+    if user:
         login_user(user)
-        saldo = user.balance
+        saldo = user.balance()
         saldoFormatado=(f'{saldo:.2f}')
-        return render_template('home.html', name=user.name, agencia=user.agency, conta=user.account, saldo=saldoFormatado), 200
+        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('login.html', message=message), 400
@@ -82,19 +64,15 @@ def loginAcomp():
     if not validate_form(request.form):
         message = flash('Preencha todos os campos!')
         return render_template('acompanhamento.html', message=message), 400
-    cursor = connection.cursor(dictionary=True)
-    query = "SELECT USR.*, ACCOUNT.* FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON idUser = idAccountUser WHERE cpfUser = ? AND passwordUser = ? "
-    parameters = (request.form['fcpf'], request.form['fpassword'], )
-    cursor.execute(query, parameters)
-    user = cursor.fetchone()
-    if user and not (user['idUser'] == ''):
-        if user['solicitacao'] == "aprovado":
-            message = flash(f'Agência: {user["agencyUser"]} / Conta: {user["numberAccount"]}')
+    solicitation = userRepository.findSolicitationByCpfAndPassword(request.form['fcpf'], request.form['fpassword'])
+    if solicitation:
+        if solicitation.status == "aprovado":
+            message = flash(f'Agência: {solicitation.agency} / Conta: {solicitation.account}')
             message = flash('Guarde sua agência e conta!')
-            return render_template('homeAcomp.html', name=user['nameUser'], agencia=user["agencyUser"], conta=user["numberAccount"], solicitacao=user['solicitacao'], message=(message)), 200
+            return render_template('homeAcomp.html', name=solicitation.name, solicitacao=solicitation.status, message=message), 200
         else:
             message = flash('Aguardando análise de solicitação.')
-            return render_template('homeAcomp.html', name=user['nameUser'],cpf=user['cpfUser'], solicitacao=user['solicitacao']), 200
+            return render_template('homeAcomp.html', name=solicitation.name, solicitacao=solicitation.status, message=message), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('acompanhamento.html', message=message), 400
@@ -191,30 +169,24 @@ def registerForm():
 
 @app.route('/register', methods = ['POST'])
 def register():
-        cursor = connection.cursor()
-        if not validate_form(request.form):
-            message = flash('Preencha todos os campos!')
-            return render_template('cadastro.html', message=message), 400
-        else:
-            if not userExists(request.form['fcpf']):
-                try:
-                    query = "INSERT INTO tuser (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
-                    parameters = (request.form['fname'], request.form['fcpf'], request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcep'], request.form['fcity'], request.form['fstate'], request.form['fbirthdate'], request.form['fgenre'], request.form['fpassword'],)
-                    print(parameters)
-                    cursor.execute(query, parameters)
-                    connection.commit()
-                    query = "INSERT INTO taccount (numberAccount, totalbalance, idAccountUser, statusAccount, solicitacao) values (next value for account_number, 0, LAST_INSERT_ID(), 0, 'pendente');"
-                    cursor.execute(query)
-                    connection.commit()
-                    print(cursor.execute(query))
-                    return render_template('login.html'), 201
-                except mariadb.Error as e:
-                    print(e)
-                    return "Erro ao cadastrar usuário", 400
-            else:
-                requestCpf = request.form['fcpf']
-                message = flash(f'CPF {requestCpf} com cadastra já existente!')
+    if not validate_form(request.form):
+        message = flash('Preencha todos os campos!')
         return render_template('cadastro.html', message=message), 400
+    else:
+        if not userExists(request.form['fcpf']):
+            try:
+                address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
+                user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
+                userId = userRepository.save(user)
+                accountRepository.create(userId)
+                return render_template('login.html'), 201
+            except mariadb.Error as e:
+                print(e)
+                return "Erro ao cadastrar usuário", 400
+        else:
+            requestCpf = request.form['fcpf']
+            message = flash(f'CPF {requestCpf} com cadastra já existente!')
+    return render_template('cadastro.html', message=message), 400
 
 @app.route('/aprovar')
 def aprovar():
@@ -265,25 +237,25 @@ def aprovar():
 @login_required
 def withdrawform():
     user = current_user
-    saldo = user.balance
+    saldo = user.balance()
     saldoFormatado=(f'{saldo:.2f}')
-    return render_template('saque.html', agencia=user.agency, conta=user.account, saldo=saldoFormatado), 200
+    return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado), 200
 
 @app.route('/withdraw', methods = ['POST'])
 @login_required
 def withdraw():
     user = current_user
     today = time.strftime('%Y-%m-%d %H:%M:%S')
-    saldo = user.balance
+    saldo = user.balance()
     saldoFormatado=(f'{saldo:.2f}')
     if not validate_form(request.form):
         message = flash('Preencha um valor para sacar!')
-        return render_template('saque.html', agencia=user.agency, conta=user.account, saldo=saldoFormatado, message=message), 400
+        return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message), 400
     else:
         value = float(request.form['fvalor'])
         if value <= 0:
             message = flash('Valor de saque deve ser maior que R$00,00!')
-            return render_template('saque.html', agencia=user.agency, conta=user.account, saldo=saldoFormatado, message=message), 400
+            return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message), 400
         try:
             cursor = connection.cursor()
             query = "SELECT capital FROM tbank WHERE BINARY id = ?"
@@ -291,14 +263,14 @@ def withdraw():
             cursor.execute(query, parameters)
             bankBalance = float(cursor.fetchone()[0])
             if bankBalance >= value:
-                return render_template('saque_confirmacao.html', name=user.name, agencia=user.agency, conta=user.account, valor=value, data=today), 200
+                return render_template('saque_confirmacao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=value, data=today), 200
             else:
                 message = flash('Valor maior que o saldo disponível!')
-                return render_template('saque.html', agencia=user.agency, conta=user.account, saldo=saldoFormatado, message=message), 400
+                return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message), 400
         except mariadb.Error as e:
             logging.error(e)
             message=flash('Erro ao sacar valor desejado!')
-            return render_template('saque_confirmacao.html', name=user.name, agencia=user.agency, conta=user.account, valor=value, data=today, message=message), 400
+            return render_template('saque_confirmacao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=value, data=today, message=message), 400
 
 @app.route('/withdrawconfirm', methods = ['POST'])
 def withdrawConfirm():
@@ -314,45 +286,43 @@ def withdrawConfirm():
         query = "UPDATE tbank SET capital = ? WHERE id = ?"
         parameters = (newBalance, 1,)
         cursor.execute(query, parameters)
-        current_user.withdraw(value)
-        query = "UPDATE taccount SET totalbalance = ? WHERE numberAccount = ?"
-        parameters = (current_user.balance, current_user.account)
-        cursor.execute(query, parameters)
+        current_user.account.withdraw(value)
+        accountRepository.updateBalanceByAccountNumber(current_user.balance(), current_user.accountNumber())
         query = "INSERT INTO bank_statement (id_user, balance, deposit, withdraw, date) values (?, ?, ?, ?, ?)"
-        parameters = (current_user.id, current_user.balance, 0, value, today)
+        parameters = (current_user.id, current_user.balance(), 0, value, today)
         logging.info(parameters)
         cursor.execute(query, parameters)
         connection.commit()
-        return render_template('comprovante_saque.html', name=current_user.name, agencia=current_user.agency, conta=current_user.account, valor=value, data=today), 200
+        return render_template('comprovante_saque.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=value, data=today), 200
     except mariadb.Error as e:
         logging.error(e)
         message = flash('Falha ao depositar')
-        return render_template('comprovante_saque.html', name=current_user.name, agencia=current_user.agency, conta=current_user.account, valor=value, data=today, message=message), 400
+        return render_template('comprovante_saque.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=value, data=today, message=message), 400
 
 @app.route('/depositform')
 @login_required
 def depositform():
     user = current_user
-    saldo = user.balance
+    saldo = user.balance()
     saldoFormatado=(f'{saldo:.2f}')
-    return render_template('deposito.html', name=user.name, agencia=user.agency, conta=user.account, saldo=saldoFormatado), 200
+    return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado), 200
 
 @app.route('/deposit', methods = ['POST'])
 @login_required
 def deposit():
     user = current_user
-    saldo = user.balance
+    saldo = user.balance()
     saldoFormatado=(f'{saldo:.2f}')
     if not validate_form(request.form):
         message = flash('Preencha um valor para depositar!')
-        return render_template('deposito.html', name=user.name, agencia=user.agency, conta=user.account, saldo=saldoFormatado, message=message), 400
+        return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message), 400
     valor = float(request.form['fvalor'])
     if valor <= 0:
         message = flash('Valor de depósito deve ser maior que R$00,00!')
-        return render_template('deposito.html', name=user.name, agencia=user.agency, conta=user.account, saldo=saldoFormatado, message=message), 400
+        return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message), 400
     if valor >= 0:
         value = (f'{valor:.2f}')
-        return render_template('deposito_confirmacao.html', name=user.name, agencia=user.agency, conta=user.account, valor=value), 200
+        return render_template('deposito_confirmacao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=value), 200
 
 
 @app.route('/depositconfirm', methods = ['POST'])
@@ -366,18 +336,18 @@ def depositconfirm():
         update_user_balance(valor)
         cursor = connection.cursor()
         query = "INSERT INTO bank_statement (id_user, balance, deposit, withdraw, date) values (?, ?, ?, ?, ?)"
-        parameters = (current_user.id, current_user.balance, valor, 0, today)
+        parameters = (current_user.id, current_user.balance(), valor, 0, today)
         logging.info(parameters)
         cursor.execute(query, parameters)
         connection.commit()
         depositedValue=(f'{valor:.2f}')
-        return render_template('comprovante_deposito.html', name=current_user.name, agencia=current_user.agency, conta=current_user.account, valor=depositedValue, data=today), 200
+        return render_template('comprovante_deposito.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=depositedValue, data=today), 200
     except mariadb.Error as e:
         logging.error(e)
-        saldo = current_user.balance
+        saldo = current_user.balance()
         saldoFormatado=(f'{saldo:.2f}')
         message = flash('Falha ao depositar')
-        return render_template('deposito_confirmacao.html', name=current_user.name, agencia=current_user.agency, conta=current_user.account, saldo=saldoFormatado, message=message), 400    
+        return render_template('deposito_confirmacao.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), saldo=saldoFormatado, message=message), 400    
 
 def userExists(cpf):
     cursor = connection.cursor()
@@ -406,13 +376,9 @@ def update_bank_balance(bank_id, value):
     connection.commit()
 
 def update_user_balance(value):
-    cursor = connection.cursor()
-    current_user.deposit(value)
-    query = "UPDATE taccount SET totalbalance = ? WHERE numberAccount = ?"
-    parameters = (current_user.balance, current_user.account,)
-    cursor.execute(query, parameters)
-    connection.commit()
-
+    current_user.account.deposit(value)
+    accountRepository.updateBalanceByAccountNumber(current_user.balance(), current_user.accountNumber())
+    
 if __name__ == "__main__":
 
     app.run(debug=True)

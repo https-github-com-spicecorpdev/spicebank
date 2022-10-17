@@ -2,13 +2,17 @@ import logging
 from flask import Flask
 from flask_login import LoginManager
 from . import db
+from .user_repository import UserRepository
+from .account_repository import AccountRepository
 from flask_session import Session
+
+connection = db.connect()
+accountRepository = AccountRepository(connection)
+userRepository = UserRepository(connection)
 
 def create_app(configuration=None):
     logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
     logging.info('Inicializando a configuração da aplicação...')
-
-    connection = db.connect()
 
     app = Flask(__name__)
     app.config["SESSION_PERMANENT"] = False
@@ -22,4 +26,14 @@ def create_app(configuration=None):
 
     logging.info('Aplicação configurada com sucesso!')
     
-    return app, connection, login_manager
+    return app, login_manager
+
+def get_db_connection():
+    return connection
+
+def get_account_repository():
+    return accountRepository
+
+def get_user_repository():
+    return userRepository
+
