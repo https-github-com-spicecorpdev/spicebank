@@ -95,3 +95,23 @@ class UserRepository:
                 return None
         except mariadb.Error as e:
             logging.error(e)
+
+    def findByCpf(self, cpf):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+        SELECT USR.*, ACCOUNT.* 
+        FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON idUser = idAccountUser 
+        WHERE cpfUser = ?
+        """
+        parameters = (cpf,)
+        try:
+            cursor.execute(query, parameters)
+            userFromDB = cursor.fetchone()
+            if userFromDB:
+                account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'])
+                return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], "fooPassword", userFromDB['birthdateUser'], userFromDB['genreUser'], account=account, applicationProfile=userFromDB['profileUser'])
+            else:
+                logging.info(f'Usuário com cpf: {cpf} não encontrado!')
+                return None
+        except mariadb.Error as e:
+            logging.error(e)

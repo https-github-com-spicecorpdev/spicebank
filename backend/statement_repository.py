@@ -32,6 +32,6 @@ class StatementRepository:
                 return statementsFromDB
             else:
                 logging.info(f'Nenhum dado encontrado no extrato!')
-                return None
+                return []
         except mariadb.Error as e:
             logging.error(e)

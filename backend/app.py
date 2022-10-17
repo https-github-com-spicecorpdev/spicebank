@@ -169,21 +169,16 @@ def register():
     if not validate_form(request.form):
         message = flash('Preencha todos os campos!')
         return render_template('cadastro.html', message=message), 400
+    if userExists(request.form['fcpf']):
+        requestCpf = request.form['fcpf']
+        message = flash(f'CPF {requestCpf} com cadastro já existente!')
+        return render_template('cadastro.html', message=message), 400
     else:
-        if not userExists(request.form['fcpf']):
-            try:
-                address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
-                user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
-                userId = userRepository.save(user)
-                accountRepository.create(userId)
-                return render_template('login.html'), 201
-            except mariadb.Error as e:
-                print(e)
-                return "Erro ao cadastrar usuário", 400
-        else:
-            requestCpf = request.form['fcpf']
-            message = flash(f'CPF {requestCpf} com cadastra já existente!')
-    return render_template('cadastro.html', message=message), 400
+        address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
+        user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
+        userId = userRepository.save(user)
+        accountRepository.create(userId)
+        return render_template('login.html'), 201
 
 @app.route('/aprovar')
 def aprovar():
@@ -344,29 +339,18 @@ def depositconfirm():
 def statementForm():
     user = current_user
     saldo = user.balance()
-    extratos = []
     statements = statementRepository.findByUserId(user.id)
-    if statements:
-        extratos = statements
-    return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=extratos), 200
+    return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements), 200
 
 @app.route('/print', methods = ['GET'])
 @login_required
 def print():
     user = current_user
-    extratos = []
     statements = statementRepository.findByUserId(user.id)
-    if statements:
-        extratos = statements
-    return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=extratos), 200
+    return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements), 200
 
 def userExists(cpf):
-    cursor = connection.cursor()
-    query = "SELECT nameUser FROM tuser WHERE BINARY cpfUser = ?"
-    parameters = (cpf, )
-    cursor.execute(query, parameters)
-    user = cursor.fetchone()
-    return user
+    return userRepository.findByCpf(cpf)
 
 def validate_form(form):
     for key in form:
