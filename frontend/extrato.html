@@ -17,37 +17,37 @@
         <button type="submit">&#8592 voltar</button>
 </form>
 
-<form method="GET" action="{{ url_for('extract') }}"><button type="">Imprimir</button></form>
+<form method="GET" action="{{ url_for('print') }}" target="_blank">
+    <button type="submit">Imprimir</button>
+</form>
         
     <div class="box1">
         <h2>extrato</h2> <br>
          <pre>{{ nome }}
  agência: {{ agencia }}/ conta:{{ conta }} 
- <span style="font-size: 150%;">Saldo: R${{ saldo }}</span></pre>
+ <span style="font-size: 150%;">Saldo: R$ {{ "{:,.2f}".format(saldo) }}</span></pre>
     </div>
 
     <table class="table-extrato">
 
-        <!--linha com títulos-->
         <tr>
             <th>data</th>
             <th>acão</th>
             <th>saldo</th>
         </tr>
-        <!--linha dos itens (exemplo)-->
 
-        <tr>
-            <td>02/02/2022</td>
-            <td>saque R$-90</td>
-            <td>saldo</td>
-        </tr>
+        {% for extrato in extratos %}
+            <tr>
+                <td>{{ extrato.date }}</td>
+                {% if extrato.operation == 'C' %}
+                    <td>Depósito R$ {{"{:,.2f}".format(extrato.deposit) }}</td>
+                {% else %}
+                    <td>Saque R$ {{"{:,.2f}".format(extrato.withdraw) }}</td>
+                {% endif %}
+                <td>{{ extrato.operation }} R$ {{"{:,.2f}".format(extrato.balance) }}</td>
+            </tr>
+        {% endfor %}
 
-         <!--linha de itens-->
-        <tr>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-        </tr>
     </table>
 
 </div>

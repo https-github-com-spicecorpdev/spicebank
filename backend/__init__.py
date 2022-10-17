@@ -4,16 +4,18 @@ from flask_login import LoginManager
 from . import db
 from .user_repository import UserRepository
 from .account_repository import AccountRepository
+from .statement_repository import StatementRepository
 from flask_session import Session
+
+logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
+logging.info('Inicializando a configuração da aplicação...')
 
 connection = db.connect()
 accountRepository = AccountRepository(connection)
 userRepository = UserRepository(connection)
+statementRepository = StatementRepository(connection)
 
 def create_app(configuration=None):
-    logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
-    logging.info('Inicializando a configuração da aplicação...')
-
     app = Flask(__name__)
     app.config["SESSION_PERMANENT"] = False
     app.config["SESSION_TYPE"] = "filesystem"
@@ -36,4 +38,7 @@ def get_account_repository():
 
 def get_user_repository():
     return userRepository
+
+def get_statement_repository():
+    return statementRepository
 

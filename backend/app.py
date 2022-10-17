@@ -1,9 +1,10 @@
 from flask import request, render_template, session, flash
 from flask_login import login_user, current_user, login_required, logout_user
 import mariadb
-from . import create_app, get_db_connection, get_account_repository, get_user_repository
+from . import create_app, get_db_connection, get_account_repository, get_user_repository, get_statement_repository
 from .user import User
 from .address import Address
+from .statement import Statement
 import time
 import logging
 
@@ -11,15 +12,13 @@ app, login_manager = create_app()
 connection = get_db_connection()
 userRepository = get_user_repository()
 accountRepository = get_account_repository()
+statementRepository = get_statement_repository()
 
 @app.route('/')
 @login_required
 def index():
-    logging.info(current_user)
     user = current_user
-    saldo = user.balance()
-    saldoFormatado=(f'{saldo:.2f}')
-    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado), 200
+    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
 
 @login_manager.unauthorized_handler
 def unauthorized():
@@ -37,9 +36,7 @@ def login():
     user = userRepository.findByAgencyAccountAndPassword(request.form['fagency'],request.form['faccount'], request.form['fpassword'])
     if user:
         login_user(user)
-        saldo = user.balance()
-        saldoFormatado=(f'{saldo:.2f}')
-        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado), 200
+        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('login.html', message=message), 400
@@ -288,11 +285,8 @@ def withdrawConfirm():
         cursor.execute(query, parameters)
         current_user.account.withdraw(value)
         accountRepository.updateBalanceByAccountNumber(current_user.balance(), current_user.accountNumber())
-        query = "INSERT INTO bank_statement (id_user, balance, deposit, withdraw, date) values (?, ?, ?, ?, ?)"
-        parameters = (current_user.id, current_user.balance(), 0, value, today)
-        logging.info(parameters)
-        cursor.execute(query, parameters)
-        connection.commit()
+        statement = Statement('D', userId=current_user.id, balance=current_user.balance(), deposit=0, withdraw=value, date=today)
+        statementRepository.save(statement)
         return render_template('comprovante_saque.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=value, data=today), 200
     except mariadb.Error as e:
         logging.error(e)
@@ -334,12 +328,8 @@ def depositconfirm():
         bank_id = 1
         update_bank_balance(bank_id, valor)
         update_user_balance(valor)
-        cursor = connection.cursor()
-        query = "INSERT INTO bank_statement (id_user, balance, deposit, withdraw, date) values (?, ?, ?, ?, ?)"
-        parameters = (current_user.id, current_user.balance(), valor, 0, today)
-        logging.info(parameters)
-        cursor.execute(query, parameters)
-        connection.commit()
+        statement = Statement('C', userId=current_user.id, balance=current_user.balance(), deposit=valor, withdraw=0, date=today)
+        statementRepository.save(statement)
         depositedValue=(f'{valor:.2f}')
         return render_template('comprovante_deposito.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=depositedValue, data=today), 200
     except mariadb.Error as e:
@@ -347,7 +337,28 @@ def depositconfirm():
         saldo = current_user.balance()
         saldoFormatado=(f'{saldo:.2f}')
         message = flash('Falha ao depositar')
-        return render_template('deposito_confirmacao.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), saldo=saldoFormatado, message=message), 400    
+        return render_template('deposito_confirmacao.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), saldo=saldoFormatado, message=message), 400
+
+@app.route('/statementform', methods = ['GET'])
+@login_required
+def statementForm():
+    user = current_user
+    saldo = user.balance()
+    extratos = []
+    statements = statementRepository.findByUserId(user.id)
+    if statements:
+        extratos = statements
+    return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=extratos), 200
+
+@app.route('/print', methods = ['GET'])
+@login_required
+def print():
+    user = current_user
+    extratos = []
+    statements = statementRepository.findByUserId(user.id)
+    if statements:
+        extratos = statements
+    return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=extratos), 200
 
 def userExists(cpf):
     cursor = connection.cursor()

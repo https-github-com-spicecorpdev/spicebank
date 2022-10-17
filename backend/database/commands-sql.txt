@@ -72,11 +72,12 @@ $ CREATE TABLE IF NOT EXISTS `tagency` (
 -- Comando que cria a tabela de extrato
 $ CREATE TABLE IF NOT EXISTS `bank_statement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) NOT NULL,
-  `balance` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL, 
+  `balance` float(11) NOT NULL,
   `deposit` float DEFAULT NULL,
   `withdraw` float DEFAULT NULL,
   `date` date DEFAULT NULL,
+  `operation` varchar(1) not null,
   PRIMARY KEY (`id`),
   constraint `fk_tuser_bank_statement`
   foreign key (id_user) references tuser(idUser)

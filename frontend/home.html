@@ -18,7 +18,7 @@
         <pre>
     Olá, {{ name }}!
     Agência:{{ agencia }} / Conta:{{ conta }}
-    Saldo disponível: R${{ saldo }}
+    Saldo disponível: R$ {{ "{:,.2f}".format(saldo) }}
         </pre>
     </div>
     <hr color="#00BFFF">
@@ -31,7 +31,7 @@
     <a href="/logout">
         <button type="button"><i class="fa-solid fa-right-from-bracket"></i><div>Logout</div></button>
     </a>
-    <a href="extrato.html">
+    <a href="/statementform">
         <button type="button"><i class="fa-regular fa-file-lines"></i><div>extrato</div></button>
     </a>
 </body>

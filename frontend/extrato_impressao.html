@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
     <title>extrato</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_extrato_impresso.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_extrato.css') }}">
 
     <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
     <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
@@ -12,40 +12,33 @@
     <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
     <hr>
 <div class="justify">
-
-
         
-
     <div class="box1">
         <h2>extrato</h2> <br>
-    </div>
-<hr>
          <pre>{{ nome }}
- agência: {{ agencia }} conta:{{ conta }} 
- <span style="font-size: 150%;">Saldo: R${{ saldo }}</span></pre>
- 
+ agência: {{ agencia }}/ conta:{{ conta }} 
+ <span style="font-size: 150%;">Saldo: R$ {{ "{:,.2f}".format(saldo) }}</span></pre>
+    </div>
+
     <table class="table-extrato">
 
-        <!--linha com títulos-->
         <tr>
             <th>data</th>
             <th>acão</th>
             <th>saldo</th>
         </tr>
 
-         <!--linha de itens-->
-        <tr>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-        </tr>
-        <tr>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-        </tr>
-
-        
+        {% for extrato in extratos %}
+            <tr>
+                <td>{{ extrato.date }}</td>
+                {% if extrato.operation == 'C' %}
+                    <td>Depósito R$ {{"{:,.2f}".format(extrato.deposit) }}</td>
+                {% else %}
+                    <td>Saque R$ {{"{:,.2f}".format(extrato.withdraw) }}</td>
+                {% endif %}
+                <td>{{ extrato.operation }} R$ {{"{:,.2f}".format(extrato.balance) }}</td>
+            </tr>
+        {% endfor %}
 
     </table>
 
