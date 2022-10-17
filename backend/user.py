@@ -1,6 +1,5 @@
 class User:
-    def __init__(self, userId, fullName, cpfNumber, secret, dateOfBirth, identificationGender, accountNumber, userAgency, totalBalance, applicationProfile='3'):
-        print(userId)
+    def __init__(self, userId, fullName, cpfNumber, secret, dateOfBirth, identificationGender, account=None, applicationProfile='3', address=None):
         self.id = userId
         self.name = fullName
         self.cpf = cpfNumber
@@ -8,17 +7,17 @@ class User:
         self.birthDate = dateOfBirth
         self.gender = identificationGender
         self.profile = applicationProfile
-        self.account = accountNumber
-        self.agency = userAgency
-        self.balance = totalBalance
+        self.account = account
+        self.address = address
 
-    def setAddress(self, roadAvenue, numberOfHouse, districtVillage, actualCity, actualState, cepCode):
-        self.road = roadAvenue
-        self.numberHouse = numberOfHouse
-        self.district = districtVillage
-        self.city = actualCity
-        self.state = actualState
-        self.cep = cepCode
+    def balance(self):
+        return self.account.balance
+
+    def agency(self):
+        return self.account.agency
+
+    def accountNumber(self):
+        return self.account.account
 
     def is_authenticated(self):
         return True
@@ -33,10 +32,4 @@ class User:
         return str(self.id)
 
     def __str__(self):
-        return f'Id: {self.id}, name: {self.name}, cpf: {self.cpf}, secret: {self.password}, nascimento:{self.birthDate}, genero: {self.gender}, perfil:{self.profile}'
-
-    def withdraw(self, value):
-        self.balance = self.balance - value
-   
-    def deposit(self, value):
-        self.balance = self.balance + value
+        return f'Id: {self.id}, name: {self.name}, cpf: {self.cpf}, secret: {self.password}, nascimento:{self.birthDate}, genero: {self.gender}, perfil:{self.profile} :: account {self.account}'

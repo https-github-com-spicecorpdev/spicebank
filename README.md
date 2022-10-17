@@ -35,6 +35,7 @@ O objetivo do projeto é criar um sistema para gerenciamento de transações em 
 ## Instruções
 ### Para utilizar o projeto será necessário seguir os seguintes passos:
 Tenha instalado em sua máquina o Python 3.10 e o MariaDB 10.11; <br>
+Vide o tópico Banco de Dados para inicialização do banco de dados criado <br>
 1. No terminal, clone o repositório do projeto utilizando o comando: <br>
 `git clone https://github.com/https-github-com-spicecorpdev/spicebank.git`<br>
 1.1 Após realizar o “clone” do repositório, você pode criar um ambiente virtual* seguindo os seguintes comandos no terminal de sua máquina: <br>
@@ -51,10 +52,10 @@ Tenha instalado em sua máquina o Python 3.10 e o MariaDB 10.11; <br>
 `$ build.bat`<br>
 Se o sistema operacional for **Linux**, executar o arquivo usando o comando: 
 `$ sh build.sh`<br>
-4. Na pasta “backend/database” o arquivo “database_spicebank.sql” contém o script para criar e executar o banco de dados;
+4. Na pasta “backend/database” o arquivo “db-spicebank.sql” contém o script para criar e executar o banco de dados;
 5. Para inicializar o projeto, entre na pasta “backend” e execute o seguinte comando:<br>
 `flask run`<br>
-6. Acesse o aplicativo usando o link que que aparecerá para visualização das páginas, geralmente localhost:5000<br>
+6. Acesse o aplicativo usando o link que que aparecerá no terminal para visualização das páginas, geralmente localhost:5000<br>
 **É necessário instalar todos os programas para o devido funcionamento do projeto!** 
 
 
