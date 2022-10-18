@@ -10,12 +10,16 @@ from flask_session import Session
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
 logging.info('Inicializando a configuração da aplicação...')
 
+# app=None
+
 connection = db.connect()
 accountDatabase = AccountDatabase(connection)
 userDatabase = UserDatabase(connection)
 statementDatabase = StatementDatabase(connection)
 
 def create_app(configuration=None):
+    # if app:
+    #     return app, login_manager
     app = Flask(__name__)
     app.config["SESSION_PERMANENT"] = False
     app.config["SESSION_TYPE"] = "filesystem"

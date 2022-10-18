@@ -26,7 +26,7 @@ def unauthorized():
 
 @login_manager.user_loader
 def load_user(user_id):
-    return userDatabase.findById(user_id)    
+    return userDatabase.findById(user_id)
 
 @app.route('/login', methods = ['POST'])
 def login():
@@ -250,7 +250,7 @@ def withdraw():
             return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message), 400
         try:
             cursor = connection.cursor()
-            query = "SELECT capital FROM tbank WHERE BINARY id = ?"
+            query = "SELECT capital FROM bank WHERE BINARY id = ?"
             parameters = (1,)
             cursor.execute(query, parameters)
             bankBalance = float(cursor.fetchone()[0])
@@ -270,12 +270,12 @@ def withdrawConfirm():
     today = time.strftime('%Y-%m-%d %H:%M:%S')
     try:
         cursor = connection.cursor()
-        query = "SELECT capital FROM tbank WHERE BINARY id = ?"
+        query = "SELECT capital FROM bank WHERE BINARY id = ?"
         parameters = (1,)
         cursor.execute(query, parameters)
         bankBalance = float(cursor.fetchone()[0])
         newBalance = bankBalance - value
-        query = "UPDATE tbank SET capital = ? WHERE id = ?"
+        query = "UPDATE bank SET capital = ? WHERE id = ?"
         parameters = (newBalance, 1,)
         cursor.execute(query, parameters)
         current_user.account.withdraw(value)
@@ -360,12 +360,12 @@ def validate_form(form):
 
 def update_bank_balance(bank_id, value):
     cursor = connection.cursor()
-    query = "SELECT capital FROM tbank WHERE id = ?"
+    query = "SELECT capital FROM bank WHERE id = ?"
     parameters = (bank_id,)
     cursor.execute(query, parameters)
     bankBalance = float(cursor.fetchone()[0])
     newBankBalance = bankBalance + value
-    query = "UPDATE tbank SET capital = ? WHERE id = ?"
+    query = "UPDATE bank SET capital = ? WHERE id = ?"
     parameters = (newBankBalance, bank_id,)
     cursor.execute(query, parameters)
     connection.commit()
