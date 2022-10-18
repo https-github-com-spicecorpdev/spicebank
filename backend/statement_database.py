@@ -1,8 +1,7 @@
 import logging
 import mariadb
-from .statement import Statement
 
-class StatementRepository:
+class StatementDatabase:
     def __init__(self, connection):
         self.db = connection
         logging.info('Repositório de extratos inicializado!')
@@ -32,6 +31,6 @@ class StatementRepository:
                 return statementsFromDB
             else:
                 logging.info(f'Nenhum dado encontrado no extrato!')
-                return None
+                return []
         except mariadb.Error as e:
             logging.error(e)

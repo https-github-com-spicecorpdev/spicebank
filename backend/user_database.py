@@ -4,7 +4,7 @@ from .user import User
 from .account import Account
 from .user_solicitation import Solicitation
 
-class UserRepository:
+class UserDatabase:
     def __init__(self, connection):
         self.db = connection
         logging.info('Repositório de usuários inicializado!')
@@ -92,6 +92,26 @@ class UserRepository:
                 return Solicitation(userStatus['nameUser'], cpf, password, userStatus['solicitacao'], userStatus['numberAccount'], userStatus['agencyUser'])
             else:
                 logging.info(f'Solicitação com cpf: {cpf} não encontrada!')
+                return None
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def findByCpf(self, cpf):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+        SELECT USR.*, ACCOUNT.* 
+        FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON idUser = idAccountUser 
+        WHERE cpfUser = ?
+        """
+        parameters = (cpf,)
+        try:
+            cursor.execute(query, parameters)
+            userFromDB = cursor.fetchone()
+            if userFromDB:
+                account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'])
+                return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], "fooPassword", userFromDB['birthdateUser'], userFromDB['genreUser'], account=account, applicationProfile=userFromDB['profileUser'])
+            else:
+                logging.info(f'Usuário com cpf: {cpf} não encontrado!')
                 return None
         except mariadb.Error as e:
             logging.error(e)
