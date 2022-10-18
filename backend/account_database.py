@@ -1,7 +1,7 @@
 import logging
 import mariadb
 
-class AccountRepository:
+class AccountDatabase:
     def __init__(self, connection):
         self.db = connection
         logging.info('Repositório de contas inicializado!')

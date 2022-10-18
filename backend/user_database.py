@@ -4,7 +4,7 @@ from .user import User
 from .account import Account
 from .user_solicitation import Solicitation
 
-class UserRepository:
+class UserDatabase:
     def __init__(self, connection):
         self.db = connection
         logging.info('Repositório de usuários inicializado!')

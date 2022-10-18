@@ -1,7 +1,7 @@
 from flask import request, render_template, session, flash
 from flask_login import login_user, current_user, login_required, logout_user
 import mariadb
-from . import create_app, get_db_connection, get_account_repository, get_user_repository, get_statement_repository
+from . import create_app, get_db_connection, get_account_database, get_user_database, get_statement_database
 from .user import User
 from .address import Address
 from .statement import Statement
@@ -10,9 +10,9 @@ import logging
 
 app, login_manager = create_app()
 connection = get_db_connection()
-userRepository = get_user_repository()
-accountRepository = get_account_repository()
-statementRepository = get_statement_repository()
+userDatabase = get_user_database()
+accountDatabase = get_account_database()
+statementDatabase = get_statement_database()
 
 @app.route('/')
 @login_required
@@ -26,14 +26,14 @@ def unauthorized():
 
 @login_manager.user_loader
 def load_user(user_id):
-    return userRepository.findById(user_id)    
+    return userDatabase.findById(user_id)    
 
 @app.route('/login', methods = ['POST'])
 def login():
     if not validate_form(request.form):
             message = flash('Preencha todos os campos!')
             return render_template('login.html', message=message), 400
-    user = userRepository.findByAgencyAccountAndPassword(request.form['fagency'],request.form['faccount'], request.form['fpassword'])
+    user = userDatabase.findByAgencyAccountAndPassword(request.form['fagency'],request.form['faccount'], request.form['fpassword'])
     if user:
         login_user(user)
         return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
@@ -61,7 +61,7 @@ def loginAcomp():
     if not validate_form(request.form):
         message = flash('Preencha todos os campos!')
         return render_template('acompanhamento.html', message=message), 400
-    solicitation = userRepository.findSolicitationByCpfAndPassword(request.form['fcpf'], request.form['fpassword'])
+    solicitation = userDatabase.findSolicitationByCpfAndPassword(request.form['fcpf'], request.form['fpassword'])
     if solicitation:
         if solicitation.status == "aprovado":
             message = flash(f'Agência: {solicitation.agency} / Conta: {solicitation.account}')
@@ -176,8 +176,8 @@ def register():
     else:
         address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
         user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
-        userId = userRepository.save(user)
-        accountRepository.create(userId)
+        userId = userDatabase.save(user)
+        accountDatabase.create(userId)
         return render_template('login.html'), 201
 
 @app.route('/aprovar')
@@ -279,9 +279,9 @@ def withdrawConfirm():
         parameters = (newBalance, 1,)
         cursor.execute(query, parameters)
         current_user.account.withdraw(value)
-        accountRepository.updateBalanceByAccountNumber(current_user.balance(), current_user.accountNumber())
+        accountDatabase.updateBalanceByAccountNumber(current_user.balance(), current_user.accountNumber())
         statement = Statement('D', userId=current_user.id, balance=current_user.balance(), deposit=0, withdraw=value, date=today)
-        statementRepository.save(statement)
+        statementDatabase.save(statement)
         return render_template('comprovante_saque.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=value, data=today), 200
     except mariadb.Error as e:
         logging.error(e)
@@ -324,7 +324,7 @@ def depositconfirm():
         update_bank_balance(bank_id, valor)
         update_user_balance(valor)
         statement = Statement('C', userId=current_user.id, balance=current_user.balance(), deposit=valor, withdraw=0, date=today)
-        statementRepository.save(statement)
+        statementDatabase.save(statement)
         depositedValue=(f'{valor:.2f}')
         return render_template('comprovante_deposito.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=depositedValue, data=today), 200
     except mariadb.Error as e:
@@ -339,18 +339,18 @@ def depositconfirm():
 def statementForm():
     user = current_user
     saldo = user.balance()
-    statements = statementRepository.findByUserId(user.id)
+    statements = statementDatabase.findByUserId(user.id)
     return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements), 200
 
 @app.route('/print', methods = ['GET'])
 @login_required
 def print():
     user = current_user
-    statements = statementRepository.findByUserId(user.id)
+    statements = statementDatabase.findByUserId(user.id)
     return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements), 200
 
 def userExists(cpf):
-    return userRepository.findByCpf(cpf)
+    return userDatabase.findByCpf(cpf)
 
 def validate_form(form):
     for key in form:
@@ -372,7 +372,7 @@ def update_bank_balance(bank_id, value):
 
 def update_user_balance(value):
     current_user.account.deposit(value)
-    accountRepository.updateBalanceByAccountNumber(current_user.balance(), current_user.accountNumber())
+    accountDatabase.updateBalanceByAccountNumber(current_user.balance(), current_user.accountNumber())
     
 if __name__ == "__main__":
 

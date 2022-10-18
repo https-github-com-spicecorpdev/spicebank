@@ -2,18 +2,18 @@ import logging
 from flask import Flask
 from flask_login import LoginManager
 from . import db
-from .user_repository import UserRepository
-from .account_repository import AccountRepository
-from .statement_repository import StatementRepository
+from .user_database import UserDatabase
+from .account_database import AccountDatabase
+from .statement_database import StatementDatabase
 from flask_session import Session
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
 logging.info('Inicializando a configuração da aplicação...')
 
 connection = db.connect()
-accountRepository = AccountRepository(connection)
-userRepository = UserRepository(connection)
-statementRepository = StatementRepository(connection)
+accountDatabase = AccountDatabase(connection)
+userDatabase = UserDatabase(connection)
+statementDatabase = StatementDatabase(connection)
 
 def create_app(configuration=None):
     app = Flask(__name__)
@@ -33,12 +33,12 @@ def create_app(configuration=None):
 def get_db_connection():
     return connection
 
-def get_account_repository():
-    return accountRepository
+def get_account_database():
+    return accountDatabase
 
-def get_user_repository():
-    return userRepository
+def get_user_database():
+    return userDatabase
 
-def get_statement_repository():
-    return statementRepository
+def get_statement_database():
+    return statementDatabase
 
