@@ -4,25 +4,29 @@
     box-sizing: border-box;
 }
 
-body{
-    background-color: #868686;
-}
-
 .justify{
     float: right;
     width: 85%;
 }
 
-nav{
+/*Formatação do usuário*/
+
+.userbody{
+    background-color: #678a5c87;
+
+    font-family: 'Montserrat', sans-serif
+}
+    /*Barra de navegação lateral do gerente (verde)*/
+.usernav{
     padding: 0;
-    background-color: #4e4e4e;
+    background-color: #678a5c;
     position: fixed;
   top: 0;
   width: 15%; 
   height: 100%;
   float: left;
 }
-nav >  ul {
+.usernav >  ul {
     text-transform: uppercase;
     position: absolute;
     width: 100%;
@@ -30,16 +34,227 @@ nav >  ul {
     transform: translateY(-50%);
    }
 
-nav > ul > li > a{
-    color: #F0F2F2;
+.usernav > ul > li > a > i{
+    padding: 5px;
+   }
+
+.usernav > ul > li > a{
+    color: #0d3b1b;
     text-decoration: none; 
     display: block;
 padding: 20px;
     transition: background .4s;}
 
-nav > ul > li > a:hover{
-    background-color: #1f1f1f;
+.usernav > ul > li > a:hover{
+    background-color: #f5f5f5;
+    transition: background .4s;}
+    
+
+.usernav > div{
+        background-color: #d6d6d6;
+        position: absolute;
+        bottom:0;
+        width: 100%;
+    }
+.usernav > div > a {
+    display: block;
+    text-transform: uppercase;
+    color: #000;
+    text-decoration: none; 
+    padding: 20px;
     transition: background .4s;}
 
-    /*Login*/
-    /**/
+ .usernav > div > a > i{
+        padding: 5px;
+    }
+
+.usernav > div > a:hover{
+     background-color: #f5f5f5;
+    transition: background .4s;}
+
+/*Formatação do gerente*/
+
+.admbody{
+    background-color: #678a5c87;
+
+    font-family: 'Montserrat', sans-serif
+}
+    /*Barra de navegação lateral do gerente (verde)*/
+.admnav{
+    padding: 0;
+    background-color: #678a5c;
+    position: fixed;
+  top: 0;
+  width: 15%; 
+  height: 100%;
+  float: left;
+}
+.admnav >  ul {
+    text-transform: uppercase;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+   }
+
+.admnav > ul > li > a > i{
+    padding: 5px;
+   }
+
+.admnav > ul > li > a{
+    color: #0d3b1b;
+    text-decoration: none; 
+    display: block;
+padding: 20px;
+    transition: background .4s;}
+
+.admnav > ul > li > a:hover{
+    background-color: #f5f5f5;
+    transition: background .4s;}
+    
+
+.admnav > div{
+        background-color: #d6d6d6;
+        position: absolute;
+        bottom:0;
+        width: 100%;
+    }
+.admnav > div > a {
+    display: block;
+    text-transform: uppercase;
+    color: #000;
+    text-decoration: none; 
+    padding: 20px;
+    transition: background .4s;}
+
+ .admnav > div > a > i{
+        padding: 5px;
+    }
+
+.admnav > div > a:hover{
+     background-color: #f5f5f5;
+    transition: background .4s;}
+
+    /*Login.html*/
+
+
+
+      /*admhome.html*/
+
+/*caixa cinza claro*/
+.admhomebox1{
+    margin: auto;
+    width: 25%;
+    background-color: #ffff;
+Margin-top: 15%;
+padding: 10px;
+}
+
+.admhomebox1 > h3{
+    text-align: center;
+}
+
+/*muda todos p dentro da classe homebox1 */
+.admhomebox1 > p{ 
+    margin-top: 5%;
+}
+
+/*caixa que contém o número do saldo*/
+.admhomebox2{
+    width: 100%;
+    height: 90px;
+    background-color: #d6d6d6;
+    Margin-top: 5%;
+    padding: 10px;
+
+}
+
+/*tamanho número do saldo*/
+.admhomebox2 > h2{ 
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+
+
+
+
+       /*admdeposito.html*/ 
+
+/*centralizar*/
+.admdepositcenter{
+    margin: auto;
+    width: 50%;
+}
+
+
+/*caixa cinza claro*/
+
+
+.admsolicitationsbutton{
+    margin-right: 20px;
+}
+.admsolicitationsbutton > form{
+    margin-left:15.2%;
+    margin-top:5%;
+}
+
+.admsolicitationsbutton > form >button{
+padding: 10px;
+border: none;
+ background-color:#d6d6d6
+ 
+ 
+}
+
+/*admsolicitations.html*/
+
+.admsolicitationsbox1{
+    margin: auto;
+    width: 70%;
+    background-color: #d6d6d6;
+Margin-top: 1%;
+padding: 10px;
+}
+.admsolicitationsbox1 >h2{
+text-align:center;
+}
+.admsolicitationsbox1 >p{
+text-align:center;
+margin-top: 1%;
+}
+
+    .admsolicitationstable{
+        margin: auto;
+        width: 70%;
+        background-color: white;
+        text-align: center;
+    }
+    
+    .admsolicitationstable > table, tr  th {
+        background-color:#d6d6d6;
+    }
+        .admsolicitationstable > table, tr  td a {
+        color:black;
+        text-decoration:none;
+        display:block;
+        background-color:#fff;
+    
+        
+    }
+
+        .admsolicitationstable > table, tr  td a:hover{
+        background-color:#0d8331;
+    }
+
+       .admsolicitationstable > table, td {
+           border: 1px solid black;
+           border-collapse: collapse;
+         }
+      
+
+    
+    /**//**/
