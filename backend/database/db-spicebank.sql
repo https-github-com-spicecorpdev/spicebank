@@ -70,8 +70,6 @@ CREATE TABLE `bank`(
 
 INSERT INTO `bank`(capital) VALUES(1000);
 
-DROP TABLE bank;
-
 -- Criando estrutura para tabela agency
 CREATE TABLE IF NOT EXISTS `agency` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -83,48 +81,39 @@ CREATE TABLE IF NOT EXISTS `agency` (
 ) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 -- Criando estrutura para tabela agency_manager
-CREATE TABLE IF NOT EXISTS `agency_manager` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(10) NOT NULL,
-  `registration_number` int(12) NOT NULL,
-  `work_agency_id` int(11) NOT NULL,
-  `profile_user` int(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  constraint `fk_agency_manager_bank`
-  foreign key (`work_agency_id`) references `agency`(`id`),
-  constraint `fk_agency_manager_profile_user`
-  foreign key (`profile_user`) references `profile`(`id`)  
-) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
--- Criando estrutura para tabela manager
 CREATE TABLE IF NOT EXISTS `manager` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(10) NOT NULL,
   `registration_number` int(12) NOT NULL,
-  `profile_user_id` int(1) DEFAULT NULL,
+  `work_agency_id` int(11),
+  `profile_user` int(1) DEFAULT NULL,
   `bank_id` int(1) NOT NULL,
   PRIMARY KEY (`id`),
+  constraint `fk_agency_manager_profile_user`
+  foreign key (`profile_user`) references `profile`(`id`),
+  constraint `fk_agency_manager_id_user`
+  foreign key (`id_user`) references `tuser`(`idUser`),
   constraint `fk_manager_bank`
-  foreign key (`bank_id`) references `bank`(`id`),
-  constraint `fk_manager_profile_user`
-  foreign key (`profile_user_id`) references `profile`(`id`)
+  foreign key (`bank_id`) references `bank`(`id`)
 ) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 
-INSERT INTO spicebank.tuser
-(nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
-VALUES('Vito', 1, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'M', '123');
-
+-- Cria agência
 INSERT INTO spicebank.agency
 (`number`, bank_id)
 VALUES(nextval(agency_number), 1);
 
-
-INSERT INTO spicebank.taccount
-(numberAccount, totalbalance, idAccountUser, agencyUser, statusAccount, solicitacao)
-VALUES(NEXTVAL(account_number), 0, 23, 1, 1, 'aprovado');
-
-
+-- Cria gerente geral
 INSERT INTO spicebank.manager
-(id_user, registration_number, profile_user_id, bank_id)
-VALUES(23, NEXTVAL(manager_registration_number), 1, 1);
+(id_user, registration_number, work_agency_id, profile_user, bank_id)
+VALUES(25, NEXTVAL(manager_registration_number), null, 1, 1);
+
+-- Cria gerente Agência
+INSERT INTO spicebank.manager
+(id_user, registration_number, work_agency_id, profile_user, bank_id)
+VALUES(23, NEXTVAL(manager_registration_number), 1, 2, 1);
+
+-- Cria usuário comum
+INSERT INTO spicebank.tuser
+(nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
+VALUES('José', 3, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'M', '123');

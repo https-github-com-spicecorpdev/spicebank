@@ -5,6 +5,7 @@ from . import db
 from .user_database import UserDatabase
 from .account_database import AccountDatabase
 from .statement_database import StatementDatabase
+from .manager_database import ManagerDatabase
 from flask_session import Session
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
@@ -16,6 +17,7 @@ connection = db.connect()
 accountDatabase = AccountDatabase(connection)
 userDatabase = UserDatabase(connection)
 statementDatabase = StatementDatabase(connection)
+managerDatabase = ManagerDatabase(connection)
 
 def create_app(configuration=None):
     # if app:
@@ -46,3 +48,5 @@ def get_user_database():
 def get_statement_database():
     return statementDatabase
 
+def get_manager_database():
+    return managerDatabase

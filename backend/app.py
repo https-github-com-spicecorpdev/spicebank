@@ -1,7 +1,8 @@
 from flask import request, render_template, session, flash
 from flask_login import login_user, current_user, login_required, logout_user
 import mariadb
-from . import create_app, get_db_connection, get_account_database, get_user_database, get_statement_database
+from . import create_app, get_db_connection, get_account_database, get_user_database, get_statement_database, get_manager_database
+from .manager import Manager
 from .user import User
 from .address import Address
 from .statement import Statement
@@ -13,6 +14,10 @@ connection = get_db_connection()
 userDatabase = get_user_database()
 accountDatabase = get_account_database()
 statementDatabase = get_statement_database()
+managerDatabase = get_manager_database()
+manager = managerDatabase.findById(1)
+logging.info(manager)
+managerDatabase.findById(99)
 
 @app.route('/')
 @login_required
