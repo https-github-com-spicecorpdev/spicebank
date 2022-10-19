@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>SpiceBank</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/menu_lateral_template.css') }}">
+    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
+    {% endblock %}
+</head>
+<body class="userbody">
+{% block nav %}
+
+<nav class="usernav">
+<ul>
+<li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
+<li><a href="/withdrawform"><i class="fa-solid fa-hand-holding-dollar"></i>Saque</a></li>
+<li><a href="/depositform"><i class="fas fa-money-bill-wave"></i>Depósito</a></li>
+<li><a href="/statementform"><i class="fa-regular fa-file-lines"></i>Extrato</a></li>
+
+</ul>
+<div>
+<a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+</div>
+</nav>
+{% endblock %}
+
+
+{% block justify %}
+<div class="justify">
+{% block contents %}
+
+{% endblock contents %}
+</div>
+{% endblock justify%}
+</body>
+</html>
