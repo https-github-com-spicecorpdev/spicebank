@@ -13,10 +13,15 @@ class UserDatabase:
         cursor = self.db.cursor(dictionary=True)
         query = """
         SELECT USR.*, ACCOUNT.* 
-        FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
-        WHERE USR.idUser = ?
+       FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+       WHERE USR.idUser = ?
+       union    
+        SELECT USR.*, ACCOUNT.* 
+       FROM tuser AS USR right JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+       WHERE USR.idUser = ?;
         """
-        parameters = (id, )
+        
+        parameters = (id,id,)
         cursor.execute(query, parameters) 
         userFromDB = cursor.fetchone()
         if userFromDB:

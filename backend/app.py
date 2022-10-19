@@ -15,15 +15,17 @@ userDatabase = get_user_database()
 accountDatabase = get_account_database()
 statementDatabase = get_statement_database()
 managerDatabase = get_manager_database()
-manager = managerDatabase.findById(1)
-logging.info(manager)
-managerDatabase.findById(99)
+
 
 @app.route('/')
 @login_required
 def index():
     user = current_user
-    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
+    logging.info (user)
+    if hasattr(user,'profile'):
+        return render_template('homeGerente.html'), 200
+    else:
+        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
 
 @login_manager.unauthorized_handler
 def unauthorized():
@@ -32,6 +34,7 @@ def unauthorized():
 @login_manager.user_loader
 def load_user(user_id):
     return userDatabase.findById(user_id)
+    
 
 @app.route('/login', methods = ['POST'])
 def login():
@@ -79,61 +82,25 @@ def loginAcomp():
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('acompanhamento.html', message=message), 400
 
-@app.route('/admForm')
-@login_required
+@app.route('/loginGerente' , methods = ['GET'])
 def admForm():
-    return render_template('homeGerente.html'), 200
+    return render_template('loginGerente.html'), 200
 
 @app.route('/loginGerente', methods = ['POST'])
 def loginGerente():
     if not validate_form(request.form):
         message = flash('Preencha todos os campos!')
         return render_template('loginGerente.html', message=message), 400
-    cursor = connection.cursor()
-    query = "SELECT U.idUser AS idUser, U.nameUser AS nameUser, U.cpfUser AS cpfUser, U.profileUser AS profileUser, U.passwordUser AS passwordUser, Ag.idAgency AS idAgency, Ag.accountAgency AS accountAgency, Ag.idManager AS idManager FROM tuser AS U INNER JOIN tagency AS Ag ON idUser = idManager WHERE cpfUser = ? AND profileUser != 3 AND passwordUser = ? "
-    parameters = (request.form['fcpf'], request.form['fpassword'], )
-    print(parameters)
-    cursor.execute(query, parameters)
-    user = cursor.fetchone()
-    print(user)
-    if user and not (user[0] == ''):
-        session['autenticado'] = True
-        session['nameManager']=user[1]
-        session['cpfUser']=user[2]
-        session['profileUser']=user[3]
-        session['accountAgency']=user[6]
-        message = flash(f'Olá, {user[1]}!')
-        message = flash(f'Bem-vindo gerente da agência: {user[6]}')
-        message = flash(f'Estas são as contas de usuários que aguardam confirmação!')
-        if user[3] == 2:
-            cursor = connection.cursor()
-            query = "SELECT U.idUser AS idUser, U.nameUser AS nameUser, U.cpfUser AS cpfUser, A.idAccount AS idAccount, A.idAccountUser AS idAccountUser, A.solicitacao AS solicitacao, A.numberAccount AS numberAccount FROM tuser AS U INNER JOIN taccount AS A ON idUser = idAccountUser WHERE solicitacao = 'pendente'"
-            cursor.execute(query)
-            rows = cursor.fetchall()
-            print(rows)
-            if cursor.rowcount > 0:
-                print(cursor.rowcount)
-                for user in rows:
-                    print(user)
-                while user[0] > 0:    
-                    session['nameUser']=user[1]
-                    session['cpfUser']=user[2]
-                    session['idAccount']=user[3]
-                    session['solicitacao']=user[5]
-                    session['numberAccount']=user[6]
-                    message = flash(f'Este usuário foi para a sua agência')
-                    return render_template('homeGerente.html', nameManager=session['nameManager'], name=session['nameUser'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], userDetails = rows, numeroConta=session['numberAccount'], message=(message)), 200
-            else:
-                return render_template('homeGerente.html', nameManager=session['nameManager'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], numeroConta=session['numberAccount'], message=(message)), 200
-        else:
-            message = flash('Bem-Vindo Gerente Geral!')
-            return render_template('homeGerente.html', name=session['nameUser'],cpf=session['cpfUser'], nameManager=session['nameManager'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], numeroConta=session['numberAccount'], message=(message)), 200
+    manager = managerDatabase.findByRegistrationNumberAndPassword (request.form['fmatricula'], request.form['fpassword'])
+    if manager:
+        logging.info(manager)
+        login_user(manager)
+        return render_template('homeGerente.html'), 200
     else:
-        session['autenticado']=False
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('loginGerente.html', message=message), 400
 
-@app.route('/registerFormManager')
+@app.route('/registerManager' , methods = ['GET'])
 def registerFormManager():
     return render_template('cadastrogerente.html'), 200
 
