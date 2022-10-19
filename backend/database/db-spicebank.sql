@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `agency` (
 -- Criando estrutura para tabela agency_manager
 CREATE TABLE IF NOT EXISTS `manager` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(10) NOT NULL,
+  `id_user` INT(11) NOT NULL,
   `registration_number` int(12) NOT NULL,
   `work_agency_id` int(11),
   `profile_user` int(1) DEFAULT NULL,
@@ -103,17 +103,18 @@ INSERT INTO spicebank.agency
 (`number`, bank_id)
 VALUES(nextval(agency_number), 1);
 
+-- Cria usuário comum
+INSERT INTO spicebank.tuser
+(nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
+VALUES('Jose', 3, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'M', '123');
+
 -- Cria gerente geral
 INSERT INTO spicebank.manager
 (id_user, registration_number, work_agency_id, profile_user, bank_id)
-VALUES(25, NEXTVAL(manager_registration_number), null, 1, 1);
+VALUES(23, NEXTVAL(manager_registration_number), null, 1, 1);
 
 -- Cria gerente Agência
 INSERT INTO spicebank.manager
 (id_user, registration_number, work_agency_id, profile_user, bank_id)
 VALUES(23, NEXTVAL(manager_registration_number), 1, 2, 1);
 
--- Cria usuário comum
-INSERT INTO spicebank.tuser
-(nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
-VALUES('José', 3, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'M', '123');
