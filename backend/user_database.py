@@ -13,15 +13,20 @@ class UserDatabase:
         cursor = self.db.cursor(dictionary=True)
         query = """
         SELECT USR.*, ACCOUNT.* 
-        FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
-        WHERE USR.idUser = ?
+       FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+       WHERE USR.idUser = ?
+       union    
+        SELECT USR.*, ACCOUNT.* 
+       FROM tuser AS USR right JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+       WHERE USR.idUser = ?;
         """
-        parameters = (id, )
+        
+        parameters = (id,id,)
         cursor.execute(query, parameters) 
         userFromDB = cursor.fetchone()
         if userFromDB:
             account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'], status=userFromDB['statusAccount'], solicitacao=userFromDB['solicitacao'])
-            return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], userFromDB['passwordUser'], userFromDB['birthdateUser'], userFromDB['genreUser'], account=account, applicationProfile=userFromDB['profileUser'])
+            return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], userFromDB['passwordUser'], userFromDB['birthdateUser'], userFromDB['genreUser'], account=account)
         else:
             logging.info(f'Usuário com o id: {id} não encontrado!')
             return None
@@ -40,7 +45,7 @@ class UserDatabase:
         userFromDB = cursor.fetchone()
         if userFromDB:
             account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'])
-            return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], password, userFromDB['birthdateUser'], userFromDB['genreUser'], account=account, applicationProfile=userFromDB['profileUser'])
+            return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], password, userFromDB['birthdateUser'], userFromDB['genreUser'], account=account)
         else:
             logging.info(f'Usuário não encontrado!')
             return None
@@ -109,7 +114,7 @@ class UserDatabase:
             userFromDB = cursor.fetchone()
             if userFromDB:
                 account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'])
-                return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], "fooPassword", userFromDB['birthdateUser'], userFromDB['genreUser'], account=account, applicationProfile=userFromDB['profileUser'])
+                return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], "fooPassword", userFromDB['birthdateUser'], userFromDB['genreUser'], account=account)
             else:
                 logging.info(f'Usuário com cpf: {cpf} não encontrado!')
                 return None

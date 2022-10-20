@@ -1,12 +1,11 @@
 class User:
-    def __init__(self, userId, fullName, cpfNumber, secret, dateOfBirth, identificationGender, account=None, applicationProfile='3', address=None):
+    def __init__(self, userId, fullName, cpfNumber, secret, dateOfBirth, identificationGender, account=None, address=None):
         self.id = userId
         self.name = fullName
         self.cpf = cpfNumber
         self.password = secret
         self.birthDate = dateOfBirth
         self.gender = identificationGender
-        self.profile = applicationProfile
         self.account = account
         self.address = address
 
@@ -32,4 +31,4 @@ class User:
         return str(self.id)
 
     def __str__(self):
-        return f'Id: {self.id}, name: {self.name}, cpf: {self.cpf}, secret: {self.password}, nascimento:{self.birthDate}, genero: {self.gender}, perfil:{self.profile} :: account {self.account}'
+        return f'Id: {self.id}, name: {self.name}, cpf: {self.cpf}, secret: {self.password}, nascimento:{self.birthDate}, genero: {self.gender} :: account {self.account}'

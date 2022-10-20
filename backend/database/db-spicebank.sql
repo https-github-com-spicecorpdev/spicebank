@@ -1,10 +1,12 @@
--- Criando banco de dados para spicebank
+-- Criando estrutura do banco de dados para spicebank
 CREATE DATABASE IF NOT EXISTS `spicebank`;
 USE `spicebank`;
 
 CREATE SEQUENCE IF NOT EXISTS account_number START WITH 1001 INCREMENT BY 1 MINVALUE=0 MAXVALUE=999999;
 
-CREATE SEQUENCE IF NOT EXISTS agency_manager START WITH 1 INCREMENT BY 1 MINVALUE=0 MAXVALUE=999999;
+CREATE SEQUENCE IF NOT EXISTS agency_number START WITH 1 INCREMENT BY 1 MINVALUE=0 MAXVALUE=999999;
+
+CREATE SEQUENCE IF NOT EXISTS manager_registration_number START WITH 1000 INCREMENT BY 1 MINVALUE=0 MAXVALUE=999999;
 
 -- Criando estrutura para tabela spicebank.taccount
 CREATE TABLE IF NOT EXISTS `taccount` (
@@ -18,42 +20,16 @@ CREATE TABLE IF NOT EXISTS `taccount` (
   PRIMARY KEY (`idAccount`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
--- Criando estrutura para tabela spicebank.tprofile
-CREATE TABLE IF NOT EXISTS `tprofile` (
-  `idProfile` int(11) NOT NULL AUTO_INCREMENT,
-  `nameProfile` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`idProfile`)
+-- Criando estrutura para tabela spicebank.profile
+CREATE TABLE IF NOT EXISTS `profile` (
+  `id` int(1) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
-
-INSERT INTO `tprofile` (`idProfile`, `nameProfile`) VALUES
+INSERT INTO `profile` (`id`, `name`) VALUES
 	(1, 'gerente geral'),
-	(2, 'gerente regional'),
-	(3, 'usuario');
-
--- Criando estrutura para tabela spicebank.tagency
-CREATE TABLE IF NOT EXISTS `tagency` (
-  `idAgency` int(11) NOT NULL AUTO_INCREMENT,
-  `accountAgency` int(11) DEFAULT NULL,
-  `idManager` int(11) DEFAULT NULL,
-  PRIMARY KEY (idAgency)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
-
-
--- Criando estrutura para tabela spicebank.bank_statement
-CREATE TABLE IF NOT EXISTS `bank_statement` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) NOT NULL, 
-  `balance` float(11) NOT NULL,
-  `deposit` float DEFAULT NULL,
-  `withdraw` float DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `operation` varchar(1) not null,
-  PRIMARY KEY (`id`),
-  constraint `fk_tuser_bank_statement`
-  foreign key (id_user) references tuser(idUser)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
-
+	(2, 'gerente regional');
 
 -- Criando estrutura para tabela spicebank.tuser
 CREATE TABLE IF NOT EXISTS `tuser` (
@@ -69,16 +45,76 @@ CREATE TABLE IF NOT EXISTS `tuser` (
   `birthdateUser` date DEFAULT NULL,
   `genreUser` varchar(1) DEFAULT NULL,
   `passwordUser` varchar(255) DEFAULT NULL,
-  `profileUser` int(1) DEFAULT NULL,
   PRIMARY KEY (`idUser`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
 
--- Criando estrutura para tabela spicebank.tbank
-CREATE TABLE `tbank`(
-    `id` int unsigned not null auto_increment primary key,
+-- Criando estrutura para tabela spicebank.bank_statement
+CREATE TABLE IF NOT EXISTS `bank_statement` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL, 
+  `balance` float(11) NOT NULL,
+  `deposit` float(11) DEFAULT NULL,
+  `withdraw` float(11) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `operation` varchar(1) not null,
+  PRIMARY KEY (`id`),
+  constraint `fk_tuser_bank_statement`
+  foreign key (`id_user`) references `tuser`(idUser)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `bank`(
+    `id` int(11) not null auto_increment,
     `capital` float not null,
-    `agency` int not null default 1,
-    `generalManager` varchar(20) not null
+    PRIMARY KEY (`id`)
 ) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
-INSERT INTO `tbank`(`capital`, `agency`, `generalManager`) VALUES(1000, 1, 'Ronaldo');
+INSERT INTO `bank`(capital) VALUES(1000);
+
+-- Criando estrutura para tabela agency
+CREATE TABLE IF NOT EXISTS `agency` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `number` int(11) NOT NULL,
+  `bank_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  constraint `fk_agency_bank`
+  foreign key (`bank_id`) references `bank`(id)
+) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+-- Criando estrutura para tabela agency_manager
+CREATE TABLE IF NOT EXISTS `manager` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` INT(11) NOT NULL,
+  `registration_number` int(12) NOT NULL,
+  `work_agency_id` int(11),
+  `profile_user` int(1) DEFAULT NULL,
+  `bank_id` int(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  constraint `fk_agency_manager_profile_user`
+  foreign key (`profile_user`) references `profile`(`id`),
+  constraint `fk_agency_manager_id_user`
+  foreign key (`id_user`) references `tuser`(`idUser`),
+  constraint `fk_manager_bank`
+  foreign key (`bank_id`) references `bank`(`id`)
+) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+
+
+-- Cria agência
+INSERT INTO spicebank.agency
+(`number`, bank_id)
+VALUES(nextval(agency_number), 1);
+
+-- Cria usuário comum
+INSERT INTO spicebank.tuser
+(nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
+VALUES('Jose', 3, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'M', '123');
+
+-- Cria gerente geral
+INSERT INTO spicebank.manager
+(id_user, registration_number, work_agency_id, profile_user, bank_id)
+VALUES(23, NEXTVAL(manager_registration_number), null, 1, 1);
+
+-- Cria gerente Agência
+INSERT INTO spicebank.manager
+(id_user, registration_number, work_agency_id, profile_user, bank_id)
+VALUES(23, NEXTVAL(manager_registration_number), 1, 2, 1);
+
