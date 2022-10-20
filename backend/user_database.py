@@ -25,7 +25,7 @@ class UserDatabase:
         cursor.execute(query, parameters) 
         userFromDB = cursor.fetchone()
         if userFromDB:
-            account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'], status=userFromDB['statusAccount'], solicitacao=userFromDB['solicitacao'])
+            account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'])
             return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], userFromDB['passwordUser'], userFromDB['birthdateUser'], userFromDB['genreUser'], account=account)
         else:
             logging.info(f'Usuário com o id: {id} não encontrado!')
@@ -67,6 +67,19 @@ class UserDatabase:
                 return None
         except mariadb.Error as e:
             logging.error(e)
+    
+    def open_solicitation(self, user_id):
+        cursor = self.db.cursor()
+        query = """
+            INSERT INTO solicitation (id_user, status_account, solicitacao) VALUES(?, 0, 'pendente')
+        """
+        parameters = (user_id,)
+        try:
+            cursor.execute(query, parameters)
+            self.db.commit()
+            logging.info('Solicitação de abertura de conta concluída')
+        except mariadb.Error as e:
+            logging.error(e)
 
     def save(self, user):
         cursor = self.db.cursor()
@@ -85,8 +98,9 @@ class UserDatabase:
     def findSolicitationByCpfAndPassword(self, cpf, password):
         cursor = self.db.cursor(dictionary=True)
         query = """
-        SELECT USR.*, ACCOUNT.* 
+        SELECT USR.*, ACCOUNT.* , SOLICITATION.*
         FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON idUser = idAccountUser 
+        INNER JOIN solicitation AS SOLICITATION ON USR.idUser = SOLICITATION.id_user
         WHERE cpfUser = ? AND passwordUser = ?
         """
         parameters = (cpf, password,)

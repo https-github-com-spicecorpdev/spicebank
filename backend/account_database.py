@@ -9,7 +9,7 @@ class AccountDatabase:
     def create(self, userId):
         cursor = self.db.cursor()
         query = """
-            INSERT INTO taccount (numberAccount, totalbalance, idAccountUser, statusAccount, solicitacao) values (next value for account_number, 0, ?, 0, 'pendente');
+            INSERT INTO taccount (numberAccount, totalbalance, idAccountUser) values (next value for account_number, 0, ?);
         """
         parameters = (userId, )
         cursor.execute(query, parameters)

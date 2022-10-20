@@ -15,9 +15,17 @@ CREATE TABLE IF NOT EXISTS `taccount` (
   `totalbalance` float DEFAULT NULL,
   `idAccountUser` int(11) DEFAULT NULL,
   `agencyUser` int(11) DEFAULT NULL,
-  `statusAccount` int(11) DEFAULT NULL,
-  `solicitacao` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idAccount`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `solicitation` (
+	id int(11) NOT NULL AUTO_INCREMENT,
+	id_user int(11) NOT NULL,
+	status_account int(1),
+	solicitacao varchar(16) not null,
+	primary key(id),	
+	constraint `fk_tuser_solicitation`
+  	foreign key (`id_user`) references `tuser`(idUser)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- Criando estrutura para tabela spicebank.profile
@@ -108,13 +116,22 @@ INSERT INTO spicebank.tuser
 (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
 VALUES('Jose', 3, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'M', '123');
 
+INSERT INTO spicebank.tuser
+(nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
+VALUES('Aline', 5, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'F', '123');
+
 -- Cria gerente geral
 INSERT INTO spicebank.manager
 (id_user, registration_number, work_agency_id, profile_user, bank_id)
 VALUES(23, NEXTVAL(manager_registration_number), null, 1, 1);
 
+-- Cria usuário comum
+INSERT INTO spicebank.tuser
+(nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
+VALUES('Ronaldo', 4, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'M', '123');
+
 -- Cria gerente Agência
 INSERT INTO spicebank.manager
 (id_user, registration_number, work_agency_id, profile_user, bank_id)
-VALUES(23, NEXTVAL(manager_registration_number), 1, 2, 1);
+VALUES(24, NEXTVAL(manager_registration_number), 1, 2, 1);
 

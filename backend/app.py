@@ -150,8 +150,9 @@ def register():
     else:
         address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
         user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
-        userId = userDatabase.save(user)
-        accountDatabase.create(userId)
+        user_id = userDatabase.save(user)
+        userDatabase.open_solicitation(user_id)
+        accountDatabase.create(user_id)
         return render_template('login.html'), 201
 
 @app.route('/aprovar')
