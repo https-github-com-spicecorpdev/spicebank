@@ -41,4 +41,18 @@ class ManagerDatabase:
             logging.info(f'Gerente de Agência com matricula : {registrationNumber} não encontrada!')
             return None
 
-    
+    def find_by_user_id(self, user_id):
+        cursor=self.db.cursor(dictionary=True)
+        query= """
+        SELECT TUSER.*, MANAGER.*
+        FROM manager as  MANAGER
+        INNER JOIN tuser as TUSER ON MANAGER.id_user = TUSER.idUser WHERE TUSER.idUser = ?;
+        """
+        parameters = (user_id, )
+        cursor.execute(query, parameters)
+        manager_from_db = cursor.fetchone()
+        if manager_from_db:
+            return Manager(manager_from_db['nameUser'], manager_from_db['cpfUser'], manager_from_db['passwordUser'], manager_from_db['birthdateUser'], manager_from_db['genreUser'], manager_from_db['registration_number'], manager_from_db['work_agency_id'], manager_from_db['profile_user'], userId=manager_from_db['idUser'], managerId=manager_from_db['id'])
+        else:
+            logging.info(f'Gerente de Agência com o id: {user_id} não encontrado!')
+            return None

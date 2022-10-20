@@ -16,13 +16,15 @@ accountDatabase = get_account_database()
 statementDatabase = get_statement_database()
 managerDatabase = get_manager_database()
 
+def is_manager(user):
+    return 'Manager' == user.__class__.__name__
 
 @app.route('/')
 @login_required
 def index():
     user = current_user
-    logging.info (user)
-    if hasattr(user,'profile'):
+    manager = managerDatabase.find_by_user_id(user.id)
+    if manager:
         return render_template('homeGerente.html'), 200
     else:
         return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
@@ -33,8 +35,8 @@ def unauthorized():
 
 @login_manager.user_loader
 def load_user(user_id):
-    return userDatabase.findById(user_id)
-    
+    user= userDatabase.findById(user_id)
+    return user
 
 @app.route('/login', methods = ['POST'])
 def login():
