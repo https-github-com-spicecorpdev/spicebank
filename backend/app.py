@@ -1,7 +1,7 @@
 from flask import request, render_template, session, flash
 from flask_login import login_user, current_user, login_required, logout_user
 import mariadb
-from . import create_app, get_db_connection, get_account_database, get_user_database, get_statement_database, get_manager_database
+from . import create_app, get_db_connection, get_account_database, get_user_database, get_statement_database, get_manager_database, get_solicitation_database
 from .manager import Manager
 from .user import User
 from .address import Address
@@ -15,6 +15,7 @@ userDatabase = get_user_database()
 accountDatabase = get_account_database()
 statementDatabase = get_statement_database()
 managerDatabase = get_manager_database()
+solicitationDatabase = get_solicitation_database()
 
 def is_manager(user):
     return 'Manager' == user.__class__.__name__
@@ -23,9 +24,8 @@ def is_manager(user):
 @login_required
 def index():
     user = current_user
-    manager = managerDatabase.find_by_user_id(user.id)
-    if manager:
-        return render_template('homeGerente.html'), 200
+    if is_manager(user):
+        return render_template('admhome.html'), 200
     else:
         return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
 
@@ -36,7 +36,11 @@ def unauthorized():
 @login_manager.user_loader
 def load_user(user_id):
     user= userDatabase.findById(user_id)
-    return user
+    manager = managerDatabase.find_by_user_id(user.id)
+    if manager:
+        return manager
+    else:
+        return user
 
 @app.route('/login', methods = ['POST'])
 def login():
@@ -73,7 +77,7 @@ def loginAcomp():
         return render_template('acompanhamento.html', message=message), 400
     solicitation = userDatabase.findSolicitationByCpfAndPassword(request.form['fcpf'], request.form['fpassword'])
     if solicitation:
-        if solicitation.status == "aprovado":
+        if solicitation.status == "Aprovado":
             message = flash(f'Agência: {solicitation.agency} / Conta: {solicitation.account}')
             message = flash('Guarde sua agência e conta!')
             return render_template('homeAcomp.html', name=solicitation.name, solicitacao=solicitation.status, message=message), 200
@@ -97,7 +101,7 @@ def loginGerente():
     if manager:
         logging.info(manager)
         login_user(manager)
-        return render_template('homeGerente.html'), 200
+        return render_template('admhome.html'), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('loginGerente.html', message=message), 400
@@ -150,54 +154,26 @@ def register():
     else:
         address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
         user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
-        userId = userDatabase.save(user)
-        accountDatabase.create(userId)
+        user_id = userDatabase.save(user)
+        userDatabase.open_solicitation(user_id,'Abertura de conta')
+        
         return render_template('login.html'), 201
 
-@app.route('/aprovar')
-def aprovar():
-        # cursor = connection.cursor()
-        # query = "SELECT * from taccount"
-        # cursor.execute(query)
-        # user = cursor.fetchone()
-        # print(user)
-        # session['idAccount']=user[0]
-        cursor = connection.cursor()
-        query = "UPDATE taccount SET agencyUser = ?, statusAccount = 1, solicitacao = 'aprovado' WHERE idAccount = ?"
-        parameters = (session.get("accountAgency"))
-        parameters2 = (session['idAccount'])
-        numeroDConta = (parameters, parameters2,)
-        print(numeroDConta)
-        cursor.execute(query, numeroDConta)
-        connection.commit()
-        if user[3] == 2:
-            cursor = connection.cursor()
-            query = "SELECT U.idUser AS idUser, U.nameUser AS nameUser, U.cpfUser AS cpfUser, A.idAccount AS idAccount, A.idAccountUser AS idAccountUser, A.solicitacao AS solicitacao, A.numberAccount AS numberAccount FROM tuser AS U INNER JOIN taccount AS A ON idUser = idAccountUser WHERE solicitacao = 'pendente'"
-            cursor.execute(query)
-            rows = cursor.fetchall()
-            print(rows)
-            if cursor.rowcount > 0:
-                print(cursor.rowcount)
-                for user in rows:
-                    print(user)
-                while user[0] > 0:    
-                    session['nameUser']=user[1]
-                    session['cpfUser']=user[2]
-                    session['idAccount']=user[3]
-                    session['solicitacao']=user[5]
-                    session['numberAccount']=user[6]
-                    message = flash(f'Este usuário foi para a sua agência')
-                    return render_template('homeGerente.html', nameManager=session['nameManager'], name=session['nameUser'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], userDetails = rows, numeroConta=session['numberAccount'], message=(message)), 200
-            else:
-                return render_template('homeGerente.html', nameManager=session['nameManager'], name=session['nameUser'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], numeroConta=session['numberAccount'], message=(message)), 200
-        else:
-            return render_template('homeGerente.html', nameManager=session['nameManager'], name=session['nameUser'], agenciadoGer=session['accountAgency'], solicitacao=session['solicitacao'], numeroConta=session['numberAccount'], message=(message)), 200
-
-#Abertura de conta
-
-
-#Abertura de conta bancária
-# INSERT INTO taccount (numberAccount, totalbalance, idAccountUser) values ('12', '0', LAST_INSERT_ID());
+@app.route('/<user_id>/<action>/<id>/solicitacao')
+@login_required
+def solicitacao(user_id,action,id):
+    manager=current_user
+    if not is_manager(manager):
+        render_template('login.html'), 401
+    if action =='aprovar':
+        logging.info(f'Aprovando a solicitação do usuario {user_id}')
+        accountDatabase.create(user_id,manager.workAgency) 
+        solicitationDatabase.update_status_by_id(id,'Aprovado') 
+    else:
+        logging.info(f'Reprovando a solicitação do usuario {user_id}')
+        solicitationDatabase.update_status_by_id(id,'Reprovado')
+    solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
+    return render_template('admsolicitations.html', solicitacoes=solicitations), 200
 
 @app.route('/withdrawform')
 @login_required
@@ -322,6 +298,13 @@ def print():
     user = current_user
     statements = statementDatabase.findByUserId(user.id)
     return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements), 200
+
+@app.route('/admsolicitations', methods = ['GET'])
+@login_required
+def solicitations():
+    manager= current_user
+    solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
+    return render_template('admsolicitations.html', solicitacoes=solicitations), 200
 
 def userExists(cpf):
     return userDatabase.findByCpf(cpf)

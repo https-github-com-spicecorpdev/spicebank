@@ -21,30 +21,28 @@
 
             <!--linha com títulos-->
             <tr>
-                <th>ID</th>
                 <th>NOME</th>
-                <th>CONTA</th>
                 <th>SOLICITAÇÃO</th>
-                <th>AÇÃO</th>
+                <th>STATUS</th>
+                <th>APROVAR</th>
+                <th>REPROVAR</th>
             </tr>
-            {% for user in userDetails %}
+            {% for solicitacao in solicitacoes %}
             <tr>
+                <td>{{ solicitacao.nameUser }}</td>
+                <td>{{ solicitacao.solicitation_type }}</td>
+                <td>{{ solicitacao.status }}</td>
                 <td>
-                    {{user[0]}}
-                </td>
-                <td>
-                    {{user[1]}}</td>
-                <td>
-                    {{user[5]}}</td>
-                <td>
-                    {{user[6]}}</td>
-                <td>
-                    <a href="/aprovar">
+                    <a href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='aprovar', id=solicitacao.id) }}">
                         Aprovar
                     </a>
                 </td>
+                <td>
+                    <a href= "{{ url_for('solicitacao',user_id=solicitacao.idUser, action='reprovar', id=solicitacao.id) }}">
+                        Reprovar
+                    </a>
+                </td>
             </tr>
-            <br>
             {% endfor %}
         </table>
         {% endblock contents %}

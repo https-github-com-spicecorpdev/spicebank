@@ -28,6 +28,7 @@ class StatementDatabase:
             cursor.execute(query, parameters)
             statementsFromDB = cursor.fetchall()
             if statementsFromDB:
+                logging.info(statementsFromDB)
                 return statementsFromDB
             else:
                 logging.info(f'Nenhum dado encontrado no extrato!')

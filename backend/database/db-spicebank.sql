@@ -15,17 +15,16 @@ CREATE TABLE IF NOT EXISTS `taccount` (
   `totalbalance` float DEFAULT NULL,
   `idAccountUser` int(11) DEFAULT NULL,
   `agencyUser` int(11) DEFAULT NULL,
-  `statusAccount` int(11) DEFAULT NULL,
-  `solicitacao` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idAccount`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+
 
 -- Criando estrutura para tabela spicebank.profile
 CREATE TABLE IF NOT EXISTS `profile` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `profile` (`id`, `name`) VALUES
 	(1, 'gerente geral'),
@@ -46,7 +45,18 @@ CREATE TABLE IF NOT EXISTS `tuser` (
   `genreUser` varchar(1) DEFAULT NULL,
   `passwordUser` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+
+
+-- Criando estrutura para tabela spicebank.solicitation
+CREATE TABLE IF NOT EXISTS `solicitation` (
+	id int(11) NOT NULL AUTO_INCREMENT PRIMARY key,
+	id_user int(11) NOT NULL,
+	status ENUM('Pendente','Aprovado','Reprovado'),
+	solicitation_type ENUM('Encerrar conta','Abertura de conta','Alteração de dados cadastrais','Confirmação de depósito'),
+	constraint `fk_tuser_solicitation`
+  	foreign key (`id_user`) references `tuser`(idUser)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
 -- Criando estrutura para tabela spicebank.bank_statement
 CREATE TABLE IF NOT EXISTS `bank_statement` (
@@ -60,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `bank_statement` (
   PRIMARY KEY (`id`),
   constraint `fk_tuser_bank_statement`
   foreign key (`id_user`) references `tuser`(idUser)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `bank`(
     `id` int(11) not null auto_increment,
@@ -108,13 +118,22 @@ INSERT INTO spicebank.tuser
 (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
 VALUES('Jose', 3, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'M', '123');
 
+INSERT INTO spicebank.tuser
+(nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
+VALUES('Aline', 5, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'F', '123');
+
 -- Cria gerente geral
 INSERT INTO spicebank.manager
 (id_user, registration_number, work_agency_id, profile_user, bank_id)
-VALUES(23, NEXTVAL(manager_registration_number), null, 1, 1);
+VALUES(1, NEXTVAL(manager_registration_number), null, 1, 1);
+
+-- Cria usuário comum
+INSERT INTO spicebank.tuser
+(nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
+VALUES('Ronaldo', 4, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'M', '123');
 
 -- Cria gerente Agência
 INSERT INTO spicebank.manager
 (id_user, registration_number, work_agency_id, profile_user, bank_id)
-VALUES(23, NEXTVAL(manager_registration_number), 1, 2, 1);
+VALUES(3, NEXTVAL(manager_registration_number), 1, 2, 1);
 
