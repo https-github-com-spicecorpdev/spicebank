@@ -6,12 +6,12 @@ class AccountDatabase:
         self.db = connection
         logging.info('Repositório de contas inicializado!')
 
-    def create(self, userId):
+    def create(self, userId, manager_agency_id):
         cursor = self.db.cursor()
         query = """
-            INSERT INTO taccount (numberAccount, totalbalance, idAccountUser) values (next value for account_number, 0, ?);
+            INSERT INTO taccount (numberAccount, totalbalance, idAccountUser, agencyUser) values (next value for account_number, 0, ?,?);
         """
-        parameters = (userId, )
+        parameters = (userId,manager_agency_id )
         cursor.execute(query, parameters)
         self.db.commit()
 

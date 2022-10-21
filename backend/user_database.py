@@ -68,12 +68,12 @@ class UserDatabase:
         except mariadb.Error as e:
             logging.error(e)
     
-    def open_solicitation(self, user_id):
+    def open_solicitation(self, user_id, solicitation_type):
         cursor = self.db.cursor()
         query = """
-            INSERT INTO solicitation (id_user, status_account, solicitacao) VALUES(?, 0, 'pendente')
+            INSERT INTO solicitation (id_user, status, solicitation_type) VALUES(?, 'Pendente', ?)
         """
-        parameters = (user_id,)
+        parameters = (user_id, solicitation_type,)
         try:
             cursor.execute(query, parameters)
             self.db.commit()
@@ -108,7 +108,7 @@ class UserDatabase:
             cursor.execute(query, parameters)
             userStatus = cursor.fetchone()
             if userStatus:
-                return Solicitation(userStatus['nameUser'], cpf, password, userStatus['solicitacao'], userStatus['numberAccount'], userStatus['agencyUser'])
+                return Solicitation(userStatus['nameUser'], cpf, password, userStatus['status'], userStatus['numberAccount'], userStatus['agencyUser'])
             else:
                 logging.info(f'Solicitação com cpf: {cpf} não encontrada!')
                 return None
