@@ -81,6 +81,9 @@ def loginAcomp():
             message = flash(f'Agência: {solicitation.agency} / Conta: {solicitation.account}')
             message = flash('Guarde sua agência e conta!')
             return render_template('homeAcomp.html', name=solicitation.name, solicitacao=solicitation.status, message=message), 200
+        elif solicitation.status == "Reprovado":
+            message = flash('Solicitação de abertura de conta recusada, entre em contato conosco!')
+            return render_template('homeAcomp.html', name=solicitation.name, solicitacao=solicitation.status, message=message), 200
         else:
             message = flash('Aguardando análise de solicitação.')
             return render_template('homeAcomp.html', name=solicitation.name, solicitacao=solicitation.status, message=message), 200
@@ -155,8 +158,7 @@ def register():
         address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
         user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
         user_id = userDatabase.save(user)
-        userDatabase.open_solicitation(user_id,'Abertura de conta')
-        
+        solicitationDatabase.open_account_solicitation(user_id, 'Abertura de conta')
         return render_template('login.html'), 201
 
 @app.route('/<user_id>/<action>/<id>/solicitacao')
@@ -270,6 +272,7 @@ def depositconfirm():
     valor = float(request.form['fvalor'])
     today = time.strftime('%Y-%m-%d %H:%M:%S')
     try:
+        solicitationDatabase.open_deposit_solicitation(current_user.id, current_user.accountNumber(), 'Confirmação de Depósito', valor)
         bank_id = 1
         update_bank_balance(bank_id, valor)
         update_user_balance(valor)
@@ -330,7 +333,14 @@ def update_bank_balance(bank_id, value):
 def update_user_balance(value):
     current_user.account.deposit(value)
     accountDatabase.updateBalanceByAccountNumber(current_user.balance(), current_user.accountNumber())
-    
+
+def approve_deposit():
+    bank_id = 1
+    update_bank_balance(bank_id, valor)
+    update_user_balance(valor)
+    statement = Statement('C', userId=current_user.id, balance=current_user.balance(), deposit=valor, withdraw=0, date=today)
+    statementDatabase.save(statement)
+
 if __name__ == "__main__":
 
     app.run(debug=True)

@@ -37,3 +37,45 @@ class SolicitationDatabase:
             self.db.commit()
         except mariadb.Error as e:
             logging.error(e)
+
+    def open_account_solicitation(self, user_id, solicitation_type, account_type='Conta Corrente'):
+        cursor = self.db.cursor()
+        solicitation_query = """
+            INSERT INTO solicitation (id_user, status, solicitation_type) VALUES(?, 'Pendente', ?)
+        """
+        account_solicitation_query = """
+            INSERT INTO account_solicitation (id_solicitation, account_type) VALUES(?, ?)
+        """
+        solicitation_parameters = (user_id, solicitation_type,)
+
+        try:
+            cursor.execute(solicitation_query, solicitation_parameters)
+            self.db.commit()
+            account_solicitation_parameters = (cursor.lastrowid, account_type)
+            cursor.execute(account_solicitation_query, account_solicitation_parameters)
+            self.db.commit()
+            
+            logging.info('Solicitação de abertura de conta concluída')
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def open_deposit_solicitation(self, user_id, account_number, solicitation_type, value):
+        cursor = self.db.cursor()
+        solicitation_query = """
+            INSERT INTO solicitation (id_user, status, solicitation_type) VALUES(?, 'Pendente', ?)
+        """
+        deposit_solicitation_query = """
+            INSERT INTO deposit_solicitation (id_solicitation, account_number, deposit_value) VALUES(?, ?, ?)
+        """
+        solicitation_parameters = (user_id, solicitation_type,)
+
+        try:
+            cursor.execute(solicitation_query, solicitation_parameters)
+            self.db.commit()
+            deposit_solicitation_parameters = (cursor.lastrowid, account_number, value)
+            cursor.execute(deposit_solicitation_query, deposit_solicitation_parameters)
+            self.db.commit()
+            
+            logging.info('Solicitação de abertura de conta concluída')
+        except mariadb.Error as e:
+            logging.error(e)
