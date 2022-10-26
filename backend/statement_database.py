@@ -8,8 +8,8 @@ class StatementDatabase:
 
     def save(self, statement):
         cursor = self.db.cursor()
-        query = "INSERT INTO bank_statement (id_user, balance, deposit, withdraw, date, operation) values (?, ?, ?, ?, ?, ?)"
-        parameters = (statement.userId, statement.balance, statement.deposit, statement.withdraw, statement.date, statement.operation)
+        query = "INSERT INTO bank_statement (id_user, balance, deposit, withdraw, operation, situation) values (?, ?, ?, ?, ?, ?)"
+        parameters = (statement.userId, statement.balance, statement.deposit, statement.withdraw, statement.operation, statement.situation)
         try:
             cursor.execute(query, parameters)
             self.db.commit()

@@ -1,5 +1,6 @@
 import logging
 import mariadb
+from .solicitation import DepositSolicitation
 
 class SolicitationDatabase:
     def __init__(self, connection):
@@ -77,5 +78,21 @@ class SolicitationDatabase:
             self.db.commit()
             
             logging.info('Solicitação de abertura de conta concluída')
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def find_deposit_solicitation_by_id_solicitation(self,id_solicitation):
+        cursor = self.db.cursor(dictionary=True)
+        query = """select * from deposit_solicitation ds 
+                   where id_solicitation = ?;"""
+        parameters = (id_solicitation,)
+        try:
+            cursor.execute(query, parameters)
+            result= cursor.fetchone()
+            if result:
+                return DepositSolicitation(id_solicitation, result['account_number'],result ['deposit_value'],id=result['id'])
+            else:
+                logging.info (f'Solicitação com o id: {id_solicitation} não encontrado!')
+                return None
         except mariadb.Error as e:
             logging.error(e)

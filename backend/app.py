@@ -161,21 +161,44 @@ def register():
         solicitationDatabase.open_account_solicitation(user_id, 'Abertura de conta')
         return render_template('login.html'), 201
 
-@app.route('/<user_id>/<action>/<id>/solicitacao')
+@app.route('/<user_id>/<action>/<id>/<type>/solicitacao')
 @login_required
-def solicitacao(user_id,action,id):
-    manager=current_user
-    if not is_manager(manager):
-        render_template('login.html'), 401
-    if action =='aprovar':
-        logging.info(f'Aprovando a solicitação do usuario {user_id}')
-        accountDatabase.create(user_id,manager.workAgency) 
-        solicitationDatabase.update_status_by_id(id,'Aprovado') 
-    else:
-        logging.info(f'Reprovando a solicitação do usuario {user_id}')
-        solicitationDatabase.update_status_by_id(id,'Reprovado')
+def solicitacao(user_id,action,id,type):
+    logging.info(f'user_id: {user_id}, action: {action}, id: {id}, type:{type}')
+    if ((type=='Abertura de conta') or (type=='Encerrar conta')):
+        manager=current_user
+        if not is_manager(manager):
+            render_template('login.html'), 401
+        if action =='aprovar':
+            logging.info(f'Aprovando a solicitação do usuario {user_id}')
+            accountDatabase.create(user_id,manager.workAgency) 
+            solicitationDatabase.update_status_by_id(id,'Aprovado') 
+        else:
+            logging.info(f'Reprovando a solicitação do usuario {user_id}')
+            solicitationDatabase.update_status_by_id(id,'Reprovado')
+    elif type== 'Confirmação de depósito':
+        manager=current_user
+        if not is_manager(manager):
+            render_template('login.html'), 401
+        deposit_solicitation= solicitationDatabase.find_deposit_solicitation_by_id_solicitation(id)
+        account_balance=accountDatabase.getBalanceByAccountNumber(deposit_solicitation.account_number)
+        if action =='aprovar':
+            logging.info(f'Aprovando a solicitação de depósito do usuario {user_id}')
+            total_balance= account_balance + deposit_solicitation.deposit_value
+            bank_id = 1
+            accountDatabase.updateBalanceByAccountNumber(total_balance, deposit_solicitation.account_number)
+            update_bank_balance(bank_id, deposit_solicitation.deposit_value)
+            statement = Statement('C', 'Aprovado', userId=user_id, balance=total_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
+            statementDatabase.save(statement)
+            solicitationDatabase.update_status_by_id(id,'Aprovado') 
+        else:
+            statement = Statement('', 'Reprovado', userId=user_id, balance=account_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
+            statementDatabase.save(statement)
+            solicitationDatabase.update_status_by_id(id,'Reprovado')
+            logging.info(f'Reprovando a solicitação de depósito do usuario {user_id}')
     solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations), 200
+
 
 @app.route('/withdrawform')
 @login_required
@@ -232,7 +255,7 @@ def withdrawConfirm():
         cursor.execute(query, parameters)
         current_user.account.withdraw(value)
         accountDatabase.updateBalanceByAccountNumber(current_user.balance(), current_user.accountNumber())
-        statement = Statement('D', userId=current_user.id, balance=current_user.balance(), deposit=0, withdraw=value, date=today)
+        statement = Statement('D', 'Aprovado', userId=current_user.id, balance=current_user.balance(), deposit=0, withdraw=value, date=today)
         statementDatabase.save(statement)
         return render_template('comprovante_saque.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=value, data=today), 200
     except mariadb.Error as e:
@@ -273,11 +296,7 @@ def depositconfirm():
     today = time.strftime('%Y-%m-%d %H:%M:%S')
     try:
         solicitationDatabase.open_deposit_solicitation(current_user.id, current_user.accountNumber(), 'Confirmação de Depósito', valor)
-        bank_id = 1
-        update_bank_balance(bank_id, valor)
-        update_user_balance(valor)
-        statement = Statement('C', userId=current_user.id, balance=current_user.balance(), deposit=valor, withdraw=0, date=today)
-        statementDatabase.save(statement)
+       
         depositedValue=(f'{valor:.2f}')
         return render_template('comprovante_deposito.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=depositedValue, data=today), 200
     except mariadb.Error as e:
@@ -333,13 +352,6 @@ def update_bank_balance(bank_id, value):
 def update_user_balance(value):
     current_user.account.deposit(value)
     accountDatabase.updateBalanceByAccountNumber(current_user.balance(), current_user.accountNumber())
-
-def approve_deposit():
-    bank_id = 1
-    update_bank_balance(bank_id, valor)
-    update_user_balance(valor)
-    statement = Statement('C', userId=current_user.id, balance=current_user.balance(), deposit=valor, withdraw=0, date=today)
-    statementDatabase.save(statement)
 
 if __name__ == "__main__":
 

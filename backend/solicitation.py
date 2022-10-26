@@ -15,3 +15,11 @@ class OpenAccountSolicitation:
         self.user_id = user_id
         self.solicitation_type = solicitation_type
         self.account_type = account_type
+
+class DepositSolicitation:
+    def __init__(self, id_solicitation, account_number, deposit_value, id=None):
+        self.id=id
+        self.id_solicitation= id_solicitation
+        self.account_number= account_number
+        self.deposit_value= deposit_value
+    

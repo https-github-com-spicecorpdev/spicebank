@@ -33,12 +33,12 @@
                 <td>{{ solicitacao.solicitation_type }}</td>
                 <td>{{ solicitacao.status }}</td>
                 <td>
-                    <a href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='aprovar', id=solicitacao.id) }}">
+                    <a href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='aprovar', id=solicitacao.id, type=solicitacao.solicitation_type) }}">
                         Aprovar
                     </a>
                 </td>
                 <td>
-                    <a href= "{{ url_for('solicitacao',user_id=solicitacao.idUser, action='reprovar', id=solicitacao.id) }}">
+                    <a href= "{{ url_for('solicitacao',user_id=solicitacao.idUser, action='reprovar', id=solicitacao.id,type=solicitacao.solicitation_type)}}">
                         Reprovar
                     </a>
                 </td>

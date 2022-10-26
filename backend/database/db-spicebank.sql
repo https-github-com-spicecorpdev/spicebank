@@ -1,4 +1,3 @@
-DROP DATABASE spicebank;
 -- Criando estrutura do banco de dados para spicebank
 CREATE DATABASE IF NOT EXISTS `spicebank`;
 USE `spicebank`;
@@ -101,12 +100,16 @@ CREATE TABLE IF NOT EXISTS `bank_statement` (
   `balance` float(11) NOT NULL,
   `deposit` float(11) DEFAULT NULL,
   `withdraw` float(11) DEFAULT NULL,
-  `date` date DEFAULT NULL,
+  situation enum('Aprovado', 'Reprovado'),
+  created_time datetime NOT NULL default current_timestamp,
+  updated_time datetime on update current_timestamp,
   `operation` varchar(1) not null,
   PRIMARY KEY (`id`),
   constraint `fk_tuser_bank_statement`
   foreign key (`id_user`) references `tuser`(idUser)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+
+
 
 CREATE TABLE `bank`(
     `id` int(11) not null auto_increment,
@@ -162,7 +165,7 @@ VALUES('Aline', 5, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'F', 
 
 -- Cria solicitação abertura de conta usuário comum
 INSERT INTO spicebank.solicitation
-(id_user, status, solicitation_type, created_time, update_time)
+(id_user, status, solicitation_type, created_time, updated_time)
 VALUES(2, 'Pendente', 'Abertura de conta', current_timestamp, null);
 
 -- Cria gerente geral
@@ -179,3 +182,6 @@ VALUES('Ronaldo', 4, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'M'
 INSERT INTO spicebank.manager
 (id_user, registration_number, work_agency_id, profile_user, bank_id)
 VALUES(3, NEXTVAL(manager_registration_number), 1, 2, 1);
+
+
+
