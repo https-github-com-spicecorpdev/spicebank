@@ -12,7 +12,7 @@ from .bank_database import BankDatabase
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
 logging.info('Inicializando a configuração da aplicação...')
 
-pool = db.connection_pool()
+connection = db.connect()
 
 def create_app():
     app = Flask(__name__)
@@ -40,7 +40,6 @@ def create_manager_app():
     return manager_app, manager_login
 
 def get_repositories():
-    connection = pool.get_connection()
     accountDatabase = AccountDatabase(connection)
     statementDatabase = StatementDatabase(connection)
     solicitationDatabase= SolicitationDatabase(connection)
@@ -49,6 +48,5 @@ def get_repositories():
     return accountDatabase, statementDatabase, solicitationDatabase, bankDatabase, userDatabase
 
 def get_manager_repositories():
-    connection = pool.get_connection()
     managerDatabase = ManagerDatabase(connection)
     return managerDatabase

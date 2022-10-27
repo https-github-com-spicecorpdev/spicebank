@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `bank_statement` (
   `balance` float(11) NOT NULL,
   `deposit` float(11) DEFAULT NULL,
   `withdraw` float(11) DEFAULT NULL,
-  situation enum('Aprovado', 'Reprovado'),
+  situation enum('Aprovado', 'Reprovado', 'Pendente'),
   created_time datetime NOT NULL default current_timestamp,
   updated_time datetime on update current_timestamp,
   `operation` varchar(1) not null,
