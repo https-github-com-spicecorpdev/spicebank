@@ -1,33 +1,30 @@
-from flask import request, render_template, session, flash
+from flask import request, render_template, flash
 from flask_login import login_user, current_user, login_required, logout_user
 import mariadb
-from . import create_app, get_db_connection, get_account_database, get_user_database, get_statement_database, get_manager_database, get_solicitation_database
-from .manager import Manager
+from . import create_app
 from .user import User
 from .address import Address
 from .statement import Statement
+from .user_database import UserDatabase
+from .account_database import AccountDatabase
+from .statement_database import StatementDatabase
+from .solicitation_database import SolicitationDatabase
+from .bank_database import BankDatabase
 import time
 import logging
 
-app, login_manager = create_app()
-connection = get_db_connection()
-userDatabase = get_user_database()
-accountDatabase = get_account_database()
-statementDatabase = get_statement_database()
-managerDatabase = get_manager_database()
-solicitationDatabase = get_solicitation_database()
-
-def is_manager(user):
-    return 'Manager' == user.__class__.__name__
+app, login_manager, connection = create_app()
+accountDatabase = AccountDatabase(connection)
+userDatabase = UserDatabase(connection)
+statementDatabase = StatementDatabase(connection)
+solicitationDatabase= SolicitationDatabase(connection)
+bankDatabase= BankDatabase(connection)
 
 @app.route('/')
 @login_required
 def index():
     user = current_user
-    if is_manager(user):
-        return render_template('admhome.html'), 200
-    else:
-        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
+    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
 
 @login_manager.unauthorized_handler
 def unauthorized():
@@ -35,12 +32,7 @@ def unauthorized():
 
 @login_manager.user_loader
 def load_user(user_id):
-    user= userDatabase.findById(user_id)
-    manager = managerDatabase.find_by_user_id(user.id)
-    if manager:
-        return manager
-    else:
-        return user
+    return userDatabase.findById(user_id)
 
 @app.route('/login', methods = ['POST'])
 def login():
@@ -59,12 +51,6 @@ def login():
 def logout():
     logout_user()
     return render_template('login.html'), 200
-
-@app.route('/logoutmanager')
-def logoutmanager():
-    session['autenticado']=False
-    session.clear()
-    return render_template('loginGerente.html'), 200
 
 @app.route('/acompanhamentoform')
 def acompanhamentoform():
@@ -91,56 +77,6 @@ def loginAcomp():
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('acompanhamento.html', message=message), 400
 
-@app.route('/loginGerente' , methods = ['GET'])
-def admForm():
-    return render_template('loginGerente.html'), 200
-
-@app.route('/loginGerente', methods = ['POST'])
-def loginGerente():
-    if not validate_form(request.form):
-        message = flash('Preencha todos os campos!')
-        return render_template('loginGerente.html', message=message), 400
-    manager = managerDatabase.findByRegistrationNumberAndPassword (request.form['fmatricula'], request.form['fpassword'])
-    if manager:
-        logging.info(manager)
-        login_user(manager)
-        return render_template('admhome.html'), 200
-    else:
-        message = flash(f'Login inválido, verifique os dados de acesso!')
-    return render_template('loginGerente.html', message=message), 400
-
-@app.route('/registerManager' , methods = ['GET'])
-def registerFormManager():
-    return render_template('cadastrogerente.html'), 200
-
-@app.route('/registerManager', methods = ['POST'])
-def registerManager():
-        cursor = connection.cursor()
-        if not validate_form(request.form):
-            message = flash('Preencha todos os campos!')
-            return render_template('cadastrogerente.html', message=message), 400
-        else:
-            if not userExists(request.form['fcpf']):
-                try:
-                    query = "INSERT INTO tuser (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser, profileUser) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 2);"
-                    parameters = (request.form['fname'], request.form['fcpf'], request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcep'], request.form['fcity'], request.form['fstate'], request.form['fbirthdate'], request.form['fgenre'], request.form['fpassword'],)
-                    print(parameters)
-                    cursor.execute(query, parameters)
-                    connection.commit()
-                    query = "INSERT INTO tagency (accountAgency, idManager) values (next value for agency_manager, LAST_INSERT_ID());"
-                    # query = "INSERT INTO tagency (accountAgeny) values (next value for agency_manager);"
-                    cursor.execute(query)
-                    connection.commit()
-                    print(cursor.execute(query))
-                    return render_template('loginGerente.html'), 201
-                except mariadb.Error as e:
-                    print(e)
-                    return "Erro ao cadastrar usuário", 400
-            else:
-                requestCpf = request.form['fcpf']
-                message = flash(f'CPF {requestCpf} com cadastra já existente!')
-        return render_template('cadastrogerente.html', message=message), 400
-
 @app.route('/registerform')
 def registerForm():
     return render_template('cadastro.html'), 200
@@ -160,55 +96,6 @@ def register():
         user_id = userDatabase.save(user)
         solicitationDatabase.open_account_solicitation(user_id, 'Abertura de conta')
         return render_template('login.html'), 201
-
-def account_approval(user_id, action, id):
-    manager=current_user
-    if not is_manager(manager):
-        render_template('login.html'), 401
-    if action =='aprovar':
-        logging.info(f'Aprovando a solicitação do usuario {user_id}')
-        accountDatabase.create(user_id,manager.workAgency) 
-        solicitationDatabase.update_status_by_id(id,'Aprovado') 
-    else:
-        logging.info(f'Reprovando a solicitação do usuario {user_id}')
-        solicitationDatabase.update_status_by_id(id,'Reprovado')
-
-def deposit_approval(user_id, action, id):
-    manager=current_user
-    if not is_manager(manager):
-        render_template('login.html'), 401
-    deposit_solicitation= solicitationDatabase.find_deposit_solicitation_by_id_solicitation(id)
-    account_balance=accountDatabase.getBalanceByAccountNumber(deposit_solicitation.account_number)
-    if action =='aprovar':
-        logging.info(f'Aprovando a solicitação de depósito do usuario {user_id}')
-        total_balance= account_balance + deposit_solicitation.deposit_value
-        bank_id = 1
-        accountDatabase.updateBalanceByAccountNumber(total_balance, deposit_solicitation.account_number)
-        update_bank_balance(bank_id, deposit_solicitation.deposit_value)
-        statement = Statement('C', 'Aprovado', userId=user_id, balance=total_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
-        statementDatabase.save(statement)
-        solicitationDatabase.update_status_by_id(id,'Aprovado') 
-    else:
-        statement = Statement('', 'Reprovado', userId=user_id, balance=account_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
-        statementDatabase.save(statement)
-        solicitationDatabase.update_status_by_id(id,'Reprovado')
-        logging.info(f'Reprovando a solicitação de depósito do usuario {user_id}')
-
-
-
-@app.route('/<user_id>/<action>/<id>/<type>/solicitacao')
-@login_required
-def solicitacao(user_id,action,id,type):
-    manager=current_user
-    if not is_manager(manager):
-        render_template('login.html'), 401
-    if ((type=='Abertura de conta') or (type=='Encerrar conta')):
-        account_approval(user_id, action, id)
-    elif type== 'Confirmação de depósito':
-        deposit_approval(user_id, action, id)
-    solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
-    return render_template('admsolicitations.html', solicitacoes=solicitations), 200
-
 
 @app.route('/withdrawform')
 @login_required
@@ -331,14 +218,6 @@ def print():
     statements = statementDatabase.findByUserId(user.id)
     return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements), 200
 
-
-@app.route('/admsolicitations', methods = ['GET'])
-@login_required
-def solicitations():
-    manager= current_user
-    solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
-    return render_template('admsolicitations.html', solicitacoes=solicitations), 200
-
 def userExists(cpf):
     return userDatabase.findByCpf(cpf)
 
@@ -348,22 +227,9 @@ def validate_form(form):
             return False
     return True
 
-def update_bank_balance(bank_id, value):
-    cursor = connection.cursor()
-    query = "SELECT capital FROM bank WHERE id = ?"
-    parameters = (bank_id,)
-    cursor.execute(query, parameters)
-    bankBalance = float(cursor.fetchone()[0])
-    newBankBalance = bankBalance + value
-    query = "UPDATE bank SET capital = ? WHERE id = ?"
-    parameters = (newBankBalance, bank_id,)
-    cursor.execute(query, parameters)
-    connection.commit()
-
 def update_user_balance(value):
     current_user.account.deposit(value)
     accountDatabase.updateBalanceByAccountNumber(current_user.balance(), current_user.accountNumber())
 
 if __name__ == "__main__":
-
-    app.run(debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=True)

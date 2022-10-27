@@ -7,27 +7,15 @@ from .account_database import AccountDatabase
 from .statement_database import StatementDatabase
 from .manager_database import ManagerDatabase
 from .solicitation_database import SolicitationDatabase
-from flask_session import Session
+from .bank_database import BankDatabase
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
 logging.info('Inicializando a configuração da aplicação...')
 
-# app=None
-
-connection = db.connect()
-accountDatabase = AccountDatabase(connection)
-userDatabase = UserDatabase(connection)
-statementDatabase = StatementDatabase(connection)
-managerDatabase = ManagerDatabase(connection)
-solicitationDatabase= SolicitationDatabase(connection)
-
-def create_app(configuration=None):
-    # if app:
-    #     return app, login_manager
+def create_app():
+    connection = db.connect()
     app = Flask(__name__)
-    app.config["SESSION_PERMANENT"] = False
-    app.config["SESSION_TYPE"] = "filesystem"
-    Session(app)
+    app.secret_key = 'secret'
 
     login_manager = LoginManager()
     login_manager.init_app(app)
@@ -36,22 +24,18 @@ def create_app(configuration=None):
 
     logging.info('Aplicação configurada com sucesso!')
     
-    return app, login_manager
+    return app, login_manager, connection
 
-def get_db_connection():
-    return connection
+def create_manager_app():
+    manager_connection = db.connect()
+    manager_app = Flask(__name__)
+    manager_app.secret_key = 'secreta'
+    
+    manager_login = LoginManager()
+    manager_login.init_app(manager_app)
+    manager_login.login_view='loginGerente'
+    manager_login.login_message='Realize o login para acessar sua conta'
 
-def get_account_database():
-    return accountDatabase
-
-def get_user_database():
-    return userDatabase
-
-def get_statement_database():
-    return statementDatabase
-
-def get_manager_database():
-    return managerDatabase
-
-def get_solicitation_database():
-    return solicitationDatabase
+    logging.info('Aplicação configurada com sucesso!')
+    
+    return manager_app, manager_login, manager_connection
