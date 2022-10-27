@@ -2,7 +2,7 @@ import logging
 import mariadb
 from .user import User
 from .account import Account
-from .user_solicitation import Solicitation
+from .solicitation import Solicitation
 
 class UserDatabase:
     def __init__(self, connection):
@@ -67,19 +67,6 @@ class UserDatabase:
                 return None
         except mariadb.Error as e:
             logging.error(e)
-    
-    def open_solicitation(self, user_id, solicitation_type):
-        cursor = self.db.cursor()
-        query = """
-            INSERT INTO solicitation (id_user, status, solicitation_type) VALUES(?, 'Pendente', ?)
-        """
-        parameters = (user_id, solicitation_type,)
-        try:
-            cursor.execute(query, parameters)
-            self.db.commit()
-            logging.info('Solicitação de abertura de conta concluída')
-        except mariadb.Error as e:
-            logging.error(e)
 
     def save(self, user):
         cursor = self.db.cursor()
@@ -99,9 +86,9 @@ class UserDatabase:
         cursor = self.db.cursor(dictionary=True)
         query = """
         SELECT USR.*, ACCOUNT.* , SOLICITATION.*
-        FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON idUser = idAccountUser 
+        FROM tuser AS USR LEFT JOIN taccount AS ACCOUNT ON idUser = idAccountUser 
         INNER JOIN solicitation AS SOLICITATION ON USR.idUser = SOLICITATION.id_user
-        WHERE cpfUser = ? AND passwordUser = ?
+	    WHERE cpfUser = ? AND passwordUser = ?
         """
         parameters = (cpf, password,)
         try:

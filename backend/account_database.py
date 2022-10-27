@@ -24,3 +24,16 @@ class AccountDatabase:
             self.db.commit()
         except mariadb.Error as e:
             logging.error(e)
+
+
+    def getBalanceByAccountNumber(self, account_number):
+        cursor = self.db.cursor(dictionary=True)
+        query = """select * from taccount t
+                where numberAccount = ?;"""
+        parameters = (account_number,)
+        try:
+            cursor.execute(query, parameters)
+            value= cursor.fetchone()
+            return value['totalbalance']
+        except mariadb.Error as e:
+            logging.error(e)

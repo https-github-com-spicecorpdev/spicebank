@@ -10,6 +10,8 @@ def connect():
             port=3306,
             database = "spicebank"
         )
+        connection.auto_reconnect = True
+        connection.autocommit = True
     except mariadb.Error as e:
         print(f"Error connecting to the database: {e}")
         sys.exit(1)

@@ -1,54 +1,55 @@
 
     {% extends "menu_lateral_adm_template.html" %}
 
-    {% block contents %}
-    <div class="admsolicitationsbutton">
-        <form method="GET" action="{{ url_for('index') }}">
-        <button type="submit">&#8592 Voltar</button>
-        </form></div>
-    
-    
-    
-    
-    
-            <div class="admsolicitationsbox1">
-                <h2>Administrador</h2>
-                <p>Gerente: {{ nameManager }} Agência: {{ agenciadoGer }}
-                </p>
-            </div>
-    
-            <table class="admsolicitationstable">
-    
-                <!--linha com títulos-->
-                <tr>
-                    <th>NOME</th>
-                    <th>SOLICITAÇÃO</th>
-                    <th>STATUS</th>
-                    <th>APROVAR</th>
-                    <th>REPROVAR</th>
-                    <th>DETALHES</th>
-                </tr>
-                {% for solicitacao in solicitacoes %}
-                <tr>
-                    <td>{{ solicitacao.nameUser }}</td>
-                    <td>{{ solicitacao.solicitation_type }}</td>
-                    <td>{{ solicitacao.status }}</td>
-                    <td>{{  }} </td>
-                        <a href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='aprovar', id=solicitacao.id) }}">
-                            Aprovar
-                        </a>
-                    </td>
-                    <td>
-                        <a href= "{{ url_for('solicitacao',user_id=solicitacao.idUser, action='reprovar', id=solicitacao.id) }}">
-                            Reprovar
-                        </a>
-                    </td>
-                    <td>
-                        <a href="">
-                            Detalhes
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-            {% endblock contents %}
+{% block contents %}
+<div class="admsolicitationsbutton">
+    <form method="GET" action="/logoutmanager">
+    <button type="submit">&#8592 Voltar</button>
+    </form></div>
+
+
+
+
+
+        <div class="admsolicitationsbox1">
+            <h2>Administrador</h2>
+            <p>Gerente: {{ nameManager }} Agência: {{ agenciadoGer }}
+            </p>
+        </div>
+
+        <table class="admsolicitationstable">
+
+            <!--linha com títulos-->
+            <tr>
+                <th>NOME</th>
+                <th>SOLICITAÇÃO</th>
+                <th>STATUS</th>
+                <th>APROVAR</th>
+                <th>REPROVAR</th>
+                <th>DETALHES</th>
+            </tr>
+            {% for solicitacao in solicitacoes %}
+            <tr>
+                <td>{{ solicitacao.nameUser }}</td>
+                <td>{{ solicitacao.solicitation_type }}</td>
+                <td>{{ solicitacao.status }}</td>
+                <td>{{  }} </td>
+                <td>
+                    <a href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='aprovar', id=solicitacao.id, type=solicitacao.solicitation_type) }}">
+                        Aprovar
+                    </a>
+                </td>
+                <td>
+                    <a href= "{{ url_for('solicitacao',user_id=solicitacao.idUser, action='reprovar', id=solicitacao.id,type=solicitacao.solicitation_type)}}">
+                        Reprovar
+                    </a>
+                </td>
+                <td>
+                    <a href="">
+                        Detalhes
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endblock contents %}
