@@ -1,23 +1,13 @@
 from flask import render_template, flash, request
-from . import create_manager_app
+from . import create_manager_app, get_repositories, get_manager_repositories
 from flask_login import login_user, current_user, login_required, logout_user
 from .statement import Statement
-from .user_database import UserDatabase
-from .account_database import AccountDatabase
-from .statement_database import StatementDatabase
-from .manager_database import ManagerDatabase
-from .solicitation_database import SolicitationDatabase
-from .bank_database import BankDatabase
-from .user_database import UserDatabase
 
-app, login_manager, connection = create_manager_app()
+app, login_manager = create_manager_app()
 
-accountDatabase = AccountDatabase(connection)
-statementDatabase = StatementDatabase(connection)
-managerDatabase = ManagerDatabase(connection)
-solicitationDatabase= SolicitationDatabase(connection)
-bankDatabase= BankDatabase(connection)
-userDatabase = UserDatabase(connection)
+accountDatabase, statementDatabase, solicitationDatabase, bankDatabase, userDatabase = get_repositories()
+
+managerDatabase = get_manager_repositories()
 
 @app.route('/')
 @login_required

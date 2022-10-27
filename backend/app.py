@@ -1,24 +1,16 @@
 from flask import request, render_template, flash
 from flask_login import login_user, current_user, login_required, logout_user
 import mariadb
-from . import create_app
+from . import create_app, get_repositories
 from .user import User
 from .address import Address
 from .statement import Statement
-from .user_database import UserDatabase
-from .account_database import AccountDatabase
-from .statement_database import StatementDatabase
-from .solicitation_database import SolicitationDatabase
-from .bank_database import BankDatabase
 import time
 import logging
 
-app, login_manager, connection = create_app()
-accountDatabase = AccountDatabase(connection)
-userDatabase = UserDatabase(connection)
-statementDatabase = StatementDatabase(connection)
-solicitationDatabase= SolicitationDatabase(connection)
-bankDatabase= BankDatabase(connection)
+app, login_manager = create_app()
+
+accountDatabase, statementDatabase, solicitationDatabase, bankDatabase, userDatabase = get_repositories()
 
 @app.route('/')
 @login_required
@@ -192,8 +184,9 @@ def depositconfirm():
     valor = float(request.form['fvalor'])
     today = time.strftime('%Y-%m-%d %H:%M:%S')
     try:
+        statement = Statement('C', 'Pendente', userId=current_user.id, balance=current_user.balance(), deposit=valor, withdraw=0,)
+        statementDatabase.save(statement)
         solicitationDatabase.open_deposit_solicitation(current_user.id, current_user.accountNumber(), 'Confirmação de Depósito', valor)
-       
         depositedValue=(f'{valor:.2f}')
         return render_template('comprovante_deposito.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=depositedValue, data=today), 200
     except mariadb.Error as e:

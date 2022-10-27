@@ -12,11 +12,11 @@ from .bank_database import BankDatabase
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
 logging.info('Inicializando a configuração da aplicação...')
 
+pool = db.connection_pool()
+
 def create_app():
-    connection = db.connect()
     app = Flask(__name__)
     app.secret_key = 'secret'
-
     login_manager = LoginManager()
     login_manager.init_app(app)
     login_manager.login_view='login'
@@ -24,13 +24,12 @@ def create_app():
 
     logging.info('Aplicação configurada com sucesso!')
     
-    return app, login_manager, connection
+    return app, login_manager
 
 def create_manager_app():
-    manager_connection = db.connect()
     manager_app = Flask(__name__)
     manager_app.secret_key = 'secreta'
-    
+
     manager_login = LoginManager()
     manager_login.init_app(manager_app)
     manager_login.login_view='loginGerente'
@@ -38,4 +37,18 @@ def create_manager_app():
 
     logging.info('Aplicação configurada com sucesso!')
     
-    return manager_app, manager_login, manager_connection
+    return manager_app, manager_login
+
+def get_repositories():
+    connection = pool.get_connection()
+    accountDatabase = AccountDatabase(connection)
+    statementDatabase = StatementDatabase(connection)
+    solicitationDatabase= SolicitationDatabase(connection)
+    bankDatabase= BankDatabase(connection)
+    userDatabase = UserDatabase(connection)
+    return accountDatabase, statementDatabase, solicitationDatabase, bankDatabase, userDatabase
+
+def get_manager_repositories():
+    connection = pool.get_connection()
+    managerDatabase = ManagerDatabase(connection)
+    return managerDatabase

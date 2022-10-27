@@ -76,10 +76,10 @@ class SolicitationDatabase:
             deposit_solicitation_parameters = (cursor.lastrowid, account_number, value)
             cursor.execute(deposit_solicitation_query, deposit_solicitation_parameters)
             self.db.commit()
-            
-            logging.info('Solicitação de abertura de conta concluída')
+            logging.info('Solicitação de depósito realizada!')
         except mariadb.Error as e:
             logging.error(e)
+        
 
     def find_deposit_solicitation_by_id_solicitation(self,id_solicitation):
         cursor = self.db.cursor(dictionary=True)
