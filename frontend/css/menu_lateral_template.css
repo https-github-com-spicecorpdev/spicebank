@@ -79,6 +79,42 @@ padding: 20px;
 
     font-family: 'Montserrat', sans-serif
 }
+
+    /*Barra de navegação HORIZONTAL do gerente (login)*/
+
+    .hadmnav{
+        padding: 0;
+        background-color: #678a5c;
+        position: fixed;
+      top: 0;
+      width: 100%; 
+      height: 7%;
+    }
+    .hadmnav >  ul {
+        text-transform: uppercase;
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+       }
+    
+    .hadmnav > ul > li > a > i{
+        padding: 7%;
+       }
+    
+    .hadmnav > ul > li > a{
+        color: #0d3b1b;
+        text-decoration: none; 
+        padding: 5px;
+        float:right;
+        margin-right:5%;
+        transition: background .4s;}
+    
+    .hadmnav > ul > li > a:hover{
+        background-color: #f5f5f5;
+        transition: background .4s;}
+
+
     /*Barra de navegação lateral do gerente (verde)*/
 .admnav{
     padding: 0;
@@ -115,7 +151,7 @@ padding: 20px;
 
 .admnav > div{
         background-color: #d6d6d6;
-        position: absolute;
+        position:absolute;
         bottom:0;
         width: 100%;
     }
@@ -124,7 +160,7 @@ padding: 20px;
     text-transform: uppercase;
     color: #000;
     text-decoration: none; 
-    padding: 20px;
+    padding: 5px;
     transition: background .4s;}
 
  .admnav > div > a > i{
@@ -135,9 +171,57 @@ padding: 20px;
      background-color: #f5f5f5;
     transition: background .4s;}
 
-    /*Login.html*/
+    /*LoginGerente.html*/
+
+    /*caixa cinza claro*/
+.admloginbox1{
+    margin: auto;
+    width: 25%;
+    background-color: #d6d6d6;
+Margin-top: 10%;
+padding: 40px;
+}
+
+.admloginbox1 > form {
+    text-align:center;
+}
+
+.admloginbox1 > form > input{
+    margin:auto;
+    width:100%;
+    border-style:none;
+    text-align:center;
+    padding:15px;
+    
+}
+
+.admloginbutton1 > button {
+    background-color:#ffff;
+    border-style:none;
+    padding:15px;
+    cursor:pointer;
+}
 
 
+.admloginbutton1 > button:hover{
+            background-color:#678a5c87;
+}
+
+
+.admloginbutton2{
+    text-align:center;
+    margin-top:5%;
+}
+.admloginbutton2 > form > button{
+        background-color:#ffff;
+    border-style:none;
+    padding:15px;
+    cursor:pointer;
+}
+
+.admloginbutton2 > form > button:hover{
+            background-color:#678a5c87;
+}
 
       /*admhome.html*/
 
@@ -182,33 +266,7 @@ padding: 10px;
 
 
 
-       /*admdeposito.html*/ 
 
-/*centralizar*/
-.admdepositcenter{
-    margin: auto;
-    width: 50%;
-}
-
-
-/*caixa cinza claro*/
-
-
-.admsolicitationsbutton{
-    margin-right: 20px;
-}
-.admsolicitationsbutton > form{
-    margin-left:15.2%;
-    margin-top:5%;
-}
-
-.admsolicitationsbutton > form >button{
-padding: 10px;
-border: none;
- background-color:#d6d6d6
- 
- 
-}
 
 /*admsolicitations.html*/
 
@@ -227,14 +285,14 @@ text-align:center;
 margin-top: 1%;
 }
 
-    .admsolicitationstable{
+.admsolicitationstable{
         margin: auto;
         width: 70%;
         background-color: white;
         text-align: center;
     }
     
-    .admsolicitationstable > table, tr  th {
+.admsolicitationstable > table, tr  th {
         background-color:#d6d6d6;
     }
         .admsolicitationstable > table, tr  td a {
@@ -246,15 +304,88 @@ margin-top: 1%;
         
     }
 
-        .admsolicitationstable > table, tr  td a:hover{
+.admsolicitationstable > table, tr  td a:hover{
         background-color:#0d8331;
     }
 
-       .admsolicitationstable > table, td {
+.admsolicitationstable > table, td {
            border: 1px solid black;
            border-collapse: collapse;
          }
-      
+.admsolicitationsbutton{
+            margin-right: 20px;
+        
+        }
+.admsolicitationsbutton > form{
+            margin-left:15.2%;
+            margin-top:5%;
+        }
+        
+.admsolicitationsbutton > form >button{
+            cursor:pointer;
+        padding: 10px;
+        border: none;
+         background-color:#d6d6d6}
 
-    
+
+
+            /*admapprovedatachange.html*/
+
+.admapprovedatachangebox1{
+            margin: auto;
+            width: 70%;
+            background-color: #d6d6d6;
+            Margin-top: 1%;
+            padding: 10px;
+            }
+
+.admapprovedatachangebox1 > h3 {
+    text-align: center;}
+
+
+.admapprovedatachangebox1 > h4 {
+    text-align: center;}
+
+.admapprovedatachangebox1 > div > h4 {
+    text-align: center;}
+
+.admapprovedatachangebox1 > p {
+    margin-top: 5%;
+}
+
+
+.admapprovedatachangeleft{
+    float:left;
+    width: 50%;
+
+}
+
+.admapprovedatachangeright{
+    float:right;
+    width: 50%;
+}
+            
+
+
+.admapprovedatachangebutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#ffff;
+    cursor: pointer;
+}
+
+
+.admapprovedatachangebutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#ffff;
+    cursor: pointer;
+}
+
+.admapprovedatachangecenter{
+    margin:auto
+}
+
     /**//**/

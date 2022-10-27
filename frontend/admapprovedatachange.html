@@ -1,0 +1,31 @@
+
+    {% extends "menu_lateral_adm_template.html" %}
+
+    {% block contents %}
+
+    <div class="admapprovedatachangebox1">
+        <h3>SOLICITAÇÃO DE ALTERAÇÃO DE DADOS CADASTRAIS</h3>
+        <h4>Conta: {{ conta }} Agência: {{ agencia }}</h4>
+        <div>
+            <p>Nome: {{ nome }} </p>
+            <p>Gênero: {{ genero }}</p>
+        <br><br>
+                    <h4>Endereço</h4>
+         <p class="admapprovedatachangeright">Estado: {{ estado }}</p>
+         <p class="admapprovedatachangeleft">cidade: {{ estado }}</p>
+         <p>Bairro: {{ district }}</p>
+         <p>Rua/Avenida {{ rua }}</p>
+         <p class="admapprovedatachangeright">CEP: {{ cep }}</p>
+         <p class="admapprovedatachangeleft">Número {{ numero }}</p>
+
+<br><br><br>
+                    
+                    <div class="admapprovedatachangecenter">
+                        <button type="submit" class="admapprovedatachangebutton1">APROVAR</button>
+                        <button type="submit" class="admapprovedatachangebutton2">REPROVAR</button>
+                    </div>
+
+    </div>
+    
+
+    {% endblock contents %}
