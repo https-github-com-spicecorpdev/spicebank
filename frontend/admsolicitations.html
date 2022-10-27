@@ -26,12 +26,14 @@
                 <th>STATUS</th>
                 <th>APROVAR</th>
                 <th>REPROVAR</th>
+                <th>DETALHES</th>
             </tr>
             {% for solicitacao in solicitacoes %}
             <tr>
                 <td>{{ solicitacao.nameUser }}</td>
                 <td>{{ solicitacao.solicitation_type }}</td>
                 <td>{{ solicitacao.status }}</td>
+                <td>{{  }} </td>
                 <td>
                     <a href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='aprovar', id=solicitacao.id, type=solicitacao.solicitation_type) }}">
                         Aprovar
@@ -40,6 +42,11 @@
                 <td>
                     <a href= "{{ url_for('solicitacao',user_id=solicitacao.idUser, action='reprovar', id=solicitacao.id,type=solicitacao.solicitation_type)}}">
                         Reprovar
+                    </a>
+                </td>
+                <td>
+                    <a href="">
+                        Detalhes
                     </a>
                 </td>
             </tr>

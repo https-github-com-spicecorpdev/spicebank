@@ -1,0 +1,24 @@
+
+    {% extends "menu_lateral_adm_template.html" %}
+
+    {% block contents %}
+
+    <div class="admapprovedeleteaccountbox1">
+        <h3>SOLICITAÇÃO DE EXCLUSÃO DE CONTA</h3>
+        <h4>Conta: {{ conta }} Agência: {{ agencia }}</h4>
+        <div>
+            <p>Nome: {{ nome }} </p>
+            <p>Gênero: {{ genero }}</p>
+            <P>Saldo atual: {{ saldo }}</P>
+
+<br><br><br>
+                    
+                    <div class="admapprovedeleteaccountcenter">
+                        <button type="submit" class="admapprovedeleteaccountbutton1">APROVAR</button>
+                        <button type="submit" class="admapprovedeleteaccountbutton2">REPROVAR</button>
+                    </div>
+
+    </div>
+    
+
+    {% endblock contents %}
