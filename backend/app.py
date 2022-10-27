@@ -161,41 +161,51 @@ def register():
         solicitationDatabase.open_account_solicitation(user_id, 'Abertura de conta')
         return render_template('login.html'), 201
 
+def account_approval(user_id, action, id):
+    manager=current_user
+    if not is_manager(manager):
+        render_template('login.html'), 401
+    if action =='aprovar':
+        logging.info(f'Aprovando a solicitação do usuario {user_id}')
+        accountDatabase.create(user_id,manager.workAgency) 
+        solicitationDatabase.update_status_by_id(id,'Aprovado') 
+    else:
+        logging.info(f'Reprovando a solicitação do usuario {user_id}')
+        solicitationDatabase.update_status_by_id(id,'Reprovado')
+
+def deposit_approval(user_id, action, id):
+    manager=current_user
+    if not is_manager(manager):
+        render_template('login.html'), 401
+    deposit_solicitation= solicitationDatabase.find_deposit_solicitation_by_id_solicitation(id)
+    account_balance=accountDatabase.getBalanceByAccountNumber(deposit_solicitation.account_number)
+    if action =='aprovar':
+        logging.info(f'Aprovando a solicitação de depósito do usuario {user_id}')
+        total_balance= account_balance + deposit_solicitation.deposit_value
+        bank_id = 1
+        accountDatabase.updateBalanceByAccountNumber(total_balance, deposit_solicitation.account_number)
+        update_bank_balance(bank_id, deposit_solicitation.deposit_value)
+        statement = Statement('C', 'Aprovado', userId=user_id, balance=total_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
+        statementDatabase.save(statement)
+        solicitationDatabase.update_status_by_id(id,'Aprovado') 
+    else:
+        statement = Statement('', 'Reprovado', userId=user_id, balance=account_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
+        statementDatabase.save(statement)
+        solicitationDatabase.update_status_by_id(id,'Reprovado')
+        logging.info(f'Reprovando a solicitação de depósito do usuario {user_id}')
+
+
+
 @app.route('/<user_id>/<action>/<id>/<type>/solicitacao')
 @login_required
 def solicitacao(user_id,action,id,type):
-    logging.info(f'user_id: {user_id}, action: {action}, id: {id}, type:{type}')
+    manager=current_user
+    if not is_manager(manager):
+        render_template('login.html'), 401
     if ((type=='Abertura de conta') or (type=='Encerrar conta')):
-        manager=current_user
-        if not is_manager(manager):
-            render_template('login.html'), 401
-        if action =='aprovar':
-            logging.info(f'Aprovando a solicitação do usuario {user_id}')
-            accountDatabase.create(user_id,manager.workAgency) 
-            solicitationDatabase.update_status_by_id(id,'Aprovado') 
-        else:
-            logging.info(f'Reprovando a solicitação do usuario {user_id}')
-            solicitationDatabase.update_status_by_id(id,'Reprovado')
+        account_approval(user_id, action, id)
     elif type== 'Confirmação de depósito':
-        manager=current_user
-        if not is_manager(manager):
-            render_template('login.html'), 401
-        deposit_solicitation= solicitationDatabase.find_deposit_solicitation_by_id_solicitation(id)
-        account_balance=accountDatabase.getBalanceByAccountNumber(deposit_solicitation.account_number)
-        if action =='aprovar':
-            logging.info(f'Aprovando a solicitação de depósito do usuario {user_id}')
-            total_balance= account_balance + deposit_solicitation.deposit_value
-            bank_id = 1
-            accountDatabase.updateBalanceByAccountNumber(total_balance, deposit_solicitation.account_number)
-            update_bank_balance(bank_id, deposit_solicitation.deposit_value)
-            statement = Statement('C', 'Aprovado', userId=user_id, balance=total_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
-            statementDatabase.save(statement)
-            solicitationDatabase.update_status_by_id(id,'Aprovado') 
-        else:
-            statement = Statement('', 'Reprovado', userId=user_id, balance=account_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
-            statementDatabase.save(statement)
-            solicitationDatabase.update_status_by_id(id,'Reprovado')
-            logging.info(f'Reprovando a solicitação de depósito do usuario {user_id}')
+        deposit_approval(user_id, action, id)
     solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations), 200
 
@@ -320,6 +330,7 @@ def print():
     user = current_user
     statements = statementDatabase.findByUserId(user.id)
     return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements), 200
+
 
 @app.route('/admsolicitations', methods = ['GET'])
 @login_required
