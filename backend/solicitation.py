@@ -23,3 +23,16 @@ class DepositSolicitation:
         self.account_number= account_number
         self.deposit_value= deposit_value
     
+class UpdateDataSolicitation:
+    def __init__(self, name, road, number_house, district, cep, city, state, genre, id=None, id_solicitation=None, user_id=None):
+        self.id=id
+        self.id_solicitation=id_solicitation
+        self.user_id=user_id
+        self.name=name
+        self.road=road
+        self.number_house=number_house
+        self.district=district
+        self.cep=cep
+        self.city=city
+        self.state=state
+        self.genre=genre

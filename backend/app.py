@@ -1,15 +1,16 @@
 from flask import request, render_template, flash
 from flask_login import login_user, current_user, login_required, logout_user
 import mariadb
-from . import create_app, get_repositories
+from . import create_app, get_connection, get_repositories
 from .user import User
 from .address import Address
 from .statement import Statement
+from .solicitation import UpdateDataSolicitation
 import time
 import logging
 
 app, login_manager = create_app()
-
+connection= get_connection()
 accountDatabase, statementDatabase, solicitationDatabase, bankDatabase, userDatabase = get_repositories()
 
 @app.route('/')
@@ -210,6 +211,24 @@ def print():
     user = current_user
     statements = statementDatabase.findByUserId(user.id)
     return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements), 200
+
+@app.route('/update_user_data', methods = ['GET'])
+@login_required
+def update_user_data():
+    user=current_user
+    return render_template('alteracaodados.html', user=user), 200
+
+@app.route('/update_user_data', methods = ['POST'])
+@login_required
+def open_update_user_data_solicitation():
+    user=current_user
+    if not validate_form(request.form):
+        message = flash('Preencha todos os campos!')
+        return render_template('alteracaodados.html', user=user), 200
+    solicitation= UpdateDataSolicitation(request.form ['fname'], request.form ['froad'], request.form ['fnumberHouse'], request.form ['fdistrict'], request.form ['fcep'], request.form ['fcity'], request.form ['fstate'], request.form ['fgenre'], user_id=user.id)
+    solicitationDatabase.open_update_data_solicitation(user.id, solicitation)
+    flash('Solicitação de alteração realizada com sucesso')
+    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
 
 def userExists(cpf):
     return userDatabase.findByCpf(cpf)

@@ -2,6 +2,7 @@ from flask import render_template, flash, request
 from . import create_manager_app, get_repositories, get_manager_repositories
 from flask_login import login_user, current_user, login_required, logout_user
 from .statement import Statement
+import logging
 
 app, login_manager = create_manager_app()
 
@@ -55,6 +56,8 @@ def solicitacao(user_id,action,id,type):
         account_approval(user_id, action, id)
     elif type== 'Confirmação de depósito':
         deposit_approval(user_id, action, id)
+    elif type== 'Alteração de dados cadastrais':
+        update_user_approval(user_id, action, id)
     solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations), 200
 
@@ -64,6 +67,18 @@ def solicitations():
     manager= current_user
     solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations), 200
+
+@app.route('/<user_id>/<solicitation_id>/<type>/details')
+@login_required
+def details(user_id,solicitation_id,type):
+    manager=current_user
+    if type== 'Alteração de dados cadastrais':
+        update_user_solicitation=solicitationDatabase.find_update_user_solicitation_by_id_solicitation(solicitation_id, user_id)
+        user=userDatabase.findById(user_id)
+        return render_template('admapprovedatachange.html', solicitation=update_user_solicitation, user=user), 200
+    else:
+        solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
+        return render_template('admsolicitations.html', solicitacoes=solicitations), 200    
 
 def account_approval(user_id, action, id):
     manager=current_user
@@ -93,6 +108,17 @@ def deposit_approval(user_id, action, id):
         statementDatabase.save(statement)
         solicitationDatabase.update_status_by_id(id,'Reprovado')
         app.logger.info(f'Reprovando a solicitação de depósito do usuario {user_id}')
+
+def update_user_approval(user_id, action, id):
+    logging.info(f'User_id: {user_id}, action: {action}, solicitation_id: {id}')
+    update_user_solicitation=solicitationDatabase.find_update_user_solicitation_by_id_solicitation(id, user_id)
+    if action =='aprovar':
+        logging.info(f'Aprovando a solicitação de alteração de dados do usuario {user_id}')   
+        userDatabase.update_by_user_solicitation(update_user_solicitation)
+        solicitationDatabase.update_status_by_id(id,'Aprovado') 
+    else:
+        logging.info(f'Reprovando a solicitação de alteração de dados do usuario {user_id}')
+        solicitationDatabase.update_status_by_id(id,'Reprovado')
 
 def validate_form(form):
     for key in form:

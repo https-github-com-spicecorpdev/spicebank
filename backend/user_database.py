@@ -121,3 +121,18 @@ class UserDatabase:
                 return None
         except mariadb.Error as e:
             logging.error(e)
+
+
+    def update_by_user_solicitation(self, solicitation):
+        cursor = self.db.cursor()
+        query = """
+        UPDATE tuser
+        SET nameUser=?, roadUser=?, numberHouseUser=?, districtUser=?, cepUser=?, cityUser=?, stateUser=?, genreUser=?
+        WHERE idUser=?;
+        """
+        parameters = (solicitation.name, solicitation.road, solicitation.number_house, solicitation.district, solicitation.cep, solicitation.city, solicitation.state, solicitation.genre, solicitation.user_id)
+        try:
+            cursor.execute(query, parameters)
+            self.db.commit()
+        except mariadb.Error as e:
+            logging.error(e) 

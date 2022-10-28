@@ -5,24 +5,28 @@
 
     <div class="admapprovedatachangebox1">
         <h3>SOLICITAÇÃO DE ALTERAÇÃO DE DADOS CADASTRAIS</h3>
-        <h4>Conta: {{ conta }} Agência: {{ agencia }}</h4>
+        <h4>Conta: {{ user.account.account }} Agência: {{ user.account.agency }}</h4>
         <div>
-            <p>Nome: {{ nome }} </p>
-            <p>Gênero: {{ genero }}</p>
+            <p>Nome: {{ solicitation.name }} </p>
+            <p>Gênero: {{ solicitation.genre }}</p>
         <br><br>
                     <h4>Endereço</h4>
-         <p class="admapprovedatachangeright">Estado: {{ estado }}</p>
-         <p class="admapprovedatachangeleft">cidade: {{ estado }}</p>
-         <p>Bairro: {{ district }}</p>
-         <p>Rua/Avenida {{ rua }}</p>
-         <p class="admapprovedatachangeright">CEP: {{ cep }}</p>
-         <p class="admapprovedatachangeleft">Número {{ numero }}</p>
+         <p class="admapprovedatachangeright">Estado: {{ solicitation.state }}</p>
+         <p class="admapprovedatachangeleft">cidade: {{ solicitation.city }}</p>
+         <p>Bairro: {{ solicitation.district }}</p>
+         <p>Rua/Avenida {{ solicitation.road }}</p>
+         <p class="admapprovedatachangeright">CEP: {{ solicitation.cep }}</p>
+         <p class="admapprovedatachangeleft">Número {{ solicitation.number_house }}</p>
 
 <br><br><br>
                     
                     <div class="admapprovedatachangecenter">
-                        <button type="submit" class="admapprovedatachangebutton1">APROVAR</button>
-                        <button type="submit" class="admapprovedatachangebutton2">REPROVAR</button>
+                        <a href="{{ url_for('solicitacao',user_id=solicitation.user_id, action='aprovar', id=solicitation.id_solicitation, type='Alteração de dados cadastrais') }}">
+                            Aprovar
+                        </a>
+                        <a href= "{{ url_for('solicitacao',user_id=solicitation.user_id, action='reprovar', id=solicitation.id_solicitation, type='Alteração de dados cadastrais') }}">
+                            Reprovar
+                        </a>
                     </div>
 
     </div>
