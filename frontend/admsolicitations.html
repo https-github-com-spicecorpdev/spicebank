@@ -33,7 +33,6 @@
                 <td>{{ solicitacao.nameUser }}</td>
                 <td>{{ solicitacao.solicitation_type }}</td>
                 <td>{{ solicitacao.status }}</td>
-                <td>{{  }} </td>
                 <td>
                     <a href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='aprovar', id=solicitacao.id, type=solicitacao.solicitation_type) }}">
                         Aprovar
@@ -45,7 +44,7 @@
                     </a>
                 </td>
                 <td>
-                    <a href="">
+                    <a href="{{ url_for('details',user_id=solicitacao.idUser, solicitation_id=solicitacao.id,type=solicitacao.solicitation_type)}}">
                         Detalhes
                     </a>
                 </td>

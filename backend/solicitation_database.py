@@ -1,6 +1,7 @@
 import logging
 import mariadb
-from .solicitation import DepositSolicitation
+from .solicitation import DepositSolicitation,UpdateDataSolicitation
+
 
 class SolicitationDatabase:
     def __init__(self, connection):
@@ -94,5 +95,44 @@ class SolicitationDatabase:
             else:
                 logging.info (f'Solicitação com o id: {id_solicitation} não encontrado!')
                 return None
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def find_update_user_solicitation_by_id_solicitation(self,id_solicitation, user_id):
+        cursor = self.db.cursor(dictionary=True)
+        query = """select * from update_user_solicitation  
+                   where id_solicitation = ?;"""
+        parameters = (id_solicitation,)
+        try:
+            cursor.execute(query, parameters)
+            result= cursor.fetchone()
+            if result:
+                logging.info(f'{result["name"]}, {result ["road"]}')
+                return UpdateDataSolicitation(result['name'], result['road'], result['number_house'], result['district'], result['cep'], result['city'], result['state'], result['genre'],id=result['id'], id_solicitation=result['id_solicitation'], user_id= user_id)    
+            else:
+                logging.info (f'Solicitação com o id: {id_solicitation} não encontrado!')
+                return None
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def open_update_data_solicitation(self,user_id,solicitation ):
+        cursor = self.db.cursor()
+        solicitation_query = """
+            INSERT INTO solicitation (id_user, status, solicitation_type) VALUES(?, 'Pendente', ?)
+        """
+        update_data_solicitation_query = """
+            INSERT INTO update_user_solicitation
+            (id_solicitation, name, road, number_house, district, cep, city, state, genre)
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """
+        solicitation_parameters = (user_id,'Alteração de dados cadastrais' ,)
+
+        try:
+            cursor.execute(solicitation_query, solicitation_parameters)
+            self.db.commit()
+            update_data_solicitation_parameters = (cursor.lastrowid, solicitation.name, solicitation.road, solicitation.number_house, solicitation.district, solicitation.cep, solicitation.city, solicitation.state, solicitation.genre)
+            cursor.execute(update_data_solicitation_query, update_data_solicitation_parameters)
+            self.db.commit()
+            logging.info('Solicitação de atualização dos dados cadastrais criada!')
         except mariadb.Error as e:
             logging.error(e)
