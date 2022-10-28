@@ -1,0 +1,29 @@
+<!--Tela de Comprovante de Transferêcia-->
+{% extends "menu_lateral_template.html" %}
+
+{% block contents %}    
+
+<body>
+    
+    <title> Comprovante de Transferência </title>
+
+    <div class="justify">
+        <br><br>
+        <div class="box1">
+            <p> Origem: {{ name }}</p>
+            <p> Agência:{{ agencia }} /conta: {{ conta }} </p><br><br>
+            <p> Favorecido: {{ name }}</p>
+            <p> Agência:{{ agencia }} /conta: {{ conta }}</p> 
+            <p> Data: {{ data }}</p><br>
+            <h2> Valor R${{valor}}</h2><br>
+        </div>
+
+        <form method="GET" action="{{ url_for('index') }}" name="index">
+            <div>
+                <button type="submit">&#8592 Voltar</button>
+            </div>
+        </form>
+
+<body>
+
+{% endblock contents %}
