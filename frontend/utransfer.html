@@ -1,0 +1,46 @@
+<!--Tela de Transferência-->
+
+{% extends "menu_lateral_template.html" %}
+
+{% block contents %}
+
+
+<body>
+    
+    <title> Transferência </title>
+        <br>
+        <br>
+<div class="center">
+    <form method="POST" action="/transfer" name="transfer">
+        <div class="box1">
+            <p> Transferência entre Contas </p>
+            <p> Agência: {{ agencia }} /conta: {{ conta }} </p>
+            <p> Saldo atual: {{ Saldo }} </p>
+            <br>
+            <br>
+            <p> Transferir para: </p>
+            <label for="fagency"> Agência </label>
+            <input type="text" id="fagency" name="Agência" readonly="readonly" value="0">
+            <br>
+            <br>
+            <label for="faccount"> Conta </label>
+            <input type="text" id="faccount" name="Conta" readonly="readonly" value="0000">
+            <br>
+            <br>
+            <label for="fvalor"> Valor a ser transferido: R$ </label>
+            <input type="text" id="fvalor" name="fvalor" readonly="readonly" value="Insira o valor"><br><br>
+        </div>
+        <br>
+        <button type="submit"> Transferir </button>
+        </div>
+    </form>
+    <br>
+    <form method="GET" action="{{ url_for('index') }}">
+        <div style="margin-left: 5%;">
+            <button type="submit">&#8592 Cancelar e voltar</button>
+        </div>
+    </form>
+    
+<body>
+
+{% endblock contents %}
