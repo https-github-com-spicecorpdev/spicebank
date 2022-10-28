@@ -1,7 +1,7 @@
 from flask import request, render_template, flash
 from flask_login import login_user, current_user, login_required, logout_user
 import mariadb
-from . import create_app, get_repositories
+from . import create_app, get_connection, get_repositories
 from .user import User
 from .address import Address
 from .statement import Statement
@@ -9,7 +9,7 @@ import time
 import logging
 
 app, login_manager = create_app()
-
+connection= get_connection()
 accountDatabase, statementDatabase, solicitationDatabase, bankDatabase, userDatabase = get_repositories()
 
 @app.route('/')

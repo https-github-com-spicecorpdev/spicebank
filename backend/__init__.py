@@ -50,3 +50,6 @@ def get_repositories():
 def get_manager_repositories():
     managerDatabase = ManagerDatabase(connection)
     return managerDatabase
+
+def get_connection():
+    return connection
