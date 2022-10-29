@@ -1,0 +1,35 @@
+{% extends "menu_lateral_template.html" %}
+
+{% block contents %}
+
+<body>
+
+    <title> Encerramento de Conta </title>
+    <br>
+    <br>
+    <div class="center">
+        <form method="POST" action="/closesolicitation" name="closesolicitation">
+            <div class="box1">
+                <p> Encerramento de conta </p>
+                <p> Agência: {{ agencia }} /conta: {{ conta }} </p>
+                <p> Data: {{ data }} </p><br>
+                <p> Saldo atual: {{ Saldo }} </p>
+                <br> 
+                <p> Prezado cliente, esta ação encerrará sua conta e não será possível acessa-lá novamente. Você tem certeza que deseja encerrar sua conta? </p>
+                <br>
+                
+            </div>
+            <br>
+            <button type="submit"> Encerrar minha conta </button>
+            </div>
+        </form>
+        <br>
+        <form method="GET" action="{{ url_for('index') }}">
+            <div style="margin-left: 5%;">
+                <button type="submit">&#8592 Cancelar e voltar</button>
+            </div>
+        </form>    
+
+</body>
+
+{% endblock contents %}
