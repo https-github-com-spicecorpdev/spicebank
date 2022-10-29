@@ -5,7 +5,7 @@ from . import create_app, get_connection, get_repositories
 from .user import User
 from .address import Address
 from .statement import Statement
-from .solicitation import UpdateDataSolicitation
+from .solicitation import CloseAccountSolicitation, UpdateDataSolicitation
 import time
 import logging
 
@@ -229,6 +229,41 @@ def open_update_user_data_solicitation():
     solicitationDatabase.open_update_data_solicitation(user.id, solicitation)
     flash('Solicitação de alteração realizada com sucesso')
     return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
+
+@app.route('/close-account', methods = ['GET'])
+@login_required
+def close_account():
+    user=current_user
+    today = time.strftime('%Y-%m-%d %H:%M:%S')
+    return render_template('accountclosesolicitation.html', user=user, data=today), 200
+
+@app.route('/close-account', methods = ['POST'])
+@login_required
+def close_account_solicitation():
+    user=current_user
+    today = time.strftime('%Y-%m-%d %H:%M:%S')
+    if user.balance() > 0:
+        return render_template('accountclosenotification.html', user=user, data=today), 200
+    close_account(user)
+    flash('Solicitação de encerramento de conta criada!')
+    logout_user()
+    return render_template('acompanhamento.html'), 200
+    
+@app.route('/proceed-close-account', methods = ['POST'])
+@login_required
+def proceed_close_account_solicitation():
+    user = current_user
+    close_account(user)
+    flash('Solicitação de encerramento de conta criada!')
+    logout_user()
+    return render_template('acompanhamento.html'), 200
+
+def close_account(user):
+    solicitation= CloseAccountSolicitation(user.account.id, user.name, user.cpf, user.birthDate, user.address.road, user.address.numberHouse, user.address.district, user.address.cep, user.address.city, user.address.state, user.gender, user_id=user.id)
+    solicitationDatabase.open_close_account_solicitation(user.id, solicitation)
+    solicitation_id = solicitationDatabase.find_solicitation_id_by_user_id_and_solicitation_type(user.id, 'Abertura de conta')
+    solicitationDatabase.update_status_by_id(solicitation_id, 'Em Análise')
+    accountDatabase.inactivate_account(user.accountNumber())
 
 def userExists(cpf):
     return userDatabase.findByCpf(cpf)

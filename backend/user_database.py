@@ -2,6 +2,7 @@ import logging
 import mariadb
 from .user import User
 from .account import Account
+from .address import Address
 from .solicitation import Solicitation
 
 class UserDatabase:
@@ -25,8 +26,9 @@ class UserDatabase:
         cursor.execute(query, parameters) 
         userFromDB = cursor.fetchone()
         if userFromDB:
+            address = Address(userFromDB['roadUser'], userFromDB['numberHouseUser'], userFromDB['districtUser'], userFromDB['cityUser'], userFromDB['stateUser'], userFromDB['cepUser'])
             account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'])
-            return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], userFromDB['passwordUser'], userFromDB['birthdateUser'], userFromDB['genreUser'], account=account)
+            return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], userFromDB['passwordUser'], userFromDB['birthdateUser'], userFromDB['genreUser'], account=account, address=address)
         else:
             logging.info(f'Usuário com o id: {id} não encontrado!')
             return None
@@ -39,6 +41,7 @@ class UserDatabase:
             WHERE ACCOUNT.agencyUser = ?
             AND ACCOUNT.numberAccount = ?
             AND USR.passwordUser = ?
+            AND ACCOUNT.is_active = true 
         """
         parameters = (agency, account, password)
         cursor.execute(query, parameters)
@@ -89,8 +92,10 @@ class UserDatabase:
         FROM tuser AS USR LEFT JOIN taccount AS ACCOUNT ON idUser = idAccountUser 
         INNER JOIN solicitation AS SOLICITATION ON USR.idUser = SOLICITATION.id_user
 	    WHERE cpfUser = ? AND passwordUser = ?
+        AND SOLICITATION.solicitation_type = 'Abertura de conta'
         """
         parameters = (cpf, password,)
+
         try:
             cursor.execute(query, parameters)
             userStatus = cursor.fetchone()

@@ -8,12 +8,12 @@
     <br>
     <br>
     <div class="center">
-        <form method="POST" action="/closesolicitation" name="closesolicitation">
+        <form method="POST" action="/close-account" name="close-account">
             <div class="box1">
                 <p> Encerramento de conta </p>
-                <p> Agência: {{ agencia }} /conta: {{ conta }} </p>
+                <p> Agência: {{ user.account.agency }} /conta: {{ user.account.account }} </p>
                 <p> Data: {{ data }} </p><br>
-                <p> Saldo atual: {{ Saldo }} </p>
+                <p> Saldo atual: {{ user.account.balance }} </p>
                 <br> 
                 <p> Prezado cliente, esta ação encerrará sua conta e não será possível acessa-lá novamente. Você tem certeza que deseja encerrar sua conta? </p>
                 <br>

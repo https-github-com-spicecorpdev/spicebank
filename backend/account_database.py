@@ -37,3 +37,13 @@ class AccountDatabase:
             return value['totalbalance']
         except mariadb.Error as e:
             logging.error(e)
+
+    def inactivate_account(self, accountNumber):
+        cursor = self.db.cursor()
+        query = "UPDATE taccount SET is_active = false WHERE numberAccount = ?"
+        parameters = (accountNumber,)
+        try:
+            cursor.execute(query, parameters)
+            self.db.commit()
+        except mariadb.Error as e:
+            logging.error(e)

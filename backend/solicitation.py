@@ -36,3 +36,20 @@ class UpdateDataSolicitation:
         self.city=city
         self.state=state
         self.genre=genre
+
+class CloseAccountSolicitation:
+    def __init__(self, id_account, name, cpf, birthdate, road, number_house, district, cep, city, state, genre, id=None, id_solicitation=None, user_id=None):
+        self.id = id
+        self.id_solicitation = id_solicitation
+        self.user_id = user_id
+        self.id_account = id_account
+        self.name = name
+        self.cpf = cpf
+        self.birthdate = birthdate
+        self.road = road
+        self.number_house = number_house
+        self.district = district
+        self.cep = cep
+        self.city = city
+        self.state = state
+        self.genre = genre

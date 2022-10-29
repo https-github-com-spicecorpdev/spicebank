@@ -13,9 +13,9 @@
                 <br> 
                 <p> Prezado cliente, sua conta possui saldo! </p>
                 <br>
+                <p> Agência: {{ user.account.agency }} /conta: {{ user.account.account }} </p>
                 <p> Data: {{ data }} </p><br>
-                <p> Agência: {{ agencia }} /conta: {{ conta }} </p>
-                <p> Saldo atual: {{ Saldo }} </p>
+                <p> Saldo atual: {{ user.account.balance }} </p>
                 <br>
                 <p> O que você gostaria de fazer? </p>
                 <br>                
@@ -23,21 +23,21 @@
         </form>
         <br>
         
-        <form method="GET" action=" ">
+        <form method="GET" action="/withdrawform">
             <div style="margin-left: 20%;">
                 <button type="submit"> Sacar e encerrar minha conta </button>
             </div>
-        </form>    
-        <form method="GET" action=" ">
+        </form>
+        <form method="POST" action="{{ url_for('proceed_close_account_solicitation') }}">
             <div style="margin-left: 30%;">
                 <button type="submit"> Continuar sem sacar </button>
             </div>
-        </form> 
+        </form>
         <form method="GET" action="{{ url_for('index') }}">
             <div style="margin-left: 5%;">
                 <button type="submit">&#8592 Cancelar e voltar</button>
             </div>
-        </form>    
+        </form>
 
 </body>
 

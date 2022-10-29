@@ -1,6 +1,6 @@
 import logging
 import mariadb
-from .solicitation import DepositSolicitation,UpdateDataSolicitation
+from .solicitation import CloseAccountSolicitation, DepositSolicitation, UpdateDataSolicitation
 
 
 class SolicitationDatabase:
@@ -37,6 +37,23 @@ class SolicitationDatabase:
         try:
             cursor.execute(query, parameters)
             self.db.commit()
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def find_solicitation_id_by_user_id_and_solicitation_type(self,user_id, type):
+        cursor = self.db.cursor(dictionary=True)
+        query = """select * from solicitation 
+                   where id_user = ?
+                   AND solicitation_type = ?;"""
+        parameters = (user_id, type,)
+        try:
+            cursor.execute(query, parameters)
+            result= cursor.fetchone()
+            if result:
+                return result['id']
+            else:
+                logging.info (f'Solicitação com o user_id: {user_id} não encontrado!')
+                return None
         except mariadb.Error as e:
             logging.error(e)
 
@@ -134,5 +151,43 @@ class SolicitationDatabase:
             cursor.execute(update_data_solicitation_query, update_data_solicitation_parameters)
             self.db.commit()
             logging.info('Solicitação de atualização dos dados cadastrais criada!')
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def find_close_account_solicitation_by_id_solicitation(self,id_solicitation, user_id):
+        cursor = self.db.cursor(dictionary=True)
+        query = """select * from account_close_solicitation 
+                   where id_solicitation = ?;"""
+        parameters = (id_solicitation,)
+        try:
+            cursor.execute(query, parameters)
+            result= cursor.fetchone()
+            if result:
+                logging.info(f'{result["name"]}, {result ["road"]}')
+                return CloseAccountSolicitation(result['id_account'], result['name'], result['cpf'], result['birthdate'], result['road'], result['number_house'], result['district'], result['cep'], result['city'], result['state'], result['genre'],id=result['id'], id_solicitation=result['id_solicitation'], user_id= user_id)
+            else:
+                logging.info (f'Solicitação com o id: {id_solicitation} não encontrado!')
+                return None
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def open_close_account_solicitation(self, user_id, solicitation):
+        cursor = self.db.cursor()
+        solicitation_query = """
+            INSERT INTO solicitation (id_user, status, solicitation_type) VALUES(?, 'Pendente', ?)
+        """
+        close_account_solicitation_query = """
+            INSERT INTO account_close_solicitation
+            (id_solicitation, id_account, name, cpf, birthdate, road, number_house, district, cep, city, state, genre)
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """
+        solicitation_parameters = (user_id, 'Encerrar conta',)
+        try:
+            cursor.execute(solicitation_query, solicitation_parameters)
+            self.db.commit()
+            close_account_solicitation_parameters = (cursor.lastrowid, solicitation.id_account, solicitation.name, solicitation.cpf, solicitation.birthdate, solicitation.road, solicitation.number_house, solicitation.district, solicitation.cep, solicitation.city, solicitation.state, solicitation.genre,)
+            cursor.execute(close_account_solicitation_query, close_account_solicitation_parameters)
+            self.db.commit()
+            logging.info('Solicitação de encerramento de conta criada!')
         except mariadb.Error as e:
             logging.error(e)
