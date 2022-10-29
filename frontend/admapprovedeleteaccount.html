@@ -4,19 +4,31 @@
     {% block contents %}
 
     <div class="admapprovedeleteaccountbox1">
-        <h3>SOLICITAÇÃO DE EXCLUSÃO DE CONTA</h3>
-        <h4>Conta: {{ conta }} Agência: {{ agencia }}</h4>
+        <h3>SOLICITAÇÃO DE ENCERRAMENTO DE CONTA</h3>
+        <h4>Conta: {{ user.account.account }} Agência: {{ user.account.agency }}</h4>
         <div>
             <p>Nome: {{ nome }} </p>
             <p>Gênero: {{ genero }}</p>
-            <P>Saldo atual: {{ saldo }}</P>
+            <p class="admapprovedeleteaccountright">data de nascimento: {{ birthda }}</p>
+            <p class="admapprovedeleteaccountleft">cpf: {{ city }}</p>
+            <br><br><br>
+            <h4>Endereço</h4>
+            <p class="admapprovedatachangeright">Estado: {{ state }}</p>
+            <p class="admapprovedatachangeleft">cidade: {{ city }}</p>
+            <p>Bairro: {{ district }}</p>
+            <p>Rua/Avenida {{ road }}</p>
+            <p class="admapprovedatachangeright">CEP: {{ cep }}</p>
+            <p class="admapprovedatachangeleft">Número {{ number_house }}</p>
+   
+        <h3>Saldo atual: R${{ saldo }}</h3>
 
 <br><br><br>
                     
-                    <div class="admapprovedeleteaccountcenter">
-                        <button type="submit" class="admapprovedeleteaccountbutton1">APROVAR</button>
-                        <button type="submit" class="admapprovedeleteaccountbutton2">REPROVAR</button>
-                    </div>
+            <div class="admapprovedeleteaccountcenter">
+                <button type="submit" class="admapprovedeleteaccountbutton1"> <a href="">APROVAR</a></button>
+                <button type="submit" class="admapprovedeleteaccountbutton2"><a href="">REPROVAR</a></button>
+                <button type="submit" class="admapprovedeleteaccountbutton3"><a href="">SAQUE</a></button>
+            </div>
 
     </div>
     
