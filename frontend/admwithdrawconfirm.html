@@ -1,0 +1,32 @@
+{% extends "menu_lateral_adm_template.html" %}
+
+{% block contents %}
+
+<div class="admwithdrawcenter1">
+
+    <div class="admwithdrawconfirmbox1">
+        <h2>SAQUE</h2>
+        <p>Agência: {{ agency }} / Conta: {{ account }}</p>
+        <p>Saldo: R${{ saldo }}</p>
+    </div>
+
+    <div class="admwithdrawconfirmbox2">
+        <h3>CONFIRME O SAQUE</h3>
+
+        <p>origem: {{ name }}</p>
+        <p>agência:{{ agencia }} /conta: {{ conta }}</p> <br>
+        <h3 for="fvalor">Valor: R$ {{ valor }}</h3>
+        <br><br><br>
+
+        <div class="admwithdrawconfirmcenter2">
+            <button class="admwithdrawconfirmbutton2"> <a href="">CONFIRMAR</a></button>
+         </div>
+        </div>  
+
+         <form method="GET" action="{{ url_for('index') }}">
+                <button class="admwithdrawconfirmbutton1" type="submit">Cancelar e voltar</button>
+        </form>
+  
+</div>
+
+{% endblock contents %}

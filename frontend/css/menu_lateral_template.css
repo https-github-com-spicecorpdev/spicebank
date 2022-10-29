@@ -375,6 +375,16 @@ margin-top: 1%;
     cursor: pointer;
 }
 
+.admapprovedatachangebutton1 > a{
+    text-decoration: none;
+    color:#000;
+  font-size:120%;
+
+}
+
+.admapprovedatachangebutton1:hover{
+    background-color:indianred;
+}
 
 .admapprovedatachangebutton2{
     cursor:pointer;
@@ -384,18 +394,30 @@ margin-top: 1%;
     cursor: pointer;
 }
 
+.admapprovedatachangebutton2 > a{
+    text-decoration: none;
+    color:#000;
+  font-size:120%;
+
+}
+
+.admapprovedatachangebutton2:hover{
+    background-color:lawngreen;
+}
+
 .admapprovedatachangecenter{
-    margin:auto
+    margin:auto;
+  width:fit-content;
 }
 
             /*admapprovedeleteaccount.html*/
 
-            .admapprovedeleteaccountbox1{
-                margin: auto;
-                width: 70%;
-                background-color: #d6d6d6;
-                Margin-top: 1%;
-                padding: 10px;
+.admapprovedeleteaccountbox1{
+    margin: auto;
+    width: 70%;
+    background-color: #d6d6d6;
+    Margin-top: 1%;
+    padding: 10px;
                 }
     
     .admapprovedeleteaccountbox1 > h3 {
@@ -426,25 +448,330 @@ margin-top: 1%;
                 
     
     
-    .admapprovedeleteaccountbutton1{
+.admapprovedeleteaccountbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#ffff;
+    cursor: pointer;
+}
+.admapprovedeleteaccountbutton1 > a {
+    color:#000;
+    text-decoration:none;
+    font-size:110%;
+  }
+
+  .admapprovedeleteaccountbutton1:hover{
+        background-color:lawngreen;
+  }
+    
+    
+.admapprovedeleteaccountbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#ffff;
+    cursor: pointer;
+}
+
+.admapprovedeleteaccountbutton2 > a {
+    color:#000;
+    text-decoration:none;
+    font-size:110%;
+  }
+
+
+
+  .admapprovedeleteaccountbutton2:hover{
+        background-color:indianred;
+  }
+
+    .admapprovedeleteaccountbutton3{
         cursor:pointer;
         padding: 15px;
         border-style: none;
         background-color:#ffff;
         cursor: pointer;
-    }
-    
-    
-    .admapprovedeleteaccountbutton2{
-        cursor:pointer;
-        padding: 15px;
-        border-style: none;
-        background-color:#ffff;
-        cursor: pointer;
-    }
-    
-    .admapprovedeleteaccountcenter{
-        margin:auto
     }
 
+  .admapprovedeleteaccountbutton3:hover{
+        background-color:yellow;
+  }
+    
+    .admapprovedeleteaccountcenter{
+        margin:auto;
+        width:fit-content;
+    }
+
+
+    /*admwithdraw.html*/ 
+
+/*centralizar*/
+.admwithdraw{
+    margin: auto;
+    width:50%;
+}
+
+.admwithdraw{
+    margin: auto;
+    width:fit-content;
+}
+
+
+
+/*caixa cinza claro*/
+.admwithdrawbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.admwithdrawbox1 > h2{    
+    text-align: center;
+}
+
+
+.admwithdrawbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.admwithdrawbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.admwithdrawbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.admwithdrawbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.admwithdrawbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.admwithdrawbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.admwithdrawbutton1:hover{
+    background-color:lawngreen;
+}
+
+
+.admwithdrawbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.admwithdrawbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.admwithdrawbutton2:hover{
+    background-color:indianred;
+}
+    
+
+
+    /*admwithdrawconfirm.html*/ 
+
+/*centralizar*/
+.admwithdrawconfirmcenter1{
+    margin: auto;
+    width:50%;
+}
+
+.admwithdrawconfirmcenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.admwithdrawconfirmbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.admwithdrawconfirmbox1 > h2{    
+    text-align: center;
+}
+
+
+.admwithdrawconfirmbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.admwithdrawconfirmbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.admwithdrawconfirmbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.admwithdrawconfirmbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.admwithdrawconfirmbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.admwithdrawconfirmbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.admwithdrawconfirmbutton1:hover{
+    background-color:lawngreen;
+}
+
+
+.admwithdrawconfirmbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.admwithdrawconfirmbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.admwithdrawconfirmbutton2:hover{
+    background-color:indianred;
+}
+
+
+    /*admwithdrawvoucher.html*/ 
+
+/*centralizar*/
+.admwithdrawvouchercenter1{
+    margin: auto;
+    width:50%;
+}
+
+.admwithdrawvouchercenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.admwithdrawvoucherbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.admwithdrawvoucherbox1 > h2{    
+    text-align: center;
+}
+
+
+.admwithdrawvoucherbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.admwithdrawvoucherbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.admwithdrawvoucherbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.admwithdrawvoucherbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.admwithdrawvoucherbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.admwithdrawvoucherbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.admwithdrawvoucherbutton1:hover{
+    background-color:lawngreen;
+}
+
+
+.admwithdrawvoucherbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.admwithdrawvoucherbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.admwithdrawvoucherbutton2:hover{
+    background-color:indianred;
+}
     /**//**/
