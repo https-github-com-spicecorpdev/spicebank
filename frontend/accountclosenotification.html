@@ -1,0 +1,44 @@
+{% extends "menu_lateral_template.html" %}
+
+{% block contents %}
+
+<body>
+
+    <title> Aviso </title>
+    <br>
+    <br>
+    <div class="center">
+            <div class="box1">
+                <p> Aviso: </p>
+                <br> 
+                <p> Prezado cliente, sua conta possui saldo! </p>
+                <br>
+                <p> Data: {{ data }} </p><br>
+                <p> Agência: {{ agencia }} /conta: {{ conta }} </p>
+                <p> Saldo atual: {{ Saldo }} </p>
+                <br>
+                <p> O que você gostaria de fazer? </p>
+                <br>                
+            </div>
+        </form>
+        <br>
+        
+        <form method="GET" action=" ">
+            <div style="margin-left: 20%;">
+                <button type="submit"> Sacar e encerrar minha conta </button>
+            </div>
+        </form>    
+        <form method="GET" action=" ">
+            <div style="margin-left: 30%;">
+                <button type="submit"> Continuar sem sacar </button>
+            </div>
+        </form> 
+        <form method="GET" action="{{ url_for('index') }}">
+            <div style="margin-left: 5%;">
+                <button type="submit">&#8592 Cancelar e voltar</button>
+            </div>
+        </form>    
+
+</body>
+
+{% endblock contents %}
