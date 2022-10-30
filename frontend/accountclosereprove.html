@@ -1,0 +1,32 @@
+{% extends "menu_lateral_template.html" %}
+
+{% block contents %}
+
+<body>
+
+    <title> Aviso </title>
+    <br>
+    <br>
+    <div class="center">
+            <div class="box1">
+                <p> Aviso: </p>
+                <br> 
+                <p> Prezado cliente, seu saldo está negativo, efetue o pagamento! </p>
+                <br>
+                <p> Agência: {{ user.account.agency }} /conta: {{ user.account.account }} </p>
+                <p> Data: {{ data }} </p><br>
+                <p> Saldo atual: {{ user.account.balance }} </p>
+                <br>
+                <br>                
+            </div>
+        </form>
+        <br>
+        <form method="GET" action="{{ url_for('index') }}">
+            <div style="margin-left: 5%;">
+                <button type="submit">&#8592 voltar</button>
+            </div>
+        </form>
+
+</body>
+
+{% endblock contents %}

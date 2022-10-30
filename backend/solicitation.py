@@ -1,5 +1,6 @@
 class Solicitation:
-    def __init__(self, name, cpf, password, status, account, agency):
+    def __init__(self, name, cpf, password, status, account, agency, user_id=None):
+        self.user_id = user_id
         self.name = name
         self.cpf = cpf
         self.password = password
@@ -53,3 +54,12 @@ class CloseAccountSolicitation:
         self.city = city
         self.state = state
         self.genre = genre
+
+class SimpleSolicitation:
+    def __init__(self, id_user, status, solicitation_type, created_time, updated_time, id=None):
+        self.id = id
+        self.id_user = id_user
+        self.status = status
+        self.solicitation_type = solicitation_type
+        self.created_time = created_time
+        self.updated_time = updated_time

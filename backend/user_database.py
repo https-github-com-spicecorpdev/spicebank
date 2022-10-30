@@ -100,7 +100,7 @@ class UserDatabase:
             cursor.execute(query, parameters)
             userStatus = cursor.fetchone()
             if userStatus:
-                return Solicitation(userStatus['nameUser'], cpf, password, userStatus['status'], userStatus['numberAccount'], userStatus['agencyUser'])
+                return Solicitation(userStatus['nameUser'], cpf, password, userStatus['status'], userStatus['numberAccount'], userStatus['agencyUser'], user_id=userStatus['idUser'])
             else:
                 logging.info(f'Solicitação com cpf: {cpf} não encontrada!')
                 return None

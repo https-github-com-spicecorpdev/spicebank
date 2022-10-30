@@ -1,12 +1,32 @@
 import logging
 import mariadb
-from .solicitation import CloseAccountSolicitation, DepositSolicitation, UpdateDataSolicitation
+from .solicitation import CloseAccountSolicitation, DepositSolicitation, UpdateDataSolicitation, SimpleSolicitation
 
 
 class SolicitationDatabase:
     def __init__(self, connection):
         self.db = connection
         logging.info('Repositório de solicitações inicializado!')
+
+    def find_by_id(self, id):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+            SELECT *
+            FROM solicitation 
+            WHERE id = ?
+        """
+        parameters = (id,)
+        try:
+            cursor.execute(query, parameters)
+            result = cursor.fetchone()
+            if result:
+                solicitation = SimpleSolicitation(result['id_user'], result['status'], result['solicitation_type'], result['created_time'], result['updated_time'], id=result['id'])
+                return solicitation
+            else:
+                logging.info(f'Nenhuma solicitação com id {id} encontrado!')
+                return None
+        except mariadb.Error as e:
+            logging.error(e)
 
     def find_by_work_agency_id(self, work_agency_id):
         cursor = self.db.cursor(dictionary=True)

@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `tuser` (
 CREATE TABLE IF NOT EXISTS `solicitation` (
 	id int(11) NOT NULL AUTO_INCREMENT PRIMARY key,
 	id_user int(11) NOT NULL,
-	status ENUM('Pendente','Aprovado','Reprovado'),
+	status ENUM('Pendente','Aprovado','Reprovado', 'Em Análise', 'Encerrado'),
 	solicitation_type ENUM('Encerrar conta','Abertura de conta','Alteração de dados cadastrais','Confirmação de depósito'),
 	created_time datetime NOT NULL default current_timestamp,
 	updated_time datetime on update current_timestamp,
@@ -130,7 +130,6 @@ CREATE TABLE IF NOT EXISTS `bank_statement` (
   constraint `fk_tuser_bank_statement`
   foreign key (`id_user`) references `tuser`(idUser)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
-
 
 
 CREATE TABLE `bank`(

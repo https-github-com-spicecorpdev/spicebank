@@ -25,8 +25,8 @@
     </div>
     <hr color="#00BFFF">
     <div class="center">
-            Olá, {{ name }}! <br>
-            Status da conta: {{ solicitacao }} <br>
+            Olá, {{ solicitation.name }}! <br>
+            Status da conta: {{ solicitation.status }} <br>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -36,20 +36,18 @@
             {% endwith %}
             {% block body %}{% endblock %}
     </div>
-    <!-- <a href="/withdrawform">
-        <button type="button"><i class="fa-solid fa-hand-holding-dollar"></i><div>Solicitar abertura de Conta</div></button>
-    </a> -->
+
     <div class="formulario">
+        {% if statements %}
+        <form method="GET" action="{{ url_for('follow_up_statements', user_id=solicitation.user_id) }}" target="_blank">
+            <button type="submit">Verificar extrato da conta</button>
+        </form>
+        {% endif %}
+    
         <form method="GET" action="/logout">
         <button type="submit">Logout</button>
         </form>
     </div>
-
-    <!-- <a href="/logout">
-        <button type="button">
-            <div>Logout</div>
-        </button>
-    </a> -->
 
 </body>
 

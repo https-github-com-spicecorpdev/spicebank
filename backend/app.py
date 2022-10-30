@@ -55,17 +55,21 @@ def loginAcomp():
         message = flash('Preencha todos os campos!')
         return render_template('acompanhamento.html', message=message), 400
     solicitation = userDatabase.findSolicitationByCpfAndPassword(request.form['fcpf'], request.form['fpassword'])
+    statements = statementDatabase.findByUserId(solicitation.user_id)
     if solicitation:
         if solicitation.status == "Aprovado":
             message = flash(f'Agência: {solicitation.agency} / Conta: {solicitation.account}')
             message = flash('Guarde sua agência e conta!')
-            return render_template('homeAcomp.html', name=solicitation.name, solicitacao=solicitation.status, message=message), 200
+            return render_template('homeAcomp.html', solicitation=solicitation, message=message, statements=None), 200
         elif solicitation.status == "Reprovado":
             message = flash('Solicitação de abertura de conta recusada, entre em contato conosco!')
-            return render_template('homeAcomp.html', name=solicitation.name, solicitacao=solicitation.status, message=message), 200
+            return render_template('homeAcomp.html', solicitation=solicitation, message=message, statements=None), 200
+        elif solicitation.status == "Encerrado":
+            message = flash('Sua conta foi encerrada. Você pode verificar o extrato clicando no botão abaixo:')
+            return render_template('homeAcomp.html', solicitation=solicitation, message=message, statements=statements), 200
         else:
             message = flash('Aguardando análise de solicitação.')
-            return render_template('homeAcomp.html', name=solicitation.name, solicitacao=solicitation.status, message=message), 200
+            return render_template('homeAcomp.html', solicitation=solicitation, message=message, statements=None), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('acompanhamento.html', message=message), 400
@@ -212,6 +216,12 @@ def print():
     statements = statementDatabase.findByUserId(user.id)
     return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements), 200
 
+@app.route('/<user_id>/print', methods = ['GET'])
+def follow_up_statements(user_id):
+    user = userDatabase.findById(user_id)
+    statements = statementDatabase.findByUserId(user.id)
+    return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements), 200
+
 @app.route('/update_user_data', methods = ['GET'])
 @login_required
 def update_user_data():
@@ -235,15 +245,16 @@ def open_update_user_data_solicitation():
 def close_account():
     user=current_user
     today = time.strftime('%Y-%m-%d %H:%M:%S')
+    if user.balance() > 0:
+        return render_template('accountclosenotification.html', user=user, data=today), 200
+    elif user.balance() < 0:
+        return render_template('accountclosereprove.html', user=user, data=today), 200
     return render_template('accountclosesolicitation.html', user=user, data=today), 200
 
 @app.route('/close-account', methods = ['POST'])
 @login_required
 def close_account_solicitation():
     user=current_user
-    today = time.strftime('%Y-%m-%d %H:%M:%S')
-    if user.balance() > 0:
-        return render_template('accountclosenotification.html', user=user, data=today), 200
     close_account(user)
     flash('Solicitação de encerramento de conta criada!')
     logout_user()
