@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS `taccount` (
   `totalbalance` float DEFAULT NULL,
   `idAccountUser` int(11) DEFAULT NULL,
   `agencyUser` int(11) DEFAULT NULL,
+  is_active bool default true,
   PRIMARY KEY (`idAccount`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
@@ -50,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `tuser` (
 CREATE TABLE IF NOT EXISTS `solicitation` (
 	id int(11) NOT NULL AUTO_INCREMENT PRIMARY key,
 	id_user int(11) NOT NULL,
-	status ENUM('Pendente','Aprovado','Reprovado'),
+	status ENUM('Pendente','Aprovado','Reprovado', 'Em Análise', 'Encerrado'),
 	solicitation_type ENUM('Encerrar conta','Abertura de conta','Alteração de dados cadastrais','Confirmação de depósito'),
 	created_time datetime NOT NULL default current_timestamp,
 	updated_time datetime on update current_timestamp,
@@ -93,6 +94,27 @@ CREATE TABLE IF NOT EXISTS `update_user_solicitation` (
   	foreign key (`id_solicitation`) references `solicitation`(id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
+-- Criando estrutura para tabela spicebank.update_user_solicitation
+CREATE TABLE IF NOT EXISTS `account_close_solicitation` (
+	id int(11) NOT NULL AUTO_INCREMENT PRIMARY key,
+	id_solicitation int(11) NOT NULL,
+	id_account int(11) DEFAULT NULL,
+	name varchar(255) DEFAULT NULL,
+	cpf int(12) DEFAULT NULL,
+	birthdate date DEFAULT NULL,
+	road varchar(255) DEFAULT NULL,
+	number_house int(11) DEFAULT NULL,
+	district varchar(255) DEFAULT NULL,
+	cep int(9) DEFAULT NULL,
+	city varchar(255) DEFAULT NULL,
+	state varchar(255) DEFAULT NULL,
+	genre varchar(1) DEFAULT NULL,
+	constraint `fk_open_user_solicitation_solicitation`
+  	foreign key (`id_solicitation`) references `solicitation`(id),
+  	constraint `fk_account_account_close_solicitation`
+  	foreign key (`id_account`) references `taccount`(idAccount)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+
 -- Criando estrutura para tabela spicebank.bank_statement
 CREATE TABLE IF NOT EXISTS `bank_statement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -108,7 +130,6 @@ CREATE TABLE IF NOT EXISTS `bank_statement` (
   constraint `fk_tuser_bank_statement`
   foreign key (`id_user`) references `tuser`(idUser)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
-
 
 
 CREATE TABLE `bank`(
@@ -182,6 +203,4 @@ VALUES('Ronaldo', 4, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'M'
 INSERT INTO spicebank.manager
 (id_user, registration_number, work_agency_id, profile_user, bank_id)
 VALUES(3, NEXTVAL(manager_registration_number), 1, 2, 1);
-
-
 
