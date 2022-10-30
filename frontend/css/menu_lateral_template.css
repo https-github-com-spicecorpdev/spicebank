@@ -261,13 +261,6 @@ padding: 10px;
     transform: translateY(-50%);
 }
 
-
-
-
-
-
-
-
 /*admsolicitations.html*/
 
 .admsolicitationsbox1{
@@ -365,8 +358,6 @@ margin-top: 1%;
     width: 50%;
 }
             
-
-
 .admapprovedatachangebutton1{
     cursor:pointer;
     padding: 15px;
@@ -420,28 +411,28 @@ margin-top: 1%;
     padding: 10px;
                 }
     
-    .admapprovedeleteaccountbox1 > h3 {
+.admapprovedeleteaccountbox1 > h3 {
         text-align: center;}
     
     
-    .admapprovedeleteaccountbox1 > h4 {
+.admapprovedeleteaccountbox1 > h4 {
         text-align: center;}
     
-    .admapprovedeleteaccountbox1 > div > h4 {
+.admapprovedeleteaccountbox1 > div > h4 {
         text-align: center;}
     
-    .admapprovedeleteaccountbox1 > p {
+.admapprovedeleteaccountbox1 > p {
         margin-top: 5%;
     }
     
     
-    .admapprovedeleteaccountleft{
+.admapprovedeleteaccountleft{
         float:left;
         width: 50%;
     
     }
     
-    .admapprovedeleteaccountright{
+.admapprovedeleteaccountright{
         float:right;
         width: 50%;
     }
@@ -594,6 +585,96 @@ margin-bottom: 2%;
     background-color:indianred;
 }
     
+
+    /*admdepositconfirm.html*/ 
+
+/*centralizar*/
+.admdepositconfirmcenter1{
+    margin: auto;
+    width:50%;
+}
+
+.admdepositconfirmcenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.admdepositconfirmbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.admdepositconfirmbox1 > h2{    
+    text-align: center;
+}
+
+
+.admdepositconfirmbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.admdepositconfirmbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.admdepositconfirmbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.admdepositconfirmbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.admdepositconfirmbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.admdepositconfirmbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.admdepositconfirmbutton1:hover{
+    background-color:lawngreen;
+}
+
+
+.admdepositconfirmbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.admdepositconfirmbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.admdepositconfirmbutton2:hover{
+    background-color:indianred;
+}
+
 
 
     /*admwithdrawconfirm.html*/ 
@@ -774,4 +855,206 @@ margin-bottom: 2%;
 .admwithdrawvoucherbutton2:hover{
     background-color:indianred;
 }
+
+
+  /*admusers.html*/
+
+
+.admusersbox1{
+    margin: auto;
+    width: 70%;
+    background-color: #d6d6d6;
+Margin-top: 1%;
+padding: 10px;
+}
+.admusersbox1 >h2{
+text-align:center;
+}
+.admusersbox1 >p{
+text-align:center;
+margin-top: 1%;
+}
+
+.admuserstable{
+        margin: auto;
+        width: 70%;
+        background-color: white;
+        text-align: center;
+    }
+    
+.admuserstable > table, tr  th {
+        background-color:#d6d6d6;
+    }
+.admuserstable > table, tr  td a {
+        color:black;
+        text-decoration:none;
+        display:block;
+        background-color:#fff;
+    
+        
+    }
+
+.admuserstable > table, tr  td a:hover{
+        background-color:#0d8331;
+    }
+
+.admuserstable > table, td {
+           border: 1px solid black;
+           border-collapse: collapse;
+         }
+.admusersbutton{
+            margin-right: 20px;
+        
+        }
+.admusersbutton > form{
+            margin-left:15.2%;
+            margin-top:5%;
+        }
+        
+.admusersbutton > form >button{
+            cursor:pointer;
+        padding: 10px;
+        border: none;
+         background-color:#d6d6d6}
+
+
+    
+          /*admusersdetail.html*/
+
+.admusersdetailbox1{
+    margin: auto;
+    width: 70%;
+    background-color: #d6d6d6;
+    Margin-top: 1%;
+    padding: 10px;
+    }
+
+.admusersdetailbox1 > h3 {
+text-align: center;}
+
+
+.admusersdetailbox1 > h4 {
+text-align: center;}
+
+.admusersdetailbox1 > div > h4 {
+text-align: center;}
+
+.admusersdetailbox1 > p {
+margin-top: 5%;
+}
+
+
+.admusersdetailleft{
+float:left;
+width: 50%;
+
+}
+
+.admusersdetailright{
+float:right;
+width: 50%;
+}
+    
+
+.admusersdetailbutton1{
+cursor:pointer;
+padding: 15px;
+border-style: none;
+background-color:#ffff;
+cursor: pointer;
+}
+
+.admusersdetailbutton1 > a{
+text-decoration: none;
+color:#000;
+font-size:120%;
+
+}
+
+.admusersdetailbutton1:hover{
+background-color:indianred;
+}
+
+.admusersdetailbutton2{
+cursor:pointer;
+padding: 15px;
+border-style: none;
+background-color:#ffff;
+cursor: pointer;
+}
+
+.admusersdetailbutton2 > a{
+text-decoration: none;
+color:#000;
+font-size:120%;
+
+}
+
+.admusersdetailbutton2:hover{
+background-color:lawngreen;
+}
+
+.admusersdetailcenter{
+margin:auto;
+width:fit-content;}
+
+ /*admextrato.html*/
+
+
+ .admextratobox1{
+    margin: auto;
+    width: 70%;
+    background-color: #d6d6d6;
+Margin-top: 1%;
+padding: 10px;
+}
+.admextratobox1 >h2{
+text-align:center;
+}
+.admextratobox1 >p{
+text-align:center;
+margin-top: 1%;
+}
+
+.admextratotable{
+        margin: auto;
+        width: 70%;
+        background-color: white;
+        text-align: center;
+    }
+    
+.admextratotable > table, tr  th {
+        background-color:#d6d6d6;
+    }
+.admextratotable > table, tr  td a {
+        color:black;
+        text-decoration:none;
+        display:block;
+        background-color:#fff;
+    
+        
+    }
+
+.admextratotable > table, tr  td a:hover{
+        background-color:#0d8331;
+    }
+
+.admextratotable > table, td {
+           border: 1px solid black;
+           border-collapse: collapse;
+         }
+.admextratobutton{
+            margin-right: 20px;
+        
+        }
+.admextratobutton > form{
+            margin-left:15.2%;
+            margin-top:5%;
+        }
+        
+.admextratobutton > form >button{
+            cursor:pointer;
+        padding: 10px;
+        border: none;
+         background-color:#d6d6d6}
     /**//**/
