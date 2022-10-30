@@ -1,0 +1,36 @@
+{% extends "menu_lateral_adm_template.html" %}
+
+{% block contents %}
+
+<div class="admdepositconfirmcenter1">
+
+    <div class="admdepositconfirmbox1">
+        <h2>DEPÓSITO</h2>
+        <p>Agência: {{ user.account.agency }} / Conta: {{ user.account.account }}</p>
+        <p>Saldo: R${{ user.account.balance }}</p>
+    </div>
+
+    <div class="admdepositconfirmbox2">
+        <h3>CONFIRME O DEPÓSITO</h3>
+
+        <p>origem: {{ name }}</p>
+        <p>agência:{{ agency }} /conta: {{ account }}</p> <br>
+        <h3 for="fvalor">Valor: R$ {{ balance }}</h3>
+        <br><br><br>
+
+        <div class="admdepositconfirmcenter2">
+            <form method="POST" action="{{ url_for('deposit_approval', user_id=user.id, solicitation_id=id_solicitation) }}">
+                <button class="admdepositconfirmbutton2" type="submit">
+                    Confirmar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <form method="GET" action="{{ url_for('solicitations') }}">
+        <button class="admdepositconfirmbutton1" type="submit">Cancelar</button>
+    </form>
+
+</div>
+
+{% endblock contents %}
