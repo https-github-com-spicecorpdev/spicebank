@@ -28,47 +28,29 @@
 
 <!--Se solicitação de abertura de conta existir:-->
     <div class="center">
-        Olá, {{ name }}! <br>
-        Status da conta: {{ solicitacao }} <br>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-            {{ message }}<br>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
-        {% block body %}{% endblock %}
+            Olá, {{ solicitation.name }}! <br>
+            Status da conta: {{ solicitation.status }} <br>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                {{ message }}<br>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}
     </div>
-    <!-- <a href="/withdrawform">
-        <button type="button"><i class="fa-solid fa-hand-holding-dollar"></i><div>Solicitar abertura de Conta</div></button>
-    </a> -->
-
-    <!-- <a href="/logout">
-        <button type="button">
-            <div>Logout</div>
-        </button>
-    </a> -->
-
-<!--INÍCIO DA CONDIÇÃO: Último extrato existir:-->
-    {% if lastextract == "true" %}
-    <form method="GET" action="{{ url_for('print') }}" target="_blank">
-        <button type="submit"> Imprimir </button>
-    </form>    
-    {% endfor %}
-    {% endif %}
-<!--FIM DA CONDIÇÃO -->
 
     <div class="formulario">
+        {% if statements %}
+        <form method="GET" action="{{ url_for('follow_up_statements', user_id=solicitation.user_id) }}" target="_blank">
+            <button type="submit">Verificar extrato da conta</button>
+        </form>
+        {% endif %}
+    
         <form method="GET" action="/logout">
             <button type="submit">Logout</button>
         </form>
     </div>
-            
-<!-- <a href="/logout">
-        <button type="button">
-            <div>Logout</div>
-        </button>
-    </a> -->
 
 </body>
 </html>

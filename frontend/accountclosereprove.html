@@ -11,31 +11,19 @@
             <div class="box1">
                 <p> Aviso: </p>
                 <br> 
-                <p> Prezado cliente, sua conta possui saldo! </p>
+                <p> Prezado cliente, seu saldo está negativo, efetue o pagamento! </p>
                 <br>
                 <p> Agência: {{ user.account.agency }} /conta: {{ user.account.account }} </p>
                 <p> Data: {{ data }} </p><br>
                 <p> Saldo atual: {{ user.account.balance }} </p>
                 <br>
-                <p> O que você gostaria de fazer? </p>
                 <br>                
             </div>
         </form>
         <br>
-        
-        <form method="GET" action="/withdrawform">
-            <div style="margin-left: 20%;">
-                <button type="submit"> Sacar </button>
-            </div>
-        </form>
-        <form method="POST" action="{{ url_for('proceed_close_account_solicitation') }}">
-            <div style="margin-left: 30%;">
-                <button type="submit"> Continuar sem sacar </button>
-            </div>
-        </form>
         <form method="GET" action="{{ url_for('index') }}">
             <div style="margin-left: 5%;">
-                <button type="submit">&#8592 Cancelar e voltar</button>
+                <button type="submit">&#8592 voltar</button>
             </div>
         </form>
 

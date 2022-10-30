@@ -1,5 +1,6 @@
 class Solicitation:
-    def __init__(self, name, cpf, password, status, account, agency):
+    def __init__(self, name, cpf, password, status, account, agency, user_id=None):
+        self.user_id = user_id
         self.name = name
         self.cpf = cpf
         self.password = password
@@ -36,3 +37,29 @@ class UpdateDataSolicitation:
         self.city=city
         self.state=state
         self.genre=genre
+
+class CloseAccountSolicitation:
+    def __init__(self, id_account, name, cpf, birthdate, road, number_house, district, cep, city, state, genre, id=None, id_solicitation=None, user_id=None):
+        self.id = id
+        self.id_solicitation = id_solicitation
+        self.user_id = user_id
+        self.id_account = id_account
+        self.name = name
+        self.cpf = cpf
+        self.birthdate = birthdate
+        self.road = road
+        self.number_house = number_house
+        self.district = district
+        self.cep = cep
+        self.city = city
+        self.state = state
+        self.genre = genre
+
+class SimpleSolicitation:
+    def __init__(self, id_user, status, solicitation_type, created_time, updated_time, id=None):
+        self.id = id
+        self.id_user = id_user
+        self.status = status
+        self.solicitation_type = solicitation_type
+        self.created_time = created_time
+        self.updated_time = updated_time

@@ -3,6 +3,7 @@ from . import create_manager_app, get_repositories, get_manager_repositories
 from flask_login import login_user, current_user, login_required, logout_user
 from .statement import Statement
 import logging
+import time
 
 app, login_manager = create_manager_app()
 
@@ -52,12 +53,14 @@ def loginGerente():
 @login_required
 def solicitacao(user_id,action,id,type):
     manager=current_user
-    if ((type=='Abertura de conta') or (type=='Encerrar conta')):
+    if type=='Abertura de conta':
         account_approval(user_id, action, id)
     elif type== 'Confirmação de depósito':
         deposit_approval(user_id, action, id)
     elif type== 'Alteração de dados cadastrais':
         update_user_approval(user_id, action, id)
+    elif type == 'Encerrar conta':
+        close_account_approval(user_id, action, id)
     solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations), 200
 
@@ -72,13 +75,53 @@ def solicitations():
 @login_required
 def details(user_id,solicitation_id,type):
     manager=current_user
-    if type== 'Alteração de dados cadastrais':
-        update_user_solicitation=solicitationDatabase.find_update_user_solicitation_by_id_solicitation(solicitation_id, user_id)
-        user=userDatabase.findById(user_id)
+    if type == 'Alteração de dados cadastrais':
+        update_user_solicitation = solicitationDatabase.find_update_user_solicitation_by_id_solicitation(solicitation_id, user_id)
+        user = userDatabase.findById(user_id)
         return render_template('admapprovedatachange.html', solicitation=update_user_solicitation, user=user), 200
+    elif type == 'Encerrar conta':
+        solicitation = solicitationDatabase.find_by_id(solicitation_id)
+        user = userDatabase.findById(user_id)
+        return render_template('admapprovedeleteaccount.html', user = user, solicitation = solicitation), 200
     else:
         solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
-        return render_template('admsolicitations.html', solicitacoes=solicitations), 200    
+        return render_template('admsolicitations.html', solicitacoes=solicitations), 200
+
+@app.route('/<user_id>/<solicitation_id>/withdraw-close', methods = ['GET'])
+@login_required
+def withdraw_and_close_account_view(user_id,solicitation_id):
+    logging.info(f'withdraw_and_close_account_view::({user_id},{solicitation_id})')
+    user = userDatabase.findById(user_id)
+    return render_template('admwithdrawconfirm.html', user = user, id_solicitation = solicitation_id), 200
+
+@app.route('/<user_id>/<solicitation_id>/withdraw-approval', methods = ['POST'])
+@login_required
+def withdraw_approval(user_id, solicitation_id):
+    logging.info(f'withdraw_and_close_account::({user_id},{solicitation_id})')
+    user = userDatabase.findById(user_id)
+    withdrawConfirm(user_id, user.balance())
+    statements = statementDatabase.findByUserId(user.id)
+    close_account_approval(user_id, 'aprovar', solicitation_id)
+    return render_template('admextrato.html', user=user, extratos=statements), 200
+
+@app.route('/<user_id>/withdraw/comprovant', methods = ['GET'])
+@login_required
+def withdraw_and_close_account_comprovant(user_id):
+    logging.info(f'withdraw_and_close_account_comprovant::({user_id})')
+    user = userDatabase.findById(user_id)
+    statements = statementDatabase.findByUserId(user.id)
+    return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements), 200
+
+def withdrawConfirm(user_id, value):
+    logging.info(f'withdrawConfirm::({user_id},{value})')
+    user = userDatabase.findById(user_id)
+    today = time.strftime('%Y-%m-%d %H:%M:%S')
+    bank_id = 1
+    bankDatabase.withdraw_bank_balance_by_id(bank_id, value)
+    user.account.withdraw(value)
+    accountDatabase.updateBalanceByAccountNumber(user.balance(), user.accountNumber())
+    statement = Statement('D', 'Aprovado', userId=user.id, balance=user.balance(), deposit=0, withdraw=value, date=today)
+    statementDatabase.save(statement)
 
 def account_approval(user_id, action, id):
     manager=current_user
@@ -119,6 +162,19 @@ def update_user_approval(user_id, action, id):
     else:
         logging.info(f'Reprovando a solicitação de alteração de dados do usuario {user_id}')
         solicitationDatabase.update_status_by_id(id,'Reprovado')
+
+def close_account_approval(user_id, action, id):
+    if action == 'aprovar':
+        solicitationDatabase.update_status_by_id(id, 'Aprovado')
+        open_account_solicitation_id = solicitationDatabase.find_solicitation_id_by_user_id_and_solicitation_type(user_id, 'Abertura de Conta')
+        solicitationDatabase.update_status_by_id(open_account_solicitation_id, 'Encerrado')
+    else:
+        logging.info(f'Reprovando a solicitação de alteração de dados do usuario {user_id}')
+        open_account_solicitation_id = solicitationDatabase.find_solicitation_id_by_user_id_and_solicitation_type(user_id, 'Abertura de Conta')
+        solicitationDatabase.update_status_by_id(open_account_solicitation_id, 'Aprovado')
+        solicitationDatabase.update_status_by_id(id,'Reprovado')
+        user = userDatabase.findById(user_id)
+        accountDatabase.activate_account(user.accountNumber())
 
 def validate_form(form):
     for key in form:

@@ -6,27 +6,31 @@
 
     <div class="admwithdrawconfirmbox1">
         <h2>SAQUE</h2>
-        <p>Agência: {{ agency }} / Conta: {{ account }}</p>
-        <p>Saldo: R${{ saldo }}</p>
+        <p>Agência: {{ user.account.agency }} / Conta: {{ user.account.account }}</p>
+        <p>Saldo: R${{ user.account.balance }}</p>
     </div>
 
     <div class="admwithdrawconfirmbox2">
         <h3>CONFIRME O SAQUE</h3>
 
-        <p>origem: {{ name }}</p>
-        <p>agência:{{ agencia }} /conta: {{ conta }}</p> <br>
-        <h3 for="fvalor">Valor: R$ {{ valor }}</h3>
+        <p>origem: {{ user.name }}</p>
+        <p>agência:{{ user.account.agency }} /conta: {{ user.account.account }}</p> <br>
+        <h3 for="fvalor">Valor: R$ {{ user.account.balance }}</h3>
         <br><br><br>
 
         <div class="admwithdrawconfirmcenter2">
-            <button class="admwithdrawconfirmbutton2"> <a href="">CONFIRMAR</a></button>
-         </div>
-        </div>  
+            <form method="POST" action="{{ url_for('withdraw_approval', user_id=user.id, solicitation_id=id_solicitation) }}">
+                <button class="admwithdrawconfirmbutton2" type="submit">
+                    Confirmar
+                </button>
+            </form>
+        </div>
+    </div>
 
-         <form method="GET" action="{{ url_for('index') }}">
-                <button class="admwithdrawconfirmbutton1" type="submit">Cancelar e voltar</button>
-        </form>
-  
+    <form method="GET" action="{{ url_for('solicitations') }}">
+        <button class="admwithdrawconfirmbutton1" type="submit">Cancelar</button>
+    </form>
+
 </div>
 
 {% endblock contents %}
