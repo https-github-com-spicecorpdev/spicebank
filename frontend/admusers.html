@@ -1,0 +1,44 @@
+{% extends "menu_lateral_adm_template.html" %}
+
+{% block contents %}
+<div class="admusersbutton">
+    <form method="GET" action="/">
+        <button type="submit">&#8592 Voltar</button>
+    </form>
+</div>
+
+
+
+
+
+<div class="admusersbox1">
+    <h2>USUÁRIOS</h2>
+    <p>Gerente: {{ nameManager }} Agência: {{ agenciadoGer }}
+    </p>
+</div>
+
+<table class="admuserstable">
+
+    <!--linha com títulos-->
+    <tr>
+        <th>NOME</th>
+        <th>AGÊNCIA</th>
+        <th>CONTA</th>
+        <th>EXTRATO</th>
+        <th>DETALHES</th>
+    </tr>
+    {% for solicitacao in solicitacoes %}
+    <tr>
+        <td>{{ nameUser }}</td>
+        <td>{{ agencyUser }}</td>
+        <td>{{ accountUser }}</td>
+        <td> <a> Extrato </a></td>
+        <td>
+            <a>
+                Detalhes
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock contents %}
