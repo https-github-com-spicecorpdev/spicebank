@@ -121,8 +121,8 @@ class SolicitationDatabase:
 
     def find_deposit_solicitation_by_id_solicitation(self,id_solicitation):
         cursor = self.db.cursor(dictionary=True)
-        query = """select * from deposit_solicitation ds 
-                   where id_solicitation = ?;"""
+        query = """select * from deposit_solicitation  
+                   where id_solicitation = ?"""
         parameters = (id_solicitation,)
         try:
             cursor.execute(query, parameters)

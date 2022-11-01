@@ -17,25 +17,14 @@
                 <p> Data: {{ data }} </p><br>
                 <p> Saldo atual: {{ user.account.balance }} </p>
                 <br>
-                <p> O que você gostaria de fazer? </p>
+                <p> Sua conta possui saldo, não é possivel realizar a solicitação de encerramento de conta. </p>
                 <br>                
             </div>
         </form>
         <br>
-        
-        <form method="GET" action="/withdrawform">
-            <div style="margin-left: 20%;">
-                <button type="submit"> Sacar </button>
-            </div>
-        </form>
-        <form method="POST" action="{{ url_for('proceed_close_account_solicitation') }}">
-            <div style="margin-left: 30%;">
-                <button type="submit"> Continuar sem sacar </button>
-            </div>
-        </form>
         <form method="GET" action="{{ url_for('index') }}">
             <div style="margin-left: 5%;">
-                <button type="submit">&#8592 Cancelar e voltar</button>
+                <button type="submit">&#8592 voltar</button>
             </div>
         </form>
 
