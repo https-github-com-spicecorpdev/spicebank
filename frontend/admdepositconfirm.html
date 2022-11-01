@@ -13,14 +13,14 @@
     <div class="admdepositconfirmbox2">
         <h3>CONFIRME O DEPÓSITO</h3>
 
-        <p>origem: {{ name }}</p>
-        <p>agência:{{ agency }} /conta: {{ account }}</p> <br>
-        <h3 for="fvalor">Valor: R$ {{ balance }}</h3>
+        <p>origem: {{ user.name }}</p>
+        <p>agência:{{ user.account.agency }} /conta: {{ user.account.account }}</p> <br>
+        <h3 for="fvalor">Valor: R$ {{ solicitation.deposit_value }}</h3>
         <br><br><br>
 
         <div class="admdepositconfirmcenter2">
-            <form method="POST" action="{{ url_for('deposit_approval', user_id=user.id, solicitation_id=id_solicitation) }}">
-                <button class="admdepositconfirmbutton2" type="submit">
+            <form method="POST" action="{{ url_for('solicitacao',user_id=user.id, action='aprovar', id=solicitation.id_solicitation, type='Confirmação de depósito') }}">
+                <button class="admwithdrawconfirmbutton2" type="submit">
                     Confirmar
                 </button>
             </form>

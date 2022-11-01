@@ -49,7 +49,7 @@ def loginGerente():
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('loginGerente.html', message=message), 400
 
-@app.route('/<user_id>/<action>/<id>/<type>/solicitacao')
+@app.route('/<user_id>/<action>/<id>/<type>/solicitacao',methods = ['GET','POST'])
 @login_required
 def solicitacao(user_id,action,id,type):
     manager=current_user
@@ -57,6 +57,7 @@ def solicitacao(user_id,action,id,type):
         account_approval(user_id, action, id)
     elif type== 'Confirmação de depósito':
         deposit_approval(user_id, action, id)
+        logging.info(f'ID: {user_id}, id_solicitation: {id}')
     elif type== 'Alteração de dados cadastrais':
         update_user_approval(user_id, action, id)
     elif type == 'Encerrar conta':
@@ -83,6 +84,10 @@ def details(user_id,solicitation_id,type):
         solicitation = solicitationDatabase.find_by_id(solicitation_id)
         user = userDatabase.findById(user_id)
         return render_template('admapprovedeleteaccount.html', user = user, solicitation = solicitation), 200
+    elif type =='Confirmação de depósito':
+        user = userDatabase.findById(user_id)
+        solicitation = solicitationDatabase.find_deposit_solicitation_by_id_solicitation(solicitation_id)
+        return render_template('admdepositconfirm.html', user = user, solicitation = solicitation), 200
     else:
         solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
         return render_template('admsolicitations.html', solicitacoes=solicitations), 200
@@ -133,9 +138,8 @@ def account_approval(user_id, action, id):
         app.logger.info(f'Reprovando a solicitação do usuario {user_id}')
         solicitationDatabase.update_status_by_id(id,'Reprovado')
 
-def deposit_approval(user_id, action, id):
-    manager=current_user
-    deposit_solicitation= solicitationDatabase.find_deposit_solicitation_by_id_solicitation(id)
+def deposit_approval(user_id, action, solicitations_id):
+    deposit_solicitation= solicitationDatabase.find_deposit_solicitation_by_id_solicitation(solicitations_id)
     account_balance=accountDatabase.getBalanceByAccountNumber(deposit_solicitation.account_number)
     if action =='aprovar':
         app.logger.info(f'Aprovando a solicitação de depósito do usuario {user_id}')
@@ -145,13 +149,13 @@ def deposit_approval(user_id, action, id):
         bankDatabase.update_bank_balance(bank_id, deposit_solicitation.deposit_value)
         statement = Statement('C', 'Aprovado', userId=user_id, balance=total_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
         statementDatabase.save(statement)
-        solicitationDatabase.update_status_by_id(id,'Aprovado') 
+        solicitationDatabase.update_status_by_id(solicitations_id,'Aprovado') 
     else:
         statement = Statement('', 'Reprovado', userId=user_id, balance=account_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
         statementDatabase.save(statement)
-        solicitationDatabase.update_status_by_id(id,'Reprovado')
+        solicitationDatabase.update_status_by_id(solicitations_id,'Reprovado')
         app.logger.info(f'Reprovando a solicitação de depósito do usuario {user_id}')
-
+        
 def update_user_approval(user_id, action, id):
     logging.info(f'User_id: {user_id}, action: {action}, solicitation_id: {id}')
     update_user_solicitation=solicitationDatabase.find_update_user_solicitation_by_id_solicitation(id, user_id)
