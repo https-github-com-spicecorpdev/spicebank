@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>SpiceBank</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/menu_lateral_template.css') }}">
+    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
+    {% endblock %}
+</head>
+<body class="admbody">
+{% block nav %}
+
+<nav class="admnav">
+    
+       <!--Caso o gerente tenha conta-->
+    <!--Caso o gerente NÃO tenha conta-->
+
+    <ul>
+        <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
+        <li><a href="/admprofile"><i class="fa-solid fa-right-from-bracket"></i>perfil</a></li>
+        <li><a href="/admsolicitations"><i class="fa-solid fa-briefcase"></i>Solicitações</a></li>
+        <li><a hreaf="/funcionari"><i class="fa-sharp fa-solid fa-building-columns"></i>Agências</a></li>
+    </ul>
+
+<div>
+<a href="/logoutmanager"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+</div>
+</nav>
+{% endblock %}
+
+
+{% block justify %}
+<div class="justify">
+{% block contents %}
+
+{% endblock contents %}
+</div>
+{% endblock justify%}
+</body>
+</html>
