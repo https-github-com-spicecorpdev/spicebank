@@ -13,11 +13,11 @@
     <hr>
 <div class="justify">
 
-    <form method="GET" action="{{ url_for('solicitations') }}">
+    <form method="GET" action="{{ url_for('index') }}">
         <button type="submit">&#8592 Ok</button>
 </form>
 
-<form method="GET" action="{{ url_for('withdraw_and_close_account_comprovant', user_id=user.id) }}" target="_blank">
+<form method="GET" action="{{ url_for('print', user_id=user.id) }}" target="_blank">
     <button type="submit">Imprimir</button>
 </form>
         

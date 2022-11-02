@@ -72,6 +72,19 @@ def solicitations():
     solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations), 200
 
+@app.route('/adm')
+@login_required
+def adm():
+    manager= current_user
+    users=userDatabase.findAllUsers(manager.workAgency)
+    return render_template('admusers.html', users = users, manager = manager), 200
+
+@app.route('/<user_id>/admuserdetails')
+@login_required
+def adm_user_details(user_id):
+    user = userDatabase.findById(user_id)
+    return render_template('admusersdetail.html', user = user), 200
+
 @app.route('/<user_id>/<solicitation_id>/<type>/details')
 @login_required
 def details(user_id,solicitation_id,type):
@@ -109,12 +122,19 @@ def withdraw_approval(user_id, solicitation_id):
     close_account_approval(user_id, 'aprovar', solicitation_id)
     return render_template('admextrato.html', user=user, extratos=statements), 200
 
-@app.route('/<user_id>/withdraw/comprovant', methods = ['GET'])
+@app.route('/<user_id>/statement', methods = ['GET'])
 @login_required
-def withdraw_and_close_account_comprovant(user_id):
-    logging.info(f'withdraw_and_close_account_comprovant::({user_id})')
+def statement_user(user_id):
+    logging.info(f'statement_user::({user_id})')
     user = userDatabase.findById(user_id)
     statements = statementDatabase.findByUserId(user.id)
+    return render_template('admextrato.html', user = user, extratos=statements), 200
+
+@app.route('/<user_id>/print', methods = ['GET'])
+@login_required
+def print(user_id):
+    user = userDatabase.findById(user_id)
+    statements = statementDatabase.findByUserId(user_id)
     return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements), 200
 
 def withdrawConfirm(user_id, value):
