@@ -4,6 +4,21 @@
     {% block contents %}
 
     <div class="admapprovedatachangebox1">
+        <h3> DADOS ATUAIS</h3>
+        <h4>Conta: {{ user.account.account }} Agência: {{ user.account.agency }}</h4>
+        <div>
+            <p>Nome: {{ user.name }} </p>
+            <p>Gênero: {{ user.gender }}</p>
+        <br><br>
+                    <h4>Endereço</h4>
+         <p class="admapprovedatachangeright">Estado: {{ user.address.state }}</p>
+         <p class="admapprovedatachangeleft">cidade: {{ user.address.city }}</p>
+         <p>Bairro: {{ user.address.district }}</p>
+         <p>Rua/Avenida {{ user.address.road }}</p>
+         <p class="admapprovedatachangeright">CEP: {{ user.address.cep }}</p>
+         <p class="admapprovedatachangeleft">Número {{ user.address.numberHouse }}</p>
+
+    <div class="admapprovedatachangebox1">
         <h3>SOLICITAÇÃO DE ALTERAÇÃO DE DADOS CADASTRAIS</h3>
         <h4>Conta: {{ user.account.account }} Agência: {{ user.account.agency }}</h4>
         <div>
@@ -17,6 +32,10 @@
          <p>Rua/Avenida {{ solicitation.road }}</p>
          <p class="admapprovedatachangeright">CEP: {{ solicitation.cep }}</p>
          <p class="admapprovedatachangeleft">Número {{ solicitation.number_house }}</p>
+
+         
+
+
 
 <br><br><br>
                     
