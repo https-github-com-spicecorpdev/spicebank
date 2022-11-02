@@ -9,6 +9,14 @@
     width: 85%;
 }
 
+@media screen and (max-width: 750px) { 
+    .justify{
+        float: none;
+        width: 100%;
+    }
+
+}
+
 /*Formatação do usuário*/
 
 .userbody{
@@ -76,16 +84,15 @@ padding: 20px;
 
 .admbody{
     background-color: #678a5c87;
-
-    font-family: 'Montserrat', sans-serif
+    font-family: 'Montserrat', sans-serif;
 }
 
     /*Barra de navegação HORIZONTAL do gerente (login)*/
 
     .hadmnav{
-        padding: 0;
-        background-color: #678a5c;
-        position: fixed;
+      padding: 0;
+      background-color: #678a5c;
+      position: fixed;
       top: 0;
       width: 100%; 
       height: 7%;
@@ -120,10 +127,10 @@ padding: 20px;
     padding: 0;
     background-color: #678a5c;
     position: fixed;
-  top: 0;
-  width: 15%; 
-  height: 100%;
-  float: left;
+    top: 0;
+    width: 15%; 
+    height: 100%;
+    float: left;
 }
 .admnav >  ul {
     text-transform: uppercase;
@@ -132,6 +139,7 @@ padding: 20px;
     top: 50%;
     transform: translateY(-50%);
    }
+   
 
 .admnav > ul > li > a > i{
     padding: 5px;
@@ -139,37 +147,104 @@ padding: 20px;
 
 .admnav > ul > li > a{
     color: #0d3b1b;
-    text-decoration: none; 
+    text-decoration: none;
     display: block;
-padding: 20px;
-    transition: background .4s;}
+    padding: 13px;
+    transition: background .4s;
+    }
 
 .admnav > ul > li > a:hover{
     background-color: #f5f5f5;
     transition: background .4s;}
     
 
-.admnav > div{
+.admnavdiv{
         background-color: #d6d6d6;
         position:absolute;
         bottom:0;
-        width: 100%;
+        width: 15%;
     }
-.admnav > div > a {
+.admnavdiv > a {
     display: block;
     text-transform: uppercase;
     color: #000;
     text-decoration: none; 
-    padding: 5px;
-    transition: background .4s;}
+    padding: 10px;
+    transition: background .4s;
+}
 
- .admnav > div > a > i{
+
+ .admnavdiv > a > i{
         padding: 5px;
     }
 
-.admnav > div > a:hover{
+.admnavdiv > a:hover{
      background-color: #f5f5f5;
     transition: background .4s;}
+
+
+
+    /*RESPONSIVIDADE MENU LATERAL*/
+
+@media screen and (max-width: 750px) {
+
+    .admnav{ padding: 0;
+            background-color: #678a5c;
+            position: fixed;
+            top: 0;
+            width: 90%; 
+            height: 8%;
+    }
+
+    .admnav >  ul {
+        text-transform: uppercase;
+        position: absolute;
+        width: 100%;
+        margin-left:10%;
+       }
+  
+    .admnav >  ul >li {
+        display:inline-block;
+        font-size:100%;
+       }
+    
+    .admnav > ul > li > a > i{
+        display:none;
+       }
+    
+    .admnav > ul > li > a{
+        color: #0d3b1b;
+        text-decoration: none; 
+              height:100%;
+        transition: background .4s;}
+    
+    .admnav > ul > li > a:hover{
+        background-color: #f5f5f5;
+        transition: background .4s;}
+        
+    
+    .admnavdiv{
+            height:8%;
+            width:10%;
+            top:0;
+      margin-left:90%;
+        }
+    .admnavdiv > a {
+        text-transform: uppercase;
+        color: #000;
+        text-decoration: none; 
+        padding: 5px;
+        transition: background .4s;
+        height:100%;}
+
+  
+    
+    .admnav > div > a:hover{
+         background-color: #f5f5f5;
+        transition: background .4s;}
+    
+}
+    /**/
 
     /*LoginGerente.html*/
 
@@ -223,6 +298,19 @@ padding: 40px;
             background-color:#678a5c87;
 }
 
+      /*RESPONSIVIDADE DA TELA ADMLOGIN.HTML*/
+
+@media screen and (max-width: 750px) { 
+    .admloginbox1{
+      margin: auto;
+      width: 75%;
+      background-color: #d6d6d6;
+      Margin-top: 10%;
+      padding: 40px;
+}
+
+}
+
       /*admhome.html*/
 
 /*caixa cinza claro*/
@@ -261,6 +349,22 @@ padding: 10px;
     transform: translateY(-50%);
 }
 
+
+    /*RESPONSIVIDADE ADMHOME.HTML*/
+
+    @media screen and (max-width: 750px) {
+
+        .admhomebox1{
+            margin: auto;
+            width: 75%;
+            background-color: #ffff;
+        Margin-top: 15%;
+        padding: 10px;
+        }
+
+
+    }
+
 /*admsolicitations.html*/
 
 .admsolicitationsbox1{
@@ -292,7 +396,7 @@ margin-top: 1%;
         color:black;
         text-decoration:none;
         display:block;
-        background-color:#fff;
+        height:40px
     
         
     }
@@ -319,6 +423,38 @@ margin-top: 1%;
         padding: 10px;
         border: none;
          background-color:#d6d6d6}
+
+
+    /*RESPONSIVIDADE MENU LATERAL*/
+
+    @media screen and (max-width: 750px) {
+        .admsolicitationsbutton > form >button{
+            cursor:pointer;
+        padding: 10px;
+        border: none;
+          margin-top:10%;
+         background-color:#d6d6d6}
+      
+      .admsolicitationsbox1{
+    margin: auto;
+        margin-top:1%;
+    width: 100%;
+}
+
+      .admsolicitationsbutton > form{
+            margin-left:0px;
+            margin-top:5%;
+        }
+              
+.admsolicitationsbutton > form >button{
+            cursor:pointer;
+        padding: 15px;
+        border: none;
+         background-color:#d6d6d6}
+
+      
+    }
+
 
 
 
@@ -409,7 +545,7 @@ margin-top: 1%;
     background-color: #d6d6d6;
     Margin-top: 1%;
     padding: 10px;
-                }
+}
     
 .admapprovedeleteaccountbox1 > h3 {
         text-align: center;}
@@ -423,21 +559,19 @@ margin-top: 1%;
     
 .admapprovedeleteaccountbox1 > p {
         margin-top: 5%;
-    }
+}
     
     
 .admapprovedeleteaccountleft{
         float:left;
         width: 50%;
     
-    }
+}
     
 .admapprovedeleteaccountright{
         float:right;
         width: 50%;
-    }
-                
-    
+}
     
 .admapprovedeleteaccountbutton1{
     cursor:pointer;
@@ -446,14 +580,15 @@ margin-top: 1%;
     background-color:#ffff;
     cursor: pointer;
 }
+
 .admapprovedeleteaccountbutton1 > a {
     color:#000;
     text-decoration:none;
     font-size:110%;
-  }
+}
 
-  .admapprovedeleteaccountbutton1:hover{
-        background-color:lawngreen;
+.admapprovedeleteaccountbutton1:hover{
+    background-color:lawngreen;
   }
     
     
@@ -473,16 +608,16 @@ margin-top: 1%;
 
 
 
-  .admapprovedeleteaccountbutton2:hover{
-        background-color:indianred;
+.admapprovedeleteaccountbutton2:hover{
+     background-color:indianred;
   }
 
-    .admapprovedeleteaccountbutton3{
-        cursor:pointer;
-        padding: 15px;
-        border-style: none;
-        background-color:#ffff;
-        cursor: pointer;
+.admapprovedeleteaccountbutton3{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#ffff;
+    cursor: pointer;
     }
 
   .admapprovedeleteaccountbutton3:hover{
@@ -1008,9 +1143,11 @@ width:fit-content;}
 Margin-top: 1%;
 padding: 10px;
 }
+
 .admextratobox1 >h2{
 text-align:center;
 }
+
 .admextratobox1 >p{
 text-align:center;
 margin-top: 1%;
@@ -1026,13 +1163,12 @@ margin-top: 1%;
 .admextratotable > table, tr  th {
         background-color:#d6d6d6;
     }
+
 .admextratotable > table, tr  td a {
         color:black;
         text-decoration:none;
         display:block;
         background-color:#fff;
-    
-        
     }
 
 .admextratotable > table, tr  td a:hover{
@@ -1057,4 +1193,5 @@ margin-top: 1%;
         padding: 10px;
         border: none;
          background-color:#d6d6d6}
+         
     /**//**/
