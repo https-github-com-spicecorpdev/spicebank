@@ -32,6 +32,23 @@ class UserDatabase:
         else:
             logging.info(f'Usuário com o id: {id} não encontrado!')
             return None
+
+    def findAllUsers(self, work_agency_id):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+            SELECT USR.*, ACCOUNT.* FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser where ACCOUNT.agencyUser = ?;
+        """
+        parameters = (work_agency_id,)
+        try:
+            cursor.execute(query, parameters)
+            user_from_db = cursor.fetchall()
+            if user_from_db:
+                return user_from_db
+            else:
+                logging.info(f'Nenhuma solicitação encontrada!')
+                return []
+        except mariadb.Error as e:
+            logging.error(e)
     
     def findByAgencyAccountAndPassword(self, agency, account, password):
         cursor = self.db.cursor(dictionary=True)

@@ -6,21 +6,23 @@
     <div class="admusersdetailbox1">
         <h3>DADOS DO CLIENTE</h3>
         <h4>Agência: {{ user.account.agency }} Conta: {{ user.account.account }}</h4>
+        <h4>Saldo: {{ user.account.balance }}</h4>
         <div>
             <p>Nome: {{ user.name }} </p>
-            <p>Gênero: {{ genre }}</p>
+            <p>CPF: {{ user.cpf }} </p>
+            <p>Dta de Nascimento: {{ user.birthDate }} </p>
+            <p>Gênero: {{ user.gender}}</p>
         <br><br>
                     <h4>Endereço</h4>
-         <p class="admusersdetailright">Estado: {{ state }}</p>
-         <p class="admusersdetailleft">cidade: {{ city }}</p>
-         <p>Bairro: {{ district }}</p>
-         <p>Rua/Avenida {{ road }}</p>
-         <p class="admusersdetailright">CEP: {{ cep }}</p>
-         <p class="admusersdetailleft">Número {{ number_house }}</p>
+         <p class="admusersdetailright">Estado: {{ user.address.state }}</p>
+         <p class="admusersdetailleft">cidade: {{ user.address.city }}</p>
+         <p>Bairro: {{ user.address.district }}</p>
+         <p>Rua/Avenida: {{ user.address.road }}</p>
+         <p class="admusersdetailright">CEP: {{ user.address.cep }}</p>
+         <p class="admusersdetailleft">Número {{ user.address.numberHouse }}</p>
 
 <br><br><br>
 
     </div>
-    
 
     {% endblock contents %}
