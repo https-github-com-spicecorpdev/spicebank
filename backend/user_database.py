@@ -102,6 +102,8 @@ class UserDatabase:
             logging.error(e)
         return self.findIdByUser(user)
 
+
+
     def findSolicitationByCpfAndPassword(self, cpf, password):
         cursor = self.db.cursor(dictionary=True)
         query = """
@@ -158,3 +160,18 @@ class UserDatabase:
             self.db.commit()
         except mariadb.Error as e:
             logging.error(e) 
+
+    def update_user_data_by_manager(self, user, address):
+        cursor = self.db.cursor()
+        query = """
+        UPDATE tuser
+        SET nameUser=?, roadUser=?, numberHouseUser=?, districtUser=?, cepUser=?, cityUser=?, stateUser=?, genreUser=?
+        WHERE idUser=?;
+        """
+        parameters = (user.name, address.road, address.numberHouse, address.district, address.cep, address.city, address.state, user.gender, user.user_id)
+        try:
+            cursor.execute(query, parameters)
+            self.db.commit()
+        except mariadb.Error as e:
+            logging.error(e)
+        return self.findIdByUser(user)
