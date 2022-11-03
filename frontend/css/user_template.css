@@ -1,0 +1,1488 @@
+/*Formatação do usuário:*/
+
+*{
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.justify{
+    float: right;
+    width: 85%;
+}
+
+@media screen and (max-width: 750px) { 
+    .justify{
+        float: none;
+        width: 100%;
+    }
+
+}
+
+
+
+/*LOGIN: login.html*/
+.userbodylogin{
+    background-color: #678a5c87;
+    font-family: 'Montserrat', sans-serif
+}
+  /*LoginGerente.html*/
+
+    /*caixa cinza claro*/
+    .userloginbox1{
+        margin: auto;
+        width: 25%;
+        background-color: #d6d6d6;
+    Margin-top: 10%;
+    padding: 40px;
+    }
+    .userloginbox1 > h2{
+        text-align: center;
+    }
+    .userloginbox1 > form {
+        text-align:center;
+    }
+    
+    .userloginbox1 > form > input{
+        margin:auto;
+        width:100%;
+        border-style:none;
+        text-align:center;
+        padding:15px;
+        
+    }
+    
+    .userloginbutton1 > button {
+        background-color:#ffff;
+        border-style:none;
+        padding:15px;
+        cursor:pointer;
+    }
+    
+    
+    .userloginbutton1 > button:hover{
+                background-color:#678a5c87;
+    }
+    
+    
+    .userloginbutton2{
+        text-align:center;
+        margin-top:5%;
+    }
+    .userloginbutton2 > form > button{
+            background-color:#ffff;
+        border-style:none;
+        padding:15px;
+        cursor:pointer;
+    }
+    
+    .userloginbutton2 > form > button:hover{
+                background-color:#678a5c87;
+    }
+    
+          /*RESPONSIVIDADE DA TELA userLOGIN.HTML*/
+    
+    @media screen and (max-width: 750px) { 
+        .userloginbox1{
+          margin: auto;
+          width: 75%;
+          background-color: #d6d6d6;
+          Margin-top: 10%;
+          padding: 40px;
+    }
+    
+    }
+
+
+
+/*Barra de navegação HORIZONTAL do usuário (login)*/
+.husernav{
+    padding: 0;
+    background-color: #678a5c;
+    position: fixed;
+    top: 0;
+    width: 100%; 
+    height: 7%;
+}
+.husernav >  ul {
+    text-transform: uppercase;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.husernav > ul > li > a > i{
+    padding: 7%;
+}
+.husernav > ul > li > a{
+    color: #0d3b1b;
+    text-decoration: none; 
+    padding: 5px;
+    float:right;
+    margin-right:5%;
+    transition: background .4s;
+}
+.husernav > ul > li > a:hover{
+    background-color: #f5f5f5;
+    transition: background .4s;
+}
+
+
+
+/*Tela da Cadastro*/
+.userbodyregistration{
+    background-color: #678a5c87;
+
+    font-family: 'Montserrat', sans-serif
+}
+/*Centralizar*/
+.userregistrationcenter{
+    margin: auto;
+    width:30%;
+}
+
+/*caixa cinza claro*/
+.userregistrationbox1{
+    background-color: #ffffff;
+    Margin-top: 15%;
+    padding: 15px;
+    margin-bottom: 2%;
+}
+
+.userregistrationbox1 > h2{    
+    text-align: center;
+}
+
+/*Formulário*/
+
+.userregistrationbox2{
+    background-color: #d6d6d6;
+    padding: 15px;
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 15%;
+}
+
+.userregistrationbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.userregistrationbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.userregistrationbox2 > form > input{
+    margin:5px;
+    width:80%;
+    border-style:none;
+    text-align:center;
+    padding:15px;    
+}
+
+
+/*Botões*/
+.userregistrationbutton1 > button {
+    background-color:#ffff;
+    border-style:none;
+    padding:15px;
+    cursor:pointer;
+}
+.userregistrationbutton1 > button:hover{
+    background-color:#678a5c87;
+}
+/*CasdastroBotão2*/
+.userregistrationbutton2{
+    text-align:center;
+    margin-top:5%;
+}
+.userregistrationbutton2 > form > button{
+            background-color:#ffff;
+            border-style:none;
+            padding:15px;
+            cursor:pointer;
+            }   
+.userregistrationbutton2 > form > button:hover{
+            background-color:#678a5c87;
+            }
+
+ /*RESPONSIVIDADE DA TELA ACOMPANHAMENTO.HTML*/
+    
+    @media screen and (max-width: 750px) { 
+        .userregistrationbox1{
+            margin: auto;
+            width: 75%;
+            background-color: #d6d6d6;
+            Margin-top: 10%;
+            padding: 40px;
+    }
+        
+    }
+/*Fim Tela de Cadastro*/
+
+
+
+/*ACOMPANHAMENTO: acompanhamento.html*/
+.userbodyacompanhamento{
+    background-color: #678a5c87;
+    font-family: 'Montserrat', sans-serif
+}
+
+
+    /*caixa cinza claro*/
+    .useracompanhamentobox1{
+        margin: auto;
+        width: 25%;
+        background-color: #d6d6d6;
+    Margin-top: 10%;
+    padding: 40px;
+    }
+    .useracompanhamentobox1 > h2{
+        text-align: center;
+    }
+    .useracompanhamentobox1 > form {
+        text-align:center;
+    }
+    
+    .useracompanhamentobox1 > form > input{
+        margin:auto;
+        width:100%;
+        border-style:none;
+        text-align:center;
+        padding:15px;
+        
+    }
+    
+    .useracompanhamentobutton1 > button {
+        background-color:#ffff;
+        border-style:none;
+        padding:15px;
+        cursor:pointer;
+    }
+    
+    
+    .useracompanhamentobutton1 > button:hover{
+                background-color:#678a5c87;
+    }
+    
+    
+    .useracompanhamentobutton2{
+        text-align:center;
+        margin-top:5%;
+    }
+    .useracompanhamentobutton2 > form > button{
+            background-color:#ffff;
+        border-style:none;
+        padding:15px;
+        cursor:pointer;
+    }
+    
+    .useracompanhamentobutton2 > form > button:hover{
+                background-color:#678a5c87;
+    }
+    
+          /*RESPONSIVIDADE DA TELA ACOMPANHAMENTO.HTML*/
+    
+    @media screen and (max-width: 750px) { 
+        .useracompanhamentobox1{
+          margin: auto;
+          width: 75%;
+          background-color: #d6d6d6;
+          Margin-top: 10%;
+          padding: 40px;
+    }
+    
+    }
+    /*FIM TELA DE ACOMPANHAMENTO*/
+
+/*HOME ACOMPANHAMENTO: homeAcomp.html*/
+.userbodyhacompanhamento{
+    background-color: #678a5c87;
+    font-family: 'Montserrat', sans-serif
+}
+
+
+    /*caixa cinza claro*/
+    .userhacompanhamentobox1{
+        margin: auto;
+        width: 25%;
+        background-color: #d6d6d6;
+    Margin-top: 10%;
+    padding: 40px;
+    }
+    .userhacompanhamentobox1 > h2{
+        text-align: center;
+    }
+    .userhacompanhamentobox1 > form {
+        text-align:center;
+    }
+    
+    .userhacompanhamentobox1 > form > input{
+        margin:auto;
+        width:100%;
+        border-style:none;
+        text-align:center;
+        padding:15px;
+        
+    }
+    
+    .userhacompanhamentobutton1 > button {
+        background-color:#ffff;
+        border-style:none;
+        padding:15px;
+        cursor:pointer;
+    }
+    
+    
+    .userhacompanhamentobutton1 > button:hover{
+                background-color:#678a5c87;
+    }
+    
+    
+    .userhacompanhamentobutton2{
+        text-align:center;
+        margin-top:5%;
+    }
+    .userhacompanhamentobutton2 > form > button{
+            background-color:#ffff;
+        border-style:none;
+        padding:15px;
+        cursor:pointer;
+    }
+    
+    .userhacompanhamentobutton2 > form > button:hover{
+                background-color:#678a5c87;
+    }
+    
+          /*RESPONSIVIDADE DA TELA HOMEACOMP.HTML*/
+    
+    @media screen and (max-width: 750px) { 
+        .userhacompanhamentobox1{
+          margin: auto;
+          width: 75%;
+          background-color: #d6d6d6;
+          Margin-top: 10%;
+          padding: 40px;
+    }
+    
+    }
+
+/*FIM TELA HOME ACOMPANHAMENTO*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Tela Home Usuário*/
+      /*home.html*/
+/*caixa cinza claro*/
+.userhomebox1{
+    margin: auto;
+    width: 25%;
+    background-color: #ffff;
+    Margin-top: 15%;
+    padding: 10px;
+}
+
+.userhomebox1 > h3{
+    text-align: center;
+}
+
+/*muda todos p dentro da classe homebox1 */
+.userhomebox1 > p{ 
+    margin-top: 5%;
+}
+
+/*caixa que contém o número do saldo*/
+.userhomebox2{
+    width: 100%;
+    height: 90px;
+    background-color: #d6d6d6;
+    Margin-top: 5%;
+    padding: 10px;
+}
+
+/*tamanho número do saldo*/
+.userhomebox2 > h2{ 
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+    /*RESPONSIVIDADE HOME.HTML*/
+
+@media screen and (max-width: 750px) {
+
+    .userhomebox1{
+        margin: auto;
+        width: 75%;
+        background-color: #ffff;
+        Margin-top: 15%;
+        padding: 10px;
+        }
+}
+/**/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*Barra de navegação lateral do usuário (verde)*/
+.usernav{
+    padding: 0;
+    background-color: #678a5c;
+    position: fixed;
+    top: 0;
+    width: 15%; 
+    height: 100%;
+    float: left;
+}
+.usernav >  ul {
+    text-transform: uppercase;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.usernav > ul > li > a > i{
+    padding: 5px;
+}
+
+.usernav > ul > li > a{
+    color: #0d3b1b;
+    text-decoration: none; 
+    display: block;
+    padding: 20px;
+    transition: background .4s;
+}
+
+.usernav > ul > li > a:hover{
+    background-color: #f5f5f5;
+    transition: background .4s;
+}
+    
+.usernav > div{
+        background-color: #d6d6d6;
+        position: absolute;
+        bottom:0;
+        width: 100%;
+}
+
+.usernav > div > a {
+    display: block;
+    text-transform: uppercase;
+    color: #000;
+    text-decoration: none; 
+    padding: 20px;
+    transition: background .4s;
+}
+
+ .usernav > div > a > i{
+        padding: 5px;
+}
+
+.usernav > div > a:hover{
+    background-color: #f5f5f5;
+    transition: background .4s;
+}
+
+/*Formatação do usuário*/
+
+.userbody{
+    background-color: #678a5c87;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+
+/*Barra de navegação lateral do gerente (verde)*/
+/*.usernav{
+    padding: 0;
+    background-color: #678a5c;
+    position: fixed;
+    top: 0;
+    width: 15%; 
+    height: 100%;
+    float: left;
+}
+.usernav >  ul {
+    text-transform: uppercase;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+   
+.usernav > ul > li > a > i{
+    padding: 5px;
+}
+
+.usernav > ul > li > a{
+    color: #0d3b1b;
+    text-decoration: none;
+    display: block;
+    padding: 13px;
+    transition: background .4s;
+}
+
+.usernav > ul > li > a:hover{
+    background-color: #f5f5f5;
+    transition: background .4s;
+}
+    
+.usernavdiv{
+        background-color: #d6d6d6;
+        position:absolute;
+        bottom:0;
+        width: 15%;
+}
+
+.usernavdiv > a {
+    display: block;
+    text-transform: uppercase;
+    color: #000;
+    text-decoration: none; 
+    padding: 10px;
+    transition: background .4s;
+}
+
+ .usernavdiv > a > i{
+        padding: 5px;
+}
+
+.usernavdiv > a:hover{
+    background-color: #f5f5f5;
+    transition: background .4s;
+}*/
+
+/*RESPONSIVIDADE MENU LATERAL*/
+
+@media screen and (max-width: 750px) {
+    .usernav{ padding: 0;
+        background-color: #678a5c;
+        position: fixed;
+        top: 0;
+        width: 90%; 
+        height: 8%;
+    }
+
+    .usernav >  ul {
+        text-transform: uppercase;
+        position: absolute;
+        width: 100%;
+        margin-left:10%;
+    }
+  
+    .usernav >  ul >li {
+        display:inline-block;
+        font-size:100%;
+    }
+    
+    .usernav > ul > li > a > i{
+        display:none;
+    }
+    
+    .usernav > ul > li > a{
+        color: #0d3b1b;
+        text-decoration: none; 
+        height:100%;
+        transition: background .4s;
+    }
+    
+    .usernav > ul > li > a:hover{
+        background-color: #f5f5f5;
+        transition: background .4s;
+    }
+        
+    .usernavdiv{
+        height:8%;
+        width:10%;
+        top:0;
+        margin-left:90%;
+    }
+    
+    .usernavdiv > a {
+        text-transform: uppercase;
+        color: #000;
+        text-decoration: none; 
+        padding: 5px;
+        transition: background .4s;
+        height:100%;
+    }
+
+    .usernav > div > a:hover{
+        background-color: #f5f5f5;
+        transition: background .4s;
+    }
+}
+    
+/**/
+
+
+
+
+
+
+
+
+
+
+
+/*usersolicitations.html*/
+
+.usersolicitationsbox1{
+    margin: auto;
+    width: 70%;
+    background-color: #d6d6d6;
+Margin-top: 1%;
+padding: 10px;
+}
+.usersolicitationsbox1 >h2{
+text-align:center;
+}
+.usersolicitationsbox1 >p{
+text-align:center;
+margin-top: 1%;
+}
+
+.usersolicitationstable{
+        margin: auto;
+        width: 70%;
+        background-color: white;
+        text-align: center;
+    }
+    
+.usersolicitationstable > table, tr  th {
+        background-color:#d6d6d6;
+    }
+        .usersolicitationstable > table, tr  td a {
+        color:black;
+        text-decoration:none;
+        display:block;
+        height:40px
+    
+        
+    }
+
+.usersolicitationstable > table, tr  td a:hover{
+        background-color:#0d8331;
+    }
+
+.usersolicitationstable > table, td {
+           border: 1px solid black;
+           border-collapse: collapse;
+         }
+.usersolicitationsbutton{
+            margin-right: 20px;
+        
+        }
+.usersolicitationsbutton > form{
+            margin-left:15.2%;
+            margin-top:5%;
+        }
+        
+.usersolicitationsbutton > form >button{
+            cursor:pointer;
+        padding: 10px;
+        border: none;
+         background-color:#d6d6d6}
+
+
+    /*RESPONSIVIDADE MENU LATERAL*/
+
+    @media screen and (max-width: 750px) {
+        .usersolicitationsbutton > form >button{
+            cursor:pointer;
+        padding: 10px;
+        border: none;
+          margin-top:10%;
+         background-color:#d6d6d6}
+      
+      .usersolicitationsbox1{
+    margin: auto;
+        margin-top:1%;
+    width: 100%;
+}
+
+      .usersolicitationsbutton > form{
+            margin-left:0px;
+            margin-top:5%;
+        }
+              
+.usersolicitationsbutton > form >button{
+            cursor:pointer;
+        padding: 15px;
+        border: none;
+         background-color:#d6d6d6}
+    }
+
+
+            /*userapprovedatachange.html*/
+
+.userapprovedatachangebox1{
+            margin: auto;
+            width: 70%;
+            background-color: #d6d6d6;
+            Margin-top: 1%;
+            padding: 10px;
+            }
+
+.userapprovedatachangebox1 > h3 {
+    text-align: center;}
+
+
+.userapprovedatachangebox1 > h4 {
+    text-align: center;}
+
+.userapprovedatachangebox1 > div > h4 {
+    text-align: center;}
+
+.userapprovedatachangebox1 > p {
+    margin-top: 5%;
+}
+
+
+.userapprovedatachangeleft{
+    float:left;
+    width: 50%;
+
+}
+
+.userapprovedatachangeright{
+    float:right;
+    width: 50%;
+}
+            
+.userapprovedatachangebutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#ffff;
+    cursor: pointer;
+}
+
+.userapprovedatachangebutton1 > a{
+    text-decoration: none;
+    color:#000;
+  font-size:120%;
+
+}
+
+.userapprovedatachangebutton1:hover{
+    background-color:indianred;
+}
+
+.userapprovedatachangebutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#ffff;
+    cursor: pointer;
+}
+
+.userapprovedatachangebutton2 > a{
+    text-decoration: none;
+    color:#000;
+  font-size:120%;
+
+}
+
+.userapprovedatachangebutton2:hover{
+    background-color:lawngreen;
+}
+
+.userapprovedatachangecenter{
+    margin:auto;
+  width:fit-content;
+}
+
+            /*userapprovedeleteaccount.html*/
+
+.userapprovedeleteaccountbox1{
+    margin: auto;
+    width: 70%;
+    background-color: #d6d6d6;
+    Margin-top: 1%;
+    padding: 10px;
+}
+    
+.userapprovedeleteaccountbox1 > h3 {
+        text-align: center;}
+    
+    
+.userapprovedeleteaccountbox1 > h4 {
+        text-align: center;}
+    
+.userapprovedeleteaccountbox1 > div > h4 {
+        text-align: center;}
+    
+.userapprovedeleteaccountbox1 > p {
+        margin-top: 5%;
+}
+    
+    
+.userapprovedeleteaccountleft{
+        float:left;
+        width: 50%;
+    
+}
+    
+.userapprovedeleteaccountright{
+        float:right;
+        width: 50%;
+}
+    
+.userapprovedeleteaccountbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#ffff;
+    cursor: pointer;
+}
+
+.userapprovedeleteaccountbutton1 > a {
+    color:#000;
+    text-decoration:none;
+    font-size:110%;
+}
+
+.userapprovedeleteaccountbutton1:hover{
+    background-color:lawngreen;
+  }
+    
+    
+.userapprovedeleteaccountbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#ffff;
+    cursor: pointer;
+}
+
+.userapprovedeleteaccountbutton2 > a {
+    color:#000;
+    text-decoration:none;
+    font-size:110%;
+  }
+
+
+
+.userapprovedeleteaccountbutton2:hover{
+     background-color:indianred;
+  }
+
+.userapprovedeleteaccountbutton3{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#ffff;
+    cursor: pointer;
+    }
+
+  .userapprovedeleteaccountbutton3:hover{
+        background-color:yellow;
+  }
+    
+    .userapprovedeleteaccountcenter{
+        margin:auto;
+        width:fit-content;
+    }
+
+
+    /*userwithdraw.html*/ 
+
+/*centralizar*/
+.userwithdraw{
+    margin: auto;
+    width:50%;
+}
+
+.userwithdraw{
+    margin: auto;
+    width:fit-content;
+}
+
+
+
+/*caixa cinza claro*/
+.userwithdrawbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.userwithdrawbox1 > h2{    
+    text-align: center;
+}
+
+
+.userwithdrawbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.userwithdrawbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.userwithdrawbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.userwithdrawbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.userwithdrawbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.userwithdrawbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.userwithdrawbutton1:hover{
+    background-color:lawngreen;
+}
+
+
+.userwithdrawbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.userwithdrawbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.userwithdrawbutton2:hover{
+    background-color:indianred;
+}
+    
+
+    /*userdepositconfirm.html*/ 
+
+/*centralizar*/
+.userdepositconfirmcenter1{
+    margin: auto;
+    width:50%;
+}
+
+.userdepositconfirmcenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.userdepositconfirmbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.userdepositconfirmbox1 > h2{    
+    text-align: center;
+}
+
+
+.userdepositconfirmbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.userdepositconfirmbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.userdepositconfirmbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.userdepositconfirmbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.userdepositconfirmbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.userdepositconfirmbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.userdepositconfirmbutton1:hover{
+    background-color:lawngreen;
+}
+
+
+.userdepositconfirmbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.userdepositconfirmbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.userdepositconfirmbutton2:hover{
+    background-color:indianred;
+}
+
+
+
+    /*userwithdrawconfirm.html*/ 
+
+/*centralizar*/
+.userwithdrawconfirmcenter1{
+    margin: auto;
+    width:50%;
+}
+
+.userwithdrawconfirmcenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.userwithdrawconfirmbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.userwithdrawconfirmbox1 > h2{    
+    text-align: center;
+}
+
+
+.userwithdrawconfirmbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.userwithdrawconfirmbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.userwithdrawconfirmbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.userwithdrawconfirmbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.userwithdrawconfirmbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.userwithdrawconfirmbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.userwithdrawconfirmbutton1:hover{
+    background-color:lawngreen;
+}
+
+
+.userwithdrawconfirmbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.userwithdrawconfirmbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.userwithdrawconfirmbutton2:hover{
+    background-color:indianred;
+}
+
+
+    /*userwithdrawvoucher.html*/ 
+
+/*centralizar*/
+.userwithdrawvouchercenter1{
+    margin: auto;
+    width:50%;
+}
+
+.userwithdrawvouchercenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.userwithdrawvoucherbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.userwithdrawvoucherbox1 > h2{    
+    text-align: center;
+}
+
+
+.userwithdrawvoucherbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.userwithdrawvoucherbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.userwithdrawvoucherbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.userwithdrawvoucherbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.userwithdrawvoucherbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.userwithdrawvoucherbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.userwithdrawvoucherbutton1:hover{
+    background-color:lawngreen;
+}
+
+
+.userwithdrawvoucherbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.userwithdrawvoucherbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.userwithdrawvoucherbutton2:hover{
+    background-color:indianred;
+}
+
+
+  /*userusers.html*/
+
+
+.userusersbox1{
+    margin: auto;
+    width: 70%;
+    background-color: #d6d6d6;
+Margin-top: 1%;
+padding: 10px;
+}
+.userusersbox1 >h2{
+text-align:center;
+}
+.userusersbox1 >p{
+text-align:center;
+margin-top: 1%;
+}
+
+.useruserstable{
+        margin: auto;
+        width: 70%;
+        background-color: white;
+        text-align: center;
+    }
+    
+.useruserstable > table, tr  th {
+        background-color:#d6d6d6;
+    }
+.useruserstable > table, tr  td a {
+        color:black;
+        text-decoration:none;
+        display:block;
+        background-color:#fff;
+    
+        
+    }
+
+.useruserstable > table, tr  td a:hover{
+        background-color:#0d8331;
+    }
+
+.useruserstable > table, td {
+           border: 1px solid black;
+           border-collapse: collapse;
+         }
+.userusersbutton{
+            margin-right: 20px;
+        
+        }
+.userusersbutton > form{
+            margin-left:15.2%;
+            margin-top:5%;
+        }
+        
+.userusersbutton > form >button{
+            cursor:pointer;
+        padding: 10px;
+        border: none;
+         background-color:#d6d6d6}
+
+
+    
+          /*userusersdetail.html*/
+
+.userusersdetailbox1{
+    margin: auto;
+    width: 70%;
+    background-color: #d6d6d6;
+    Margin-top: 1%;
+    padding: 10px;
+    }
+
+.userusersdetailbox1 > h3 {
+text-align: center;}
+
+
+.userusersdetailbox1 > h4 {
+text-align: center;}
+
+.userusersdetailbox1 > div > h4 {
+text-align: center;}
+
+.userusersdetailbox1 > p {
+margin-top: 5%;
+}
+
+
+.userusersdetailleft{
+float:left;
+width: 50%;
+
+}
+
+.userusersdetailright{
+float:right;
+width: 50%;
+}
+    
+
+.userusersdetailbutton1{
+cursor:pointer;
+padding: 15px;
+border-style: none;
+background-color:#ffff;
+cursor: pointer;
+}
+
+.userusersdetailbutton1 > a{
+text-decoration: none;
+color:#000;
+font-size:120%;
+
+}
+
+.userusersdetailbutton1:hover{
+background-color:indianred;
+}
+
+.userusersdetailbutton2{
+cursor:pointer;
+padding: 15px;
+border-style: none;
+background-color:#ffff;
+cursor: pointer;
+}
+
+.userusersdetailbutton2 > a{
+text-decoration: none;
+color:#000;
+font-size:120%;
+
+}
+
+.userusersdetailbutton2:hover{
+background-color:lawngreen;
+}
+
+.userusersdetailcenter{
+margin:auto;
+width:fit-content;}
+
+ /*userextrato.html*/
+
+
+ .userextratobox1{
+    margin: auto;
+    width: 70%;
+    background-color: #d6d6d6;
+Margin-top: 1%;
+padding: 10px;
+}
+
+.userextratobox1 >h2{
+text-align:center;
+}
+
+.userextratobox1 >p{
+text-align:center;
+margin-top: 1%;
+}
+
+.userextratotable{
+        margin: auto;
+        width: 70%;
+        background-color: white;
+        text-align: center;
+    }
+    
+.userextratotable > table, tr  th {
+        background-color:#d6d6d6;
+    }
+
+.userextratotable > table, tr  td a {
+        color:black;
+        text-decoration:none;
+        display:block;
+        background-color:#fff;
+    }
+
+.userextratotable > table, tr  td a:hover{
+        background-color:#0d8331;
+    }
+
+.userextratotable > table, td {
+           border: 1px solid black;
+           border-collapse: collapse;
+         }
+.userextratobutton{
+            margin-right: 20px;
+        
+        }
+.userextratobutton > form{
+            margin-left:15.2%;
+            margin-top:5%;
+        }
+        
+.userextratobutton > form >button{
+            cursor:pointer;
+        padding: 10px;
+        border: none;
+         background-color:#d6d6d6}
+         
+    /**//**/
