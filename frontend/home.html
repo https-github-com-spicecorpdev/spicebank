@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!--Tela Home-->
+<!-- <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
@@ -10,17 +11,27 @@
     <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_home.css') }}">
     <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
-</head>
+</head> -->
+{% extends "menu_lateral_template.html" %}
+
+{% block contents %}
+
 
 <body>
-    <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
-    <div>
-        <pre>
-    Olá, {{ name }}!
-    Agência:{{ agencia }} / Conta:{{ conta }}
-    Saldo disponível: R$ {{ "{:,.2f}".format(saldo) }}
-        </pre>
+    <title> Home | SpiceBank </title>
+
+    <!--<img src="static/img/logo-banco.png" alt="Logo Spice Bank">-->
+    <div class="userhomebox1">
+        <h3> Olá, {{ name }}! </h3>
+        <p> Data: {{ data }} </p>
+        <p> Agência:{{ agencia }} / Conta:{{ conta }} </p>
+        <h4> Saldo disponível: </p>
+      
+        <div class="userhomebox2">
+            <h2> R$ {{ "{:,.2f}".format(saldo) }} </h2>
+        </div>
     </div>
+
     <hr color="#00BFFF">
     <a href="/depositform">
         <button type="button"><i class="fas fa-money-bill-wave"></i><div>Depósito</div></button>
@@ -46,4 +57,5 @@
     </a>
 </body>
 
-</html>
+<!--</html>-->
+{% endblock contents %}
