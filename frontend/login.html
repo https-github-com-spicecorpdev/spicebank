@@ -1,59 +1,63 @@
+<!--Tela de Login do Usuário-->
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-login.css') }}">
-    <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon">
-    <title>Login</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/user_template.css') }}">
+        <!-- <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon"> -->
+        <title> Login | SpiceBank </title>
+    </head>
 
-<body>
-    
-   <nav>
-    <ul>
-        <li> <a href="acompanhamentoform">Acompanhar Solicitação</a> </li>
-    </ul>
-</nav>
-    <div class="center">
-        <img src="static/img/logo-banco.png" alt="logo banco">
-    </div>
-    <hr color="#00BFFF">
-
-    <div class="formulario">
-        <form method="POST" action="/login" name="cadastro">
-            <label for="fagency">Agência:</label>
-            <input type="text" placeholder="1" id="fagency" name="fagency"><br><br>
-            <label for="faccount">Conta:</label>
-            <input type="text" placeholder="0000" id="faccount" name="faccount"><br><br>
-            <label for="fpassword">Senha:</label>
-            <input type="password" id="fpassword" name="fpassword"><br><br>
-
-            <label>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul class=flashes>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
+    <body class="userbodylogin">        
+        <nav class="husernav">
+            <ul>
+                <li> <a href="acompanhamentoform">Acompanhar Solicitação</a> </li>
             </ul>
-            {% endif %}
-            {% endwith %}
-            {% block body %}{% endblock %}</label>
+        </nav>
 
-            <div class="center">
-                <button type="submit">Login</button>
+            <!--<div class="center">
+                <h2> Acesse sua conta! </h2>
+            </div> -->
+
+            <div class="userloginbox1">
+                <h2> Acesse sua conta! </h2>
+                <br>
+                <form method="POST" action="/login" name="cadastro">
+                    <label for="fagency">Agência:</label>
+                    <input type="text" placeholder="1" id="fagency" name="fagency"><br><br>
+                    <label for="faccount">Conta:</label>
+                    <input type="text" placeholder="0000" id="faccount" name="faccount"><br><br>
+                    <label for="fpassword">Senha:</label>
+                    <input type="password" id="fpassword" name="fpassword"><br><br>
+
+                    <label>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <ul class=flashes>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                    {% block body %}{% endblock %}</label>
+
+                    <div class="userloginbutton1">
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
+                <br>
+
+                <div class="userloginbutton2">
+                    <form action="/registerform">
+                        <button type="submit">Cadastrar nova conta</button>
+                    </form>
+                </div>
             </div>
-        </form>
-        <br>
-        <div>
-            <form action="/registerform">
-                <button type="submit">Cadastrar nova conta</button>
-            </form>
-        </div>
-    </div>
-</body>
+
+    </body>
 
 </html>
