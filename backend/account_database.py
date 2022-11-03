@@ -1,5 +1,7 @@
 import logging
 import mariadb
+from .user import User
+from .account import Account
 
 class AccountDatabase:
     def __init__(self, connection):
@@ -52,6 +54,48 @@ class AccountDatabase:
         cursor = self.db.cursor()
         query = "UPDATE taccount SET is_active = true WHERE numberAccount = ?"
         parameters = (accountNumber,)
+        try:
+            cursor.execute(query, parameters)
+            self.db.commit()
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def findByAccount(self, accountForTransfer, agencyForTransfer):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+        SELECT USR.*, ACCOUNT.* 
+        FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON idUser = idAccountUser 
+        WHERE numberAccount = ? and agencyUser = ?
+        """
+        parameters = (accountForTransfer, agencyForTransfer,)
+        try:
+            cursor.execute(query, parameters)
+            accountFromDB = cursor.fetchone()
+            if accountFromDB:
+                account = Account(id=accountFromDB['idAccount'],accountNumber=accountFromDB['numberAccount'], userAgency=accountFromDB['agencyUser'], totalBalance=accountFromDB['totalbalance'])
+                return User(accountFromDB['idUser'], accountFromDB['nameUser'], accountFromDB['cpfUser'], "fooPassword", accountFromDB['birthdateUser'], accountFromDB['genreUser'], account=account)
+            else:
+                logging.info(f'Usuário não encontrado!')
+                return None
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def getBalanceByIdAccount(self, id_account):
+        cursor = self.db.cursor(dictionary=True)
+        query = """select * from taccount t
+                where idAccount = ?;"""
+        parameters = (id_account,)
+        try:
+            cursor.execute(query, parameters)
+            value= cursor.fetchone()
+            return value['totalbalance']
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def updateBalanceByIdAccount(self, balance, id_account):
+        cursor = self.db.cursor()
+        query = "UPDATE taccount SET totalbalance = ? WHERE idAccount = ?"
+        parameters = (balance, id_account)
         try:
             cursor.execute(query, parameters)
             self.db.commit()

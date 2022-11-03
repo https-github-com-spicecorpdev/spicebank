@@ -42,6 +42,12 @@
                 <td>{{ extrato.created_time }}</td>
                 {% if extrato.operation == 'D'  %}
                     <td>Saque R$ {{"{:,.2f}".format(extrato.withdraw) }}</td>
+                {% elif extrato.operation == 'T' %}
+                    {% if extrato.deposit > 0 %}
+                        <td>Transferência - Recebida R$ {{"{:,.2f}".format(extrato.deposit) }}</td>
+                    {% else %}
+                        <td>Transferência - Enviada R$ {{"{:,.2f}".format(extrato.withdraw) }}</td>
+                    {% endif %}
                 {% else %}
                     <td>Depósito R$ {{"{:,.2f}".format(extrato.deposit) }}</td>
                 {% endif %}

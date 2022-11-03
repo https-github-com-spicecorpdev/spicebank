@@ -201,6 +201,97 @@ def depositconfirm():
         message = flash('Falha ao depositar')
         return render_template('deposito_confirmacao.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), saldo=saldoFormatado, message=message), 400
 
+@app.route('/transferform')
+@login_required
+def transferform():
+    user = current_user
+    saldo = user.balance()
+    saldoFormatado=(f'{saldo:.2f}')
+    today = time.strftime('%Y-%m-%d %H:%M:%S')
+    return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today), 200
+
+@app.route('/transfer', methods = ['POST'])
+@login_required
+def transfer():
+    user = current_user
+    saldo = user.balance()
+    saldoFormatado=(f'{saldo:.2f}')
+    today = time.strftime('%Y-%m-%d %H:%M:%S')
+    if not validate_form(request.form):
+        message = flash('Preencha todos os campos para transferir!')
+        return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, message=message), 400
+    accountForTransfer = request.form['faccountForTransfer']
+    agencyForTransfer = request.form['fagencyForTransfer']
+    valor = float(request.form['fvalor'])
+    if valor <= 0:
+        message = flash('Valor de depósito deve ser maior que R$00,00!')
+        return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, message=message), 400
+    else:
+        userTransfer = accountDatabase.findByAccount(request.form['faccountForTransfer'],request.form['fagencyForTransfer'])
+        logging.info(f'{user.id}')
+
+        if not userTransfer:
+            message = flash('Conta não encontrada, digite outro!')
+            return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, message=message), 400
+
+        elif userTransfer.id == user.id:
+            message = flash('Você não pode fazer uma transferência para você mesmo!')
+            return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, message=message), 400
+        else:
+            people = (f'{userTransfer.name}') #nome de quem está recebendo 
+            idPeoplefis = (f'{userTransfer.id}') #id de de quem está recebendo
+            idPeople = (f'{userTransfer.account.id}') #id da conta de quem está recebendo
+            accountUserT = (f'{user.accountNumber()}') #número da conta de quem está enviando
+            numberAccountT = (f'{userTransfer.account.account}') #número da conta de quem está recebendo
+            agencyUserT = (f'{userTransfer.account.agency}') #número da agência de quem está recebendo
+            value = (f'{valor:.2f}')
+            dataAtual = today
+            return render_template('utransferconfirm.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=value, saldo=saldoFormatado, userForTransfer=people, idForTransfer=idPeople, accountUserT=accountUserT, agencyUserT=agencyUserT, idPeoplefis=idPeoplefis, numberAccountT=numberAccountT, today=today, dataAtual=dataAtual), 200
+
+
+@app.route('/transferconfirm', methods = ['POST'])
+@login_required
+def transferconfirm():
+    transferForPeople = request.form['fidTransfer'] #id da conta do usuário que está recebendo
+    userForTransfer = request.form['fuserForTransfer'] #nome do usuário que está recebendo
+    valor = float(request.form['fvalor'])
+    today = request.form['fdataAtual']
+    accountUserT = request.form['faccountUserT'] #conta do usuário que está enviando
+    agencyUserT = request.form['fagencyUserT'] #agência do usuário que está recebendo
+    idPeoplefis = request.form['fidPeoplefis'] #id do usuário que está recebendo
+    numberAccountT = request.form['fnumberAccountT'] #número da conta de quem está recebendo
+
+    try:
+        bankBalance = accountDatabase.getBalanceByAccountNumber(accountUserT)
+        logging.info(f'{bankBalance}')
+        if bankBalance >= valor:
+            #sacar da conta do usuário que está enviando
+            newBalance = bankBalance - valor
+            logging.info(f'{newBalance}')
+            accountDatabase.updateBalanceByAccountNumber(newBalance, accountUserT)
+            statement = Statement('T', userId=current_user.id, balance=newBalance, situation='Aprovado', deposit=0, withdraw=valor, date=today)
+            statementDatabase.save(statement)
+       
+            #depositar na conta do usuário que está recebendo
+            bankBalanceRece = accountDatabase.getBalanceByIdAccount(transferForPeople)
+            newBalanceRece = bankBalanceRece + valor
+            accountDatabase.updateBalanceByIdAccount(newBalanceRece, transferForPeople)
+            statement = Statement('T', userId=idPeoplefis, situation='Aprovado', balance=newBalanceRece, deposit=valor, withdraw=0, date=today)
+            statementDatabase.save(statement)
+            return render_template('utransfervoucher.html', name=current_user.name, nameTransfer=userForTransfer, receNumberAccount=accountUserT, agencia=current_user.agency(), conta=current_user.accountNumber(), data=today, valor=valor, userForTransfer=userForTransfer, accountUserT=accountUserT, agencyUserT=agencyUserT, idPeoplefis=idPeoplefis, numberAccountT=numberAccountT, dataAtual=today), 200
+        else:
+            user = current_user
+            saldo = user.balance()
+            saldoFormatado=(f'{saldo:.2f}')
+            message = flash('Valor da transferência deve ser menor que seu saldo atual')
+            return render_template('utransfer.html', name=user.name, agencia=user.agency(), today=today, conta=user.accountNumber(), saldo=saldoFormatado, message=message), 400
+    except mariadb.Error as e:
+        logging.error(e)
+        saldo = current_user.balance()
+        saldoFormatado=(f'{saldo:.2f}')
+        message = flash('Falha ao transferir')
+        return render_template('utransfervoucher.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), saldo=saldoFormatado, message=message), 400
+
 @app.route('/statementform', methods = ['GET'])
 @login_required
 def statementForm():
