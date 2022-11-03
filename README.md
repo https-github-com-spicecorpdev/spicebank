@@ -45,7 +45,7 @@ Vide o tópico Banco de Dados para inicialização do banco de dados criado <br>
 `venv\Scripts\activate`<br>
 **Essa etapa é opcional.*
 2. No editor de código de sua preferência, abra a pasta do projeto clonado e instale as bibliotecas necessárias com os comandos:<br>
-`pip install -r requirements.txt
+`pip install -r requirements.txt`
 3. Se o sistema operacional for **Windows**, executar o arquivo usando o comando:
 `$ build.bat`<br>
 Se o sistema operacional for **Linux**, executar o arquivo usando o comando: 
