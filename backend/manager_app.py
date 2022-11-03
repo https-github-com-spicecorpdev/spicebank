@@ -1,4 +1,4 @@
-from flask import render_template, flash, request
+from flask import render_template, flash, redirect, url_for, request
 from . import create_manager_app, get_repositories, get_manager_repositories
 from flask_login import login_user, current_user, login_required, logout_user
 from .statement import Statement
@@ -98,13 +98,17 @@ def admprofile():
 @app.route('/<user_id>/admeditdatauser', methods = ['POST','GET'])
 @login_required
 def adm_edit_data_user(user_id):
+    manager=current_user
     logging.info(f'User_id: {user_id}')
     user = userDatabase.findById(user_id)
+    users=userDatabase.findAllUsers(manager.workAgency)
     address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
-    user_update = User(None, request.form['fname'], user.cpf, user.password, user.birthDate, request.form['fgenre'], address=address)
-    userDatabase.update_user_data_by_manager(user_update, address)
+    user_update = User(user_id, request.form['fname'], user.cpf, user.password, user.birthDate, request.form['fgenre'], address=address)
+    userDatabase.update_user_data_by_manager(user_update)
     message= flash('Dados alterados com sucesso!')
-    return render_template('admusersdetail.html', user = user, message=message), 200
+    if request.method == 'POST':
+        return redirect(url_for('adm')), 200
+    # return render_template('admusersdetail.html', user = user, manager = manager, users = users, message=message), 200
 
 @app.route('/<user_id>/<solicitation_id>/<type>/details')
 @login_required

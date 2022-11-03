@@ -161,14 +161,15 @@ class UserDatabase:
         except mariadb.Error as e:
             logging.error(e) 
 
-    def update_user_data_by_manager(self, user, address):
+    def update_user_data_by_manager(self, user):
         cursor = self.db.cursor()
         query = """
         UPDATE tuser
         SET nameUser=?, roadUser=?, numberHouseUser=?, districtUser=?, cepUser=?, cityUser=?, stateUser=?, genreUser=?
         WHERE idUser=?;
         """
-        parameters = (user.name, address.road, address.numberHouse, address.district, address.cep, address.city, address.state, user.gender, user.user_id)
+        address = user.address
+        parameters = (user.name, address.road, address.numberHouse, address.district, address.cep, address.city, address.state, user.gender, user.id)
         try:
             cursor.execute(query, parameters)
             self.db.commit()
