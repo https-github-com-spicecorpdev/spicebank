@@ -7,29 +7,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_home.css') }}">
-    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_home.css') }}"> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/user_template.css') }}">
+    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-login.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-login.css') }}"> -->
     <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon">
-    <title>Home</title>
+    <title>Acompanhamento | SpiceBank</title>
 </head>
 
-<body>
-    <div class="linha-cabeçalho">
-        <p style="padding-left: 60px;">Solicitações</p>
-    </div>
+<body class="userbodyhacompanhamento">
 
-    <div class="center">
+    <nav class="husernav"></nav>
+    <!-- <div class="linha-cabeçalho">
+        <p style="padding-left: 60px;">Solicitações</p>
+    </div> -->
+
+    <!-- <div class="center">
         <img src="static/img/logo-banco.png" alt="logo banco">
-    </div>
-    <hr color="#00BFFF">
+    </div> 
+    <hr color="#00BFFF"> -->
 
 
 <!--Se solicitação de abertura de conta existir:-->
-    <div class="center">
-            Olá, {{ solicitation.name }}! <br>
-            Status da conta: {{ solicitation.status }} <br>
+    <div class="userhacompanhamentobox1">
+            <h2> Olá, {{ solicitation.name }}! </h2>
+            <br>
+            Status da conta: {{ solicitation.status }}<br>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -38,18 +42,21 @@
             {% endif %}
             {% endwith %}
             {% block body %}{% endblock %}
-    </div>
-
-    <div class="formulario">
-        {% if statements %}
-        <form method="GET" action="{{ url_for('follow_up_statements', user_id=solicitation.user_id) }}" target="_blank">
-            <button type="submit">Verificar extrato da conta</button>
-        </form>
-        {% endif %}
     
-        <form method="GET" action="/logout">
-            <button type="submit">Logout</button>
-        </form>
+
+        <div class="center">
+            {% if statements %}
+            <form method="GET" action="{{ url_for('follow_up_statements', user_id=solicitation.user_id) }}" target="_blank">
+                <button type="submit">Verificar extrato da conta</button>
+            </form>
+            {% endif %}
+
+            <div class="userhacompanhamentobutton2">
+                <form method="GET" action="/logout">
+                    <button type="submit">Sair</button>
+                </form>
+            </div>    
+        </div>
     </div>
 
 </body>
