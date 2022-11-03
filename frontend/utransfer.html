@@ -15,23 +15,33 @@
         <div class="box1">
             <p> Transferência entre Contas </p>
             <p> Agência: {{ agencia }} /conta: {{ conta }} </p>
-            <p> Data: {{ data }}</p><br>
-            <p> Saldo atual: {{ Saldo }} </p>
+            <p> Data: {{ today }}</p><br>
+            <p> Saldo atual: {{ saldo }} </p>
             <br>
             <br>
             <p> Transferir para: </p>
-            <label for="fagency"> Agência </label>
-            <input type="text" id="fagency" name="Agência" readonly="readonly" value="0">
+            <label for="fagencyForTransfer"> Agência </label>
+            <input type="text" id="fagencyForTransfer" name="fagencyForTransfer" placeholder="0">
             <br>
             <br>
-            <label for="faccount"> Conta </label>
-            <input type="text" id="faccount" name="Conta" readonly="readonly" value="0000">
+            <label for="faccountForTransfer"> Conta </label>
+            <input type="text" id="faccountForTransfer" name="faccountForTransfer" placeholder="0000">
             <br>
             <br>
             <label for="fvalor"> Valor a ser transferido: R$ </label>
-            <input type="text" id="fvalor" name="fvalor" readonly="readonly" value="Insira o valor"><br><br>
+            <input type="text" id="fvalor" name="fvalor" placeholder="Insira o valor"><br><br>
         </div>
         <br>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block body %}{% endblock %}
         <button type="submit"> Transferir </button>
         </div>
     </form>

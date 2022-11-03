@@ -45,17 +45,16 @@ Vide o tópico Banco de Dados para inicialização do banco de dados criado <br>
 `venv\Scripts\activate`<br>
 **Essa etapa é opcional.*
 2. No editor de código de sua preferência, abra a pasta do projeto clonado e instale as bibliotecas necessárias com os comandos:<br>
-`pip install flask`<br>
-`pip install flask_session`<br>
-`pip install mariadb`<br>
+`pip install -r requirements.txt`
 3. Se o sistema operacional for **Windows**, executar o arquivo usando o comando:
 `$ build.bat`<br>
 Se o sistema operacional for **Linux**, executar o arquivo usando o comando: 
 `$ sh build.sh`<br>
 4. Na pasta “backend/database” o arquivo “db-spicebank.sql” contém o script para criar e executar o banco de dados;
-5. Para inicializar o projeto, entre na pasta “backend” e execute o seguinte comando:<br>
+5. Para inicializar o projeto, entre na pasta “backend” e execute os seguintes comandos, cada comando em um terminal diferente:<br>
 `flask run`<br>
-6. Acesse o aplicativo usando o link que que aparecerá no terminal para visualização das páginas, geralmente localhost:5000<br>
+`flask --app manager_app run --port 5001`
+6. Acesse o aplicativo usando o link que que aparecerá no terminal para visualização das páginas, localhost:5000 e localhost:5001 <br>
 **É necessário instalar todos os programas para o devido funcionamento do projeto!** 
 
 
@@ -82,12 +81,11 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 </div>
 
 
-# Minimum Viable Product(MVP) 2ªSprint
-- Tela de Login de usuário personalizado (Navegavél e funcional)
-- Tela Administrativas de Gerente de Agência (Navegavél e funcional)
-- Tela de Comprovante de Saque e Depósito (Navegavél e funcional)
-- Tela de Status de Solicitação de Conta (Navegavél e funcional)
-- Tela de Extrato (Navegavél e funcional)
+# Minimum Viable Product(MVP) 3ªSprint
+- Interface de Gerente de Agência
+- Interface de Geral Geral
+- Operações de Tranferência
+- Tipos de conta (Conta corrente e Conta poupança)
 
 <div align="center">
 <img src="https://user-images.githubusercontent.com/86271800/194793362-a1275a01-6fc4-4525-84bc-84d941f345e3.png" width="1000px", height="500px", />

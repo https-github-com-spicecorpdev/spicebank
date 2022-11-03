@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     {% block head %}
     <meta charset="UTF-8">
@@ -15,21 +15,20 @@
 
 <nav class="admnav">
     
-   <ul>
+       <!--Caso o gerente tenha conta-->
+    <!--Caso o gerente NÃO tenha conta-->
+
+    <ul>
         <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
-        
         <li><a href="/admprofile"><i class="fa-solid fa-right-from-bracket"></i>perfil</a></li>
-
         <li><a href="/admsolicitations"><i class="fa-solid fa-briefcase"></i>Solicitações</a></li>
+        <li><a hreaf="/funcionari"><i class="fa-sharp fa-solid fa-building-columns"></i>Agências</a></li>
+    </ul>
 
-        <li><a href="/adm"><i class="fa-solid fa-briefcase"></i>Usuários</a></li>
-        </ul>
-
+<div>
+<a href="/logoutmanager"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+</div>
 </nav>
-
-<div class="admnavdiv">
-    <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
-    </div>
 {% endblock %}
 
 

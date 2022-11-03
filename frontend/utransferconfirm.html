@@ -10,14 +10,25 @@
     <div class="justify">
         <br><br>
         <form method="POST" action="{{ url_for('transferconfirm') }}" name="transferconfirm">
-        <div class="box1">
-            <p> Origem: {{ name }}</p>
-            <p> Agência:{{ agencia }} /conta: {{ conta }} </p><br><br>
-            <p> Favorecido: {{ name }}</p>
-            <p> Agência:{{ agencia }} /conta: {{ conta }}</p> 
-            <p> Data: {{ data }}</p><br>
-            <h2> Valor R${{valor}}</h2><br>
-        </div>
+            <div class="box1">
+                <p>Origem: {{ name }}</p>
+                <p>Agência:{{ agencia }} /conta: {{ conta }}</p> <br><br> <br>
+                <label>Favorecido:</label>
+                <input type="text" id="fuserForTransfer" name="fuserForTransfer" readonly="readonly" value={{ userForTransfer }}><br><br>
+                <label>Agência do Favorecido:</label>
+                <input type="text" id="fagencyUserT" name="fagencyUserT" readonly="readonly" value={{ agencyUserT }}><br><br>
+                <label>Conta do Favorecido:</label>
+                <input type="text" id="fnumberAccountT" name="fnumberAccountT" readonly="readonly" value={{ numberAccountT }}><br><br>
+                <label> Data:</label>
+                <input type="text" id="fdataAtual" name="fdataAtual" readonly="readonly" value={{ dataAtual }}><br><br>
+                <label for="fvalor">Valor R$</label>
+                <input type="text" id="fvalor" name="fvalor" readonly="readonly" value={{ valor }}><br><br>
+    
+                <input type="hidden" id="fidTransfer" name="fidTransfer" readonly="readonly" value={{ idForTransfer }}><br><br>
+                <input type="hidden" id="faccountUserT" name="faccountUserT" readonly="readonly" value={{ accountUserT }}><br><br>
+                <input type="hidden" id="fidPeoplefis" name="fidPeoplefis" readonly="readonly" value={{ idPeoplefis }}><br><br>
+    
+            </div>
  
             <div>
                 <button type="submit">&#8592 Confirmar e Transferir</button>

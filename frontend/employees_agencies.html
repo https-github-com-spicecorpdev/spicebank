@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css"
+        href="{{url_for('static',filename = 'styles/menu_lateral_template.css')}}">
+    <title>Agências</title>
+</head>
+
+{% extends "menu_lateral_adm_geral_template.html" %} 
+
+{% block contents %}
+<body>
+    <div class="admagenciesbutton">
+        <form method="GET" action="{{ url_for('index') }}">
+        <button type="submit">&#8592 Voltar</button>
+        </form>
+    </div>
+    <div class="admagenciesbox1">
+        <h2>Agências</h2>
+        <p>Gerente: {{ nameManager }} Agência: {{ agenciadoGer }}
+        </p>
+    </div>
+    <table class="admageciestable">
+    
+        <!--linha com títulos-->
+        <tr>
+            <th>AGÊNCIA</th>
+            <th>ENDEREÇO</th>
+            <th>GERENTE ADMINISTRATIVO</th>
+            <th>MATRÍCULA</th>
+        </tr>
+        
+        <tr>
+            <td>agencies</td>
+            <td>address</td>
+            <td>admin</td>
+            <td>registration</td>
+        </tr>
+</table>
+{% endblock contents %}
+</body>
+</html>
