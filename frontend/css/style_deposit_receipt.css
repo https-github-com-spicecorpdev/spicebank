@@ -11,6 +11,10 @@
     margin: 0 auto;
 }
 
+.justify > p {
+    text-align: center;
+}
+
 .justify > form > button {
     background-color: #212121;
     border-color: rgb(80, 80, 100);
@@ -26,6 +30,7 @@ margin-left: 65%;
 width: 15%;
 height: 8%;
 }
+
 
 /*cria uma caixa ocupando 50% da tela para colocar as informações do cliente*/
 .box1{
@@ -48,20 +53,21 @@ height: 8%;
 text-align: center;
 
 }
-/*botão de voltar e confirmar*/
-button {
-    background-color: #212121;
-    border-color: rgb(80, 80, 100);
-    padding: 0.5%;
-    width: 30%;
-    border-radius: 10px;
-    color: rgb(255, 255, 255);
-    font-size: 20px;
+/*botão de voltar*/
+.userdepositreceiptbutton1{
     cursor:pointer;
-    display: inline-block;
-    margin-left: 10px;
+    padding: 15px;
+    border-style: none;
+    background-color:#868686;
+    cursor: pointer;
 }
 
-button:hover {
-    background-color:rgb(0, 0, 0)
+.userdepositreceiptbutton1 >a {
+  color:#999999;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.userdepositreceiptbutton1:hover{
+    background-color:#959595;
 }

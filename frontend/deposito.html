@@ -1,57 +1,47 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!-- Tela de Depósito -->
+{% extends "menu_lateral_template.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block contents %}
 
-    <link rel="shortcut icon" href="static/img/deposito.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_deposito.css') }}">
-    <title>Depósito</title>
-</head>
+    <title> Depósito | SpiceBank </title>
 
-<body>
-    <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
-    <div style="font-size: 30px;">
-        <pre>
-    Depósito
-        </pre>
-    </div>
-    <hr color="#00BFFF">
-    <div class="mensagem">
-        <h3>
-            Agência: {{ agencia }} / Conta: {{ conta }}
-        </h3>
-        <h3>
-            Saldo disponível: R${{ saldo }}
-        </h3>
-    </div>
-    <div style="margin-left: 5%;">
-        <form method="POST" action="/deposit" name="deposit">
-            <label for="fvalor">Valor para depósito:R$ </label>
-            <input type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
+    <body>
+        <div class="userdepositcenter1">
+        
+            <div class="userdepositbox1">
+                <h3> Depósito </h3>
+                <p> Agência: {{ agencia }} / Conta: {{ conta }} </p>
+                <p> Data: {{ data }} </p>
+                <h3> Saldo disponível: R${{ saldo }} </h3>
+            </div>
 
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <ul class=flashes>
-                    {% for message in messages %}
-                    <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-                {% endwith %}
-                {% block body %}{% endblock %}
+            <div class="userdepositbox2">
+                <h3> Insira o valor do depósito: </h3>
 
-                <button type="submit">Depositar</button>
+                <form method="POST" action="/deposit" name="deposit">
+                    <label for="fvalor"> R$ </label>
+                    <input type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
+
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        <ul class=flashes>
+                            {% for message in messages %}
+                            <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% endwith %}
+                        {% block body %}{% endblock %}
+                        <button class="userdepositbutton2" type="submit">Depositar</button>
+                    </form>
+            </div>
+        <br>
+
+        <form method="GET" action="{{ url_for('index') }}">
+            <div style="margin-left: 0%;">
+                <button class="userdepositbutton1" type="submit">&#8592 Cancelar e voltar</button>
+            </div>
         </form>
-    </div>
-    <br>
-    <form method="GET" action="{{ url_for('index') }}">
-        <div style="margin-left: 5%;">
-            <button type="submit">&#8592 Cancelar e voltar</button>
-        </div>
-    </form>
-</body>
+    </body>
 
-</html>
+{% endblock contents %}
