@@ -1,42 +1,38 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!-- Tela de Confirmação de Depósito do Usuário -->
+{% extends "menu_lateral_template.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Confirmação de Saque</title>
-    <link rel="stylesheet" type="text/css"
-        href="{{ url_for('static',filename='styles/estilo_saque_confirmacao.css') }}">
-    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
-    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
-</head>
+{% block contents %}
 
-<body>
-    <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
-    <hr>
-    <div class="justify">
-        <br><br>
-        <!-- <div class="center"> -->
-        <form method="POST" action="{{ url_for('withdrawConfirm') }}" name="depositconfirm">
-            <div class="box1">
-                <h2>Confirme o Saque</h2>
-                <br>
-                <p>origem: {{ name }}</p>
-                <p>agência: {{ agencia }} /conta: {{ conta }}</p>
-                <label for="fvalor">Valor R$</label>
+    <title> Confirme seu Saque | SpiceBank </title>
+
+    <body>
+        <div class="usersaqueconfirmcenter1">
+        
+            <div class="usersaqueconfirmbox1">
+                <h3> Confirme seu saque </h3>
+            </div>
+
+            <div class="usersaqueconfirmbox2">
+                <form method="POST" action="{{ url_for('withdrawConfirm') }}" name="saqueconfirm">
+                    <p> Origem: {{ name }}</p>
+                    <p> Agência: {{ agencia }} / {{ tipo }}: {{ conta}} </p>
+                    <p> Data: {{ data }} </p>
+                    <br>
+                    <h3>Valor:</h3>
+                <label for="fvalor"> R$ </label>
                 <input type="text" id="fvalor" name="fvalor" readonly="readonly" value={{ valor }}><br><br>
+        
+    
+                <button class="usersaqueconfirmbutton2" type="submit">Sacar</button>
+                </form>
             </div>
-            <div>
-                <button type="submit">Sacar</button>
-            </div>
-        </form>
         <br>
 
-        <form method="GET" action="{{ url_for('withdrawform') }}" name="depositform">
-            <div>
-                <button type="submit">&#8592 Cancelar e voltar</button>
+        <form method="GET" action="{{ url_for('withdrawform') }}" name="saqueform">
+            <div style="margin-left: 0%">
+                <button class="usersaqueconfirmbutton1" type="submit">&#8592 Cancelar e voltar</button>
             </div>
         </form>
-    </div>
-</body>
+    </body>
 
-</html>
+{% endblock contents %}
