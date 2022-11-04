@@ -1011,8 +1011,101 @@ margin-bottom: 2%;
     background-color:indianred;
 }
     
+    /*deposito.html*/ 
 
-    /*userdepositconfirm.html*/ 
+/*centralizar*/
+.userdepositcenter1{
+    margin: auto;
+    width:50%;
+}
+
+.userdepositcenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.userdepositbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.userdepositbox1 > h3{    
+    text-align: center;
+}
+
+.userdepositbox1 > p{    
+    text-align: center;
+}
+
+.userdepositbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.userdepositbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.userdepositbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.userdepositbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.userdepositbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.userdepositbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.userdepositbutton1:hover{
+    background-color:rgb(183, 85, 85);
+}
+
+
+.userdepositbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.userdepositbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.userdepositbutton2:hover{
+    background-color:rgb(71, 177, 106);
+}
+
+
+
+    /*deposito_confirmacao.html*/ 
 
 /*centralizar*/
 .userdepositconfirmcenter1{
@@ -1034,10 +1127,13 @@ padding: 15px;
 margin-bottom: 2%;
 }
 
-.userdepositconfirmbox1 > h2{    
+.userdepositconfirmbox1 > h3{    
     text-align: center;
 }
 
+.userdepositconfirmbox1 > p{    
+    text-align: center;
+}
 
 .userdepositconfirmbox2{
     background-color: #ffffff;
@@ -1079,7 +1175,7 @@ margin-bottom: 2%;
 }
 
 .userdepositconfirmbutton1:hover{
-    background-color:lawngreen;
+    background-color:rgb(183, 85, 85);
 }
 
 
@@ -1098,7 +1194,7 @@ margin-bottom: 2%;
 }
 
 .userdepositconfirmbutton2:hover{
-    background-color:indianred;
+    background-color:rgb(71, 177, 106);
 }
 
 

@@ -1,51 +1,36 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!-- Tela de Confirmação de Depósito do Usuário -->
+{% extends "menu_lateral_template.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css"
-        href="{{ url_for('static',filename='styles/estilo_deposito_confirmacao.css') }}">
-    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
-    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
-    <title>confirmação de depósito</title>
-</head>
+{% block contents %}
 
-<body>
-    <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
-    <div style="font-size: 30px;">
+    <title> Confirme seu Depósito | SpiceBank </title>
 
-        <pre>
-    Confirme o Depósito
-        </pre>
-    </div>
-    <hr color="#00BFFF">
-    <div class="justify">
-        <br><br>
-        <!-- <div class="center"> -->
-        <form method="POST" action="{{ url_for('depositconfirm') }}" name="depositconfirm">
-            <div class="box1">
-                <p>origem: {{ name }}</p>
-                <p>agência:{{ agencia }} /conta: {{ conta }}</p> <br><br> <br>
-                <label for="fvalor">Valor R$</label>
-                <input type="text" id="fvalor" name="fvalor" readonly="readonly" value={{ valor }}><br><br>
+    <body>
+        <div class="userdepositconfirmcenter1">
+        
+            <div class="userdepositconfirmbox1">
+                <h3> Confirme seu depósito </h3>
             </div>
-            <!-- </div> -->
-            <br>
-            <div>
-                <button type="submit">Depositar</button>
+
+            <div class="userdepositconfirmbox2">
+                <form method="POST" action="{{ url_for('depositconfirm') }}" name="depositconfirm">
+                    <p> Origem: {{ name }}</p>
+                    <p> Agência: {{ agencia }} / Conta: {{ conta }}</p>
+                    <p> Data: {{ data }} </p>
+                    <br>
+                    <h3>Valor:</h3>
+                    <label for="fvalor">R$</label>
+                    <input type="text" id="fvalor" name="fvalor" readonly="readonly" value={{ valor }}><br><br>
+                <br>
+                <button class="userdepositconfirmbutton2" type="submit">Depositar</button>
             </div>
         </form>
         <br>
-
         <form method="GET" action="{{ url_for('depositform') }}" name="depositform">
-            <div>
-                <button type="submit">&#8592 Cancelar e voltar</button>
+            <div style="margin-left: 0%">
+                <button class="userdepositconfirmbutton1" type="submit">&#8592 Cancelar e voltar</button>
             </div>
         </form>
-    </div>
+    </body>
 
-</body>
-
-</html>
+{% endblock contents %}
