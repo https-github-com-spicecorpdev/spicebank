@@ -1,28 +1,15 @@
 {% extends "menu_lateral_adm_template.html" %}
 
 {% block contents %}
-<!--caso o gerente NÂO tenha conta no banco-->
-
-<!--<div class="admhomebox1">
-
-  <h3>{{ nameManager }}</h3>
-    <p>Agência: {{ agenciadoGer }}</p>
-
-    </div>
-</div>-->
-
-<!--caso o gerente tenha conta no banco-->
 
 <div class="admhomebox1">
 
-  <h3>{{ nameManager }}</h3>
-    <p>Agência: {{ agenciadoGer }}</p>
-    <p>Conta> {{ contadoGer }}</p>
-    <h4>Saldo:</h4>
+  <h3> Olá! {{ nameManager }}</h3>
+    <p>Agência: {{ agenciadoGer }} matrícula: {{ matricula }}</p>
+    <p>Data:{{ data }}</p>
 
-    <div class="admhomebox2">
-      <h2>R${{ saldodoGer }}</h2>
     </div>
+</div>
 
     </div>
 {% endblock contents %}
