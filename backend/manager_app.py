@@ -88,25 +88,39 @@ def adm_user_details(user_id):
     user = userDatabase.findById(user_id)
     return render_template('admusersdetail.html', user = user), 200
 
-@app.route('/<manager_id>/admprofile', methods = ['POST','GET'])
-@login_required
-def admprofile():
-    manager= current_user
-    user_manager = userDatabase.findByManagerId(manager.userId)
-    address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
-    user_update = User(user_manager.userId, request.form['fname'], user_manager.cpfNumber, user_manager.secret, user_manager.dateOfBirth, request.form['fgenre'], address=address)
-    userDatabase.update_user_data_by_manager(user_update)
-    message= flash('Dados alterados com sucesso!')
+#@app.route('/<manager_id>/admprofile', methods = ['POST','GET'])
+#@login_required
+#def admprofile():
+    #manager= current_user
+    #user_manager = userDatabase.findByManagerId(manager.userId)
+    #address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
+    #user_update = Manager(manager.id, request.form['fname'], manager.cpf, manager.password, manager.birthDate, request.form['fgenre'], manager.registrationNumber, address=address)
+    #user_update = User(user_manager.userId, request.form['fname'], user_manager.cpfNumber, user_manager.#secret, user_manager.dateOfBirth, request.form['fgenre'], address=address)
+    #userDatabase.update_user_data_by_manager(user_update)
+    #message= flash('Dados alterados com sucesso!')
     # if request.method == 'POST':
     #     return redirect(url_for('index')), 200
-    return render_template('admprofile.html', manager = manager, manager_data= user_manager), 200
+    ##return render_template('admprofile.html', manager_data= manager), 200
+
+@app.route('/<manager>/admprofile', methods = ['POST','GET'])
+@login_required
+def admprofile():
+    manager=current_user
+    user = userDatabase.findById(manager.userId)
+    userDatabase.findAllUsers(manager.workAgency)
+    address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
+    user_update = User(manager.userId, request.form['fname'], user.cpf, user.password, user.birthDate, request.form['fgenre'], address=address)
+    userDatabase.update_user_data_by_manager(user_update)
+    message= flash('Dados alterados com sucesso!')
+    if request.method == 'POST':
+        return redirect(url_for('adm')), 200
 
 @app.route('/<user_id>/admeditdatauser', methods = ['POST','GET'])
 @login_required
 def adm_edit_data_user(user_id):
     manager=current_user
     user = userDatabase.findById(user_id)
-    users=userDatabase.findAllUsers(manager.workAgency)
+    userDatabase.findAllUsers(manager.workAgency)
     address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
     user_update = User(user_id, request.form['fname'], user.cpf, user.password, user.birthDate, request.form['fgenre'], address=address)
     userDatabase.update_user_data_by_manager(user_update)

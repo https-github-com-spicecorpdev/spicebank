@@ -3,26 +3,26 @@
     {% block contents %}
 
     <div class="admusersdetailbox1">
-        <form method="POST" action="{{ url_for('admprofile', manager_data = manager.id) }}">
+        <form method="POST" action="{{ url_for('admprofile', manager = manager.user) }}">
         <h3>DADOS PESSOAIS</h3>
         <h4>Agência: {{ manager.workAgency }} Matrícula: {{ manager.registrationNumber }}</h4>
         <div>
             <label for="fname">Nome:</label>
-            <input type="text" id="fname" name="fname" value="{{ manager_data.name }}"> <br><br>
-            <p>CPF: {{ manager_data.cpf }} </p>
-            <p>Dta de Nascimento: {{ manager_data.birthDate }} </p>
+            <input type="text" id="fname" name="fname" value="{{ manager.name }}"> <br><br>
+            <p>CPF: {{ manager.cpf }} </p>
+            <p>Dta de Nascimento: {{ manager.birthDate }} </p>
             <label for="fgenre" class="form-label mb-0">Gênero</label>
             <select id="fgenre" name="fgenre" class="form-select">
-                {%if manager_data.gender== 'M': %}  
-                    <option value="{{ manager_data.gender }}">Masculino</option>
+                {%if manager.gender== 'M': %}  
+                    <option value="{{ manager.gender }}">Masculino</option>
                     <option value="F">Feminino</option>
                     <option value="O">Outros</option>
-                {%elif manager_data.gender == 'F': %}  
-                    <option value="{{ manager_data.gender }}">Feminino</option>
+                {%elif manager.gender == 'F': %}  
+                    <option value="{{ manager.gender }}">Feminino</option>
                     <option value="F">Masculino</option>
                     <option value="O">Outros</option>
                 {%else: %}
-                    <option value="{{ manager_data.gender }}">Outros</option>
+                    <option value="{{ manager.gender }}">Outros</option>
                     <option value="M">Masculino</option>
                     <option value="F">Feminino</option>
                 {% endif %}
@@ -31,17 +31,17 @@
         <br><br>
             <h4>Endereço</h4>
             <label for="froad">Endereço: Rua/Avenida: </label>
-            <input type="text" id="froad" name="froad" value="{{ manager_data.address.road }}"><br><br>
+            <input type="text" id="froad" name="froad" value="{{ manager.address.road }}"><br><br>
             <label for="fnumberHouse">Número: </label>
-            <input type="text" id="fnumberHouse" name="fnumberHouse" value="{{ manager_data.address.numberHouse }}"><br><br>
+            <input type="text" id="fnumberHouse" name="fnumberHouse" value="{{ manager.address.numberHouse }}"><br><br>
             <label for="fdistrict">Bairro: </label>
-            <input type="text" id="fdistrict" name="fdistrict" value="{{ manager_data.address.district }}"><br><br>
+            <input type="text" id="fdistrict" name="fdistrict" value="{{ manager.address.district }}"><br><br>
             <label for="fcity"> Cidade: </label>
-            <input type="text" id="fcity" name="fcity" value="{{ manager_data.address.city }}"><br><br>
+            <input type="text" id="fcity" name="fcity" value="{{ manager.address.city }}"><br><br>
                     <div>
                         <label for="fstate" class="form-label mb-0">Estado *</label>
                         <select id="fstate" name="fstate" class="form-select">
-                            <option selected="" value="{{ manager_data.address.state }}">{{ manager_data.address.state }}</option>
+                            <option selected="" value="{{ manager.address.state }}">{{ manager.address.state }}</option>
                             <option value="Acre">Acre</option>
                             <option value="Alagoas">Alagoas</option>
                             <option value="Amapá">Amapá</option>
@@ -72,7 +72,7 @@
                         </select>
                     </div>
             <label for="fcep">CEP:</label>
-            <input type="text" id="fcep" name="fcep" value="{{ manager_data.address.cep }}"> <br><br>
+            <input type="text" id="fcep" name="fcep" value="{{ manager.address.cep }}"> <br><br>
             <label>
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
