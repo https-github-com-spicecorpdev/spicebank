@@ -1,49 +1,38 @@
-
-    {% extends "menu_lateral_adm_template.html" %}
+{% extends "menu_lateral_adm_template.html" %}
 
     {% block contents %}
 
     <div class="admusersdetailbox1">
-        <form method="POST" action="{{ url_for('adm_edit_data_user', user_id=user.id) }}">
+        <form method="POST" action="{{ url_for('admprofile') }}" name="adm_edit_data_user">
         <h3>DADOS DO CLIENTE</h3>
-        <h4>Agência: {{ user.account.agency }} Conta: {{ user.account.account }}</h4>
-        <h4>Saldo: {{ user.account.balance }}</h4>
+        <h4>Agência: {{ manager.workAgency }} Matrícula: {{ manager.registrationNumber }}</h4>
         <div>
             <label for="fname">Nome:</label>
-            <input type="text" id="fname" name="fname" value="{{ user.name }}"> <br><br>
-            <p>CPF: {{ user.cpf }} </p>
-            <p>Dta de Nascimento: {{ user.birthDate }} </p>
+            <input type="text" id="fname" name="fname" value="{{ manager_data.name }}"> <br><br>
+            <p>CPF: {{ manager_data.cpf }} </p>
+            <p>Dta de Nascimento: {{ manager_data.birthDate }} </p>
             <label for="fgenre" class="form-label mb-0">Gênero</label>
             <select id="fgenre" name="fgenre" class="form-select">
-                {%if user.gender == 'M': %}  
-                    <option value="{{ user.gender }}">Masculino</option>
-                    <option value="F">Feminino</option>
-                    <option value="O">Outros</option>
-                {%elif user.gender == 'F': %}  
-                    <option value="{{ user.gender }}">Feminino</option>
-                    <option value="F">Masculino</option>
-                    <option value="O">Outros</option>
-                {%else: %}
-                    <option value="{{ user.gender }}">Outros</option>
-                    <option value="M">Masculino</option>
-                    <option value="F">Feminino</option>
-                {% endif %}
+                <option selected="" value="{{ manager_data.gender }}">Qual gênero você se identifica?</option>
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+                <option value="O">Outros</option>
             </select>
             
         <br><br>
-            <h4>Endereço</h4>
+                    <h4>Endereço</h4>
             <label for="froad">Endereço: Rua/Avenida: </label>
-            <input type="text" id="froad" name="froad" value="{{ user.address.road }}"><br><br>
+            <input type="text" id="froad" name="froad" value="{{ manager_data.address.road }}"><br><br>
             <label for="fnumberHouse">Número: </label>
-            <input type="text" id="fnumberHouse" name="fnumberHouse" value="{{ user.address.numberHouse }}"><br><br>
+            <input type="text" id="fnumberHouse" name="fnumberHouse" value="{{ manager_data.address.numberHouse }}"><br><br>
             <label for="fdistrict">Bairro: </label>
-            <input type="text" id="fdistrict" name="fdistrict" value="{{ user.address.district }}"><br><br>
+            <input type="text" id="fdistrict" name="fdistrict" value="{{ manager_data.address.district }}"><br><br>
             <label for="fcity"> Cidade: </label>
-            <input type="text" id="fcity" name="fcity" value="{{ user.address.city }}"><br><br>
+            <input type="text" id="fcity" name="fcity" value="{{ manager_data.address.city }}"><br><br>
                     <div>
                         <label for="fstate" class="form-label mb-0">Estado *</label>
                         <select id="fstate" name="fstate" class="form-select">
-                            <option selected="" value="{{ user.address.state }}">{{ user.address.state }}</option>
+                            <option selected="" value="{{ manager_data.address.state }}">Selecione o Estado (UF)</option>
                             <option value="Acre">Acre</option>
                             <option value="Alagoas">Alagoas</option>
                             <option value="Amapá">Amapá</option>
@@ -74,7 +63,7 @@
                         </select>
                     </div>
             <label for="fcep">CEP:</label>
-            <input type="text" id="fcep" name="fcep" value="{{ user.address.cep }}"> <br><br>
+            <input type="text" id="fcep" name="fcep" value="{{ manager_data.address.cep }}"> <br><br>
             <label>
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -92,7 +81,7 @@
                 <button type="submit">Salvar</button>
             </div>
         </form>
-        <form method="GET" action="{{ url_for('adm') }}">
+        <form method="GET" action="{{ url_for('index') }}">
             <button type="submit">Voltar</button>
         </form>
 <br><br><br>

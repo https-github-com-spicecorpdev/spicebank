@@ -177,12 +177,12 @@ VALUES(nextval(agency_number), 1);
 -- Cria usuário comum do gerente geral
 INSERT INTO spicebank.tuser
 (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
-VALUES('Jose', 3, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'M', '123');
+VALUES('Jose', 3, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'M', '123');
 
 -- Cria usuário comum
 INSERT INTO spicebank.tuser
 (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
-VALUES('Aline', 5, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'F', '123');
+VALUES('Aline', 5, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'F', '123');
 
 -- Cria solicitação abertura de conta usuário comum
 INSERT INTO spicebank.solicitation
@@ -197,7 +197,7 @@ VALUES(1, NEXTVAL(manager_registration_number), null, 1, 1);
 -- Cria usuário comum do gerente agência
 INSERT INTO spicebank.tuser
 (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
-VALUES('Ronaldo', 4, 'fatec', 1, 'fatec', 1, 'fatec', 'fatec', '2022-01-01', 'M', '123');
+VALUES('Ronaldo', 4, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'M', '123');
 
 -- Cria gerente de agência
 INSERT INTO spicebank.manager
