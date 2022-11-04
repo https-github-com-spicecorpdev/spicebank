@@ -18,11 +18,11 @@
    <ul>
         <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
         
-        <li><a href="/admprofile"><i class="fa-solid fa-right-from-bracket"></i>perfil</a></li>
+        <li><a href="/admprofile"><i class="fa-solid fa-user"></i>perfil</a></li>
 
         <li><a href="/admsolicitations"><i class="fa-solid fa-briefcase"></i>Solicitações</a></li>
 
-        <li><a href="/adm"><i class="fa-solid fa-briefcase"></i>Usuários</a></li>
+        <li><a href="/adm"><i class="fa-solid fa-users"></i>Usuários</a></li>
         </ul>
 
 </nav>
@@ -35,6 +35,7 @@
 
 {% block justify %}
 <div class="justify">
+<div class="templatedatetime">{{ datetime }}</div>
 {% block contents %}
 
 {% endblock contents %}
