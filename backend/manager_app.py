@@ -18,6 +18,9 @@ managerDatabase = get_manager_repositories()
 @app.route('/')
 @login_required
 def index():
+    manager = current_user
+    if manager.profile == 1:
+        return render_template('admhomegeral.html'), 200
     return render_template('admhome.html'), 200
 
 @login_manager.unauthorized_handler
@@ -44,8 +47,12 @@ def loginGerente():
     if not validate_form(request.form):
         message = flash('Preencha todos os campos!')
         return render_template('loginGerente.html', message=message), 400
-    manager = managerDatabase.findByRegistrationNumberAndPassword (request.form['fmatricula'], request.form['fpassword'])
-    if manager:
+    manager = managerDatabase.findByRegistrationNumberAndPassword (request.form['fmatricula'], request.form['fpassword'],)
+    if manager.profile == 1:
+        app.logger.info(manager)
+        login_user(manager)
+        return render_template('admhomegeral.html'), 200
+    elif manager:
         app.logger.info(manager)
         login_user(manager)
         return render_template('admhome.html'), 200
