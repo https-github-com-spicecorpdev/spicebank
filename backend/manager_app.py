@@ -4,6 +4,7 @@ from flask_login import login_user, current_user, login_required, logout_user
 from .statement import Statement
 from .address import Address
 from .user import User
+from .account import Account
 from .manager import Manager
 import logging
 import time
@@ -102,18 +103,21 @@ def adm_user_details(user_id):
     #     return redirect(url_for('index')), 200
     ##return render_template('admprofile.html', manager_data= manager), 200
 
-@app.route('/<manager>/admprofile', methods = ['POST','GET'])
+@app.route('/admprofile', methods = ['POST', 'GET'])
 @login_required
 def admprofile():
     manager=current_user
-    user = userDatabase.findById(manager.userId)
-    userDatabase.findAllUsers(manager.workAgency)
-    address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
-    user_update = User(manager.userId, request.form['fname'], user.cpf, user.password, user.birthDate, request.form['fgenre'], address=address)
-    userDatabase.update_user_data_by_manager(user_update)
-    message= flash('Dados alterados com sucesso!')
+    user = userDatabase.findById(manager.id)
+    logging.info(f'{user}')
     if request.method == 'POST':
-        return redirect(url_for('adm')), 200
+        address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
+        logging.info(f'{address}')
+        manager_update = User(manager.id, request.form['fname'], user.cpf, user.password, user.birthDate, request.form['fgenre'], address=address)
+        userDatabase.update_user_data_by_manager(manager_update)
+        message= flash('Dados alterados com sucesso!')
+        return render_template('admhome.html'), 200
+    # return redirect(url_for('adm')), 200
+    return render_template('admprofile.html', manager = user), 200
 
 @app.route('/<user_id>/admeditdatauser', methods = ['POST','GET'])
 @login_required

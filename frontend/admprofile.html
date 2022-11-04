@@ -3,7 +3,7 @@
     {% block contents %}
 
     <div class="admusersdetailbox1">
-        <form method="POST" action="{{ url_for('admprofile', manager = manager.user) }}">
+        <form method="POST" action="{{ url_for('admprofile') }}">
         <h3>DADOS PESSOAIS</h3>
         <h4>Agência: {{ manager.workAgency }} Matrícula: {{ manager.registrationNumber }}</h4>
         <div>
