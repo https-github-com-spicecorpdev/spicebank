@@ -4,6 +4,7 @@ from .user import User
 from .account import Account
 from .address import Address
 from .solicitation import Solicitation
+from .manager import Manager
 
 class UserDatabase:
     def __init__(self, connection):
@@ -21,7 +22,6 @@ class UserDatabase:
        FROM tuser AS USR right JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
        WHERE USR.idUser = ?;
         """
-        
         parameters = (id,id,)
         cursor.execute(query, parameters) 
         userFromDB = cursor.fetchone()
@@ -29,6 +29,28 @@ class UserDatabase:
             address = Address(userFromDB['roadUser'], userFromDB['numberHouseUser'], userFromDB['districtUser'], userFromDB['cityUser'], userFromDB['stateUser'], userFromDB['cepUser'])
             account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'])
             return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], userFromDB['passwordUser'], userFromDB['birthdateUser'], userFromDB['genreUser'], account=account, address=address)
+        else:
+            logging.info(f'Usuário com o id: {id} não encontrado!')
+            return None
+
+    def findByManagerId(self, id):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+        SELECT USR.*,  MANAGER.* 
+       FROM tuser AS USR left JOIN manager AS MANAGER ON USR.idUser = MANAGER.id_user
+       WHERE USR.idUser = ?
+       union    
+        SELECT USR.*, MANAGER.*  
+       FROM tuser AS USR right JOIN taccount AS MANAGER ON USR.idUser = MANAGER.id_user
+       WHERE USR.idUser = ?;
+        """
+        parameters = (id,id,)
+        cursor.execute(query, parameters) 
+        userFromDB = cursor.fetchone()
+        if userFromDB:
+            address = Address(userFromDB['roadUser'], userFromDB['numberHouseUser'], userFromDB['districtUser'], userFromDB['cityUser'], userFromDB['stateUser'], userFromDB['cepUser'])
+            account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'])
+            return Manager(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], userFromDB['passwordUser'], userFromDB['birthdateUser'], userFromDB['genreUser'], userFromDB['registration_number'], userFromDB['work_agency_id'], userFromDB['profile_user'], account=account, address=address)
         else:
             logging.info(f'Usuário com o id: {id} não encontrado!')
             return None
@@ -49,7 +71,7 @@ class UserDatabase:
                 return []
         except mariadb.Error as e:
             logging.error(e)
-    
+            
     def findByAgencyAccountAndPassword(self, agency, account, password):
         cursor = self.db.cursor(dictionary=True)
         query = """
