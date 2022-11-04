@@ -1197,6 +1197,189 @@ margin-bottom: 2%;
     background-color:rgb(71, 177, 106);
 }
 
+/*saque.html*/ 
+
+/*centralizar*/
+.usersaquecenter1{
+    margin: auto;
+    width:50%;
+}
+
+.usersaquecenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.usersaquebox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.usersaquebox1 > h3{    
+    text-align: center;
+}
+
+.usersaquebox1 > p{    
+    text-align: center;
+}
+
+.usersaquebox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.usersaquebox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.usersaquebox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.usersaquebox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.usersaquebutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.usersaquebutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.usersaquebutton1:hover{
+    background-color:rgb(183, 85, 85);
+}
+
+
+.usersaquebutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.usersaquebutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.usersaquebutton2:hover{
+    background-color:rgb(71, 177, 106);
+}
+
+/*saque_confirmacao.html*/ 
+
+/*centralizar*/
+.usersaqueconfirmcenter1{
+    margin: auto;
+    width:50%;
+}
+
+.usersaqueconfirmcenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.usersaqueconfirmbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.usersaqueconfirmbox1 > h3{    
+    text-align: center;
+}
+
+.usersaqueconfirmbox1 > p{    
+    text-align: center;
+}
+
+.usersaqueconfirmbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.usersaqueconfirmbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.usersaqueconfirmbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.usersaqueconfirmbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.usersaqueconfirmbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.usersaqueconfirmbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.usersaqueconfirmbutton1:hover{
+    background-color:rgb(183, 85, 85);
+}
+
+
+.usersaqueconfirmbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.usersaqueconfirmbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.usersaqueconfirmbutton2:hover{
+    background-color:rgb(71, 177, 106);
+}
 
 
     /*userwithdrawconfirm.html*/ 
