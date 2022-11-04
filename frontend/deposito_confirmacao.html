@@ -15,7 +15,7 @@
             <div class="userdepositconfirmbox2">
                 <form method="POST" action="{{ url_for('depositconfirm') }}" name="depositconfirm">
                     <p> Origem: {{ name }}</p>
-                    <p> Agência: {{ agencia }} / Conta: {{ conta }}</p>
+                    <p> Agência: {{ agencia }} / {{ tipo }}: {{ conta}} </p>
                     <p> Data: {{ data }} </p>
                     <br>
                     <h3>Valor:</h3>
