@@ -17,7 +17,8 @@ accountDatabase, statementDatabase, solicitationDatabase, bankDatabase, userData
 @login_required
 def index():
     user = current_user
-    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
+    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today, type=user.account.typeAccount), 200
 
 @login_manager.unauthorized_handler
 def unauthorized():
@@ -29,13 +30,14 @@ def load_user(user_id):
 
 @app.route('/login', methods = ['POST'])
 def login():
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     if not validate_form(request.form):
             message = flash('Preencha todos os campos!')
             return render_template('login.html', message=message), 400
     user = userDatabase.findByAgencyAccountAndPassword(request.form['fagency'],request.form['faccount'], request.form['fpassword'])
     if user:
         login_user(user)
-        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
+        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('login.html', message=message), 400
@@ -100,23 +102,24 @@ def withdrawform():
     user = current_user
     saldo = user.balance()
     saldoFormatado=(f'{saldo:.2f}')
-    return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado), 200
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
+    return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, date=today, type=user.account.typeAccount), 200
 
 @app.route('/withdraw', methods = ['POST'])
 @login_required
 def withdraw():
     user = current_user
-    today = time.strftime('%Y-%m-%d %H:%M:%S')
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     saldo = user.balance()
     saldoFormatado=(f'{saldo:.2f}')
     if not validate_form(request.form):
         message = flash('Preencha um valor para sacar!')
-        return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message), 400
+        return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
     else:
         value = float(request.form['fvalor'])
         if value <= 0:
             message = flash('Valor de saque deve ser maior que R$00,00!')
-            return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message), 400
+            return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
         try:
             cursor = connection.cursor()
             query = "SELECT capital FROM bank WHERE BINARY id = ?"
@@ -124,19 +127,19 @@ def withdraw():
             cursor.execute(query, parameters)
             bankBalance = float(cursor.fetchone()[0])
             if bankBalance >= value:
-                return render_template('saque_confirmacao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=value, data=today), 200
+                return render_template('saque_confirmacao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=value, date=today, type=user.account.typeAccount), 200
             else:
                 message = flash('Valor maior que o saldo disponível!')
-                return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message), 400
+                return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
         except mariadb.Error as e:
             logging.error(e)
             message=flash('Erro ao sacar valor desejado!')
-            return render_template('saque_confirmacao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=value, data=today, message=message), 400
+            return render_template('saque_confirmacao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=value, date=today, type=user.account.typeAccount, message=message), 400
 
 @app.route('/withdrawconfirm', methods = ['POST'])
 def withdrawConfirm():
     value = float(request.form['fvalor'])
-    today = time.strftime('%Y-%m-%d %H:%M:%S')
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     try:
         cursor = connection.cursor()
         query = "SELECT capital FROM bank WHERE BINARY id = ?"
@@ -151,11 +154,11 @@ def withdrawConfirm():
         accountDatabase.updateBalanceByAccountNumber(current_user.balance(), current_user.accountNumber())
         statement = Statement('D', 'Aprovado', userId=current_user.id, balance=current_user.balance(), deposit=0, withdraw=value, date=today)
         statementDatabase.save(statement)
-        return render_template('comprovante_saque.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=value, data=today), 200
+        return render_template('comprovante_saque.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=value, date=today, type=current_user.account.typeAccount), 200
     except mariadb.Error as e:
         logging.error(e)
         message = flash('Falha ao depositar')
-        return render_template('comprovante_saque.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=value, data=today, message=message), 400
+        return render_template('comprovante_saque.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=value, date=today, type=current_user.account.typeAccount,  message=message), 400
 
 @app.route('/depositform')
 @login_required
@@ -163,7 +166,8 @@ def depositform():
     user = current_user
     saldo = user.balance()
     saldoFormatado=(f'{saldo:.2f}')
-    return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado), 200
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
+    return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, date=today, type=user.account.typeAccount), 200
 
 @app.route('/deposit', methods = ['POST'])
 @login_required
@@ -171,35 +175,36 @@ def deposit():
     user = current_user
     saldo = user.balance()
     saldoFormatado=(f'{saldo:.2f}')
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     if not validate_form(request.form):
         message = flash('Preencha um valor para depositar!')
-        return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message), 400
+        return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
     valor = float(request.form['fvalor'])
     if valor <= 0:
         message = flash('Valor de depósito deve ser maior que R$00,00!')
-        return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message), 400
+        return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
     if valor >= 0:
         value = (f'{valor:.2f}')
-        return render_template('deposito_confirmacao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=value), 200
+        return render_template('deposito_confirmacao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=value, date=today, type=user.account.typeAccount), 200
 
 
 @app.route('/depositconfirm', methods = ['POST'])
 @login_required
 def depositconfirm():
     valor = float(request.form['fvalor'])
-    today = time.strftime('%Y-%m-%d %H:%M:%S')
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     try:
         statement = Statement('C', 'Pendente', userId=current_user.id, balance=current_user.balance(), deposit=valor, withdraw=0,)
         statementDatabase.save(statement)
         solicitationDatabase.open_deposit_solicitation(current_user.id, current_user.accountNumber(), 'Confirmação de Depósito', valor)
         depositedValue=(f'{valor:.2f}')
-        return render_template('comprovante_deposito.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=depositedValue, data=today), 200
+        return render_template('comprovante_deposito.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=depositedValue, date=today, type=current_user.account.typeAccount), 200
     except mariadb.Error as e:
         logging.error(e)
         saldo = current_user.balance()
         saldoFormatado=(f'{saldo:.2f}')
         message = flash('Falha ao depositar')
-        return render_template('deposito_confirmacao.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), saldo=saldoFormatado, message=message), 400
+        return render_template('deposito_confirmacao.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=current_user.account.typeAccount), 400
 
 @app.route('/transferform')
 @login_required
@@ -207,8 +212,8 @@ def transferform():
     user = current_user
     saldo = user.balance()
     saldoFormatado=(f'{saldo:.2f}')
-    today = time.strftime('%Y-%m-%d %H:%M:%S')
-    return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today), 200
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
+    return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, type=user.account.typeAccount), 200
 
 @app.route('/transfer', methods = ['POST'])
 @login_required
@@ -216,27 +221,27 @@ def transfer():
     user = current_user
     saldo = user.balance()
     saldoFormatado=(f'{saldo:.2f}')
-    today = time.strftime('%Y-%m-%d %H:%M:%S')
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     if not validate_form(request.form):
         message = flash('Preencha todos os campos para transferir!')
-        return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, message=message), 400
+        return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, type=user.account.typeAccount, message=message), 400
     accountForTransfer = request.form['faccountForTransfer']
     agencyForTransfer = request.form['fagencyForTransfer']
     valor = float(request.form['fvalor'])
     if valor <= 0:
         message = flash('Valor de depósito deve ser maior que R$00,00!')
-        return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, message=message), 400
+        return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, type=user.account.typeAccount, message=message), 400
     else:
         userTransfer = accountDatabase.findByAccount(request.form['faccountForTransfer'],request.form['fagencyForTransfer'])
         logging.info(f'{user.id}')
 
         if not userTransfer:
             message = flash('Conta não encontrada, digite outro!')
-            return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, message=message), 400
+            return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, type=user.account.typeAccount, message=message), 400
 
         elif userTransfer.id == user.id:
             message = flash('Você não pode fazer uma transferência para você mesmo!')
-            return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, message=message), 400
+            return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, type=user.account.typeAccount, message=message), 400
         else:
             people = (f'{userTransfer.name}') #nome de quem está recebendo 
             idPeoplefis = (f'{userTransfer.id}') #id de de quem está recebendo
@@ -246,7 +251,7 @@ def transfer():
             agencyUserT = (f'{userTransfer.account.agency}') #número da agência de quem está recebendo
             value = (f'{valor:.2f}')
             dataAtual = today
-            return render_template('utransferconfirm.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=value, saldo=saldoFormatado, userForTransfer=people, idForTransfer=idPeople, accountUserT=accountUserT, agencyUserT=agencyUserT, idPeoplefis=idPeoplefis, numberAccountT=numberAccountT, today=today, dataAtual=dataAtual), 200
+            return render_template('utransferconfirm.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=value, saldo=saldoFormatado, userForTransfer=people, idForTransfer=idPeople, accountUserT=accountUserT, agencyUserT=agencyUserT, idPeoplefis=idPeoplefis, numberAccountT=numberAccountT, today=today, dataAtual=dataAtual, type=user.account.typeAccount), 200
 
 
 @app.route('/transferconfirm', methods = ['POST'])
@@ -278,40 +283,43 @@ def transferconfirm():
             accountDatabase.updateBalanceByIdAccount(newBalanceRece, transferForPeople)
             statement = Statement('T', userId=idPeoplefis, situation='Aprovado', balance=newBalanceRece, deposit=valor, withdraw=0, date=today)
             statementDatabase.save(statement)
-            return render_template('utransfervoucher.html', name=current_user.name, nameTransfer=userForTransfer, receNumberAccount=accountUserT, agencia=current_user.agency(), conta=current_user.accountNumber(), data=today, valor=valor, userForTransfer=userForTransfer, accountUserT=accountUserT, agencyUserT=agencyUserT, idPeoplefis=idPeoplefis, numberAccountT=numberAccountT, dataAtual=today), 200
+            return render_template('utransfervoucher.html', name=current_user.name, nameTransfer=userForTransfer, receNumberAccount=accountUserT, agencia=current_user.agency(), conta=current_user.accountNumber(), data=today, valor=valor, userForTransfer=userForTransfer, accountUserT=accountUserT, agencyUserT=agencyUserT, idPeoplefis=idPeoplefis, numberAccountT=numberAccountT, dataAtual=today, type=user.account.typeAccount), 200
         else:
             user = current_user
             saldo = user.balance()
             saldoFormatado=(f'{saldo:.2f}')
             message = flash('Valor da transferência deve ser menor que seu saldo atual')
-            return render_template('utransfer.html', name=user.name, agencia=user.agency(), today=today, conta=user.accountNumber(), saldo=saldoFormatado, message=message), 400
+            return render_template('utransfer.html', name=user.name, agencia=user.agency(), today=today, conta=user.accountNumber(), saldo=saldoFormatado, type=user.account.typeAccount, message=message), 400
     except mariadb.Error as e:
         logging.error(e)
         saldo = current_user.balance()
         saldoFormatado=(f'{saldo:.2f}')
         message = flash('Falha ao transferir')
-        return render_template('utransfervoucher.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), saldo=saldoFormatado, message=message), 400
+        return render_template('utransfervoucher.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), saldo=saldoFormatado, type=user.account.typeAccount, message=message), 400
 
 @app.route('/statementform', methods = ['GET'])
 @login_required
 def statementForm():
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     user = current_user
     saldo = user.balance()
     statements = statementDatabase.findByUserId(user.id)
-    return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements), 200
+    return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements, date=today), 200
 
 @app.route('/print', methods = ['GET'])
 @login_required
 def print():
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     user = current_user
     statements = statementDatabase.findByUserId(user.id)
-    return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements), 200
+    return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements, date=today), 200
 
 @app.route('/<user_id>/print', methods = ['GET'])
 def follow_up_statements(user_id):
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     user = userDatabase.findById(user_id)
     statements = statementDatabase.findByUserId(user.id)
-    return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements), 200
+    return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements, date=today), 200
 
 @app.route('/update_user_data', methods = ['GET'])
 @login_required
@@ -322,6 +330,7 @@ def update_user_data():
 @app.route('/update_user_data', methods = ['POST'])
 @login_required
 def open_update_user_data_solicitation():
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     user=current_user
     if not validate_form(request.form):
         message = flash('Preencha todos os campos!')
@@ -329,18 +338,18 @@ def open_update_user_data_solicitation():
     solicitation= UpdateDataSolicitation(request.form ['fname'], request.form ['froad'], request.form ['fnumberHouse'], request.form ['fdistrict'], request.form ['fcep'], request.form ['fcity'], request.form ['fstate'], request.form ['fgenre'], user_id=user.id)
     solicitationDatabase.open_update_data_solicitation(user.id, solicitation)
     flash('Solicitação de alteração realizada com sucesso')
-    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance()), 200
+    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today), 200
 
 @app.route('/close-account', methods = ['GET'])
 @login_required
 def close_account():
     user=current_user
-    today = time.strftime('%Y-%m-%d %H:%M:%S')
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     if user.balance() > 0:
-        return render_template('accountclosenotification.html', user=user, data=today), 200
+        return render_template('accountclosenotification.html', user=user, date=today), 200
     elif user.balance() < 0:
-        return render_template('accountclosereprove.html', user=user, data=today), 200
-    return render_template('accountclosesolicitation.html', user=user, data=today), 200
+        return render_template('accountclosereprove.html', user=user, date=today), 200
+    return render_template('accountclosesolicitation.html', user=user, date=today), 200
 
 @app.route('/close-account', methods = ['POST'])
 @login_required
