@@ -13,7 +13,7 @@
 
     <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-login.css') }}"> -->
     <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon">
-    <title>Acompanhamento | SpiceBank</title>
+    <title> Acompanhamento | SpiceBank</title>
 </head>
 
 <body class="userbodyhacompanhamento">
@@ -44,12 +44,12 @@
             {% block body %}{% endblock %}
     
 
-        <div class="center">
+        <!-- <div class="center">
             {% if statements %}
             <form method="GET" action="{{ url_for('follow_up_statements', user_id=solicitation.user_id) }}" target="_blank">
                 <button type="submit">Verificar extrato da conta</button>
             </form>
-            {% endif %}
+            {% endif %} -->
 
             <div class="userhacompanhamentobutton2">
                 <form method="GET" action="/logout">

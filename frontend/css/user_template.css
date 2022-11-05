@@ -1381,8 +1381,195 @@ margin-bottom: 2%;
     background-color:rgb(71, 177, 106);
 }
 
+    /*utransfer.html*/ 
 
-    /*userwithdrawconfirm.html*/ 
+/*centralizar*/
+.usertransfercenter1{
+    margin: auto;
+    width:50%;
+}
+
+.usertransfercenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.usertransferbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.usertransferbox1 > h3{    
+    text-align: center;
+}
+
+.usertransferbox1 > p{    
+    text-align: center;
+}
+
+.usertransferbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.usertransferbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+.usertransferbox2 > p{
+    text-align: center;
+}
+
+
+.usertransferbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.usertransferbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.usertransferbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.usertransferbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.usertransferbutton1:hover{
+    background-color:rgb(183, 85, 85);
+}
+
+
+.usertransferbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.usertransferbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.usertransferbutton2:hover{
+    background-color:rgb(71, 177, 106);
+}
+   
+    /*utransferconfirm_confirmacao.html*/ 
+
+/*centralizar*/
+.usertransferconfirmcenter1{
+    margin: auto;
+    width:50%;
+}
+
+.usertransferconfirmcenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.usertransferconfirmbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.usertransferconfirmbox1 > h3{    
+    text-align: center;
+}
+
+.usertransferconfirmbox1 > p{    
+    text-align: center;
+}
+
+.usertransferconfirmbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.usertransferconfirmbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.usertransferconfirmbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.usertransferconfirmbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.usertransferconfirmbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.usertransferconfirmbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.usertransferconfirmbutton1:hover{
+    background-color:rgb(183, 85, 85);
+}
+
+
+.usertransferconfirmbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.usertransferconfirmbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.usertransferconfirmbutton2:hover{
+    background-color:rgb(71, 177, 106);
+}
+
+/*userwithdrawconfirm.html*/ 
 
 /*centralizar*/
 .userwithdrawconfirmcenter1{

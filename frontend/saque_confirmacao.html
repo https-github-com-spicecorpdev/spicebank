@@ -15,15 +15,15 @@
             <div class="usersaqueconfirmbox2">
                 <form method="POST" action="{{ url_for('withdrawConfirm') }}" name="saqueconfirm">
                     <p> Origem: {{ name }}</p>
-                    <p> Agência: {{ agencia }} / {{ tipo }}: {{ conta}} </p>
-                    <p> Data: {{ data }} </p>
+                    <p> Agência: {{ agencia }} / {{ type }}: {{ conta}} </p>
+                    <p> Data: {{ date }} </p>
                     <br>
-                    <h3>Valor:</h3>
+                    <h3> Valor: </h3>
                 <label for="fvalor"> R$ </label>
                 <input type="text" id="fvalor" name="fvalor" readonly="readonly" value={{ valor }}><br><br>
         
     
-                <button class="usersaqueconfirmbutton2" type="submit">Sacar</button>
+                <button class="usersaqueconfirmbutton2" type="submit">Confirmar</button>
                 </form>
             </div>
         <br>
