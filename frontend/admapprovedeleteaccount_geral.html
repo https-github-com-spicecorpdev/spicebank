@@ -1,0 +1,53 @@
+{% extends "menu_lateral_adm__geral_template.html" %}
+
+{% block contents %}
+
+<div class="admapprovedeleteaccountbox1">
+    <h3>SOLICITAÇÃO DE ENCERRAMENTO DE CONTA</h3>
+    <h4>Conta: {{ user.account.account }} Agência: {{ user.account.agency }}</h4>
+    <div>
+        <p>Nome: {{ user.name }} </p>
+        <p>Gênero: {{ user.gender }}</p>
+        <p class="admapprovedeleteaccountright">data de nascimento: {{ user.birthDate }}</p>
+        <p class="admapprovedeleteaccountleft">cpf: {{ user.cpf }}</p>
+        <br><br><br>
+        <h4>Endereço</h4>
+        <p class="admapprovedatachangeright">Estado: {{ user.address.state }}</p>
+        <p class="admapprovedatachangeleft">cidade: {{ user.address.city }}</p>
+        <p>Bairro: {{ user.address.district }}</p>
+        <p>Rua/Avenida {{ user.address.road }}</p>
+        <p class="admapprovedatachangeright">CEP: {{ user.address.cep }}</p>
+        <p class="admapprovedatachangeleft">Número {{ user.address.numberHouse }}</p>
+
+        <h3>Saldo atual: R$ {{"{:,.2f}".format(user.account.balance) }}</h3>
+
+        <br><br><br>
+
+        <div class="admapprovedeleteaccountcenter">
+            {% if user.account.balance == 0 %}
+            <form
+                action="{{ url_for('solicitacao',user_id=user.id, action='aprovar', id=solicitation.id, type=solicitation.solicitation_type) }}">
+                <button type="submit" class="admapprovedeleteaccountbutton1">
+                    Aprovar
+                </button>
+            </form>
+            {% else %}
+            <form
+                action="{{ url_for('withdraw_and_close_account_view',user_id=user.id, solicitation_id=solicitation.id) }}">
+                <button type="submit" class="admapprovedeleteaccountbutton1">
+                    Sacar e encerrar conta
+                </button>
+            </form>
+            {% endif %}
+
+            <form
+                action="{{ url_for('solicitacao',user_id=user.id, action='reprovar', id=solicitation.id,type=solicitation.solicitation_type)}}">
+                <button type="submit" class="admapprovedeleteaccountbutton2">Reprovar</button>
+            </form>
+
+        </div>
+
+    </div>
+
+
+    {% endblock contents %}
