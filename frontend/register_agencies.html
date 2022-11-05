@@ -1,29 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends "menu_lateral_adm_geral_template.html" %} 
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-cadastro.css') }}">
-
-    <link rel="shortcut icon" href="static/img/cadastro.ico" type="image/x-icon">
-    <title>Cadastro</title>
-</head>
-
-<body>
-    <nav class="center">
-        <ul>
-            <li><img src="static/img/crie_sua_conta.png" alt="Crie sua conta"></li>
-        </ul>
-    </nav>
-    <div class="center">
-        <img src="static/img/logo-banco.png" alt="logo banco">
-    </div>
-    <hr color="#00BFFF">
-
-    <!--alteração do endereço para address-->
-    <!--Add number-numero - district=bairro-city = cidade  state - estado -->
+{% block contents %}
     <div class="formulario">
         <form method="POST" action="/registerManager" name="registerManager">
             <label for="fagencia">Agência:</label>
@@ -158,6 +135,4 @@
             <button type="submit">Voltar</button>
         </form>
     </div>
-</body>
-
-</html>
+    {% endblock contents %}
