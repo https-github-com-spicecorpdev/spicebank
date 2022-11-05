@@ -112,20 +112,6 @@ def adm_user_details(user_id):
     user = userDatabase.findById(user_id)
     return render_template('admusersdetail.html', user = user), 200
 
-#@app.route('/<manager_id>/admprofile', methods = ['POST','GET'])
-#@login_required
-#def admprofile():
-    #manager= current_user
-    #user_manager = userDatabase.findByManagerId(manager.userId)
-    #address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
-    #user_update = Manager(manager.id, request.form['fname'], manager.cpf, manager.password, manager.birthDate, request.form['fgenre'], manager.registrationNumber, address=address)
-    #user_update = User(user_manager.userId, request.form['fname'], user_manager.cpfNumber, user_manager.#secret, user_manager.dateOfBirth, request.form['fgenre'], address=address)
-    #userDatabase.update_user_data_by_manager(user_update)
-    #message= flash('Dados alterados com sucesso!')
-    # if request.method == 'POST':
-    #     return redirect(url_for('index')), 200
-    ##return render_template('admprofile.html', manager_data= manager), 200
-
 @app.route('/admprofile', methods = ['POST', 'GET'])
 @login_required
 def admprofile():
@@ -153,8 +139,7 @@ def adm_edit_data_user(user_id):
     userDatabase.update_user_data_by_manager(user_update)
     message= flash('Dados alterados com sucesso!')
     if request.method == 'POST':
-        return redirect(url_for('adm')), 200
-    # return render_template('admusersdetail.html', user = user, manager = manager, users = users, message=message), 200
+        return render_template('admhome.html'), 200
 
 @app.route('/<user_id>/<solicitation_id>/<type>/details')
 @login_required

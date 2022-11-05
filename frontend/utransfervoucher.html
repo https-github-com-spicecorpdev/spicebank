@@ -27,7 +27,6 @@
                 <p> Agência: {{ agencyUserT }} / Conta: {{ numberAccountT }} </p> 
                 <p> Data: {{ dataAtual }}</p><br>
                 <h2> Valor: R$ {{ valor }}</h2><br>
-                <!-- <h2> Valor: R${{ #"{:,.2f}".format(valor) }}</h2><br> -->
             </div>
 
             <form method="GET" action="{{ url_for('index') }}" name="index">
