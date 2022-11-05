@@ -1,40 +1,29 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-    <title>extrato</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_extrato.css') }}">
+{% extends "menu_lateral_adm_template.html" %}
 
-    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
-    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
-    <hr>
-<div class="justify">
+{% block contents %}
 
-    <form method="GET" action="{{ url_for('index') }}">
+    <form method="GET" action="{{ url_for('index') }}" class="admextratobutton1">
         <button type="submit">&#8592 Ok</button>
 </form>
 
-<form method="GET" action="{{ url_for('print', user_id=user.id) }}" target="_blank">
+<form method="GET" action="{{ url_for('print', user_id=user.id) }}" target="_blank" class="admextratobutton2">
     <button type="submit">Imprimir</button>
 </form>
         
-    <div class="box1">
-        <h2>extrato</h2> <br>
-         <pre>{{ user.name }}
- agência: {{ user.account.agency }}/ conta:{{ user.account.account }} 
- <span style="font-size: 150%;">Saldo: R$ {{ "{:,.2f}".format(user.account.balance) }}</span></pre>
+    <div class="admextratobox1">
+        <h2>EXTRATO</h2> <br>
+         <p>{{ user.name }}</p>
+ <p>Agência: {{ user.account.agency }} / {{ user.account.type }}:{{ user.account.account }}</p>
+ <h3>Saldo: R$ {{ "{:,.2f}".format(user.account.balance) }}</h3>
     </div>
 
-    <table class="table-extrato">
+    <table class="admextratotable">
 
         <tr>
-            <th>data</th>
-            <th>acão</th>
-            <th>saldo</th>
-            <th>situação</th>
+            <th>DATA</th>
+            <th>AÇÃO</th>
+            <th>SALDO</th>
+            <th>SITUAÇÃO</th>
         </tr>
 
         {% for extrato in extratos %}
@@ -54,5 +43,4 @@
 
 </div>
 
-</body>
-</html>
+{% endblock contents %}

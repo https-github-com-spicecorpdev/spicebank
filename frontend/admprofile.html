@@ -2,16 +2,17 @@
 
     {% block contents %}
 
-    <div class="admusersdetailbox1">
+    <div class="admprofilebox1">
         <form method="POST" action="{{ url_for('admprofile') }}">
         <h3>DADOS PESSOAIS</h3>
         <h4>Agência: {{ manager.workAgency }} Matrícula: {{ manager.registrationNumber }}</h4>
         <div>
             <label for="fname">Nome:</label>
             <input type="text" id="fname" name="fname" value="{{ manager.name }}"> <br><br>
-            <p>CPF: {{ manager.cpf }} </p>
-            <p>Dta de Nascimento: {{ manager.birthDate }} </p>
-            <label for="fgenre" class="form-label mb-0">Gênero</label>
+            <p class="admprofileleft">CPF: {{ manager.cpf }} </p>
+            <br>
+            <p class="admprofileright">Data de Nascimento: {{ manager.birthDate }} </p>
+            <label for="fgenre" class="form-label mb-0" class="admprofileright">Gênero</label>
             <select id="fgenre" name="fgenre" class="form-select">
                 {%if manager.gender== 'M': %}  
                     <option value="{{ manager.gender }}">Masculino</option>
@@ -38,7 +39,7 @@
             <input type="text" id="fdistrict" name="fdistrict" value="{{ manager.address.district }}"><br><br>
             <label for="fcity"> Cidade: </label>
             <input type="text" id="fcity" name="fcity" value="{{ manager.address.city }}"><br><br>
-                    <div>
+                    <div class="admprofileleft">
                         <label for="fstate" class="form-label mb-0">Estado *</label>
                         <select id="fstate" name="fstate" class="form-select">
                             <option selected="" value="{{ manager.address.state }}">{{ manager.address.state }}</option>
@@ -71,8 +72,11 @@
                             <option value="Tocantins">Tocantins</option>
                         </select>
                     </div>
+        <div class="admprofileright">
             <label for="fcep">CEP:</label>
             <input type="text" id="fcep" name="fcep" value="{{ manager.address.cep }}"> <br><br>
+        </div>
+        <br><br>
             <label>
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -86,11 +90,11 @@
                 {% block body %}{% endblock %}
             </label><br>
 
-            <div class="center">
+            <div class="admprofilebutton1">
                 <button type="submit">Salvar</button>
             </div>
         </form>
-        <form method="GET" action="{{ url_for('index') }}">
+        <form method="GET" action="{{ url_for('index') }}" class="admprofilebutton2">
             <button type="submit">Voltar</button>
         </form>
 <br><br><br>
