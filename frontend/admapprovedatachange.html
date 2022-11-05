@@ -40,10 +40,10 @@
 <br><br><br>
                     
                     <div class="admapprovedatachangecenter">
-                        <a href="{{ url_for('solicitacao',user_id=solicitation.user_id, action='aprovar', id=solicitation.id_solicitation, type='Alteração de dados cadastrais') }}">
+                        <a href="{{ url_for('solicitacao',user_id=solicitation.user_id, action='aprovar', id=solicitation.id_solicitation, type='Alteração de dados cadastrais') }}" class="admapprovedatachangebutton1">
                             Aprovar
                         </a>
-                        <a href= "{{ url_for('solicitacao',user_id=solicitation.user_id, action='reprovar', id=solicitation.id_solicitation, type='Alteração de dados cadastrais') }}">
+                        <a href= "{{ url_for('solicitacao',user_id=solicitation.user_id, action='reprovar', id=solicitation.id_solicitation, type='Alteração de dados cadastrais') }}" class="admapprovedatachangebutton2">
                             Reprovar
                         </a>
                     </div>

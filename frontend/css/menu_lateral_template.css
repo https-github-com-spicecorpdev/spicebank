@@ -21,18 +21,16 @@
 margin: auto;
 color: #000;
   padding:15px;
-  position:absolute;
+  position:fixed;
   bottom:0;
   right:0;
-
-
 }
 
 /*Formatação do gerente*/
 
 .admbody{
     background-color: #6b8064;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat';
 }
 
     /*Barra de navegação HORIZONTAL do gerente (login)*/
@@ -111,6 +109,7 @@ color: #000;
         background-color: #d6d6d6;
         position:absolute;
         bottom:0;
+    position:fixed;
         width: 15%;
     }
 .admnavdiv > a {
@@ -150,7 +149,6 @@ color: #000;
         text-transform: uppercase;
         position: absolute;
         width: 100%;
-        margin-left:10%;
        }
   
     .admnav >  ul >li {
@@ -177,6 +175,7 @@ color: #000;
       min-height: 50px;
       height: 7%;
       width:10%;
+      position:fixed;
       top:0;
       margin-left:90%;
         }
@@ -451,36 +450,28 @@ margin-top: 1%;
     border-style: none;
     background-color:#ffff;
     cursor: pointer;
-}
-
-.admapprovedatachangebutton1 > a{
-    text-decoration: none;
+      text-decoration: none;
     color:#000;
-  font-size:120%;
-
-}
+  font-size:120%;}
 
 .admapprovedatachangebutton1:hover{
-    background-color:indianred;
+    background-color: lawngreen;
 }
 
 .admapprovedatachangebutton2{
-    cursor:pointer;
+    text-decoration: none;
+    color:#000;
+  font-size:120%;
+      cursor:pointer;
     padding: 15px;
     border-style: none;
     background-color:#ffff;
     cursor: pointer;
-}
-
-.admapprovedatachangebutton2 > a{
-    text-decoration: none;
-    color:#000;
-  font-size:120%;
 
 }
 
 .admapprovedatachangebutton2:hover{
-    background-color:lawngreen;
+    background-color:indianred;
 }
 
 .admapprovedatachangecenter{
@@ -739,7 +730,7 @@ margin-bottom: 2%;
 }
 
 .admdepositconfirmbutton1:hover{
-    background-color:lawngreen;
+    background-color:indianred;
 }
 
 
@@ -758,7 +749,7 @@ margin-bottom: 2%;
 }
 
 .admdepositconfirmbutton2:hover{
-    background-color:indianred;
+    background-color:lawngreen;
 }
 
 
@@ -849,7 +840,7 @@ margin-bottom: 2%;
 }
 
 .admwithdrawconfirmbutton2:hover{
-    background-color:indianred;
+    background-color: lawngreen;
 }
 
 
@@ -1029,60 +1020,215 @@ text-align: center;}
 margin-top: 5%;
 }
 
+.admusersdetailbox1 > form > div > select{
+  border-style:none;
+  padding:5px;
+  width:35%;
+  
+}
+
+.admusersdetailbox1 > form > div >{
+  text-align:center;
+}
+
+.admusersdetailbox1 > form > div > input{
+    border-style:none;
+  padding:5px;
+  width:100%;
+  
+}
+
+.admusersdetailleft > select{
+  border-style:none;
+  padding:5px;
+  width:100%;
+  
+
+}
+
 
 .admusersdetailleft{
 float:left;
-width: 50%;
+width: 45%;
 
 }
 
 .admusersdetailright{
 float:right;
-width: 50%;
+width: 45%;}
+
+.admusersdetailright > input{
+  width: 100%;
+  border-style:none;
+  padding:5px
 }
     
 
 .admusersdetailbutton1{
-cursor:pointer;
-padding: 15px;
-border-style: none;
-background-color:#ffff;
-cursor: pointer;
+  text-align:center;
 }
 
-.admusersdetailbutton1 > a{
-text-decoration: none;
-color:#000;
-font-size:120%;
-
+.admusersdetailbutton1 > button{
+  cursor: pointer;
+  border-style:none;
+  padding:14px;
 }
 
-.admusersdetailbutton1:hover{
-background-color:indianred;
+.admusersdetailbutton1 >button:hover{
+background-color:lawngreen;
 }
 
 .admusersdetailbutton2{
-cursor:pointer;
-padding: 15px;
-border-style: none;
-background-color:#ffff;
-cursor: pointer;
+  text-align:center;
+  margin-top:2%;
 }
 
-.admusersdetailbutton2 > a{
-text-decoration: none;
-color:#000;
-font-size:120%;
-
+.admusersdetailbutton2 > button{
+  cursor: pointer;
+  border-style:none;
+  padding:15px;
 }
 
-.admusersdetailbutton2:hover{
-background-color:lawngreen;
+.admusersdetailbutton2 >button:hover{
+background-color:indianred;
 }
 
 .admusersdetailcenter{
 margin:auto;
 width:fit-content;}
+
+
+    /*RESPONSIVIDADE ADMUSERSDETAIL.HTML*/
+
+    @media screen and (max-width: 750px) {
+
+        .admusersdetailbox1{
+            margin: auto;
+            width: 75%;
+        Margin-top: 15%;
+        }
+
+
+    }
+
+
+              /*admprofile.html*/
+
+              .admprofilebox1{
+                margin: auto;
+                width: 70%;
+                background-color: #d6d6d6;
+                Margin-top: 1%;
+                padding: 10px;
+                }
+            
+            .admprofilebox1 > form > h3 {
+            text-align: center;}
+            
+            
+            .admprofilebox1 >form > h4 {
+            text-align: center;}
+            
+            .admprofilebox1 > form > div > h4 {
+            text-align: center;}
+            
+            .admprofilebox1 > form > p {
+            margin-top: 5%;
+            }
+            
+            .admprofilebox1 > form > div > select{
+              border-style:none;
+              padding:5px;
+              width:35%;
+              
+            }
+            
+            .admprofilebox1 > form > div >{
+              text-align:center;
+            }
+            
+            .admprofilebox1 > form > div > input{
+                border-style:none;
+              padding:5px;
+              width:100%;
+              
+            }
+            
+            .admprofileleft > select{
+              border-style:none;
+              padding:5px;
+              width:100%;
+              
+            
+            }
+            
+            
+            .admprofileleft{
+            float:left;
+            width: 45%;
+            }
+            
+            .admprofileright{
+            float:right;
+            width: 45%;
+            }
+            
+            .admprofileright > input{
+              width: 100%;
+              border-style:none;
+              padding:5px
+            }
+                
+            
+            .admprofilebutton1{
+              text-align:center;
+               margin-top:2%;
+            }
+            
+            .admprofilebutton1 > button{
+              cursor: pointer;
+              border-style:none;
+              padding:14px;
+            }
+            
+            .admprofilebutton1 >button:hover{
+            background-color:lawngreen;
+            }
+            
+            .admprofilebutton2{
+              text-align:center;
+              margin-top:2%;
+            }
+            
+            .admprofilebutton2 > button{
+              cursor: pointer;
+              border-style:none;
+              padding:15px;
+            }
+            
+            .admprofilebutton2 >button:hover{
+            background-color:indianred;
+            }
+            
+            .admprofilecenter{
+            margin:auto;
+            width:fit-content;}
+            
+            
+                /*RESPONSIVIDADE admprofile.HTML*/
+            
+                @media screen and (max-width: 750px) {
+            
+                    .admprofilebox1{
+                        margin: auto;
+                        width: 75%;
+                    Margin-top: 15%;
+                    }
+            
+            
+                }
+            
+            
 
  /*admextrato.html*/
 
@@ -1130,12 +1276,25 @@ margin-top: 1%;
            border: 1px solid black;
            border-collapse: collapse;
          }
-.admextratobutton {
+.admextratobutton1 {
             margin-left:15.2%;
             margin-top:5%;
+    display:inline-block;
         }
         
-.admextratobutton > button{
+.admextratobutton1 > button{
+            cursor:pointer;
+        padding: 10px;
+        border: none;
+         background-color:#d6d6d6}
+
+
+.admextratobutton2 {
+  margin-top:5%;
+  display:inline-block;
+        }
+        
+.admextratobutton2 > button{
             cursor:pointer;
         padding: 10px;
         border: none;
