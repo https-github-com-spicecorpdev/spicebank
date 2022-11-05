@@ -1,0 +1,53 @@
+<!-- Tela de definição de capital inicial-->
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/capital.css') }}">
+        <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon">
+        <title> Capital | SpaceBank </title>
+    </head>
+
+    <body class="capitalbody"> 
+        
+        <nav class="hgeneralnav"></nav>
+
+        <div class="capitalcenter1">
+            
+            <div class="capitalbox1">  
+                <h3> Defina o capital inicial do banco SpiceBank </h3>
+            </div>
+
+            <div class="capitalbox2"> 
+                <h3> Insira o valor do Capital Inicial </h3>
+
+                <form method="POST" action="" name="">
+                    <label for="fvalor"> R$ </label>
+                    <input type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
+                    
+                    <!-- Label referênte ao login de matricula.
+                    precisa subistituir para algo como "Insira um valor válido"-->
+                    <!-- <label>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <ul class=flashes>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                    {% block body %}{% endblock %}</label> -->
+
+         
+                    <button class="capitalbutton2" type="submit" > Definir </button>
+
+                </form>
+            </div>
+            <div class="templatedatetime"> {{ date }} </div>
+    </body>
+
+</html> 

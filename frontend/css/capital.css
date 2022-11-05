@@ -1,0 +1,288 @@
+*{
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.justify{
+    float: right;
+    width: 85%;
+  height:100%;
+}
+
+@media screen and (max-width: 750px) { 
+    .justify{
+        float: none;
+        width: 100%;
+    }
+
+}
+.templatedatetime{
+margin: auto;
+color: #000;
+  padding:15px;
+  position:fixed;
+  bottom:0;
+  right:0;
+}
+
+/*Formatação da definição de capital inicial*/
+
+.capitalbody{
+    background-color: #6b8064;
+    font-family: 'Montserrat', sans-serif;
+}
+
+    /*Barra de navegação HORIZONTAL do gerente (login)*/
+
+    .hgeneralnav{
+      padding: 0;
+      background-color: #0d3b1b;
+      position: fixed;
+      top: 0;
+      width: 100%; 
+      height: 7%;
+    }
+    .hgeneralnav >  ul {
+        text-transform: uppercase;
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+       }
+    
+    .hgeneralnav > ul > li > a > i{
+        padding: 7%;
+       }
+    
+    .hgeneralnav > ul > li > a{
+        color: #0d3b1b;
+        text-decoration: none; 
+        padding: 5px;
+        float:right;
+        margin-right:5%;
+        transition: background .4s;}
+    
+    .hgeneralnav > ul > li > a:hover{
+        background-color: #f5f5f5;
+        transition: background .4s;}
+
+    /**/
+
+    /*capital.html*/
+
+/*centralizar*/
+.capitalcenter1{
+    margin: auto;
+    width:30%;
+}
+
+.capitalcenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.capitalbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.capitalbox1 > h3{    
+    text-align: center;
+}
+
+.capitalbox1 > p{    
+    text-align: center;
+}
+
+.capitalbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.capitalbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.capitalbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.capitalbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.capitalbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.capitalbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.capitalbutton1:hover{
+    background-color:rgb(183, 85, 85);
+}
+
+
+.capitalbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.capitalbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.capitalbutton2:hover{
+    background-color:rgb(71, 177, 106);
+}
+
+.generalbutton1{
+    text-align:center;
+    margin-top:5%;
+}
+
+      /*RESPONSIVIDADE DA TELA CAPITAL.HTML*/
+
+@media screen and (max-width: 750px) { 
+    .capitalcenter1{
+      margin: auto;
+      width: 75%;
+      background-color: #d6d6d6;
+      Margin-top: 10%;
+      padding: 40px;
+}
+}
+
+
+
+    /*capitalconfirm.html*/ 
+
+/*centralizar*/
+.capitalconfirmcenter1{
+    margin: auto;
+    width:50%;
+}
+
+.capitalconfirmcenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.capitalconfirmbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.capitalconfirmbox1 > h3{    
+    text-align: center;
+}
+
+.capitalconfirmbox1 > p{    
+    text-align: center;
+}
+
+.capitalconfirmbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.capitalconfirmbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.capitalconfirmbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.capitalconfirmbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.capitalconfirmbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.capitalconfirmbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.capitalconfirmbutton1:hover{
+    background-color:rgb(183, 85, 85);
+}
+
+
+.capitalconfirmbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.capitalconfirmbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.capitalconfirmbutton2:hover{
+    background-color:rgb(71, 177, 106);
+}
+
+
+
+      /*RESPONSIVIDADE DA TELA CAPITALCONFIRM.HTML*/
+
+      @media screen and (max-width: 750px) { 
+        .capitalcenter1{
+          margin: auto;
+          width: 75%;
+          background-color: #d6d6d6;
+          Margin-top: 10%;
+          padding: 40px;
+    }
+    }
+    

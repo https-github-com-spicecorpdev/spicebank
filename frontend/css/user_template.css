@@ -19,12 +19,19 @@
 
 }
 
-
+.templatedatetime{
+    margin: auto;
+    color: #000;
+    padding:15px;
+    position:fixed;
+    bottom:0;
+    right:0;
+    }
 
 /*LOGIN: login.html*/
 .userbodylogin{
-    background-color: #678a5c87;
-    font-family: 'Montserrat', sans-serif
+    background-color: #7c9faf;
+    font-family: 'Montserrat', sans-serif;
 }
   /*LoginGerente.html*/
 
@@ -61,7 +68,8 @@
     
     
     .userloginbutton1 > button:hover{
-                background-color:#678a5c87;
+                background-color:#7c9faf;
+        
     }
     
     
@@ -77,7 +85,8 @@
     }
     
     .userloginbutton2 > form > button:hover{
-                background-color:#678a5c87;
+                background-color:#7c9faf;
+        
     }
     
           /*RESPONSIVIDADE DA TELA userLOGIN.HTML*/
@@ -98,7 +107,7 @@
 /*Barra de navegação HORIZONTAL do usuário (login)*/
 .husernav{
     padding: 0;
-    background-color: #678a5c;
+    background-color: #062e46;
     position: fixed;
     top: 0;
     width: 100%; 
@@ -115,7 +124,7 @@
     padding: 7%;
 }
 .husernav > ul > li > a{
-    color: #0d3b1b;
+    color: #ffffff;
     text-decoration: none; 
     padding: 5px;
     float:right;
@@ -131,9 +140,9 @@
 
 /*Tela da Cadastro*/
 .userbodyregistration{
-    background-color: #678a5c87;
+    background-color: #7c9faf;
 
-    font-family: 'Montserrat', sans-serif
+    font-family: 'Montserrat', sans-serif;
 }
 /*Centralizar*/
 .userregistrationcenter{
@@ -191,7 +200,7 @@
     cursor:pointer;
 }
 .userregistrationbutton1 > button:hover{
-    background-color:#678a5c87;
+    background-color:#7c9faf;
 }
 /*CasdastroBotão2*/
 .userregistrationbutton2{
@@ -205,7 +214,8 @@
             cursor:pointer;
             }   
 .userregistrationbutton2 > form > button:hover{
-            background-color:#678a5c87;
+            background-color:#7c9faf;
+    
             }
 
  /*RESPONSIVIDADE DA TELA ACOMPANHAMENTO.HTML*/
@@ -226,8 +236,8 @@
 
 /*ACOMPANHAMENTO: acompanhamento.html*/
 .userbodyacompanhamento{
-    background-color: #678a5c87;
-    font-family: 'Montserrat', sans-serif
+    background-color: #7c9faf;
+    font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -264,7 +274,8 @@
     
     
     .useracompanhamentobutton1 > button:hover{
-                background-color:#678a5c87;
+                background-color:#7c9faf;
+        
     }
     
     
@@ -280,7 +291,8 @@
     }
     
     .useracompanhamentobutton2 > form > button:hover{
-                background-color:#678a5c87;
+                background-color:#7c9faf;
+        
     }
     
           /*RESPONSIVIDADE DA TELA ACOMPANHAMENTO.HTML*/
@@ -299,8 +311,8 @@
 
 /*HOME ACOMPANHAMENTO: homeAcomp.html*/
 .userbodyhacompanhamento{
-    background-color: #678a5c87;
-    font-family: 'Montserrat', sans-serif
+    background-color: #7c9faf;
+    font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -337,7 +349,8 @@
     
     
     .userhacompanhamentobutton1 > button:hover{
-                background-color:#678a5c87;
+                background-color:#7c9faf;
+        
     }
     
     
@@ -353,7 +366,8 @@
     }
     
     .userhacompanhamentobutton2 > form > button:hover{
-                background-color:#678a5c87;
+                background-color:#7c9faf;
+        
     }
     
           /*RESPONSIVIDADE DA TELA HOMEACOMP.HTML*/
@@ -461,7 +475,7 @@
     /*Barra de navegação lateral do usuário (verde)*/
 .usernav{
     padding: 0;
-    background-color: #678a5c;
+    background-color: #062e46;
     position: fixed;
     top: 0;
     width: 15%; 
@@ -481,90 +495,22 @@
 }
 
 .usernav > ul > li > a{
-    color: #0d3b1b;
+    color: #ffff;
     text-decoration: none; 
     display: block;
-    padding: 20px;
+    padding: 10px;
     transition: background .4s;
 }
 
 .usernav > ul > li > a:hover{
     background-color: #f5f5f5;
-    transition: background .4s;
-}
-    
-.usernav > div{
-        background-color: #d6d6d6;
-        position: absolute;
-        bottom:0;
-        width: 100%;
-}
-
-.usernav > div > a {
-    display: block;
-    text-transform: uppercase;
-    color: #000;
-    text-decoration: none; 
-    padding: 20px;
-    transition: background .4s;
-}
-
- .usernav > div > a > i{
-        padding: 5px;
-}
-
-.usernav > div > a:hover{
-    background-color: #f5f5f5;
-    transition: background .4s;
-}
-
-/*Formatação do usuário*/
-
-.userbody{
-    background-color: #678a5c87;
-    font-family: 'Montserrat', sans-serif;
-}
-
-
-
-/*Barra de navegação lateral do gerente (verde)*/
-/*.usernav{
-    padding: 0;
-    background-color: #678a5c;
-    position: fixed;
-    top: 0;
-    width: 15%; 
-    height: 100%;
-    float: left;
-}
-.usernav >  ul {
-    text-transform: uppercase;
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-}
-   
-.usernav > ul > li > a > i{
-    padding: 5px;
-}
-
-.usernav > ul > li > a{
-    color: #0d3b1b;
-    text-decoration: none;
-    display: block;
-    padding: 13px;
-    transition: background .4s;
-}
-
-.usernav > ul > li > a:hover{
-    background-color: #f5f5f5;
+    color: #062e46;
     transition: background .4s;
 }
     
 .usernavdiv{
         background-color: #d6d6d6;
-        position:absolute;
+        position: absolute;
         bottom:0;
         width: 15%;
 }
@@ -572,9 +518,9 @@
 .usernavdiv > a {
     display: block;
     text-transform: uppercase;
-    color: #000;
+    color: #062e46;
     text-decoration: none; 
-    padding: 10px;
+    padding: 20px;
     transition: background .4s;
 }
 
@@ -585,13 +531,21 @@
 .usernavdiv > a:hover{
     background-color: #f5f5f5;
     transition: background .4s;
-}*/
+}
+
+/*Formatação do usuário*/
+
+.userbody{
+    background-color: #7c9faf;
+    font-family: 'Montserrat', sans-serif;
+}
+
 
 /*RESPONSIVIDADE MENU LATERAL*/
 
 @media screen and (max-width: 750px) {
     .usernav{ padding: 0;
-        background-color: #678a5c;
+        background-color: #062e46;
         position: fixed;
         top: 0;
         width: 90%; 
