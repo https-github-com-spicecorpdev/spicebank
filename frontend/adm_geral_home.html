@@ -1,0 +1,17 @@
+{% extends "menu_lateral_adm_geral_template.html" %}
+
+{% block contents %}
+
+<div class="admhomebox1">
+
+  <h3>Oá, {{ nameManager }}</h3>
+    <p>Matrícula: {{ matricula}}</p>
+    <p>Data/hora : {{ datetime }}</p>
+
+    <div class="admhomebox2">
+      <a href="/statementform">
+        <button type="button"><i class="fa-regular fa-file-lines"></i><div>extrato</div></button></a>
+      <a href="/admsolicitations">
+        <button type="button"></button><i class="fa-solid fa-briefcase"></i><div>Solicitações</div></a></button>
+    </div>
+{% endblock contents %}
