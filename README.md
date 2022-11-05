@@ -69,16 +69,14 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 # Product Backlog Atual
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/194789000-465fa722-0460-4a74-85eb-c6343bc727dc.png" width="1000px", height="10000px", />
+<img src="" width="1000px", height="10000px", />
 </div>
 
 # Product Backlog Total
 <div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/194734847-efdff6b6-4333-44db-8a7b-91335cea0ede.png" width="1000px", height="10000px", />
+<img src="" width="1000px", height="10000px", />
 </div>
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/194734995-38015285-74bf-4125-adaa-bc1f53817f72.png" width="1000px", height="10000px", />
-</div>
+
 
 
 # Minimum Viable Product(MVP) 3ªSprint
@@ -88,26 +86,9 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 - Tipos de conta (Conta corrente e Conta poupança)
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/194793362-a1275a01-6fc4-4525-84bc-84d941f345e3.png" width="1000px", height="500px", />
+<img src="" width="1000px", height="500px", />
 </div>
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/194793443-af47a470-4810-48cd-ba89-0a356fca4c87.png" width="1000px", height="500px", />
-</div>
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/194793467-22774d63-ca2f-44eb-b18c-e0af36acbb92.png" width="1000px", height="500px", />
-</div>
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/194793473-92f7fef5-1b99-4f34-821d-701dca135f6e.png" width="1000px", height="500px", />
-</div>
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/194793476-cbd39460-3dd7-4d10-a42d-0fee04aef74c.png" width="1000px", height="500px", />
-</div>
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/194793485-2e96c666-ae47-4b69-b132-744532d7b162.png" width="1000px", height="500px", />
-</div>
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/194793490-f46ee1de-9777-4322-ae4e-7eb5c980f607.png" width="1000px", height="500px", />
-</div>
+
 
 # Cronograma de Entregas 
 Foi utilizado o arquivo Product Backlog para validação das estregas de acordo com as prioridades do cliente, sendo elas: 
