@@ -1,29 +1,40 @@
 <!--Tela de Comprovante de Transferêcia-->
-{% extends "menu_lateral_template.html" %}
+<!DOCTYPE html>
+<html lang="pt-br">
 
-{% block contents %}    
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style_transfer_receipt.css') }}">
+        <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+        <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
+        <title> Comprovante de Tranferência | SpiceBank </title>
+    </head>
 
-<body>
-    
-    <title> Comprovante de Transferência </title>
+    <body>
 
-    <div class="justify">
-        <br><br>
-        <div class="box1">
-            <p> Origem: {{ name }}</p>
-            <p> Agência:{{ agencia }} /conta: {{ conta }} </p><br><br>
-            <p> Favorecido: {{ userForTransfer }}</p>
-            <p> Agência:{{ agencyUserT }} /conta: {{ numberAccountT }}</p> 
-            <p> Data: {{ dataAtual }}</p><br>
-            <h2> Valor R${{valor}}</h2><br>
-        </div>
+        <div class="justify">
+            
+            <br>
+            <p> Comprovante de Tranferência </p>
+            <br>
 
-        <form method="GET" action="{{ url_for('index') }}" name="index">
-            <div>
-                <button type="submit">&#8592 Voltar</button>
+            <div class="box1">
+                <p> Origem: {{ name }}</p>
+                <p> Agência: {{ agencia }} / {{ type }}: {{ conta }} </p>
+                <p> Favorecido: {{ userForTransfer }}</p>
+                <p> Agência: {{ agencyUserT }} / Conta: {{ numberAccountT }} </p> 
+                <p> Data: {{ dataAtual }}</p><br>
+                <h2> Valor: R$ {{ valor }}</h2><br>
+                <!-- <h2> Valor: R${{ #"{:,.2f}".format(valor) }}</h2><br> -->
             </div>
-        </form>
 
-<body>
-
-{% endblock contents %}
+            <form method="GET" action="{{ url_for('index') }}" name="index">
+                <div>
+                    <button class="usertransferreceiptbutton1" type="submit"> Voltar</button>
+                </div>
+            </form>
+        </div>
+    <body>
+</html>

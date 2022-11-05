@@ -3,43 +3,63 @@
 
 {% block contents %}    
 
-<body>
-    
-    <title> Confirmação de Transferência </title>
+    <title> Confirme sua Transferência | SpiceBank </title>
 
-    <div class="justify">
-        <br><br>
-        <form method="POST" action="{{ url_for('transferconfirm') }}" name="transferconfirm">
-            <div class="box1">
-                <p>Origem: {{ name }}</p>
-                <p>Agência:{{ agencia }} /conta: {{ conta }}</p> <br><br> <br>
-                <label>Favorecido:</label>
-                <input type="text" id="fuserForTransfer" name="fuserForTransfer" readonly="readonly" value={{ userForTransfer }}><br><br>
-                <label>Agência do Favorecido:</label>
-                <input type="text" id="fagencyUserT" name="fagencyUserT" readonly="readonly" value={{ agencyUserT }}><br><br>
-                <label>Conta do Favorecido:</label>
-                <input type="text" id="fnumberAccountT" name="fnumberAccountT" readonly="readonly" value={{ numberAccountT }}><br><br>
-                <label> Data:</label>
-                <input type="text" id="fdataAtual" name="fdataAtual" readonly="readonly" value={{ dataAtual }}><br><br>
-                <label for="fvalor">Valor R$</label>
-                <input type="text" id="fvalor" name="fvalor" readonly="readonly" value={{ valor }}><br><br>
-    
-                <input type="hidden" id="fidTransfer" name="fidTransfer" readonly="readonly" value={{ idForTransfer }}><br><br>
-                <input type="hidden" id="faccountUserT" name="faccountUserT" readonly="readonly" value={{ accountUserT }}><br><br>
-                <input type="hidden" id="fidPeoplefis" name="fidPeoplefis" readonly="readonly" value={{ idPeoplefis }}><br><br>
-    
+    <body>
+        <div class="usertransferconfirmcenter1">
+        
+            <div class="usertransferconfirmbox1">
+                <h3> Confirme sua transferência </h3>
             </div>
- 
-            <div>
-                <button type="submit">&#8592 Confirmar e Transferir</button>
+
+            <div class="usertransferconfirmbox2">
+                <form method="POST" action="{{ url_for('transferconfirm') }}" name="transferconfirm">
+                    <p> Origem: {{ name }} </p>
+                    <p> Agência: {{ agencia }} / {{type}}: {{ conta }} </p> 
+                    <br>
+                    <label>Favorecido:</label>
+                    <br>
+                    <input type="text" id="fuserForTransfer" name="fuserForTransfer" readonly="readonly" value={{ userForTransfer }}>
+                    <br>
+                    <br>
+                    <br>
+                    <label>Agência do Favorecido:</label>
+                    <br>
+                    <input type="text" id="fagencyUserT" name="fagencyUserT" readonly="readonly" value={{ agencyUserT }}>
+                    <br>
+                    <br>
+                    <br>
+                    <label>Conta do Favorecido:</label>
+                    <br>
+                    <input type="text" id="fnumberAccountT" name="fnumberAccountT" readonly="readonly" value={{ numberAccountT }}>
+                    <br>
+                    <br>
+                    <br>
+                    <label> Data:</label>
+                    <br>
+                    <input type="text" id="fdataAtual" name="fdataAtual" readonly="readonly" value={{ dataAtual }}> 
+                    <br>
+                    <br>
+                    <h3>Valor:</h3>
+                    <label for="fvalor">R$</label>
+                    </p><input type="text" id="fvalor" name="fvalor" readonly="readonly" value= {{ valor }}> 
+                    <!-- </p><input type="text" id="fvalor" name="fvalor" readonly="readonly" value= {{ #"{:,.2f}".format(valor) }}> --> 
+            
+                    <input type="hidden" id="fidTransfer" name="fidTransfer" readonly="readonly" value={{ idForTransfer }}>
+                    <br>
+                    <input type="hidden" id="faccountUserT" name="faccountUserT" readonly="readonly" value={{ accountUserT }}>
+                    <br>
+                    <input type="hidden" id="fidPeoplefis" name="fidPeoplefis" readonly="readonly" value={{ idPeoplefis }}>
+                    <br>
+                    <br>
+                    <button class="usertransferconfirmbutton2" type="submit"> Confirmar e Transferir</button>
+                </form>
             </div>
-        </form>
-    </div>
+        <br>
         <form method="GET" action="{{ url_for('transferform') }}" name="transferform">
-            <div>
-                <button type="submit">&#8592 Cancelar e voltar</button>
+            <div style="margin-left: 0%">
+                <button class="usertransferconfirmbutton1" type="submit">&#8592 Cancelar e voltar</button>
             </div>
         </form>
-
-<body>
+    <body>
 {% endblock contents %}

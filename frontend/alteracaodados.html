@@ -75,12 +75,21 @@
             </div>
 
             <div>
-                <label for="fgenre" class="form-label mb-0">Gênero *</label>
+                <label for="fgenre" class="form-label mb-0">Gênero*</label>
                 <select id="fgenre" name="fgenre" class="form-select">
-                    <option selected="" value="">Qual gênero você se identifica?</option>
-                    <option value="M">Masculino</option>
-                    <option value="F">Feminino</option>
-                    <option value="O">Outros</option>
+                    {%if user.gender == 'M': %}  
+                        <option value="{{ user.gender }}">Masculino</option>
+                        <option value="F">Feminino</option>
+                        <option value="O">Outros</option>
+                    {%elif user.gender == 'F': %}  
+                        <option value="{{ user.gender }}">Feminino</option>
+                        <option value="F">Masculino</option>
+                        <option value="O">Outros</option>
+                    {%else: %}
+                        <option value="{{ user.gender }}">Outros</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Feminino</option>
+                    {% endif %}
                 </select>
             </div>
 

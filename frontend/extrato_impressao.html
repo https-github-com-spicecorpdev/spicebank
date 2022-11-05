@@ -16,8 +16,9 @@
     <div class="box1">
         <h2>extrato</h2> <br>
          <pre>{{ nome }}
- agência: {{ agencia }}/ conta:{{ conta }} 
+ agência: {{ agencia }}/ {{ type }}: {{ conta }} 
  <span style="font-size: 150%;">Saldo: R$ {{ "{:,.2f}".format(saldo) }}</span></pre>
+ <span style="font-size: 150%;">Data: {{ date }}</span></pre>
     </div>
 
     <table class="table-extrato">
