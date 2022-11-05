@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `taccount` (
   `idAccountUser` int(11) DEFAULT NULL,
   `agencyUser` int(11) DEFAULT NULL,
   is_active bool default true,
+  account_type ENUM('CC','CP') default 'CC',
   PRIMARY KEY (`idAccount`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
@@ -165,7 +166,6 @@ CREATE TABLE IF NOT EXISTS `manager` (
   foreign key (`bank_id`) references `bank`(`id`)
 ) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
-
 -- Cria capital do banco
 INSERT INTO `bank`(capital) VALUES(1000);
 
@@ -203,4 +203,3 @@ VALUES('Ronaldo', 4, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01'
 INSERT INTO spicebank.manager
 (id_user, registration_number, work_agency_id, profile_user, bank_id)
 VALUES(3, NEXTVAL(manager_registration_number), 1, 2, 1);
-

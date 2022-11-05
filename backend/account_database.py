@@ -72,7 +72,7 @@ class AccountDatabase:
             cursor.execute(query, parameters)
             accountFromDB = cursor.fetchone()
             if accountFromDB:
-                account = Account(id=accountFromDB['idAccount'],accountNumber=accountFromDB['numberAccount'], userAgency=accountFromDB['agencyUser'], totalBalance=accountFromDB['totalbalance'])
+                account = Account(id=accountFromDB['idAccount'],accountNumber=accountFromDB['numberAccount'], userAgency=accountFromDB['agencyUser'], totalBalance=accountFromDB['totalbalance'], typeAccount=accountFromDB['account_type'])
                 return User(accountFromDB['idUser'], accountFromDB['nameUser'], accountFromDB['cpfUser'], "fooPassword", accountFromDB['birthdateUser'], accountFromDB['genreUser'], account=account)
             else:
                 logging.info(f'Usuário não encontrado!')
