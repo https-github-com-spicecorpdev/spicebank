@@ -83,12 +83,28 @@ def solicitations():
     solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations), 200
 
+@app.route('/admsolicitationsgeral', methods = ['GET'])
+@login_required
+def solicitations_geral():
+    manager= current_user
+    solicitations=solicitationDatabase.find_solicitations_by_general_manager(manager.registrationNumber)
+    return render_template('admsolicitations.html', solicitacoes=solicitations), 200
+
 @app.route('/adm')
 @login_required
 def adm():
     manager= current_user
     users=userDatabase.findAllUsers(manager.workAgency)
     return render_template('admusers.html', users = users, manager = manager), 200
+
+@app.route('/admgeral')
+@login_required
+def admgeral():
+    manager= current_user
+    users=userDatabase.findAllUsers_by_general_manager(manager.id)
+    return render_template('admusers.html', users = users, manager = manager), 200
+
+
 
 @app.route('/<user_id>/admuserdetails')
 @login_required

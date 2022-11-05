@@ -72,6 +72,24 @@ class UserDatabase:
         except mariadb.Error as e:
             logging.error(e)
             
+    def findAllUsers_by_general_manager(self, id):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+            SELECT USR.*, ACCOUNT.* FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser where ACCOUNT.is_active = ?;
+        """
+        parameters = (id,)
+        try:
+            cursor.execute(query, parameters)
+            user_from_db = cursor.fetchall()
+            if user_from_db:
+                return user_from_db
+            else:
+                logging.info(f'Nenhuma solicitação encontrada!')
+                return []
+        except mariadb.Error as e:
+            logging.error(e)
+
+
     def findByAgencyAccountAndPassword(self, agency, account, password):
         cursor = self.db.cursor(dictionary=True)
         query = """

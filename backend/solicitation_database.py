@@ -48,6 +48,26 @@ class SolicitationDatabase:
         except mariadb.Error as e:
             logging.error(e)
 
+    def find_solicitations_by_general_manager(self, registrationNumber):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+            SELECT USR.*, ACCOUNT.*, s.*
+       FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+       inner join solicitation s on USR.idUser = s.id_user 
+       where  s.status = 'Pendente' ;
+        """
+        parameters = (registrationNumber)
+        try:
+            cursor.execute(query, parameters)
+            solicitations_from_db = cursor.fetchall()
+            if solicitations_from_db:
+                return solicitations_from_db
+            else:
+                logging.info(f'Nenhuma solicitação encontrada!')
+                return []
+        except mariadb.Error as e:
+            logging.error(e)
+
     def update_status_by_id(self, id, status):
         cursor = self.db.cursor()
         query = """
