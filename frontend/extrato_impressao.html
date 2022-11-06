@@ -1,57 +1,73 @@
+<!-- Tela de Comprovante de Extrato -->
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-    <title>extrato</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_extrato.css') }}">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style_extract_receipt.css') }}">
+        <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
+        <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
+        <title>Extrato | SpiceBank </title>
+    </head>
 
-    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
-    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
-    <hr>
-<div class="justify">
+    <body>
         
-    <div class="box1">
-        <h2>extrato</h2> <br>
-         <pre>{{ nome }}
- agência: {{ agencia }}/ {{ type }}: {{ conta }} 
- <span style="font-size: 150%;">Saldo: R$ {{ "{:,.2f}".format(saldo) }}</span></pre>
- <span style="font-size: 150%;">Data: {{ date }}</span></pre>
+        <div class="justify">
+            
+            <br>
+            <p> Extrato </p>
+            <br>
+
+            <div class="box1">
+
+                <p> {{ name }}</p>
+                <p> Agência: {{ agencia }} / {{ type }}: {{ conta }} </p>
+                <p> Data: {{ dataAtual }}</p><br>
+                <h2> Saldo: R$ {{ "{:,.2f}".format(saldo) }} </h2><br>
+        
+
+            <table class="userextratotable">
+
+                <tr>
+                    <th>DATA</th>
+                    <th>AÇÃO</th>
+                    <th>SALDO</th>
+                    <th>SITUAÇÃO</th>
+
+                </tr>
+
+                {% for extrato in extratos %}
+                    <tr>
+                        <td>{{ extrato.created_time }}</td>
+                        {% if extrato.operation == 'D'  %}
+                            <td>Saque R$ {{"{:,.2f}".format(extrato.withdraw) }}</td>
+                        {% elif extrato.operation == 'T' %}
+                            {% if extrato.deposit > 0 %}
+                                <td>Transferência - Recebida R$ {{"{:,.2f}".format(extrato.deposit) }}</td>
+                            {% else %}
+                                <td>Transferência - Enviada R$ {{"{:,.2f}".format(extrato.withdraw) }}</td>
+                            {% endif %}
+                        {% else %}
+                            <td>Depósito R$ {{"{:,.2f}".format(extrato.deposit) }}</td>
+                        {% endif %}
+                        <td>{{ extrato.operation }} R$ {{"{:,.2f}".format(extrato.balance) }}</td>
+                        <td>{{ extrato.situation }}</td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+        <br>
+        <br>
+        
+        <form method="GET" action="{{ url_for('index') }}" name="index">
+            <div>
+                <button class="userextractbutton1" type="submit"> Voltar</button>
+            </div>
+        </form>
     </div>
 
-    <table class="table-extrato">
-
-        <tr>
-            <th>data</th>
-            <th>acão</th>
-            <th>saldo</th>
-            <th>situação</th>
-        </tr>
-
-        {% for extrato in extratos %}
-            <tr>
-                <td>{{ extrato.created_time }}</td>
-                {% if extrato.operation == 'D'  %}
-                    <td>Saque R$ {{"{:,.2f}".format(extrato.withdraw) }}</td>
-                {% elif extrato.operation == 'T' %}
-                    {% if extrato.deposit > 0 %}
-                        <td>Transferência - Recebida R$ {{"{:,.2f}".format(extrato.deposit) }}</td>
-                    {% else %}
-                        <td>Transferência - Enviada R$ {{"{:,.2f}".format(extrato.withdraw) }}</td>
-                    {% endif %}
-                {% else %}
-                    <td>Depósito R$ {{"{:,.2f}".format(extrato.deposit) }}</td>
-                {% endif %}
-                <td>{{ extrato.operation }} R$ {{"{:,.2f}".format(extrato.balance) }}</td>
-                <td>{{ extrato.situation }}</td>
-            </tr>
-        {% endfor %}
-
-    </table>
-
-</div>
-
-</body>
+    </body>
 </html>
