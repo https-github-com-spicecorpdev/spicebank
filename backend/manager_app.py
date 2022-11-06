@@ -19,9 +19,10 @@ managerDatabase = get_manager_repositories()
 @login_required
 def index():
     manager = current_user
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     if manager.profile == 1:
-        return render_template('admhomegeral.html'), 200
-    return render_template('admhome.html'), 200
+        return render_template('adm_geral_home.html',manager= manager,date=today), 200
+    return render_template('admhome.html',manager= manager,date=today), 200
 
 @login_manager.unauthorized_handler
 def unauthorized():
@@ -44,6 +45,8 @@ def admForm():
 
 @app.route('/loginGerente', methods = ['POST'])
 def loginGerente():
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
+    manager = current_user
     if not validate_form(request.form):
         message = flash('Preencha todos os campos!')
         return render_template('loginGerente.html', message=message), 400
@@ -51,11 +54,11 @@ def loginGerente():
     if manager.profile == 1:
         app.logger.info(manager)
         login_user(manager)
-        return render_template('admhomegeral.html'), 200
-    elif manager:
+        return render_template('adm_geral_home.html', manager=manager, date=today), 200
+    elif manager: 
         app.logger.info(manager)
         login_user(manager)
-        return render_template('admhome.html'), 200
+        return render_template('admhome.html', manager=manager, date=today), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('loginGerente.html', message=message), 400
@@ -116,6 +119,7 @@ def adm_user_details(user_id):
 @login_required
 def admprofile():
     manager=current_user
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     user = userDatabase.findById(manager.id)
     logging.info(f'{user}')
     if request.method == 'POST':
@@ -124,9 +128,26 @@ def admprofile():
         manager_update = User(manager.id, request.form['fname'], user.cpf, user.password, user.birthDate, request.form['fgenre'], address=address)
         userDatabase.update_user_data_by_manager(manager_update)
         message= flash('Dados alterados com sucesso!')
-        return render_template('admhome.html'), 200
+        return render_template('admhome.html',manager=manager, date=today), 200
     # return redirect(url_for('adm')), 200
     return render_template('admprofile.html', manager = user), 200
+
+@app.route('/admprofilegeneral', methods = ['POST', 'GET'])
+@login_required
+def admprofile_general():
+    manager=current_user
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
+    user = userDatabase.findById(manager.id)
+    logging.info(f'{user}')
+    if request.method == 'POST':
+        address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
+        logging.info(f'{address}')
+        manager_update = User(manager.id, request.form['fname'], user.cpf, user.password, user.birthDate, request.form['fgenre'], address=address)
+        userDatabase.update_user_data_by_manager(manager_update)
+        message= flash('Dados alterados com sucesso!')
+        return render_template('adm_geral_home.html',manager= manager,date=today), 200
+    # return redirect(url_for('adm')), 200
+    return render_template('admprofile_general.html', manager = user), 200
 
 @app.route('/<user_id>/admeditdatauser', methods = ['POST','GET'])
 @login_required
@@ -139,7 +160,7 @@ def adm_edit_data_user(user_id):
     userDatabase.update_user_data_by_manager(user_update)
     message= flash('Dados alterados com sucesso!')
     if request.method == 'POST':
-        return render_template('admhome.html'), 200
+        return render_template('admhome.html',manager=manager), 200
 
 @app.route('/<user_id>/<solicitation_id>/<type>/details')
 @login_required
@@ -157,6 +178,11 @@ def details(user_id,solicitation_id,type):
         user = userDatabase.findById(user_id)
         solicitation = solicitationDatabase.find_deposit_solicitation_by_id_solicitation(solicitation_id)
         return render_template('admdepositconfirm.html', user = user, solicitation = solicitation), 200
+    elif type == 'Abertura de conta':
+        update_user_solicitation = solicitationDatabase.find_update_user_solicitation_by_id_solicitation(solicitation_id, user_id)
+        user = userDatabase.findById(user_id)
+
+        return render_template('admdetailsuserapprove.html', solicitation=update_user_solicitation, user=user), 200
     else:
         solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
         return render_template('admsolicitations.html', solicitacoes=solicitations), 200

@@ -1,0 +1,32 @@
+
+    {% extends "menu_lateral_adm_template.html" %}
+
+    {% block contents %}
+
+    <div class="admapprovedatachangebox1">
+        <h3> DADOS PESSOAIS</h3>
+        
+        <div>
+            <p>Nome: {{ user.name }} </p>
+            <p>Gênero: {{ user.gender }}</p>
+        <br><br>
+                    <h4>Endereço</h4>
+         <p class="admapprovedatachangeright">Estado: {{ user.address.state }}</p>
+         <p class="admapprovedatachangeleft">cidade: {{ user.address.city }}</p>
+         <p>Bairro: {{ user.address.district }}</p>
+         <p>Rua/Avenida {{ user.address.road }}</p>
+         <p class="admapprovedatachangeright">CEP: {{ user.address.cep }}</p>
+         <p class="admapprovedatachangeleft">Número {{ user.address.numberHouse }}</p>
+        
+<br><br><br>
+                    
+                    <div class="admapprovedatachangecenter">
+                        <form method="GET" action="{{ url_for('solicitations') }}">
+                            <button class="admdepositconfirmbutton1" type="submit">Voltar</button>
+                        </form>
+                    </div>
+
+    </div>
+    
+
+    {% endblock contents %}
