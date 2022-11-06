@@ -510,7 +510,7 @@
     
 .usernavdiv{
         background-color: #d6d6d6;
-        position: absolute;
+        position: fixed;
         bottom:0;
         width: 15%;
 }
@@ -1599,8 +1599,164 @@ border: none;
 
     /**/
 
+/*alteracadedados.html
+
+/*centralizar*/
+.datachangecenter1{
+    margin: auto;
+    width:70%;
+}
+
+.datachangecenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+/*caixa cinza claro*/
+.datachangebox1{
+    background-color: #d6d6d6;
+Margin-top: 5%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.datachangebox1 > h3{    
+    text-align: center;
+}
+
+.datachangebox1 > p{    
+    text-align: center;
+}
 
 
+/*box de dados*/
+
+ .datachangebox2{
+    margin: auto;
+    width: 100%;
+    background-color: #ffffff;
+    Margin-top: 1%;
+    padding: 10px;
+    }
+
+.datachangebox2 > form > h3 {
+text-align: center;}
+
+
+.datachangebox2 >form > h4 {
+text-align: center;}
+
+.datachangebox2 > form > div > h4 {
+text-align: center;}
+
+.datachangebox2 > form > p {
+margin-top: 5%;
+}
+
+.datachangebox2 > form > div > select{
+  border-style:none;
+  padding:5px;
+  width:35%;
+  
+}
+
+.datachangebox2 > form > div >{
+  text-align:center;
+}
+
+.datachangebox2 > form > div > input{
+    border-style: none;
+    background-color: #d6d6d6;
+  padding:5px;
+  width:100%;
+  
+}
+
+.datachangeleft > select{
+  border-style:none;
+  padding:5px;
+  width:100%;
+  
+
+}
+
+
+.datachangeleft{
+float:left;
+width: 45%;
+}
+
+.datachangeright{
+float:right;
+width: 45%;
+}
+
+.datachangeright > input{
+  width: 100%;
+  border-style:none;
+  padding:5px;
+}
+
+.flashes{
+    text-align: center;
+    list-style: none;
+}
+
+.datachangebutton1{
+    text-align:center;
+    margin-top:2%;
+    margin: center;
+    cursor: pointer;
+    border-style:none;
+    padding:14px;
+}
+
+.datachangebutton1 > button{
+  cursor: pointer;
+  border-style:none;
+  padding:14px;
+  margin: auto;
+}
+
+.datachangebutton1 > button:hover{
+background-color:rgb(71, 177, 106);
+}
+
+.datachangebutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.datachangebutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.datachangebutton2:hover{
+    background-color:rgb(183, 85, 85);
+}
+
+.datachangecenter{
+margin:auto;
+width:fit-content;}
+
+
+    /*RESPONSIVIDADE alteracaodedados.HTML*/
+
+    @media screen and (max-width: 750px) {
+
+        .datachangebox1{
+            margin: auto;
+            width: 75%;
+        Margin-top: 15%;
+        }
+
+
+    }
 
 /*userwithdrawconfirm.html*/ 
 
