@@ -78,6 +78,10 @@ def loginGerente():
     manager = managerDatabase.findByRegistrationNumberAndPassword (request.form['fmatricula'], request.form['fpassword'],)
     if manager:
         login_user(manager)
+        if manager.is_general_manager():
+            bank_balance = bankDatabase.find_capital_by_id(1)
+            if bank_balance <= 0:
+                return render_template('capital.html'), 200
         return render_template('admhome.html', manager=manager, date=today), 200
     else:
         flash(f'Login inválido, verifique os dados de acesso!')
@@ -115,14 +119,14 @@ def account_approval_by_general_manager(user_id,acao,id,type):
 def solicitations():
     manager= current_user
     solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
-    return render_template('admsolicitations.html', solicitacoes=solicitations, manager = manager), 200
+    return render_template('admsolicitations.html', solicitacoes=solicitations), 200
 
 @app.route('/admsolicitationsgeral', methods = ['GET'])
 @login_required
 def solicitations_geral():
     manager= current_user
     solicitations=solicitationDatabase.find_solicitations_by_general_manager(manager.registrationNumber)
-    return render_template('admsolicitations.html', solicitacoes=solicitations, manager = manager), 200
+    return render_template('admsolicitations.html', solicitacoes=solicitations), 200
 
 @app.route('/adm')
 @login_required
@@ -188,9 +192,9 @@ def admprofile():
         manager_update = User(manager.id, request.form['fname'], user.cpf, user.password, user.birthDate, request.form['fgenre'], address=address)
         userDatabase.update_user_data_by_manager(manager_update)
         flash('Dados alterados com sucesso!')
-        return render_template('admhome.html',manager=manager, date=today), 200
+        return render_template('admhome.html', date=today), 200
     # return redirect(url_for('adm')), 200
-    return render_template('admprofile.html', user = user, manager = manager), 200
+    return render_template('admprofile.html', user = user), 200
 
 @app.route('/admprofilegeneral', methods = ['POST', 'GET'])
 @login_required
