@@ -4,10 +4,12 @@
 
 <div class="admhomebox1">
 
-  <h3>Oá, {{ nameManager }}</h3>
-    <p>Matrícula: {{ matricula}}</p>
-    <p>Data/hora : {{ datetime }}</p>
+  <h3> Olá! {{ manager.name}}</h3>
+    <p>matrícula: {{ manager.registrationNumber }}</p>
+    <p>Data: {{ date }}</p>
 
+
+    </div>
     <div class="admhomebox2">
       <a href="/statementform">
         <button type="button"><i class="fa-regular fa-file-lines"></i><div>extrato</div></button></a>
