@@ -76,3 +76,34 @@ class ManagerDatabase:
         else:
             logging.info(f'Nenhum gerente de agência encontrado')
             return None
+
+    def find_all_agency_manager_without_work_agency(self):
+        cursor=self.db.cursor(dictionary=True)
+        query = """
+            SELECT m.id as manager_id, m.*, a.*, u.*
+            FROM manager m
+            left JOIN agency a on a.id = m.work_agency_id
+            INNER JOIN tuser u on u.idUser = m.id_user 
+            where m.profile_user = 2 and a.id is null;
+        """
+        cursor.execute(query,)
+        manager_from_db = cursor.fetchall()
+        if manager_from_db:
+            return manager_from_db
+        else:
+            logging.info(f'Nenhum gerente de agência encontrado')
+            return []
+
+    def update_work_agency_id_by_maganer_id(self, work_agency_id, manager_id):
+        cursor = self.db.cursor()
+        query = """
+        UPDATE manager
+        SET work_agency_id = ?
+        WHERE id = ?;
+        """
+        parameters = (work_agency_id, manager_id, )
+        try:
+            cursor.execute(query, parameters)
+            self.db.commit()
+        except mariadb.Error as e:
+            logging.error(e)

@@ -132,14 +132,12 @@ CREATE TABLE IF NOT EXISTS `bank_statement` (
   foreign key (`id_user`) references `tuser`(idUser)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
-
+-- Criando estrutura para tabela spicebank.bank
 CREATE TABLE `bank`(
     `id` int(11) not null auto_increment,
     `capital` float not null,
     PRIMARY KEY (`id`)
 ) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-
-alter table bank 
 
 -- Criando estrutura para tabela agency
 CREATE TABLE IF NOT EXISTS `agency` (
@@ -184,12 +182,12 @@ VALUES(nextval(agency_number), 1);
 -- Cria usuário comum do gerente geral
 INSERT INTO spicebank.tuser
 (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
-VALUES('Jose', 3, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'M', '123');
+VALUES('Jose', 10000000001, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'M', '123');
 
 -- Cria usuário comum
 INSERT INTO spicebank.tuser
 (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
-VALUES('Aline', 5, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'F', '123');
+VALUES('Aline', 12345678901, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'F', '123');
 
 -- Cria solicitação abertura de conta usuário comum
 INSERT INTO spicebank.solicitation
@@ -204,19 +202,24 @@ VALUES(1, NEXTVAL(manager_registration_number), 1, 1, 1);
 -- Cria usuário comum do gerente agência
 INSERT INTO spicebank.tuser
 (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
-VALUES('Ronaldo', 4, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'M', '123');
+VALUES('Ronaldo', 10000000002, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'M', '123');
 
 -- Cria usuário comum do gerente agência
 INSERT INTO spicebank.tuser
 (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
-VALUES('Igor', 12, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'M', '123');
+VALUES('Igor', 10000000003, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'M', '123');
 
 -- Cria gerente de agência
 INSERT INTO spicebank.manager
 (id_user, registration_number, work_agency_id, profile_user, bank_id)
 VALUES(3, NEXTVAL(manager_registration_number), 2, 2, 1);
 
+-- Cria usuário comum do gerente agência
+INSERT INTO spicebank.tuser
+(nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
+VALUES('Ronaldaum', 100000000004, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'M', '123');
+
 -- Cria gerente de agência
 INSERT INTO spicebank.manager
-(id_user, registration_number, work_agency_id, profile_user, bank_id)
-VALUES(5, NEXTVAL(manager_registration_number), 3, 2, 1);
+(id_user, registration_number, profile_user, bank_id)
+VALUES(5, NEXTVAL(manager_registration_number), 2, 1);
