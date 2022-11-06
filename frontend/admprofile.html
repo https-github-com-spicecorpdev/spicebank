@@ -5,7 +5,7 @@
 <div class="admprofilebox1">
     <form method="POST" action="{{ url_for('admprofile') }}">
         <h3>DADOS PESSOAIS</h3>
-        <h4>Agência: {{ user.workAgency }} Matrícula: {{ user.registrationNumber }}</h4>
+        <h4>Agência: {{ manager.workAgency }} Matrícula: {{ manager.registrationNumber }}</h4>
         <div>
             <label for="fname">Nome:</label>
             <input type="text" id="fname" name="fname" value="{{ user.name }}"> <br><br>
