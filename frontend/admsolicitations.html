@@ -2,14 +2,16 @@
 
 {% block contents %}
 <div class="admsolicitationsbutton">
-    <form method="GET" action="{{ url_for('index')}}">
+
+    <form method="GET" action="{{ url_for('index') }}">
+
         <button type="submit">&#8592 Voltar</button>
     </form>
 </div>
 
 <div class="admsolicitationsbox1">
     <h2>Administrador</h2>
-    <p>Gerente: {{ nameManager }} Agência: {{ agenciadoGer }}
+    <p>Gerente: {{ managername }} Agência: {{ managerworkAgency }}
     </p>
 </div>
 
@@ -40,20 +42,20 @@
         {% else %}
         <td>
             <a
-                href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='aprovar', id=solicitacao.id, type=solicitacao.solicitation_type) }}">
+                href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='aprovar', id=solicitacao.id, type=solicitacao.solicitation_type) }}" class="admsolicitationsaprovar">
                 Aprovar
             </a>
         </td>
         {% endif %}
         <td>
             <a
-                href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='reprovar', id=solicitacao.id,type=solicitacao.solicitation_type)}}">
+                href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='reprovar', id=solicitacao.id,type=solicitacao.solicitation_type)}}" class="admsolicitationsreprovar">
                 Reprovar
             </a>
         </td>
         <td>
             <a
-                href="{{ url_for('details',user_id=solicitacao.idUser, solicitation_id=solicitacao.id,type=solicitacao.solicitation_type)}}">
+                href="{{ url_for('details',user_id=solicitacao.idUser, solicitation_id=solicitacao.id,type=solicitacao.solicitation_type)}}" class="admsolicitationsdetalhes">
                 Detalhes
             </a>
         </td>

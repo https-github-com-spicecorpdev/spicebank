@@ -346,13 +346,7 @@ margin-top: 1%;
         color:black;
         text-decoration:none;
         display:block;
-        height:40px
-    
-        
-    }
-
-.admsolicitationstable > table, tr  td a:hover{
-        background-color:#749e81;
+        padding:8px;
     }
 
 .admsolicitationstable > table, td {
@@ -373,6 +367,21 @@ margin-top: 1%;
         padding: 10px;
         border: none;
          background-color:#d6d6d6}
+
+
+.admsolicitationsaprovar:hover{
+  background-color:lawngreen;
+}
+
+.admsolicitationsreprovar:hover{
+  background-color:indianred;
+}
+
+.admsolicitationsdetalhes:hover{
+  background-color: lightgrey;
+}
+
+
 
 
     /*RESPONSIVIDADE MENU LATERAL*/
@@ -972,7 +981,7 @@ margin-top: 1%;
     }
 
 .admuserstable > table, tr  td a:hover{
-        background-color:#0d8331;
+     background-color: lightgray; 
     }
 
 .admuserstable > table, td {
@@ -1096,6 +1105,11 @@ background-color:indianred;
 .admusersdetailcenter{
 margin:auto;
 width:fit-content;}
+
+.flashes{
+  text-align:center;
+  list-style:none;
+}
 
 
     /*RESPONSIVIDADE ADMUSERSDETAIL.HTML*/
@@ -1266,10 +1280,6 @@ margin-top: 1%;
         text-decoration:none;
         display:block;
         background-color:#fff;
-    }
-
-.admextratotable > table, tr  td a:hover{
-        background-color:#0d8331;
     }
 
 .admextratotable > table, td {
