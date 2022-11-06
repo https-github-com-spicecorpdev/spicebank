@@ -1,0 +1,42 @@
+<!-- Tela de confirmação de capital inicial-->
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/capital.css') }}">
+        <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon">
+        <title> Confirme o Capital | SpaceBank </title>
+    </head>
+
+    <body class="capitalbody"> 
+        
+        <nav class="hgeneralnav"></nav>
+
+        <div class="capitalcenter1">
+        
+            <div class="capitalconfirmbox1"> 
+                <h3> Confirme o capital inicial do banco SpiceBank </h3>
+            </div>
+
+            <div class="capitalconfirmbox2"> 
+                <form method="POST" action="" name="">
+                    <p>Valor do capital inicial: </p>
+                    <label for="fvalor">R$</label>
+                    <input type="text" id="fvalor" name="fvalor" readonly="readonly" value= {{ valor }}><br><br>
+                <br>
+                <button class="capitalconfirmbutton2" type="submit">Confirmar</button>
+                </div>
+            </form>
+            <br>
+            <form method="GET" action=" " name=" ">
+                <div style="margin-left: 0">
+                    <button class="capitalbutton1" type="submit">&#8592 Cancelar e voltar</button>
+                </div>
+            </form>
+            <div class="templatedatetime"> {{ date }} </div>
+    </body>
+
+</html> 
