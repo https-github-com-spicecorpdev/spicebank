@@ -18,7 +18,7 @@
         <p class="admapprovedatachangeleft">Número {{ user.address.numberHouse }}</p>
 
         <br><br><br>
-
+    {% if manager.is_general_manager() %}
         <form method="POST" action="{{ url_for('account_approval_by_general_manager', user_id=solicitation.id_user, acao='aprovar', id=solicitation.id_solicitation, type=solicitation.solicitation_type) }}" name="cadastro">
             <p for="fmanager" class="form-p mb-0">Gerente:* </p>
             <select id="fmanager" name="fmanager" class="form-select">
@@ -32,11 +32,8 @@
                 <button type="submit">Aprovar</button>
             </div>
         </form>
-        
-        <a
-            href="{{ url_for('solicitacao',user_id=solicitation.idUser, action='reprovar', id=solicitation.id,type=solicitation.solicitation_type)}}">
-            Reprovar
-        </a>
+    {% endif %} 
+
 
 
         <div class="admapprovedatachangecenter">
