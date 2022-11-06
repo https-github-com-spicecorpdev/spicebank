@@ -24,27 +24,10 @@
             <div class="capitalbox2"> 
                 <h3> Insira o valor do Capital Inicial </h3>
 
-                <form method="POST" action="" name="">
+                <form method="POST" action="/balanceconfirm">
                     <label for="fvalor"> R$ </label>
                     <input type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
-                    
-                    <!-- Label referênte ao login de matricula.
-                    precisa subistituir para algo como "Insira um valor válido"-->
-                    <!-- <label>
-                    {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                    <ul class=flashes>
-                        {% for message in messages %}
-                        <li>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                    {% endwith %}
-                    {% block body %}{% endblock %}</label> -->
-
-         
                     <button class="capitalbutton2" type="submit" > Definir </button>
-
                 </form>
             </div>
             <div class="templatedatetime"> {{ date }} </div>

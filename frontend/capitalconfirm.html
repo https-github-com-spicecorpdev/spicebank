@@ -22,7 +22,7 @@
             </div>
 
             <div class="capitalconfirmbox2"> 
-                <form method="POST" action="" name="">
+                <form method="POST" action="{{ url_for('capital_confirm') }}">
                     <p>Valor do capital inicial: </p>
                     <label for="fvalor">R$</label>
                     <input type="text" id="fvalor" name="fvalor" readonly="readonly" value= {{ valor }}><br><br>
@@ -31,7 +31,7 @@
                 </div>
             </form>
             <br>
-            <form method="GET" action=" " name=" ">
+            <form method="GET" action="/capitalconfirm" name=" ">
                 <div style="margin-left: 0">
                     <button class="capitalbutton1" type="submit">&#8592 Cancelar e voltar</button>
                 </div>

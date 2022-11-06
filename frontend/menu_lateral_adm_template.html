@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     {% block head %}
     <meta charset="UTF-8">
@@ -10,36 +11,44 @@
     <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
     {% endblock %}
 </head>
+
 <body class="admbody">
-{% block nav %}
+    {% block nav %}
 
-<nav class="admnav">
-    
-   <ul>
-        <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
-        
-        <li><a href="/admprofile"><i class="fa-solid fa-user"></i>perfil</a></li>
+    <nav class="admnav">
 
-        <li><a href="/admsolicitations"><i class="fa-solid fa-briefcase"></i>Solicitações</a></li>
 
-        <li><a href="/adm"><i class="fa-solid fa-users"></i>Usuários</a></li>
+        <ul>
+            <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
+
+            <li><a href="/admprofile"><i class="fa-solid fa-user"></i>perfil</a></li>
+
+            <li><a href="/admsolicitations"><i class="fa-solid fa-briefcase"></i>Solicitações</a></li>
+
+            <li><a href="/adm"><i class="fa-solid fa-users"></i>Usuários</a></li>
+
+            {% if manager.is_general_manager() %}
+                <li><a href="/admagency"><i class="fa-sharp fa-solid fa-building-columns"></i>Agências</a></li>
+                <li><a href="/admagencymanagers"><i class="fa-solid fa-users"></i>Gerentes de agência</a></li>
+            {% endif %}
         </ul>
 
-</nav>
+    </nav>
 
-<div class="admnavdiv">
-    <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+    <div class="admnavdiv">
+        <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
     </div>
-{% endblock %}
+    {% endblock %}
 
 
-{% block justify %}
-<div class="justify">
-<div class="templatedatetime">{{ date }}</div>
-{% block contents %}
+    {% block justify %}
+    <div class="justify">
+        <div class="templatedatetime">{{ date }}</div>
+        {% block contents %}
 
-{% endblock contents %}
-</div>
-{% endblock justify%}
+        {% endblock contents %}
+    </div>
+    {% endblock justify%}
 </body>
+
 </html>
