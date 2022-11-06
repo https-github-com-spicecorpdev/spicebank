@@ -1523,6 +1523,85 @@ margin-bottom: 2%;
     background-color:rgb(71, 177, 106);
 }
 
+/*extrato.html*/
+
+
+ .userextratobox1{
+    margin: auto;
+    width: 70%;
+    background-color: #d6d6d6;
+Margin-top: 1%;
+padding: 10px;
+}
+
+.userextratobox1 >h2{
+text-align:center;
+}
+
+.userextratobox1 >p{
+text-align:center;
+margin-top: 1%;
+}
+
+.userextratotable{
+        margin: auto;
+        width: 70%;
+        background-color: white;
+        text-align: center;
+    }
+
+.userextratotable > table, tr  th {
+        background-color:#d6d6d6;
+    }
+
+.userextratotable > table, tr  td a {
+        color:black;
+        text-decoration:none;
+        display:block;
+        background-color:#fff;
+    }
+
+.userextratotable > table, tr  td a:hover{
+        background-color:#6fb684;
+    }
+
+.userextratotable > table, td {
+           border: 1px solid black;
+           border-collapse: collapse;
+         }
+.userextratobutton{
+            margin-right: 20px;
+
+        }
+.userextratobutton1{
+    margin-left:15.2%;
+    margin-top:5%;
+display:inline-block;
+        }
+
+.userextratobutton1 > button{
+    cursor:pointer;
+padding: 10px;
+border: none;
+ background-color:#d6d6d6}
+
+
+ .userextratobutton2 {
+    margin-top:5%;
+    display:inline-block;
+          }
+
+  .userextratobutton2 > button{
+              cursor:pointer;
+          padding: 10px;
+          border: none;
+           background-color:#d6d6d6}
+
+    /**/
+
+
+
+
 /*userwithdrawconfirm.html*/ 
 
 /*centralizar*/

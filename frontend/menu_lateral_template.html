@@ -28,23 +28,24 @@
                 <li><a href="/close-account"><i class="fa-solid fa-xmark"></i>Encerrar conta</a></li>
             </ul>
 
-            <div>
-                <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
-            </div>
-
         </nav>
+
+        <div class="usernavdiv">
+        <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+        </div>
     {% endblock %}
 
 
     {% block justify %}
-
         <div class="justify">
-            {% block contents %}
+            
+        <div class="templatedatetime">{{ date }}</div>
+    {% block contents %}
 
-            {% endblock contents %}
-        </div>
+    {% endblock contents %}
+    </div>
 
-        {% endblock justify%}
+    {% endblock justify%}
 
     </body>
 </html>

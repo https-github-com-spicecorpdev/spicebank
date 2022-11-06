@@ -1,41 +1,33 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-    <title>extrato</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_extrato.css') }}">
+{% extends "menu_lateral_template.html" %}
 
-    <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
-    <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <img src="static/img/logo-banco.png" alt="Logo Spice Bank">
-    <hr>
-<div class="justify">
+{% block contents %}
 
-    <form method="GET" action="{{ url_for('index') }}">
+<title>Extrato | SpiceBank</title>
+
+    <form method="GET" action="{{ url_for('index') }}" class="userextratobutton1">
         <button type="submit">&#8592 voltar</button>
 </form>
 
-<form method="GET" action="{{ url_for('print') }}" target="_blank">
+<form method="GET" action="{{ url_for('print') }}" target="_blank" class="userextratobutton2">
     <button type="submit">Imprimir</button>
 </form>
         
-    <div class="box1">
-        <h2>extrato</h2> <br>
-         <pre>{{ nome }}
- agência: {{ agencia }}/ {{ type }}: {{ conta }} 
- <span style="font-size: 150%;">Saldo: R$ {{ "{:,.2f}".format(saldo) }}</span></pre>
- <span style="font-size: 150%;">Data: {{ date }}</span></pre>
+    <div class="userextratobox1">
+        <h2>EXTRATO</h2> <br>
+         <p>{{ nome }} </p>
+ <p>Agência: {{ agencia }}/ {{ type }}: {{ conta }} </p>
+ <P>Data: {{ date }}</p>
+ <h3>Saldo: R$ {{ "{:,.2f}".format(saldo) }}</h3>
+
     </div>
 
-    <table class="table-extrato">
+    <table class="userextratotable">
 
         <tr>
-            <th>data</th>
-            <th>acão</th>
-            <th>saldo</th>
-            <th>situação</th>
+            <th>DATA</th>
+            <th>AÇÃO</th>
+            <th>SALDO</th>
+            <th>SITUAÇÃO</th>
         </tr>
 
         {% for extrato in extratos %}
@@ -61,5 +53,4 @@
 
 </div>
 
-</body>
-</html>
+{% endblock contents %}
