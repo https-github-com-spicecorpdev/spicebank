@@ -30,14 +30,14 @@ color: #000;
 
 .admbody{
     background-color: #6b8064;
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', sans-serif;
 }
 
     /*Barra de navegação HORIZONTAL do gerente (login)*/
 
     .hadmnav{
       padding: 0;
-      background-color: #678a5c;
+      background-color: #23371e;
       position: fixed;
       top: 0;
       width: 100%; 

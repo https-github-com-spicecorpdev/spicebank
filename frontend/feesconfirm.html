@@ -1,0 +1,42 @@
+<!-- Tela de confirmação juros-->
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/fees.css') }}">
+        <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon">
+        <title> Confirme o Juros | SpaceBank </title>
+    </head>
+
+    <body class="feesbody"> 
+        
+        <nav class="hgeneralnav"></nav>
+
+        <div class="feescenter1">
+        
+            <div class="feesconfirmbox1"> 
+                <h3> Confirme o juros do banco SpiceBank </h3>
+            </div>
+
+            <div class="feesconfirmbox2"> 
+                <form method="POST" action="{{ url_for('fees_confirm') }}">
+                    <p>Valor do juros: </p>
+                    <input type="text" id=" " name=" " readonly=" " value= {{ }}>
+                    <label for=" ">%</label><br>
+                <br>
+                <button class="feesconfirmbutton2" type="submit">Confirmar</button>
+                </div>
+            </form>
+            <br>
+            <form method="GET" action="/feesconfirm" name=" ">
+                <div style="margin-left: 0">
+                    <button class="feesbutton1" type="submit">&#8592 Cancelar e voltar</button>
+                </div>
+            </form>
+            <div class="templatedatetime"> {{ date }} </div>
+    </body>
+
+</html> 
