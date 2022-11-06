@@ -1,6 +1,8 @@
 import logging
 import mariadb
 from .manager import Manager
+from .account import Account
+from .address import Address
 
 class ManagerDatabase:
     def __init__(self, connection):
@@ -52,7 +54,25 @@ class ManagerDatabase:
         cursor.execute(query, parameters)
         manager_from_db = cursor.fetchone()
         if manager_from_db:
-            return Manager(manager_from_db['nameUser'], manager_from_db['cpfUser'], manager_from_db['passwordUser'], manager_from_db['birthdateUser'], manager_from_db['genreUser'], manager_from_db['registration_number'], manager_from_db['work_agency_id'], manager_from_db['profile_user'], userId=manager_from_db['idUser'], managerId=manager_from_db['id'])
+            address = Address(manager_from_db['roadUser'], manager_from_db['numberHouseUser'], manager_from_db['districtUser'], manager_from_db['cityUser'], manager_from_db['stateUser'], manager_from_db['cepUser'])
+            return Manager(manager_from_db['nameUser'], manager_from_db['cpfUser'], manager_from_db['passwordUser'], manager_from_db['birthdateUser'], manager_from_db['genreUser'], manager_from_db['registration_number'], manager_from_db['work_agency_id'], manager_from_db['profile_user'], userId=manager_from_db['idUser'], managerId=manager_from_db['id'], address=address)
         else:
             logging.info(f'Gerente de Agência com o id: {user_id} não encontrado!')
+            return None
+
+    def find_all_agency_manager(self):
+        cursor=self.db.cursor(dictionary=True)
+        query = """
+            SELECT m.*, a.*, u.*
+            FROM manager m
+            INNER JOIN agency a on a.id = m.work_agency_id
+            INNER JOIN tuser u on u.idUser = m.id_user 
+            where m.profile_user = 2;
+        """
+        cursor.execute(query,)
+        manager_from_db = cursor.fetchall()
+        if manager_from_db:
+            return manager_from_db
+        else:
+            logging.info(f'Nenhum gerente de agência encontrado')
             return None

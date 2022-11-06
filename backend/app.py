@@ -11,7 +11,11 @@ import logging
 
 app, login_manager = create_app()
 connection= get_connection()
-accountDatabase, statementDatabase, solicitationDatabase, bankDatabase, userDatabase = get_repositories()
+accountDatabase, statementDatabase, solicitationDatabase, bankDatabase, userDatabase, agencyDatabase = get_repositories()
+
+@app.context_processor
+def current_time():
+    return {'date': time.strftime('%d/%m/%Y %H:%M:%S')}
 
 @app.route('/')
 @login_required

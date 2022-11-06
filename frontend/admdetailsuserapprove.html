@@ -1,32 +1,51 @@
+{% extends "menu_lateral_adm_template.html" %}
 
-    {% extends "menu_lateral_adm_template.html" %}
+{% block contents %}
 
-    {% block contents %}
+<div class="admapprovedatachangebox1">
+    <h3> DADOS PESSOAIS</h3>
 
-    <div class="admapprovedatachangebox1">
-        <h3> DADOS PESSOAIS</h3>
-        
-        <div>
-            <p>Nome: {{ user.name }} </p>
-            <p>Gênero: {{ user.gender }}</p>
+    <div>
+        <p>Nome: {{ user.name }} </p>
+        <p>Gênero: {{ user.gender }}</p>
         <br><br>
-                    <h4>Endereço</h4>
-         <p class="admapprovedatachangeright">Estado: {{ user.address.state }}</p>
-         <p class="admapprovedatachangeleft">cidade: {{ user.address.city }}</p>
-         <p>Bairro: {{ user.address.district }}</p>
-         <p>Rua/Avenida {{ user.address.road }}</p>
-         <p class="admapprovedatachangeright">CEP: {{ user.address.cep }}</p>
-         <p class="admapprovedatachangeleft">Número {{ user.address.numberHouse }}</p>
+        <h4>Endereço</h4>
+        <p class="admapprovedatachangeright">Estado: {{ user.address.state }}</p>
+        <p class="admapprovedatachangeleft">cidade: {{ user.address.city }}</p>
+        <p>Bairro: {{ user.address.district }}</p>
+        <p>Rua/Avenida {{ user.address.road }}</p>
+        <p class="admapprovedatachangeright">CEP: {{ user.address.cep }}</p>
+        <p class="admapprovedatachangeleft">Número {{ user.address.numberHouse }}</p>
+
+        <br><br><br>
+
+        <form method="POST" action="{{ url_for('account_approval_by_general_manager', user_id=solicitation.id_user, acao='aprovar', id=solicitation.id_solicitation, type=solicitation.solicitation_type) }}" name="cadastro">
+            <p for="fmanager" class="form-p mb-0">Gerente:* </p>
+            <select id="fmanager" name="fmanager" class="form-select">
+                <option selected="" value="">Selecione o gerente para este cliente</option>
+                {% for manager in managers %}
+                    <option value="{{ manager.id }}">{{ manager.nameUser }}</option>
+                {% endfor %}
+            </select>
+
+            <div class="userregistrationbutton1">
+                <button type="submit">Aprovar</button>
+            </div>
+        </form>
         
-<br><br><br>
-                    
-                    <div class="admapprovedatachangecenter">
-                        <form method="GET" action="{{ url_for('solicitations') }}">
-                            <button class="admdepositconfirmbutton1" type="submit">Voltar</button>
-                        </form>
-                    </div>
+        <a
+            href="{{ url_for('solicitacao',user_id=solicitation.idUser, action='reprovar', id=solicitation.id,type=solicitation.solicitation_type)}}">
+            Reprovar
+        </a>
+
+
+        <div class="admapprovedatachangecenter">
+            <form method="GET" action="{{ url_for('solicitations') }}">
+                <button class="admdepositconfirmbutton1" type="submit">Voltar</button>
+            </form>
+        </div>
 
     </div>
-    
+
 
     {% endblock contents %}

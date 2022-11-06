@@ -8,6 +8,7 @@ from .statement_database import StatementDatabase
 from .manager_database import ManagerDatabase
 from .solicitation_database import SolicitationDatabase
 from .bank_database import BankDatabase
+from .agency_database import AgencyDatabase
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
 logging.info('Inicializando a configuração da aplicação...')
@@ -45,7 +46,8 @@ def get_repositories():
     solicitationDatabase= SolicitationDatabase(connection)
     bankDatabase= BankDatabase(connection)
     userDatabase = UserDatabase(connection)
-    return accountDatabase, statementDatabase, solicitationDatabase, bankDatabase, userDatabase
+    agencyDatabase = AgencyDatabase(connection)
+    return accountDatabase, statementDatabase, solicitationDatabase, bankDatabase, userDatabase, agencyDatabase
 
 def get_manager_repositories():
     managerDatabase = ManagerDatabase(connection)

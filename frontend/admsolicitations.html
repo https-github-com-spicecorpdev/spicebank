@@ -2,14 +2,12 @@
 
 {% block contents %}
 <div class="admsolicitationsbutton">
+
     <form method="GET" action="{{ url_for('index') }}">
+
         <button type="submit">&#8592 Voltar</button>
     </form>
 </div>
-
-
-
-
 
 <div class="admsolicitationsbox1">
     <h2>Administrador</h2>
@@ -34,6 +32,10 @@
         <td>{{ solicitacao.solicitation_type }}</td>
         <td>{{ solicitacao.status }}</td>
         {% if solicitacao.solicitation_type == 'Encerrar conta' %}
+        <td>
+            <p style="color: gray">Aprovar</p>
+        </td>
+        {% elif manager.is_general_manager() %}
         <td>
             <p style="color: gray">Aprovar</p>
         </td>
