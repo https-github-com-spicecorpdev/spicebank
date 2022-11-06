@@ -61,7 +61,6 @@ def loginAcomp():
         message = flash('Preencha todos os campos!')
         return render_template('acompanhamento.html', message=message), 400
     solicitation = userDatabase.findSolicitationByCpfAndPassword(request.form['fcpf'], request.form['fpassword'])
-    statements = statementDatabase.findByUserId(solicitation.user_id)
     if solicitation:
         if solicitation.status == "Aprovado":
             message = flash(f'Agência: {solicitation.agency} / Conta: {solicitation.account}')
@@ -71,6 +70,7 @@ def loginAcomp():
             message = flash('Solicitação de abertura de conta recusada, entre em contato conosco!')
             return render_template('homeAcomp.html', solicitation=solicitation, message=message, statements=None), 200
         elif solicitation.status == "Encerrado":
+            statements = statementDatabase.findByUserId(solicitation.user_id)
             message = flash('Sua conta foi encerrada. Você pode verificar o extrato clicando no botão abaixo:')
             return render_template('homeAcomp.html', solicitation=solicitation, message=message, statements=statements), 200
         else:
