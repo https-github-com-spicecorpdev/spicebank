@@ -1,4 +1,5 @@
 import logging
+import mariadb
 
 class AgencyDatabase:
     def __init__(self, connection):
@@ -19,4 +20,19 @@ class AgencyDatabase:
             return agencies
         else:
             logging.info(f'Nenhuma agência encontrada!')
+            return []
+
+    def create_agency(self, bank_id):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+            INSERT INTO agency (`number`, bank_id)
+            VALUES(nextval(agency_number), ?);
+        """
+        parameters = (bank_id,)
+        try:
+            cursor.execute(query, parameters)
+            self.db.commit()
+            return cursor.lastrowid
+        except mariadb.Error as e:
+            logging.error(e)
             return None

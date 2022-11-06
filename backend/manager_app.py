@@ -19,6 +19,11 @@ managerDatabase = get_manager_repositories()
 def current_time():
     return {'date': time.strftime('%d/%m/%Y %H:%M:%S')}
 
+@app.context_processor
+def current_manager():
+    manager = current_user
+    return {'manager': manager}
+
 @app.route('/')
 @login_required
 def index():
@@ -126,10 +131,27 @@ def adm():
     users=userDatabase.find_all_users(manager)
     return render_template('admusers.html', users = users, manager = manager), 200
 
+@app.route('/admagencycreation', methods = ['GET'])
+@login_required
+def admagencycreation():
+    managers = managerDatabase.find_all_agency_manager_without_work_agency()
+    return render_template('admagencycreation.html', managers = managers), 200
+
+@app.route('/admagencycreation', methods = ['POST'])
+@login_required
+def perform_admagency_creation():
+    agency_id = agencyDatabase.create_agency(1)
+    manager_id = request.form['fmanager']
+    logging.info(f'agency {agency_id}, manager {manager_id}')
+    managerDatabase.update_work_agency_id_by_maganer_id(agency_id, manager_id)
+    agencies = agencyDatabase.find_all_agencies()
+    return render_template('admagency.html', agencies = agencies), 200
+
+
 @app.route('/admagencymanagers', methods = ['GET'])
 @login_required
 def admagencymanagers():
-    manager= current_user
+    manager = current_user
     managers = managerDatabase.find_all_agency_manager()
     return render_template('admmanagers.html', managers = managers, manager = manager), 200
 

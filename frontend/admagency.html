@@ -8,6 +8,12 @@
     </form>
 </div>
 
+<div class="admusersbutton">
+    <form method="GET" action="{{ url_for('admagencycreation')}}">
+        <button type="submit">Criar</button>
+    </form>
+</div>
+
 <div class="admusersbox1">
     <h2>Agências</h2>
     
@@ -20,19 +26,19 @@
         <th>AGÊNCIA</th>
         <th>GERENTE</th>
         <th>MATRÍCULA</th>
-        <th>DETALHES</th>
+        <!-- <th>DETALHES</th> -->
     </tr>
     {% for agency in agencies %}
     <tr>
         <td>{{ agency.number }}</td>
         <td>{{ agency.nameUser }}</td>
         <td>{{ agency.registration_number }}</td>
-        <td>
+        <!-- <td>
             <a
                 href="">
                 Gerenciar
             </a>
-        </td>
+        </td> -->
     </tr>
     {% endfor %}
 </table>
