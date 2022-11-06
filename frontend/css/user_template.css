@@ -1758,6 +1758,296 @@ width:fit-content;}
 
     }
 
+    /*accountclosenotificationo.html*/ 
+
+/*centralizar*/
+.useraccountclosenotificationcenter1{
+    margin: auto;
+    width:50%;
+}
+
+.useraccountclosenotificationcenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.useraccountclosenotificationbox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.useraccountclosenotificationbox1 > h3{    
+    text-align: center;
+}
+
+.useraccountclosenotificationbox1 > p{    
+    text-align: center;
+}
+
+.useraccountclosenotificationbox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.useraccountclosenotificationbox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.useraccountclosenotificationbox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.useraccountclosenotificationbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.useraccountclosenotificationbutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.useraccountclosenotificationbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.useraccountclosenotificationbutton1:hover{
+    background-color:rgb(183, 85, 85);
+}
+
+
+.useraccountclosenotificationbutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.useraccountclosenotificationbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.useraccountclosenotificationbutton2:hover{
+    background-color:rgb(71, 177, 106);
+}
+    /*accountclosereprove.html*/ 
+
+/*centralizar*/
+.useraccountclosereprovecenter1{
+    margin: auto;
+    width:50%;
+}
+
+.useraccountclosereprovecenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.useraccountclosereprovebox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.useraccountclosereprovebox1 > h3{    
+    text-align: center;
+}
+
+.useraccountclosereprovebox1 > p{    
+    text-align: center;
+}
+
+.useraccountclosereprovebox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+}
+
+.useraccountclosereprovebox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.useraccountclosereprovebox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.useraccountclosereprovebox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+}
+
+.useraccountclosereprovebutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.useraccountclosereprovebutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.useraccountclosereprovebutton1:hover{
+    background-color:rgb(183, 85, 85);
+}
+
+
+.useraccountclosereprovebutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.useraccountclosereprovebutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.useraccountclosereprovebutton2:hover{
+    background-color:rgb(71, 177, 106);
+}
+
+    /*accountclosesolicitacao.html*/ 
+
+/*centralizar*/
+
+.useraccountclosesolicitacaocenter{
+    margin: auto;
+}
+
+.useraccountclosesolicitacaocenter1{
+    margin: auto;
+    width:50%;
+}
+
+.useraccountclosesolicitacaocenter2{
+    margin: auto;
+    width:fit-content;
+}
+
+
+/*caixa cinza claro*/
+.useraccountclosesolicitacaobox1{
+    background-color: #d6d6d6;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+}
+
+.useraccountclosesolicitacaobox1 > h3{    
+    text-align: center;
+}
+
+.useraccountclosesolicitacaobox1 > p{    
+    text-align: center;
+}
+
+.useraccountclosesolicitacaobox2{
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+
+}
+
+.useraccountclosesolicitacaobox2 > h3{
+    text-align: center;
+    color: #868686;
+}
+
+.useraccountclosesolicitacaobox2 > form{
+
+    margin: auto;
+    text-align: center;
+}
+
+.useraccountclosesolicitacaobox2 > form > input{
+    margin-top: 30px;
+    width: 50%;
+    height: 60px;
+    text-align: center;
+    font-size: 170%;
+}
+
+.useraccountclosesolicitacaobox2 > form > button{
+    margin: auto;
+}
+
+
+.useraccountclosesolicitacaobutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.useraccountclosesolicitacaobutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.useraccountclosesolicitacaobutton1:hover{
+    background-color:rgb(183, 85, 85);
+}
+
+
+.useraccountclosesolicitacaobutton2{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+}
+
+.useraccountclosesolicitacaobutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.useraccountclosesolicitacaobutton2:hover{
+    background-color:rgb(71, 177, 106);
+}
+
+
+
+
+
 /*userwithdrawconfirm.html*/ 
 
 /*centralizar*/

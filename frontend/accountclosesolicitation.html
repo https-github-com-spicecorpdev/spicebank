@@ -2,31 +2,38 @@
 
 {% block contents %}
 
-<body>
+    <title> Encerramento de Conta | SpiceBank </title>
+    <body>
+        <br>
+        <br>
+        <div class="useraccountclosesolicitacaocenter1">
+            
+            <div class="useraccountclosesolicitacaobox1">
+                <h3> Encerramento de conta </h3>
+            </div>
 
-    <title> Encerramento de Conta </title>
-    <br>
-    <br>
-    <div class="center">
-        <form method="POST" action="/close-account" name="close-account">
-            <div class="box1">
-                <p> Encerramento de conta </p>
+            <div class="useraccountclosesolicitacaobox2">
+
+                <h3> Prezado cliente, deseja encerrar sua conta? </h3>
+                <br>
                 <p> Agência: {{ user.account.agency }} /{{ type }}: {{ user.account.account }} </p>
                 <p> Data: {{ date }} </p><br>
-                <p> Saldo atual: {{ user.account.balance }} </p>
+                <p> Saldo atual: R$ {{ "{:,.2f}".format (user.account.balance) }} </p>
                 <br> 
-                <p> Prezado cliente, esta ação encerrará sua conta e não será possível acessa-lá novamente. Você tem certeza que deseja encerrar sua conta? </p>
+                <p> Esta ação encerrará sua conta e não será possível acessa-lá novamente.</p>
+                <p> Você tem certeza que deseja encerrar sua conta? </p>
                 <br>
-                
-            </div>
-            <br>
-            <button type="submit"> Encerrar minha conta </button>
-            </div>
-        </form>
+                <br>
+                <form method="POST" action="/close-account" name="close-account">
+                    <div style="margin: auto">
+                    <button class="useraccountclosesolicitacaobutton2" type="submit"> Encerrar minha conta </button>
+                    </div>
+                </form>
+            </div>   
         <br>
         <form method="GET" action="{{ url_for('index') }}">
-            <div style="margin-left: 5%;">
-                <button type="submit">&#8592 Cancelar e voltar</button>
+            <div style="margin-left: 0%">
+                <button class="useraccountclosesolicitacaobutton1" type="submit">&#8592 Cancelar e voltar</button>
             </div>
         </form>    
 

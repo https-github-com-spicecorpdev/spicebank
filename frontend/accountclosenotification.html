@@ -2,32 +2,33 @@
 
 {% block contents %}
 
-<body>
+    <title> Aviso | SpiceBank </title>
 
-    <title> Aviso </title>
+    <body>
     <br>
     <br>
-    <div class="center">
-            <div class="box1">
-                <p> Aviso: </p>
-                <br> 
-                <p> Prezado cliente, sua conta possui saldo! </p>
-                <br>
-                <p> Agência: {{ user.account.agency }} / {{ type }}: {{ user.account.account }} </p>
-                <p> Data: {{ date }} </p><br>
-                <p> Saldo atual: {{ user.account.balance }} </p>
-                <br>
-                <p> Sua conta possui saldo, não é possivel realizar a solicitação de encerramento de conta. </p>
-                <br>                
-            </div>
-        </form>
+    <div class="useraccountclosenotificationcenter1">
+        
+        <div class="useraccountclosenotificationbox1">
+                <h3> Aviso: </h3>
+        </div>
+        
+        <div class="useraccountclosenotificationbox2">
+            <h3> Prezado cliente, sua conta possui saldo! </h3>
+            <br>
+            <p> Agência: {{ user.account.agency }} / {{ type }}: {{ user.account.account }} </p>
+            <p> Data: {{ date }} </p><br>
+            <p> Saldo atual: R$ {{ "{:,.2f}".format (user.account.balance) }} </p>
+            <br>
+            <p> Sua conta possui saldo, não é possivel realizar a solicitação de encerramento de conta. </p>
+            <br>                
+        </div>
         <br>
         <form method="GET" action="{{ url_for('index') }}">
-            <div style="margin-left: 5%;">
-                <button type="submit">&#8592 voltar</button>
+            <div style="margin-left: 0%;">
+                <button class="useraccountclosenotificationbutton1" type="submit">&#8592 voltar</button>
             </div>
         </form>
-
-</body>
+    </body>
 
 {% endblock contents %}
