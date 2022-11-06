@@ -4,7 +4,7 @@ USE `spicebank`;
 
 CREATE SEQUENCE IF NOT EXISTS account_number START WITH 1001 INCREMENT BY 1 MINVALUE=0 MAXVALUE=999999;
 
-CREATE SEQUENCE IF NOT EXISTS agency_number START WITH 1 INCREMENT BY 1 MINVALUE=0 MAXVALUE=999999;
+CREATE SEQUENCE IF NOT EXISTS agency_number START WITH 2 INCREMENT BY 1 MINVALUE=0 MAXVALUE=999999;
 
 CREATE SEQUENCE IF NOT EXISTS manager_registration_number START WITH 1000 INCREMENT BY 1 MINVALUE=0 MAXVALUE=999999;
 
@@ -139,6 +139,8 @@ CREATE TABLE `bank`(
     PRIMARY KEY (`id`)
 ) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
+alter table bank 
+
 -- Criando estrutura para tabela agency
 CREATE TABLE IF NOT EXISTS `agency` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -167,7 +169,12 @@ CREATE TABLE IF NOT EXISTS `manager` (
 ) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 -- Cria capital do banco
-INSERT INTO `bank`(capital) VALUES(1000);
+INSERT INTO `bank`(capital) VALUES(0);
+
+-- Cria agência
+INSERT INTO spicebank.agency
+(`number`, bank_id)
+VALUES(1, 1);
 
 -- Cria agência
 INSERT INTO spicebank.agency
@@ -192,14 +199,24 @@ VALUES(2, 'Pendente', 'Abertura de conta', current_timestamp, null);
 -- Cria gerente geral
 INSERT INTO spicebank.manager
 (id_user, registration_number, work_agency_id, profile_user, bank_id)
-VALUES(1, NEXTVAL(manager_registration_number), null, 1, 1);
+VALUES(1, NEXTVAL(manager_registration_number), 1, 1, 1);
 
 -- Cria usuário comum do gerente agência
 INSERT INTO spicebank.tuser
 (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
 VALUES('Ronaldo', 4, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'M', '123');
 
+-- Cria usuário comum do gerente agência
+INSERT INTO spicebank.tuser
+(nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
+VALUES('Igor', 12, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'M', '123');
+
 -- Cria gerente de agência
 INSERT INTO spicebank.manager
 (id_user, registration_number, work_agency_id, profile_user, bank_id)
-VALUES(3, NEXTVAL(manager_registration_number), 1, 2, 1);
+VALUES(3, NEXTVAL(manager_registration_number), 2, 2, 1);
+
+-- Cria gerente de agência
+INSERT INTO spicebank.manager
+(id_user, registration_number, work_agency_id, profile_user, bank_id)
+VALUES(5, NEXTVAL(manager_registration_number), 3, 2, 1);

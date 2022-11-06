@@ -97,6 +97,25 @@ class SolicitationDatabase:
         except mariadb.Error as e:
             logging.error(e)
 
+    def find_open_account_solicitation_by_id(self, id):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+            select account.*, s.* from account_solicitation account 
+            inner join solicitation s on s.id  = account.id_solicitation
+            where account.id_solicitation = ?
+        """
+        parameters = (id,)
+        try:
+            cursor.execute(query, parameters)
+            result= cursor.fetchone()
+            if result:
+                return result
+            else:
+                logging.info (f'Solicitação com id: {id} não encontrado!')
+                return None
+        except mariadb.Error as e:
+            logging.error(e)
+
     def open_account_solicitation(self, user_id, solicitation_type, account_type='Conta Corrente'):
         cursor = self.db.cursor()
         solicitation_query = """

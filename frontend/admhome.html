@@ -5,7 +5,9 @@
 <div class="admhomebox1">
 
   <h3> Olá! {{ manager.name}}</h3>
+  {% if manager.is_general_manager() %}
     <p>Agência: {{ manager.workAgency }} </p> 
+  {% endif %}
     <p>matrícula: {{ manager.registrationNumber }}</p>
     <p>Data: {{ date }}</p>
 

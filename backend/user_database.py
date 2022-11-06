@@ -55,40 +55,34 @@ class UserDatabase:
             logging.info(f'Usuário com o id: {id} não encontrado!')
             return None
 
-    def findAllUsers(self, work_agency_id):
+    def find_all_users(self, manager): 
         cursor = self.db.cursor(dictionary=True)
-        query = """
-            SELECT USR.*, ACCOUNT.* FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser where ACCOUNT.agencyUser = ?;
+        if manager.is_general_manager():
+            query = """
+                SELECT USR.*, ACCOUNT.* 
+                FROM tuser AS USR left 
+                JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+                where ACCOUNT.is_active = true;
+            """
+            parameters = ()
+        else:
+            query = """
+            SELECT USR.*, ACCOUNT.* 
+            FROM tuser AS USR left 
+            JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser 
+            where ACCOUNT.agencyUser = ?;
         """
-        parameters = (work_agency_id,)
+            parameters = (manager.workAgency,)
         try:
             cursor.execute(query, parameters)
             user_from_db = cursor.fetchall()
             if user_from_db:
                 return user_from_db
             else:
-                logging.info(f'Nenhuma solicitação encontrada!')
+                logging.info(f'Nenhum usuário encontrado')
                 return []
         except mariadb.Error as e:
             logging.error(e)
-            
-    def findAllUsers_by_general_manager(self, id):
-        cursor = self.db.cursor(dictionary=True)
-        query = """
-            SELECT USR.*, ACCOUNT.* FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser where ACCOUNT.is_active = ?;
-        """
-        parameters = (id,)
-        try:
-            cursor.execute(query, parameters)
-            user_from_db = cursor.fetchall()
-            if user_from_db:
-                return user_from_db
-            else:
-                logging.info(f'Nenhuma solicitação encontrada!')
-                return []
-        except mariadb.Error as e:
-            logging.error(e)
-
 
     def findByAgencyAccountAndPassword(self, agency, account, password):
         cursor = self.db.cursor(dictionary=True)

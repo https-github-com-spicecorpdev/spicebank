@@ -9,3 +9,9 @@ class Manager(User):
 
     def __str__(self):
         return f'MANAGER: managerId: {self.managerId}, name: {self.name}, cpf: {self.cpf}, secret: {self.password}, nascimento:{self.birthDate}, genero: {self.gender} :: account {self.account}, registrationNumber: {self.registrationNumber}, workAgency: {self.workAgency}, profileUser: {self.profile}'
+
+    def is_general_manager(self):
+        return self.profile==1
+
+    def is_manager(self):
+        return self.profile==1 or self.profile == 2

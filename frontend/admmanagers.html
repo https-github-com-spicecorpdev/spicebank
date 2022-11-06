@@ -20,24 +20,17 @@
     <tr>
         <th>NOME</th>
         <th>AGÊNCIA</th>
-        <th>CONTA</th>
-        <th>EXTRATO</th>
+        <th>MATRÍCULA</th>
         <th>DETALHES</th>
     </tr>
-    {% for user in users %}
+    {% for manager in managers %}
     <tr>
-        <td>{{ user.nameUser }}</td>
-        <td>{{ user.agencyUser }}</td>
-        <td>{{ user.numberAccount }}</td>
+        <td>{{ manager.nameUser }}</td>
+        <td>{{ manager.work_agency_id }}</td>
+        <td>{{ manager.registration_number }}</td>
         <td>
             <a
-                href="{{ url_for('statement_user', user_id=user.idUser)}}">
-                Extrato
-            </a>
-        </td>
-        <td>
-            <a
-                href="{{ url_for('adm_user_details',user_id=user.idUser)}}">
+                href="{{ url_for('adm_user_details',user_id=manager.idUser)}}">
                 Detalhes
             </a>
         </td>
