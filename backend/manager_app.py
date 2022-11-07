@@ -48,7 +48,11 @@ def capital_confirm():
 @login_required
 def balance_confirm():
     value = request.form['fvalor']
-    return render_template('capitalconfirm.html', valor = value), 200
+    if value == '':
+        flash(f'Preencha o campo com um valor válido')
+        return render_template('capital.html'), 200
+    else:
+        return render_template('capitalconfirm.html', valor = value), 200
 
 @login_manager.unauthorized_handler
 def unauthorized():
