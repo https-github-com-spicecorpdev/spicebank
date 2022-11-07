@@ -67,14 +67,74 @@ O build é um arquivo que contém os comandos necessários para copiar arquivos 
 Os passos para a utilização do banco de dados estão na pasta backend/database no arquivo commands-sql.txt
 
 # Product Backlog Atual
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200216205-5d6bc773-137b-4e6a-b2d2-0e1d0542c2bc.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200216214-f26e2633-9c9c-41d0-b5b2-91024c24dda6.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200216219-eef252e3-2189-4e2f-b0c7-7d21d9f5b25b.png" width="1000px", height="1000px", />
+</div>
 
 <div align="center">
-<img src="" width="1000px", height="10000px", />
+<img src="https://user-images.githubusercontent.com/86271800/200216233-4a73b336-24a6-42b4-aa73-167ae21e2127.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200216800-352de396-723a-4252-ae3f-39bea4b1bde4.png" width="1000px", height="1000px", />
+</div>
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200216284-d91739b0-e228-4d1f-94a2-3dc852cdc6d1.png" width="1000px", height="1000px", />
+</div>
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200216305-1efbdb79-e4fd-4b8f-88d5-9d02a80a0b26.png" width="1000px", height="1000px", />
 </div>
 
 # Product Backlog Total
 <div align="center">
-<img src="" width="1000px", height="10000px", />
+<img src="https://user-images.githubusercontent.com/86271800/200214501-43c6893a-c400-4a1e-aa52-3f47b0a0d067.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200214505-f9094f74-5999-4fc9-846c-c2976cafb023.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200214511-aa8bc1fb-c21c-4ab4-bc1c-52c9a6cd82c7.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200214517-d587556c-5a51-496f-9eae-81078e71cf2b.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200214525-cd4978a6-b6a5-4d72-99ba-c8900c59aefe.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200214531-11f859d9-cf7d-451e-9f6f-fc77d29c0ef4.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200214536-8e58dd2f-f8f3-4f24-96ad-c9c0d0ae691d.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200214561-01caba6a-5361-44e1-835d-2a10e2d8bc6c.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200214572-db78d294-bc05-4676-985e-31cdecb4e17c.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200215316-ad0e4cd0-9d3c-4301-a29f-d206c23a629d.png" width="1000px", height="1000px", />
+</div>
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200214602-95d0166a-f482-4824-8612-8d523168654f.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200215404-bce909fb-af4e-41fe-9b02-d5f863b5e047.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200215422-1fcce249-1758-4e56-991f-cf121c1d1ac7.png" width="1000px", height="1000px", />
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200215445-2eaa13a9-94c1-4de8-ac15-dd1282744fab.png" width="1000px", height="1000px", />
 </div>
 
 
@@ -85,12 +145,21 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 - Operações de Tranferência
 - Tipos de conta (Conta corrente e Conta poupança)
 
+Gerente Geral
 <div align="center">
-<img src="" width="1000px", height="500px", />
+<img src="https://user-images.githubusercontent.com/86271800/200212216-c498c5db-f595-4f19-ad5d-a271d366e817.png" width="1000px", height="500px", />
+</div>
+Gerente de agência
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200212224-1082ad47-c162-419a-b1bc-320cb24e74c1.png" width="1000px", height="500px", />
+</div>
+Usuário comum
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/200212229-4ec75752-a0c0-43b9-8e12-5ed6ad4e3b62.png" width="1000px", height="500px", />
 </div>
 
 
-# Cronograma de Entregas 
+# Cronograma de Entregas* 
 Foi utilizado o arquivo Product Backlog para validação das estregas de acordo com as prioridades do cliente, sendo elas: 
 - Entrega I 18/9
 - Entrega II 9/10
