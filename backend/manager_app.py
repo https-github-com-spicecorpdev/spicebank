@@ -139,19 +139,17 @@ def adm():
     users=userDatabase.find_all_users(manager)
     return render_template('admusers.html', users = users, manager = manager), 200
 
-@app.route('/admagencycreation', methods = ['GET'])
-@login_required
-def admagencycreation():
-    managers = managerDatabase.find_all_agency_manager_without_work_agency()
-    return render_template('admagencycreation.html', managers = managers), 200
-
 @app.route('/admagencycreation', methods = ['POST'])
 @login_required
+def admagencycreation():
+    #managers = managerDatabase.find_all_agency_manager_without_work_agency()
+    agencyDatabase.create_agency(1)
+    flash (f'Agência criada com sucesso!')
+    return render_template('admagencycreation.html'), 200
+
+@app.route('/admagencycreation', methods = ['GET'])
+@login_required
 def perform_admagency_creation():
-    agency_id = agencyDatabase.create_agency(1)
-    manager_id = request.form['fmanager']
-    logging.info(f'agency {agency_id}, manager {manager_id}')
-    managerDatabase.update_work_agency_id_by_maganer_id(agency_id, manager_id)
     agencies = agencyDatabase.find_all_agencies()
     return render_template('admagency.html', agencies = agencies), 200
 
