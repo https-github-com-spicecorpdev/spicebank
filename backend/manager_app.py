@@ -163,6 +163,26 @@ def admagencymanagers():
     managers = managerDatabase.find_all_agency_manager()
     return render_template('admmanagers.html', managers = managers, manager = manager), 200
 
+@app.route('/admmanagercreation')
+@login_required
+def admmanagercreation():
+    return render_template('admcreatemanager.html'), 200
+
+@app.route('/admregistermanager', methods = ['POST'])
+@login_required
+def admregistermanager():
+    if not validate_form(request.form):
+        flash('Preencha todos os campos!')
+        return render_template('admcreatemanager.html'), 400
+    if userExists(request.form['fcpf']):
+        requestCpf = request.form['fcpf']
+        flash(f'CPF {requestCpf} com cadastro já existente!')
+        return render_template('admcreatemanager.html'), 400
+    else:
+        address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
+        user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
+        managerDatabase.save_user_manager(user)
+        return redirect(url_for('index')), 200
 
 @app.route('/<user_id>/admuserdetails')
 @login_required
@@ -358,6 +378,9 @@ def validate_form(form):
         if not form[key]:
             return False
     return True
+
+def userExists(cpf):
+    return userDatabase.findByCpf(cpf)
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5001, debug=True)
