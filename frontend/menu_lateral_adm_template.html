@@ -16,7 +16,7 @@
     {% block nav %}
 
     <nav class="admnav">
-
+       
 
         <ul>
             <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
@@ -43,9 +43,12 @@
 
     {% block justify %}
     <div class="justify">
-        <div class="templatedatetime">{{ date }}</div>
+        <div class="templatedatetime">
+            {{ date }}
+            Capital: R${{ "{:,.2f}".format(balance) }}
+        </div>
         {% block contents %}
-
+        
         {% endblock contents %}
     </div>
     {% endblock justify%}

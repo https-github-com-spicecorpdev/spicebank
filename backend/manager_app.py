@@ -20,6 +20,11 @@ def current_time():
     return {'date': time.strftime('%d/%m/%Y %H:%M:%S')}
 
 @app.context_processor
+def current_balance():
+    balance = bankDatabase.find_capital_by_id(1)
+    return {'balance': balance}
+
+@app.context_processor
 def current_manager():
     manager = current_user
     return {'manager': manager}
