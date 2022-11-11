@@ -31,14 +31,13 @@
     {% for agency in agencies %}
     <tr>
         <td>{{ agency.number }}</td>
+        {% if agency.nameUser != None %}
         <td>{{ agency.nameUser }}</td>
         <td>{{ agency.registration_number }}</td>
-        <!-- <td>
-            <a
-                href="">
-                Gerenciar
-            </a>
-        </td> -->
+        {% else %}
+        <td></td>
+        <td></td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>

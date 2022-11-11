@@ -108,24 +108,24 @@ class ManagerDatabase:
         except mariadb.Error as e:
             logging.error(e)
 
-    def save_user_manager(self, user):
+    def save_user_manager(self, manager):
         cursor = self.db.cursor()
         user_query = """
             INSERT INTO tuser (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """
         manager_query = """
             INSERT INTO manager
-            (id_user, registration_number, profile_user, bank_id)
-            VALUES(?, NEXTVAL(manager_registration_number), 2, 1);
+            (id_user, registration_number, profile_user, bank_id, work_agency_id)
+            VALUES(?, NEXTVAL(manager_registration_number), 2, 1, ?);
         """
-        address = user.address
-        user_parameters = (user.name, user.cpf, address.road, address.numberHouse, address.district, address.cep, address.city, address.state, user.birthDate, user.gender, user.password,)
+        address = manager.address
+        user_parameters = (manager.name, manager.cpf, address.road, address.numberHouse, address.district, address.cep, address.city, address.state, manager.birthDate, manager.gender, manager.password,)
         try:
             cursor.execute(user_query, user_parameters)
             self.db.commit()
-            manager_parameters = (cursor.lastrowid,)
+            manager_parameters = (cursor.lastrowid, manager.workAgency)
             cursor.execute(manager_query, manager_parameters)
             self.db.commit()
         except mariadb.Error as e:
             logging.error(e)
-        return self.findById(user.id)
+        return self.findById(manager.id)

@@ -164,7 +164,8 @@ def admagencymanagers():
 @app.route('/admmanagercreation')
 @login_required
 def admmanagercreation():
-    return render_template('admcreatemanager.html'), 200
+    agencies= agencyDatabase.find_empty_agencies()
+    return render_template('admcreatemanager.html',agencies=agencies), 200
 
 @app.route('/admregistermanager', methods = ['POST'])
 @login_required
@@ -178,8 +179,8 @@ def admregistermanager():
         return render_template('admcreatemanager.html'), 400
     else:
         address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
-        user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
-        managerDatabase.save_user_manager(user)
+        manager = Manager(request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'],-1, request.form['fagency'], 2, address=address)
+        managerDatabase.save_user_manager(manager)
         return redirect(url_for('index')), 200
 
 @app.route('/<user_id>/admuserdetails')
