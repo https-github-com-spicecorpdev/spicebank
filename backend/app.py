@@ -275,8 +275,9 @@ def transferconfirm():
 
     try:
         bankBalance = accountDatabase.getBalanceByAccountNumber(accountUserT)
+        accountType = accountDatabase.getAccountTypeByAccountNumber(accountUserT)
         logging.info(f'{bankBalance}')
-        if bankBalance >= valor:
+        if ((bankBalance >= valor) or (accountType == 'CC')):
             user = current_user
             #sacar da conta do usuário que está enviando
             newBalance = bankBalance - valor
