@@ -11,6 +11,35 @@
 <form method="GET" action="{{ url_for('print') }}" target="_blank" class="userextratobutton2">
     <button type="submit">Imprimir</button>
 </form>
+
+<form method="POST" action="">
+    <div class='col-sm-4'>
+        <div class='form-group'>
+            <select name='pesquisarOperacao'>
+                <option value=''>Selecione uma Operação...</option>
+                <option value= 'C'>Depósito</option>";
+                <option value= 'D'>Saque</option>";
+                <option value= 'T'>Transferência</option>";
+            </select>
+        </div>
+    </div>
+
+    <div class='col-sm-4'>
+        <div class='form-group'>
+            <label>Selecione um período</label>
+            <input type="date" name='dataInicio'>
+            <label>até</label>
+            <input type="date" name='dataFinal'>
+        </div>
+    </div>
+
+    
+    <div class='form-group text-right'>
+        <button name='buscar' id='buscar' type='submit'>
+        &nbsp;&nbsp;Buscar</button>
+    </div>
+
+</form>
         
     <div class="userextratobox1">
         <h2>EXTRATO</h2> <br>
@@ -20,6 +49,19 @@
  <h3>Saldo: R$ {{ "{:,.2f}".format(saldo) }}</h3>
 
     </div>
+
+    <label>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block body %}{% endblock %}
+    </label><br>
 
     <table class="userextratotable">
 
@@ -33,17 +75,19 @@
         {% for extrato in extratos %}
             <tr>
                 <td>{{ extrato.created_time }}</td>
+                <td>
                 {% if extrato.operation == 'D'  %}
-                    <td>Saque R$ {{"{:,.2f}".format(extrato.withdraw) }}</td>
+                    Saque R$ {{"{:,.2f}".format(extrato.withdraw) }}
                 {% elif extrato.operation == 'T' %}
                     {% if extrato.deposit > 0 %}
-                        <td>Transferência - Recebida R$ {{"{:,.2f}".format(extrato.deposit) }}</td>
+                        Transferência - Recebida R$ {{"{:,.2f}".format(extrato.deposit) }}
                     {% else %}
-                        <td>Transferência - Enviada R$ {{"{:,.2f}".format(extrato.withdraw) }}</td>
+                        Transferência - Enviada R$ {{"{:,.2f}".format(extrato.withdraw) }}
                     {% endif %}
                 {% else %}
-                    <td>Depósito R$ {{"{:,.2f}".format(extrato.deposit) }}</td>
+                    Depósito R$ {{"{:,.2f}".format(extrato.deposit) }}
                 {% endif %}
+                </td>
                 <td>{{ extrato.operation }} R$ {{"{:,.2f}".format(extrato.balance) }}</td>
                 <td>{{ extrato.situation }}</td>
             </tr>

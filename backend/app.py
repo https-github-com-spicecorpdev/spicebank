@@ -307,13 +307,50 @@ def transferconfirm():
         message = flash('Falha ao transferir')
         return render_template('utransfervoucher.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), saldo=saldoFormatado, type=user.account.typeAccount, message=message), 400
 
-@app.route('/statementform', methods = ['GET'])
+@app.route('/statementform', methods = ['GET', 'POST'])
 @login_required
 def statementForm():
     today = time.strftime('%d/%m/%Y %H:%M:%S')
     user = current_user
+    
     saldo = user.balance()
     statements = statementDatabase.findByUserId(user.id)
+    accountType = accountDatabase.getAccountTypeByAccountNumber(user.accountNumber())
+    logging.info(f'{user.accountNumber()}')
+    logging.info(f'{accountType}')
+    if request.method == "POST":
+        pesquisarOperacao = request.form['pesquisarOperacao']
+        dataInicio = request.form['dataInicio']
+        dataFinal = request.form['dataFinal']
+
+        search_statements = statementDatabase.searchStatement(pesquisarOperacao, user.id, accountType, dataInicio, dataFinal)
+
+        search_operation = statementDatabase.searchOperation(pesquisarOperacao, user.id, accountType)
+
+        search_date = statementDatabase.searchDate(user.id, accountType, dataInicio, dataFinal)
+
+        if search_statements:
+            logging.info(search_statements)
+            return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=search_statements, date=today, type=user.account.typeAccount), 200
+            #return searchStatement
+
+        elif search_operation:
+            return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=search_operation, date=today, type=user.account.typeAccount), 200
+
+        elif search_date:
+          return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=search_date, date=today, type=user.account.typeAccount), 200
+
+        else:
+            if ((pesquisarOperacao == '') and (dataInicio == '') and (dataFinal == '')):
+                logging.info(f'Voltou todas informações!')
+                return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements, date=today, type=user.account.typeAccount), 200
+            else:
+                logging.info(f'Nenhum dado encontrado no extrato!')
+                message = flash('Nenhum dado encontrado no extrato!')
+
+                
+                return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements, date=today, type=user.account.typeAccount, message = message), 200
+                
     return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements, date=today, type=user.account.typeAccount), 200
 
 @app.route('/print', methods = ['GET'])
