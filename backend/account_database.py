@@ -40,6 +40,18 @@ class AccountDatabase:
         except mariadb.Error as e:
             logging.error(e)
 
+    def getAccountTypeByAccountNumber(self, account_number):
+        cursor = self.db.cursor(dictionary=True)
+        query = """select * from taccount t
+                where numberAccount = ?;"""
+        parameters = (account_number,)
+        try:
+            cursor.execute(query, parameters)
+            value= cursor.fetchone()
+            return value['account_type']
+        except mariadb.Error as e:
+            logging.error(e)
+
     def inactivate_account(self, accountNumber):
         cursor = self.db.cursor()
         query = "UPDATE taccount SET is_active = false WHERE numberAccount = ?"
