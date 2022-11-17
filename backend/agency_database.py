@@ -13,10 +13,13 @@ class AgencyDatabase:
             right join manager m on a.id = m.work_agency_id 
             left join tuser u on m.id_user = u.idUser 
             where m.work_agency_id <> ''
+            and a.`number` <> 1
             UNION 
             select a.`number`, m.*, u.* from agency a 
             left join manager m on a.id = m.work_agency_id 
-            left join tuser u on m.id_user = u.idUser ;
+            left join tuser u on m.id_user = u.idUser
+            where a.`number` <> 1
+            ORDER BY `number`;
         """
         cursor.execute(query)
         agencies = cursor.fetchall()
