@@ -66,6 +66,12 @@ O build é um arquivo que contém os comandos necessários para copiar arquivos 
 ### Banco de Dados
 Os passos para a utilização do banco de dados estão na pasta backend/database no arquivo commands-sql.txt
 
+*Matricula e senha para login dos gerentes administrativos*
+|Tipo|Matrícula|Senha|
+|----|---------|-----|
+|Gerente Geral|1000|123|
+|Gerente de agência|1001|123|
+
 # Product Backlog Atual
 <div align="center">
 <img src="https://user-images.githubusercontent.com/86271800/200216205-5d6bc773-137b-4e6a-b2d2-0e1d0542c2bc.png" width="1000px", height="1000px", />
