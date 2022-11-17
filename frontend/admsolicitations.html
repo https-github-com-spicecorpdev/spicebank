@@ -35,10 +35,13 @@
         <td>
             <p style="color: gray">Aprovar</p>
         </td>
-        {% elif manager.is_general_manager() %}
+        <!-- {% elif manager.is_general_manager() %}
         <td>
-            <p style="color: gray">Aprovar</p>
-        </td>
+            <a
+                href="{{ url_for('account_approval_by_general_manager', user_id=solicitation.id_user, acao='aprovar', id=solicitation.id_solicitation, type=solicitation.solicitation_type) }}" class="admsolicitationsaprovar">
+                Aprovar
+            </a>
+        </td> -->
         {% else %}
         <td>
             <a

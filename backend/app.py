@@ -94,11 +94,16 @@ def register():
         message = flash(f'CPF {requestCpf} com cadastro já existente!')
         return render_template('cadastro.html', message=message), 400
     else:
-        address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
-        user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
-        user_id = userDatabase.save(user)
-        solicitationDatabase.open_account_solicitation(user_id, 'Abertura de conta')
-        return render_template('login.html'), 201
+        agency_id = agencyDatabase.find_next_agency_id_by_amount_users()
+        if agency_id:
+            address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
+            user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
+            user_id = userDatabase.save(user)
+            solicitationDatabase.open_account_solicitation(user_id, 'Abertura de conta')
+            accountDatabase.create(user_id, agency_id)
+            return render_template('login.html'), 201
+        flash('Nenhuma agência disponível')
+        return render_template('cadastro.html'), 200
 
 @app.route('/withdrawform')
 @login_required

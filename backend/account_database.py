@@ -8,14 +8,24 @@ class AccountDatabase:
         self.db = connection
         logging.info('Repositório de contas inicializado!')
 
-    def create(self, userId, manager_agency_id):
+    def create(self, userId, agency_id):
         cursor = self.db.cursor()
         query = """
-            INSERT INTO taccount (numberAccount, totalbalance, idAccountUser, agencyUser) values (next value for account_number, 0, ?,?);
+            INSERT INTO taccount (numberAccount, totalbalance, idAccountUser, agencyUser, is_active) values (next value for account_number, 0, ?,?, 0);
         """
-        parameters = (userId,manager_agency_id )
+        parameters = (userId, agency_id)
         cursor.execute(query, parameters)
         self.db.commit()
+
+    def activate_account(self, accountNumber):
+        cursor = self.db.cursor()
+        query = "UPDATE taccount SET is_active = true WHERE numberAccount = ?"
+        parameters = (accountNumber,)
+        try:
+            cursor.execute(query, parameters)
+            self.db.commit()
+        except mariadb.Error as e:
+            logging.error(e)
 
     def updateBalanceByAccountNumber(self, balance, accountNumber):
         cursor = self.db.cursor()

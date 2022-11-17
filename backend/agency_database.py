@@ -58,3 +58,20 @@ class AgencyDatabase:
         else:
             logging.info(f'Nenhuma agência encontrada!')
             return []
+
+    def find_next_agency_id_by_amount_users(self):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+            select a.id, a.`number`, t.agencyUser, count(t.agencyUser) "amount of agencies" from agency a
+            left join taccount t  on t.agencyUser  = a.id 
+            where a.id <> 1
+            group by a.id, a.`number`, t.agencyUser
+            ORDER BY count(t.agencyUser) asc LIMIT 1;
+        """
+        cursor.execute(query)
+        agency = cursor.fetchone()
+        if agency:
+            return agency['id']
+        else:
+            logging.info(f'Nenhuma agência encontrada!')
+            return None
