@@ -56,7 +56,12 @@ Se o sistema operacional for **Linux**, executar o arquivo usando o comando:
 `flask --app manager_app run --port 5001`
 6. Acesse o aplicativo usando o link que que aparecerá no terminal para visualização das páginas, localhost:5000 e localhost:5001 <br>
 **É necessário instalar todos os programas para o devido funcionamento do projeto!** 
+7. *Informações da matricula e senha para login dos gerentes administrativos*
 
+|Tipo|Matrícula|Senha|
+|----|---------|-----|
+|Gerente Geral|1000|123|
+|Gerente de agência|1001|123|
 
 
 ## Arquivos build
@@ -65,12 +70,6 @@ O build é um arquivo que contém os comandos necessários para copiar arquivos 
 
 ### Banco de Dados
 Os passos para a utilização do banco de dados estão na pasta backend/database no arquivo commands-sql.txt
-
-*Matricula e senha para login dos gerentes administrativos*
-|Tipo|Matrícula|Senha|
-|----|---------|-----|
-|Gerente Geral|1000|123|
-|Gerente de agência|1001|123|
 
 # Product Backlog Atual
 <div align="center">
