@@ -45,7 +45,9 @@
     <div class="justify">
         <div class="templatedatetime">
             {{ date }}
+            {% if manager.is_general_manager() %}
             Capital: R${{ "{:,.2f}".format(balance) }}
+            {% endif %}
         </div>
         {% block contents %}
         
