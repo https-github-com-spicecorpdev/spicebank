@@ -3,33 +3,24 @@
 {% block contents %}
 
 <div class="admusersbutton">
-    <form method="GET" action="{{ url_for('index')}}">
+    <form method="GET" action="{{ url_for('perform_admagency_creation')}}">
         <button type="submit">&#8592 Voltar</button>
-    </form>
-</div>
-
-<div class="admusersbutton">
-    <form method="GET" action="{{ url_for('index')}}">
-        <button type="submit">Criar</button>
-    </form>
 </div>
 
 <div class="admusersbox1">
-
-    <form method="POST" action="{{ url_for ('perform_admagency_creation') }}" name="cadastro">
-        <p for="fmanager" class="form-p mb-0">Gerente:* </p>
-        <select id="fmanager" name="fmanager" class="form-select">
-            <option selected="" value="">Selecione o gerente para este cliente</option>
-            {% for manager in managers %}
-                <option value="{{ manager.manager_id }}">{{ manager.nameUser }}</option>
+    <p>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
             {% endfor %}
-        </select>
-
-        <div class="userregistrationbutton1">
-            <button type="submit">Criar</button>
-        </div>
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block body %}{% endblock %}
+    </p>
 </div>
-</form>
 
 
 {% endblock contents %}

@@ -4,6 +4,15 @@
 
 <div class="admprofilebox1">
     <form method="POST" action="/admregistermanager">
+        
+            
+                <p for="fagency" class="form-p mb-0"> Atribua uma agência </p>
+                <select id="fagency" name="fagency" class="form-select">
+                    <option selected="" value="">Selecione a agência para este gerente:</option>
+                    {% for agency in agencies %}
+                        <option value="{{ agency.id }}">{{ agency.number }}</option>
+                    {% endfor %}
+                </select>
         <p for="fname">Nome:</p>
         <input type="text" id="fname" name="fname">
         <br>
@@ -115,7 +124,7 @@
         </div>
     </form>
 
-    <form method="GET" action="{{ url_for('index') }}" class="admprofilebutton2">
+    <form method="GET" action="{{ url_for('admagencymanagers') }}" class="admprofilebutton2">
         <button type="submit">Voltar</button>
     </form>
 </div>

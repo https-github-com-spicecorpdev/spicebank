@@ -20,6 +20,11 @@ def current_time():
     return {'date': time.strftime('%d/%m/%Y %H:%M:%S')}
 
 @app.context_processor
+def current_balance():
+    balance = bankDatabase.find_capital_by_id(1)
+    return {'balance': balance}
+
+@app.context_processor
 def current_manager():
     manager = current_user
     return {'manager': manager}
@@ -139,19 +144,17 @@ def adm():
     users=userDatabase.find_all_users(manager)
     return render_template('admusers.html', users = users, manager = manager), 200
 
-@app.route('/admagencycreation', methods = ['GET'])
-@login_required
-def admagencycreation():
-    managers = managerDatabase.find_all_agency_manager_without_work_agency()
-    return render_template('admagencycreation.html', managers = managers), 200
-
 @app.route('/admagencycreation', methods = ['POST'])
 @login_required
+def admagencycreation():
+    #managers = managerDatabase.find_all_agency_manager_without_work_agency()
+    agencyDatabase.create_agency(1)
+    flash (f'Agência criada com sucesso!')
+    return render_template('admagencycreation.html'), 200
+
+@app.route('/admagencycreation', methods = ['GET'])
+@login_required
 def perform_admagency_creation():
-    agency_id = agencyDatabase.create_agency(1)
-    manager_id = request.form['fmanager']
-    logging.info(f'agency {agency_id}, manager {manager_id}')
-    managerDatabase.update_work_agency_id_by_maganer_id(agency_id, manager_id)
     agencies = agencyDatabase.find_all_agencies()
     return render_template('admagency.html', agencies = agencies), 200
 
@@ -166,7 +169,8 @@ def admagencymanagers():
 @app.route('/admmanagercreation')
 @login_required
 def admmanagercreation():
-    return render_template('admcreatemanager.html'), 200
+    agencies= agencyDatabase.find_empty_agencies()
+    return render_template('admcreatemanager.html',agencies=agencies), 200
 
 @app.route('/admregistermanager', methods = ['POST'])
 @login_required
@@ -180,8 +184,8 @@ def admregistermanager():
         return render_template('admcreatemanager.html'), 400
     else:
         address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
-        user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
-        managerDatabase.save_user_manager(user)
+        manager = Manager(request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'],-1, request.form['fagency'], 2, address=address)
+        managerDatabase.save_user_manager(manager)
         return redirect(url_for('index')), 200
 
 @app.route('/<user_id>/admuserdetails')
