@@ -112,20 +112,20 @@ def solicitacao(user_id,action,id,type):
     solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations, manager = manager), 200
 
-@app.route('/aprovar/<user_id>/<acao>/<id>/<type>/account/approval',methods = ['GET','POST'])
+@app.route('/adm/aprovar/<user_id>/<acao>/<id>/<type>/account/approval',methods = ['GET', 'POST'])
 @login_required
 def account_approval_by_general_manager(user_id,acao,id,type):
     if type=='Abertura de conta':
-            account_approval(user_id, acao, id)
-    solicitations=solicitationDatabase.find_solicitations_by_general_manager(current_user.workAgency)
-    return render_template('admsolicitations.html', solicitacoes=solicitations, manager = current_user), 200
+        account_approval(user_id, acao, id)
+    solicitations=solicitationDatabase.find_solicitations_by_general_manager()
+    return render_template('admsolicitations.html', solicitacoes=solicitations), 200
 
 @app.route('/admsolicitations', methods = ['GET'])
 @login_required
 def solicitations():
     manager= current_user
     if manager.is_general_manager():
-        solicitations=solicitationDatabase.find_solicitations_by_general_manager(manager.registrationNumber)
+        solicitations=solicitationDatabase.find_solicitations_by_general_manager()
     else:
         solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations), 200
@@ -322,11 +322,11 @@ def withdrawConfirm(user_id, value):
 def account_approval(user_id, action, id):
     if action =='aprovar':
         app.logger.info(f'Aprovando a solicitação do usuario {user_id}')
-        user = userDatabase.findById(user_id)
-        accountDatabase.activate_account(user.accountNumber())
-        solicitationDatabase.update_status_by_id(id,'Aprovado') 
+        accountDatabase.activate_account_by_solicitation_id(id)
+        solicitationDatabase.update_status_by_id(id,'Aprovado')
     else:
         app.logger.info(f'Reprovando a solicitação do usuario {user_id}')
+        accountDatabase.update_account_status_by_solicitation_id(id, 'Reprovado')
         solicitationDatabase.update_status_by_id(id,'Reprovado')
 
 def deposit_approval(user_id, action, solicitations_id):
