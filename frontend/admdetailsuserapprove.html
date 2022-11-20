@@ -4,18 +4,29 @@
 
 <div class="admapprovedatachangebox1">
     <h3> DADOS PESSOAIS</h3>
-
+    <br><br>
     <div>
         <p>Nome: {{ user.name }} </p>
         <p>Gênero: {{ user.gender }}</p>
         <br><br>
         <h4>Endereço</h4>
+        <br><br>
         <p class="admapprovedatachangeright">Estado: {{ user.address.state }}</p>
         <p class="admapprovedatachangeleft">cidade: {{ user.address.city }}</p>
         <p>Bairro: {{ user.address.district }}</p>
-        <p>Rua/Avenida {{ user.address.road }}</p>
+        <p>Rua/Avenida: {{ user.address.road }}</p>
         <p class="admapprovedatachangeright">CEP: {{ user.address.cep }}</p>
-        <p class="admapprovedatachangeleft">Número {{ user.address.numberHouse }}</p>
+        <p class="admapprovedatachangeleft">Número: {{ user.address.numberHouse }}</p>
+        <br><br>
+        <h3> DADOS DA CONTA</h3>
+        <br>
+        <p class="admapprovedatachangeleft">Agência: {{ user.account.agency}}</p>
+        <p class="admapprovedatachangeleft">Conta: {{ user.account.account}}</p>
+        {% if user.account.typeAccount=='CP' %}
+        <p class="admapprovedatachangeleft">Tipo de conta: Conta Poupança</p>
+        {% else %}
+        <p class="admapprovedatachangeleft">Tipo de conta: Conta Corrente</p>
+        {% endif %}
 
         <br><br><br>
 
