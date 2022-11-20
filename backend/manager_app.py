@@ -101,7 +101,7 @@ def loginGerente():
 def solicitacao(user_id,action,id,type):
     manager=current_user
     if type=='Abertura de conta':
-        account_approval(manager, user_id, action, id)
+        account_approval(user_id, action, id)
     elif type== 'Confirmação de depósito':
         deposit_approval(user_id, action, id)
         logging.info(f'ID: {user_id}, id_solicitation: {id}')
@@ -115,26 +115,19 @@ def solicitacao(user_id,action,id,type):
 @app.route('/aprovar/<user_id>/<acao>/<id>/<type>/account/approval',methods = ['GET','POST'])
 @login_required
 def account_approval_by_general_manager(user_id,acao,id,type):
-    agency_manager_id = request.form['fmanager']
-    manager = managerDatabase.findById(agency_manager_id)
-    if manager:
-        if type=='Abertura de conta':
-            account_approval(manager, user_id, acao, id)
-    solicitations=solicitationDatabase.find_by_work_agency_id(current_user.workAgency)
+    if type=='Abertura de conta':
+            account_approval(user_id, acao, id)
+    solicitations=solicitationDatabase.find_solicitations_by_general_manager(current_user.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations, manager = current_user), 200
 
 @app.route('/admsolicitations', methods = ['GET'])
 @login_required
 def solicitations():
     manager= current_user
-    solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
-    return render_template('admsolicitations.html', solicitacoes=solicitations), 200
-
-@app.route('/admsolicitationsgeral', methods = ['GET'])
-@login_required
-def solicitations_geral():
-    manager= current_user
-    solicitations=solicitationDatabase.find_solicitations_by_general_manager(manager.registrationNumber)
+    if manager.is_general_manager():
+        solicitations=solicitationDatabase.find_solicitations_by_general_manager(manager.registrationNumber)
+    else:
+        solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations), 200
 
 @app.route('/adm')
@@ -326,10 +319,11 @@ def withdrawConfirm(user_id, value):
     statement = Statement('D', 'Aprovado', userId=user.id, balance=user.balance(), deposit=0, withdraw=value, date=today)
     statementDatabase.save(statement)
 
-def account_approval(manager, user_id, action, id):
+def account_approval(user_id, action, id):
     if action =='aprovar':
         app.logger.info(f'Aprovando a solicitação do usuario {user_id}')
-        accountDatabase.create(user_id,manager.workAgency)
+        user = userDatabase.findById(user_id)
+        accountDatabase.activate_account(user.accountNumber())
         solicitationDatabase.update_status_by_id(id,'Aprovado') 
     else:
         app.logger.info(f'Reprovando a solicitação do usuario {user_id}')
