@@ -127,8 +127,12 @@ def withdraw():
     else:
         value = float(request.form['fvalor'])
         valor_format = (f'{value:.2f}')
+        accountType = accountDatabase.getAccountTypeByAccountNumber(user.accountNumber())
         if value <= 0:
             message = flash('Valor de saque deve ser maior que R$00,00!')
+            return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
+        elif ((value > saldo) and (accountType == 'CP')):
+            message = flash('Valor inserido maior que o saldo da conta')
             return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
         try:
             cursor = connection.cursor()
@@ -136,10 +140,10 @@ def withdraw():
             parameters = (1,)
             cursor.execute(query, parameters)
             bankBalance = float(cursor.fetchone()[0])
-            if bankBalance >= value:
+            if (bankBalance >= value):
                 return render_template('saque_confirmacao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=valor_format, date=today, type=user.account.typeAccount), 200
             else:
-                message = flash('Valor maior que o saldo disponível!')
+                message = flash('Valor maior que o saldo do banco disponível!')
                 return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
         except mariadb.Error as e:
             logging.error(e)
