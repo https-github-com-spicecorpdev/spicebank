@@ -6,7 +6,6 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/menu_lateral_template.css') }}"> -->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/user_template.css') }}">
         <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
@@ -18,34 +17,40 @@
     {% block nav %}
 
         <nav class="usernav">
-            <ul>
-                <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
-                <li><a href="/depositform"><i class="fas fa-money-bill-wave"></i>Depósito</a></li>
-                <li><a href="/withdrawform"><i class="fa-solid fa-hand-holding-dollar"></i>Saque</a></li>
-                <li><a href="/transferform"><i class="fa-sharp fa-solid fa-money-bill-transfer"></i>Transferência</a></li>
-                <li><a href="/statementform"><i class="fa-solid fa-receipt"></i>Extrato</a></li>
-                <li><a href="/update_user_data"><i class="fa-solid fa-user"></i>Alterar Dados</a></li>
-                <li><a href="/close-account"><i class="fa-solid fa-xmark"></i>Encerrar conta</a></li>
-            </ul>
 
+            <div class="usernavitem">
+            <input type="checkbox"  id="navcheck1">
+            <label for="navcheck1"> <i class="fa-solid fa-bars"></i> MENU</label>
+                <ul>
+                    <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
+                    <li><a href="/depositform"><i class="fas fa-money-bill-wave"></i>Depósito</a></li>
+                    <li><a href="/withdrawform"><i class="fa-solid fa-hand-holding-dollar"></i>Saque</a></li>
+                    <li><a href="/transferform"><i class="fa-sharp fa-solid fa-money-bill-transfer"></i>Transferência</a></li>
+                    <li><a href="/statementform"><i class="fa-solid fa-receipt"></i>Extrato</a></li>
+                    <li><a href="/update_user_data"><i class="fa-solid fa-user"></i>Alterar Dados</a></li>
+                    <li><a href="/close-account"><i class="fa-solid fa-xmark"></i>Encerrar conta</a></li>
+                </ul>
+            </div>
         </nav>
 
         <div class="usernavdiv">
-        <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+            <div class="templatedatetime">
+                {{ date }}
+            </div>
+            <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
         </div>
-    {% endblock %}
+        {% endblock %}
 
 
-    {% block justify %}
+        {% block justify %}
         <div class="justify">
             
-        <div class="templatedatetime">{{ date }}</div>
-    {% block contents %}
+            {% block contents %}
 
-    {% endblock contents %}
-    </div>
+            {% endblock contents %}
+        </div>
 
-    {% endblock justify%}
+        {% endblock justify%}
 
     </body>
 </html>

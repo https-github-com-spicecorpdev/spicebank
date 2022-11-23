@@ -1,5 +1,4 @@
-/*Formatação do usuário:*/
-
+/*Formatação Padrão (usuário):*/
 *{
     margin: 0 auto;
     padding: 0;
@@ -9,6 +8,14 @@
 .justify{
     float: right;
     width: 85%;
+    height:100%;
+}
+
+.templatedatetime{
+    margin: auto;
+    color: #fff;
+    padding:15px;
+    background-color: #062e46;
 }
 
 @media screen and (max-width: 750px) { 
@@ -16,33 +23,235 @@
         float: none;
         width: 100%;
     }
-
+    .templatedatetime{
+        position:fixed;
+        top:15px;
+        right:16%;
+    }
 }
 
-.templatedatetime{
-    margin: auto;
-    color: #000;
-    padding:15px;
-    position:fixed;
-    bottom:0;
-    right:0;
+/*Formatação do Usuário*/
+.userbody{
+    background-color: #7c9faf;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/*Barra de navegação HORIZONTAL do usuário (login)*/
+.husernav{
+    padding: 0;
+    background-color: #062e46;
+    position: fixed;
+    top: 0;
+    width: 100%; 
+    height: 7%;
+}
+
+.husernav >  ul {
+    text-transform: uppercase;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.husernav > ul > li > a > i{
+    padding: 7%;
+}
+
+.husernav > ul > li > a{
+    color: #ffffff;
+    text-decoration: none; 
+    padding: 5px;
+    float:right;
+    margin-right:5%;
+    transition: background .4s;
+}
+
+.husernav > ul > li > a:hover{
+    background-color: #7c9faf;
+    transition: background .4s;
+}
+
+    /*Barra de navegação lateral do usuário*/
+
+    .usernavitem > label{
+        display:none;
+        padding:15px;
+        cursor:pointer;
+      }
+      .usernavitem > input {
+        display:none;
+      }
+
+    .usernav{
+        padding: 0;
+        background-color: #062e46;
+        position: fixed;
+        top: 0;
+        width: 15%;
+        min-width:140px; 
+        height: 100%;
+        float: left;
     }
 
-/*LOGIN: login.html*/
+    .usernav > div > ul {
+        text-transform: uppercase;
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    .usernav > div > ul > li > a > i{
+        padding: 5px;
+    }
+    
+    .usernav > div > ul > li > a{
+        color: #ffff;
+        text-decoration: none; 
+        display: block;
+        padding: 13px;
+        transition: background .4s;
+    }
+    
+    .usernav > div > ul > li > a:hover{
+        background-color: #f5f5f5;
+        color: #062e46;
+        transition: background .4s;
+    }
+        
+    .usernavdiv{
+            background-color: #d6d6d6;
+            position: absolute;
+            bottom:0;
+            position:fixed;
+            width: 15%;
+            min-width:140px;
+    }
+    
+    .usernavdiv > a {
+        display: block;
+        text-transform: uppercase;
+        color: #062e46;
+        text-decoration: none; 
+        padding: 10px;
+        transition: background .4s;
+    }
+    
+     .usernavdiv > a > i{
+            padding: 5px;
+    }
+    
+    .usernavdiv > a:hover{
+        background-color: #f5f5f5;
+        transition: background .4s;
+    }
+    
+    /*RESPONSIVIDADE MENU LATERAL*/
+    
+    @media screen and (max-width: 750px) {
+
+        .usernavitem > label{
+            display:block;
+            padding:15px;
+            cursor:pointer;
+            color:#fff;
+          }
+          .usernavitem > input {
+            display:none;
+          }
+            
+            .usernavitem > input:checked ~ ul{
+              height:auto;
+              transform:all;
+            }
+
+        .usernav{ padding: 0;
+            background-color: #062e46;
+            position: fixed;
+            top: 0;
+            width: 86%; 
+            height: 50px;
+        }
+    
+        .usernav > div > ul {
+            overflow:hidden;
+            text-transform: uppercase;
+            position: absolute;
+            width: 100%;
+            margin-left:10%;
+            margin-top:50px;
+            top:0;
+            transform: none;
+            height:0;
+            z-index:none;
+            background-color: #062e46;
+            transition: all 0.3s linear;
+             }
+        }
+      
+        .usernav > div > ul > li {
+            display:block;
+            font-size:100%;
+        }
+        
+        .usernav > ul > li > a > i{
+            display:none;
+        }
+        
+        .usernav > ul > li > a{
+            color: #062e46;
+            text-decoration: none; 
+            height:100%;
+            transition: background .4s;
+        }
+        
+        .usernav > ul > li > a:hover{
+            background-color: #f5f5f5;
+            transition: background .4s;
+        }
+            
+        .usernavdiv{
+            height:50px;
+            width:14%;
+            position:fixed;
+            top:0;
+            margin-left:86%;
+        }
+        
+        .usernavdiv > a {
+            text-transform: uppercase;
+            color: #000;
+            text-decoration: none; 
+            padding: 5px;
+            transition: background .4s;
+            height:100%;
+        }
+    
+        .usernavdiv > a:hover{
+            background-color: #f5f5f5;
+            transition: background .4s;
+        }
+        
+    /**/
+
+/*login.html*/
 .userbodylogin{
     background-color: #7c9faf;
     font-family: 'Montserrat', sans-serif;
 }
-  /*LoginGerente.html*/
 
     /*caixa cinza claro*/
     .userloginbox1{
         margin: auto;
         width: 25%;
         background-color: #d6d6d6;
-    Margin-top: 10%;
-    padding: 40px;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+        border-radius: 5px;
+        Margin-top: 10%;
+        padding: 40px;
     }
+
     .userloginbox1 > h2{
         text-align: center;
     }
@@ -54,9 +263,9 @@
         margin:auto;
         width:100%;
         border-style:none;
+        border-radius: 5px;
         text-align:center;
         padding:15px;
-        
     }
     
     .userloginbutton1 > button {
@@ -64,24 +273,25 @@
         border-style:none;
         padding:15px;
         cursor:pointer;
+        border-radius: 5px;
     }
-    
     
     .userloginbutton1 > button:hover{
                 background-color:#7c9faf;
         
     }
     
-    
     .userloginbutton2{
         text-align:center;
         margin-top:5%;
     }
+
     .userloginbutton2 > form > button{
-            background-color:#ffff;
+        background-color:#ffff;
         border-style:none;
         padding:15px;
         cursor:pointer;
+        border-radius: 5px;
     }
     
     .userloginbutton2 > form > button:hover{
@@ -89,7 +299,7 @@
         
     }
     
-          /*RESPONSIVIDADE DA TELA userLOGIN.HTML*/
+          /*RESPONSIVIDADE DA TELA LOGIN.HTML*/
     
     @media screen and (max-width: 750px) { 
         .userloginbox1{
@@ -102,219 +312,194 @@
     
     }
 
+    /*Tela da Cadastro*/
+    .userbodyregistration{
+        background-color: #7c9faf;
+    
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    /*Centralizar*/
+    .userregistrationcenter{
+        margin: auto;
+        width:30%;
+    }
+    
+    /*caixa cinza claro*/
+    .userregistrationbox1{
+        background-color: #ffffff;
+        Margin-top: 15%;
+        padding: 15px;
+        margin-bottom: 2%;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+        border-radius: 5px;
+    }
+    
+    .userregistrationbox1 > h2{    
+        text-align: center;
+    }
+    
+    /*Formulário*/
+    .userregistrationbox2{
+        margin: auto;
+        background-color: #d6d6d6;
+        padding: 40px;
+        width: 100%;
+        height: fit-content;
+        margin-bottom: 15%;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+        border-radius: 5px;
+        Margin-top: 10%;
+    }
+    
+    .userregistrationbox2 > h3{
+        text-align: center;
+        color: #000;
+    }
+    
+    .userregistrationbox2 > form{
+    
+        margin: auto;
+        text-align: center;
+    }
+    
+    .userregistrationbox2 > form > input{
+        margin:auto;
+        width:100%;
+        border-style:none;
+        border-radius: 5px;
+        text-align:center;
+        padding:15px;    
+    }
+    
+    /*Botões*/
+    .userregistrationbutton1 > button {
+        background-color:#ffff;
+        border-style:none;
+        border-radius: 5px;
+        padding:15px;
+        cursor:pointer;
+    }
+    .userregistrationbutton1 > button:hover{
+        background-color:#7c9faf;
+    }
+    
+    /*CasdastroBotão2*/
+    .userregistrationbutton2{
+        text-align:center;
+        margin-top:5%;
+    }
+    
+    .userregistrationbutton2 > form > button{
+                background-color:#ffff;
+                border-style:none;
+                padding:15px;
+                cursor:pointer;
+                border-radius: 5px;
+                }   
+    
+    .userregistrationbutton2 > form > button:hover{
+                background-color:#7c9faf;
+                }
+    
+     /*RESPONSIVIDADE DA TELA CADASTRO*/
+        
+        @media screen and (max-width: 750px) { 
+            .userregistrationbox1{
+                margin: auto;
+                width: 75%;
+                background-color: #ffffff;
+                Margin-top: 10%;
+                padding: 40px;
+        }
+            
+        }
+    /*Fim Tela de Cadastro*/
 
+    /*acompanhamento.html*/
 
-/*Barra de navegação HORIZONTAL do usuário (login)*/
-.husernav{
-    padding: 0;
-    background-color: #062e46;
-    position: fixed;
-    top: 0;
-    width: 100%; 
-    height: 7%;
-}
-.husernav >  ul {
-    text-transform: uppercase;
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-}
-.husernav > ul > li > a > i{
-    padding: 7%;
-}
-.husernav > ul > li > a{
-    color: #ffffff;
-    text-decoration: none; 
-    padding: 5px;
-    float:right;
-    margin-right:5%;
-    transition: background .4s;
-}
-.husernav > ul > li > a:hover{
-    background-color: #f5f5f5;
-    transition: background .4s;
-}
-
-
-
-/*Tela da Cadastro*/
-.userbodyregistration{
-    background-color: #7c9faf;
-
-    font-family: 'Montserrat', sans-serif;
-}
-/*Centralizar*/
-.userregistrationcenter{
-    margin: auto;
-    width:30%;
-}
-
-/*caixa cinza claro*/
-.userregistrationbox1{
-    background-color: #ffffff;
-    Margin-top: 15%;
-    padding: 15px;
-    margin-bottom: 2%;
-}
-
-.userregistrationbox1 > h2{    
-    text-align: center;
-}
-
-/*Formulário*/
-
-.userregistrationbox2{
-    background-color: #d6d6d6;
-    padding: 15px;
-    width: 100%;
-    height: fit-content;
-    margin-bottom: 15%;
-}
-
-.userregistrationbox2 > h3{
-    text-align: center;
-    color: #868686;
-}
-
-.userregistrationbox2 > form{
-
-    margin: auto;
-    text-align: center;
-}
-
-.userregistrationbox2 > form > input{
-    margin:5px;
-    width:80%;
-    border-style:none;
-    text-align:center;
-    padding:15px;    
-}
-
-
-/*Botões*/
-.userregistrationbutton1 > button {
-    background-color:#ffff;
-    border-style:none;
-    padding:15px;
-    cursor:pointer;
-}
-.userregistrationbutton1 > button:hover{
-    background-color:#7c9faf;
-}
-/*CasdastroBotão2*/
-.userregistrationbutton2{
-    text-align:center;
-    margin-top:5%;
-}
-.userregistrationbutton2 > form > button{
+    .userbodyacompanhamento{
+        background-color: #7c9faf;
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+        /*caixa cinza claro*/
+        .useracompanhamentobox1{
+            margin: auto;
+            width: 25%;
+            background-color: #d6d6d6;
+        Margin-top: 10%;
+        padding: 40px;
+        border-radius: 5px;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+        }
+        .useracompanhamentobox1 > h2{
+            text-align: center;
+        }
+        .useracompanhamentobox1 > form {
+            text-align:center;
+        }
+        
+        .useracompanhamentobox1 > form > input{
+            margin:auto;
+            width:100%;
+            border-style:none;
+            text-align:center;
+            padding:15px;
+            border-radius: 5px;
+        }
+        
+        .useracompanhamentobutton1 > button {
             background-color:#ffff;
             border-style:none;
             padding:15px;
             cursor:pointer;
-            }   
-.userregistrationbutton2 > form > button:hover{
-            background-color:#7c9faf;
-    
-            }
-
- /*RESPONSIVIDADE DA TELA ACOMPANHAMENTO.HTML*/
-    
-    @media screen and (max-width: 750px) { 
-        .userregistrationbox1{
-            margin: auto;
-            width: 75%;
-            background-color: #d6d6d6;
-            Margin-top: 10%;
-            padding: 40px;
-    }
+            border-radius: 5px;
+        }
         
-    }
-/*Fim Tela de Cadastro*/
-
-
-
-/*ACOMPANHAMENTO: acompanhamento.html*/
-.userbodyacompanhamento{
-    background-color: #7c9faf;
-    font-family: 'Montserrat', sans-serif;
-}
-
-
-    /*caixa cinza claro*/
-    .useracompanhamentobox1{
-        margin: auto;
-        width: 25%;
-        background-color: #d6d6d6;
-    Margin-top: 10%;
-    padding: 40px;
-    }
-    .useracompanhamentobox1 > h2{
-        text-align: center;
-    }
-    .useracompanhamentobox1 > form {
-        text-align:center;
-    }
-    
-    .useracompanhamentobox1 > form > input{
-        margin:auto;
-        width:100%;
-        border-style:none;
-        text-align:center;
-        padding:15px;
         
-    }
-    
-    .useracompanhamentobutton1 > button {
-        background-color:#ffff;
-        border-style:none;
-        padding:15px;
-        cursor:pointer;
-    }
-    
-    
-    .useracompanhamentobutton1 > button:hover{
-                background-color:#7c9faf;
+        .useracompanhamentobutton1 > button:hover{
+                    background-color:#7c9faf;
+            
+        }
         
-    }
-    
-    
-    .useracompanhamentobutton2{
-        text-align:center;
-        margin-top:5%;
-    }
-    .useracompanhamentobutton2 > form > button{
-            background-color:#ffff;
-        border-style:none;
-        padding:15px;
-        cursor:pointer;
-    }
-    
-    .useracompanhamentobutton2 > form > button:hover{
-                background-color:#7c9faf;
         
-    }
-    
-          /*RESPONSIVIDADE DA TELA ACOMPANHAMENTO.HTML*/
-    
-    @media screen and (max-width: 750px) { 
-        .useracompanhamentobox1{
-          margin: auto;
-          width: 75%;
-          background-color: #d6d6d6;
-          Margin-top: 10%;
-          padding: 40px;
-    }
-    
-    }
-    /*FIM TELA DE ACOMPANHAMENTO*/
+        .useracompanhamentobutton2{
+            text-align:center;
+            margin-top:5%;
+        }
+        .useracompanhamentobutton2 > form > button{
+                background-color:#ffff;
+            border-style:none;
+            padding:15px;
+            cursor:pointer;
+        }
+        
+        .useracompanhamentobutton2 > form > button:hover{
+                    background-color:#7c9faf;
+                    border-radius: 5px;
+            
+        }
+        
+              /*RESPONSIVIDADE DA TELA ACOMPANHAMENTO.HTML*/
+        
+        @media screen and (max-width: 750px) { 
+            .useracompanhamentobox1{
+              margin: auto;
+              width: 75%;
+              background-color: #d6d6d6;
+              Margin-top: 10%;
+              padding: 40px;
+        }
+        
+        }
+        /*FIM TELA DE ACOMPANHAMENTO*/
 
 /*HOME ACOMPANHAMENTO: homeAcomp.html*/
 .userbodyhacompanhamento{
     background-color: #7c9faf;
     font-family: 'Montserrat', sans-serif;
 }
-
 
     /*caixa cinza claro*/
     .userhacompanhamentobox1{
@@ -323,6 +508,8 @@
         background-color: #d6d6d6;
     Margin-top: 10%;
     padding: 40px;
+                box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+        border-radius: 5px;
     }
     .userhacompanhamentobox1 > h2{
         text-align: center;
@@ -363,6 +550,7 @@
         border-style:none;
         padding:15px;
         cursor:pointer;
+        border-radius: 5px;
     }
     
     .userhacompanhamentobutton2 > form > button:hover{
@@ -385,19 +573,6 @@
 
 /*FIM TELA HOME ACOMPANHAMENTO*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*Tela Home Usuário*/
       /*home.html*/
 /*caixa cinza claro*/
@@ -407,6 +582,8 @@
     background-color: #ffff;
     Margin-top: 15%;
     padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .userhomebox1 > h3{
@@ -425,6 +602,7 @@
     background-color: #d6d6d6;
     Margin-top: 5%;
     padding: 10px;
+    border-radius: 5px;
 }
 
 /*tamanho número do saldo*/
@@ -449,523 +627,7 @@
 }
 /**/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*Barra de navegação lateral do usuário (verde)*/
-.usernav{
-    padding: 0;
-    background-color: #062e46;
-    position: fixed;
-    top: 0;
-    width: 15%; 
-    height: 100%;
-    float: left;
-}
-.usernav >  ul {
-    text-transform: uppercase;
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.usernav > ul > li > a > i{
-    padding: 5px;
-}
-
-.usernav > ul > li > a{
-    color: #ffff;
-    text-decoration: none; 
-    display: block;
-    padding: 10px;
-    transition: background .4s;
-}
-
-.usernav > ul > li > a:hover{
-    background-color: #f5f5f5;
-    color: #062e46;
-    transition: background .4s;
-}
-    
-.usernavdiv{
-        background-color: #d6d6d6;
-        position: fixed;
-        bottom:0;
-        width: 15%;
-}
-
-.usernavdiv > a {
-    display: block;
-    text-transform: uppercase;
-    color: #062e46;
-    text-decoration: none; 
-    padding: 20px;
-    transition: background .4s;
-}
-
- .usernavdiv > a > i{
-        padding: 5px;
-}
-
-.usernavdiv > a:hover{
-    background-color: #f5f5f5;
-    transition: background .4s;
-}
-
-/*Formatação do usuário*/
-
-.userbody{
-    background-color: #7c9faf;
-    font-family: 'Montserrat', sans-serif;
-}
-
-
-/*RESPONSIVIDADE MENU LATERAL*/
-
-@media screen and (max-width: 750px) {
-    .usernav{ padding: 0;
-        background-color: #062e46;
-        position: fixed;
-        top: 0;
-        width: 90%; 
-        height: 8%;
-    }
-
-    .usernav >  ul {
-        text-transform: uppercase;
-        position: absolute;
-        width: 100%;
-        margin-left:10%;
-    }
-  
-    .usernav >  ul >li {
-        display:inline-block;
-        font-size:100%;
-    }
-    
-    .usernav > ul > li > a > i{
-        display:none;
-    }
-    
-    .usernav > ul > li > a{
-        color: #0d3b1b;
-        text-decoration: none; 
-        height:100%;
-        transition: background .4s;
-    }
-    
-    .usernav > ul > li > a:hover{
-        background-color: #f5f5f5;
-        transition: background .4s;
-    }
-        
-    .usernavdiv{
-        height:8%;
-        width:10%;
-        top:0;
-        margin-left:90%;
-    }
-    
-    .usernavdiv > a {
-        text-transform: uppercase;
-        color: #000;
-        text-decoration: none; 
-        padding: 5px;
-        transition: background .4s;
-        height:100%;
-    }
-
-    .usernav > div > a:hover{
-        background-color: #f5f5f5;
-        transition: background .4s;
-    }
-}
-    
-/**/
-
-
-
-
-
-
-
-
-
-
-
-/*usersolicitations.html*/
-
-.usersolicitationsbox1{
-    margin: auto;
-    width: 70%;
-    background-color: #d6d6d6;
-Margin-top: 1%;
-padding: 10px;
-}
-.usersolicitationsbox1 >h2{
-text-align:center;
-}
-.usersolicitationsbox1 >p{
-text-align:center;
-margin-top: 1%;
-}
-
-.usersolicitationstable{
-        margin: auto;
-        width: 70%;
-        background-color: white;
-        text-align: center;
-    }
-    
-.usersolicitationstable > table, tr  th {
-        background-color:#d6d6d6;
-    }
-        .usersolicitationstable > table, tr  td a {
-        color:black;
-        text-decoration:none;
-        display:block;
-        height:40px
-    
-        
-    }
-
-.usersolicitationstable > table, tr  td a:hover{
-        background-color:#0d8331;
-    }
-
-.usersolicitationstable > table, td {
-           border: 1px solid black;
-           border-collapse: collapse;
-         }
-.usersolicitationsbutton{
-            margin-right: 20px;
-        
-        }
-.usersolicitationsbutton > form{
-            margin-left:15.2%;
-            margin-top:5%;
-        }
-        
-.usersolicitationsbutton > form >button{
-            cursor:pointer;
-        padding: 10px;
-        border: none;
-         background-color:#d6d6d6}
-
-
-    /*RESPONSIVIDADE MENU LATERAL*/
-
-    @media screen and (max-width: 750px) {
-        .usersolicitationsbutton > form >button{
-            cursor:pointer;
-        padding: 10px;
-        border: none;
-          margin-top:10%;
-         background-color:#d6d6d6}
-      
-      .usersolicitationsbox1{
-    margin: auto;
-        margin-top:1%;
-    width: 100%;
-}
-
-      .usersolicitationsbutton > form{
-            margin-left:0px;
-            margin-top:5%;
-        }
-              
-.usersolicitationsbutton > form >button{
-            cursor:pointer;
-        padding: 15px;
-        border: none;
-         background-color:#d6d6d6}
-    }
-
-
-            /*userapprovedatachange.html*/
-
-.userapprovedatachangebox1{
-            margin: auto;
-            width: 70%;
-            background-color: #d6d6d6;
-            Margin-top: 1%;
-            padding: 10px;
-            }
-
-.userapprovedatachangebox1 > h3 {
-    text-align: center;}
-
-
-.userapprovedatachangebox1 > h4 {
-    text-align: center;}
-
-.userapprovedatachangebox1 > div > h4 {
-    text-align: center;}
-
-.userapprovedatachangebox1 > p {
-    margin-top: 5%;
-}
-
-
-.userapprovedatachangeleft{
-    float:left;
-    width: 50%;
-
-}
-
-.userapprovedatachangeright{
-    float:right;
-    width: 50%;
-}
-            
-.userapprovedatachangebutton1{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#ffff;
-    cursor: pointer;
-}
-
-.userapprovedatachangebutton1 > a{
-    text-decoration: none;
-    color:#000;
-  font-size:120%;
-
-}
-
-.userapprovedatachangebutton1:hover{
-    background-color:indianred;
-}
-
-.userapprovedatachangebutton2{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#ffff;
-    cursor: pointer;
-}
-
-.userapprovedatachangebutton2 > a{
-    text-decoration: none;
-    color:#000;
-  font-size:120%;
-
-}
-
-.userapprovedatachangebutton2:hover{
-    background-color:lawngreen;
-}
-
-.userapprovedatachangecenter{
-    margin:auto;
-  width:fit-content;
-}
-
-            /*userapprovedeleteaccount.html*/
-
-.userapprovedeleteaccountbox1{
-    margin: auto;
-    width: 70%;
-    background-color: #d6d6d6;
-    Margin-top: 1%;
-    padding: 10px;
-}
-    
-.userapprovedeleteaccountbox1 > h3 {
-        text-align: center;}
-    
-    
-.userapprovedeleteaccountbox1 > h4 {
-        text-align: center;}
-    
-.userapprovedeleteaccountbox1 > div > h4 {
-        text-align: center;}
-    
-.userapprovedeleteaccountbox1 > p {
-        margin-top: 5%;
-}
-    
-    
-.userapprovedeleteaccountleft{
-        float:left;
-        width: 50%;
-    
-}
-    
-.userapprovedeleteaccountright{
-        float:right;
-        width: 50%;
-}
-    
-.userapprovedeleteaccountbutton1{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#ffff;
-    cursor: pointer;
-}
-
-.userapprovedeleteaccountbutton1 > a {
-    color:#000;
-    text-decoration:none;
-    font-size:110%;
-}
-
-.userapprovedeleteaccountbutton1:hover{
-    background-color:lawngreen;
-  }
-    
-    
-.userapprovedeleteaccountbutton2{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#ffff;
-    cursor: pointer;
-}
-
-.userapprovedeleteaccountbutton2 > a {
-    color:#000;
-    text-decoration:none;
-    font-size:110%;
-  }
-
-
-
-.userapprovedeleteaccountbutton2:hover{
-     background-color:indianred;
-  }
-
-.userapprovedeleteaccountbutton3{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#ffff;
-    cursor: pointer;
-    }
-
-  .userapprovedeleteaccountbutton3:hover{
-        background-color:yellow;
-  }
-    
-    .userapprovedeleteaccountcenter{
-        margin:auto;
-        width:fit-content;
-    }
-
-
-    /*userwithdraw.html*/ 
-
-/*centralizar*/
-.userwithdraw{
-    margin: auto;
-    width:50%;
-}
-
-.userwithdraw{
-    margin: auto;
-    width:fit-content;
-}
-
-
-
-/*caixa cinza claro*/
-.userwithdrawbox1{
-    background-color: #d6d6d6;
-Margin-top: 15%;
-padding: 15px;
-margin-bottom: 2%;
-}
-
-.userwithdrawbox1 > h2{    
-    text-align: center;
-}
-
-
-.userwithdrawbox2{
-    background-color: #ffffff;
-    padding: 15px;
-    height: fit-content;
-}
-
-.userwithdrawbox2 > h3{
-    text-align: center;
-    color: #868686;
-}
-
-.userwithdrawbox2 > form{
-
-    margin: auto;
-    text-align: center;
-}
-
-.userwithdrawbox2 > form > input{
-    margin-top: 30px;
-      width: 50%;
-    height: 60px;
-      text-align: center;
-      font-size: 170%;
-}
-
-.userwithdrawbutton1{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.userwithdrawbutton1 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.userwithdrawbutton1:hover{
-    background-color:lawngreen;
-}
-
-
-.userwithdrawbutton2{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.userwithdrawbutton2 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.userwithdrawbutton2:hover{
-    background-color:indianred;
-}
-    
-    /*deposito.html*/ 
+ /*deposito.html*/ 
 
 /*centralizar*/
 .userdepositcenter1{
@@ -985,6 +647,8 @@ margin-bottom: 2%;
 Margin-top: 15%;
 padding: 15px;
 margin-bottom: 2%;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .userdepositbox1 > h3{    
@@ -999,11 +663,13 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .userdepositbox2 > h3{
     text-align: center;
-    color: #868686;
+    color: #000;
 }
 
 .userdepositbox2 > form{
@@ -1018,6 +684,7 @@ margin-bottom: 2%;
     height: 60px;
       text-align: center;
       font-size: 170%;
+    border-radius: 5px;
 }
 
 .userdepositbutton1{
@@ -1026,6 +693,7 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .userdepositbutton1 >a {
@@ -1045,6 +713,7 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .userdepositbutton2 >a {
@@ -1056,7 +725,6 @@ margin-bottom: 2%;
 .userdepositbutton2:hover{
     background-color:rgb(71, 177, 106);
 }
-
 
 
     /*deposito_confirmacao.html*/ 
@@ -1079,6 +747,8 @@ margin-bottom: 2%;
 Margin-top: 15%;
 padding: 15px;
 margin-bottom: 2%;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .userdepositconfirmbox1 > h3{    
@@ -1093,6 +763,8 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .userdepositconfirmbox2 > h3{
@@ -1112,6 +784,7 @@ margin-bottom: 2%;
     height: 60px;
       text-align: center;
       font-size: 170%;
+    border-radius: 5px;
 }
 
 .userdepositconfirmbutton1{
@@ -1120,9 +793,10 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
-.userdepositconfirmbutton1 >a {
+.userdepositconfirmbutton1 > a {
   color:#000;
   text-decoration:none;
   font-size:110%;
@@ -1139,9 +813,10 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
-.userdepositconfirmbutton2 >a {
+.userdepositconfirmbutton2 > a {
   color:#000;
   text-decoration:none;
   font-size:110%;
@@ -1171,6 +846,8 @@ margin-bottom: 2%;
 Margin-top: 15%;
 padding: 15px;
 margin-bottom: 2%;
+            box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .usersaquebox1 > h3{    
@@ -1185,11 +862,13 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+            box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .usersaquebox2 > h3{
     text-align: center;
-    color: #868686;
+    color: #000000;
 }
 
 .usersaquebox2 > form{
@@ -1204,6 +883,7 @@ margin-bottom: 2%;
     height: 60px;
       text-align: center;
       font-size: 170%;
+    border-radius: 5px;
 }
 
 .usersaquebutton1{
@@ -1212,6 +892,7 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .usersaquebutton1 >a {
@@ -1231,6 +912,7 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .usersaquebutton2 >a {
@@ -1263,6 +945,8 @@ margin-bottom: 2%;
 Margin-top: 15%;
 padding: 15px;
 margin-bottom: 2%;
+                box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .usersaqueconfirmbox1 > h3{    
@@ -1277,6 +961,8 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+                box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .usersaqueconfirmbox2 > h3{
@@ -1296,6 +982,7 @@ margin-bottom: 2%;
     height: 60px;
       text-align: center;
       font-size: 170%;
+    border-radius: 5px;
 }
 
 .usersaqueconfirmbutton1{
@@ -1304,6 +991,7 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .usersaqueconfirmbutton1 >a {
@@ -1323,6 +1011,7 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .usersaqueconfirmbutton2 >a {
@@ -1355,6 +1044,8 @@ margin-bottom: 2%;
 Margin-top: 15%;
 padding: 15px;
 margin-bottom: 2%;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .usertransferbox1 > h3{    
@@ -1369,11 +1060,13 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .usertransferbox2 > h3{
     text-align: center;
-    color: #868686;
+    color: #000;
 }
 .usertransferbox2 > p{
     text-align: center;
@@ -1392,6 +1085,7 @@ margin-bottom: 2%;
     height: 60px;
       text-align: center;
       font-size: 170%;
+    border-radius: 5px;
 }
 
 .usertransferbutton1{
@@ -1400,6 +1094,7 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .usertransferbutton1 >a {
@@ -1419,6 +1114,7 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .usertransferbutton2 >a {
@@ -1430,7 +1126,7 @@ margin-bottom: 2%;
 .usertransferbutton2:hover{
     background-color:rgb(71, 177, 106);
 }
-   
+
     /*utransferconfirm_confirmacao.html*/ 
 
 /*centralizar*/
@@ -1451,6 +1147,8 @@ margin-bottom: 2%;
 Margin-top: 15%;
 padding: 15px;
 margin-bottom: 2%;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .usertransferconfirmbox1 > h3{    
@@ -1465,6 +1163,8 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .usertransferconfirmbox2 > h3{
@@ -1484,6 +1184,7 @@ margin-bottom: 2%;
     height: 60px;
       text-align: center;
       font-size: 170%;
+    border-radius: 5px;
 }
 
 .usertransferconfirmbutton1{
@@ -1492,6 +1193,7 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .usertransferconfirmbutton1 >a {
@@ -1511,6 +1213,7 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .usertransferconfirmbutton2 >a {
@@ -1526,12 +1229,14 @@ margin-bottom: 2%;
 /*extrato.html*/
 
 
- .userextratobox1{
+.userextratobox1{
     margin: auto;
     width: 70%;
     background-color: #d6d6d6;
 Margin-top: 1%;
 padding: 10px;
+     box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .userextratobox1 >h2{
@@ -1548,6 +1253,8 @@ margin-top: 1%;
         width: 70%;
         background-color: white;
         text-align: center;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
     }
 
 .userextratotable > table, tr  th {
@@ -1583,7 +1290,9 @@ display:inline-block;
     cursor:pointer;
 padding: 10px;
 border: none;
- background-color:#d6d6d6}
+ background-color:#d6d6d6;
+    border-radius: 5px;
+}
 
 
  .userextratobutton2 {
@@ -1595,9 +1304,11 @@ border: none;
               cursor:pointer;
           padding: 10px;
           border: none;
-           background-color:#d6d6d6}
+           background-color:#d6d6d6;
+    border-radius: 5px;
+  }
 
-    /**/
+/**/
 
 /*alteracadedados.html
 
@@ -1618,6 +1329,8 @@ border: none;
 Margin-top: 5%;
 padding: 15px;
 margin-bottom: 2%;
+box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .datachangebox1 > h3{    
@@ -1637,6 +1350,8 @@ margin-bottom: 2%;
     background-color: #ffffff;
     Margin-top: 1%;
     padding: 10px;
+     box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
     }
 
 .datachangebox2 > form > h3 {
@@ -1657,7 +1372,8 @@ margin-top: 5%;
   border-style:none;
   padding:5px;
   width:35%;
-  
+    border-radius: 5px;
+background-color: #d6d6d6;
 }
 
 .datachangebox2 > form > div >{
@@ -1669,15 +1385,15 @@ margin-top: 5%;
     background-color: #d6d6d6;
   padding:5px;
   width:100%;
-  
+    border-radius: 5px;
 }
 
 .datachangeleft > select{
   border-style:none;
+    background-color: #d6d6d6;
   padding:5px;
   width:100%;
-  
-
+    border-radius: 5px;
 }
 
 
@@ -1695,6 +1411,8 @@ width: 45%;
   width: 100%;
   border-style:none;
   padding:5px;
+    border-radius: 5px;
+    background-color: #d6d6d6;
 }
 
 .flashes{
@@ -1716,6 +1434,8 @@ width: 45%;
   border-style:none;
   padding:14px;
   margin: auto;
+    background-color: #d6d6d6;
+    border-radius: 5px;
 }
 
 .datachangebutton1 > button:hover{
@@ -1728,6 +1448,7 @@ background-color:rgb(71, 177, 106);
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .datachangebutton2 >a {
@@ -1755,10 +1476,7 @@ width:fit-content;}
         Margin-top: 15%;
         }
 
-
-    }
-
-    /*accountclosenotificationo.html*/ 
+/*accountclosenotificationo.html*/ 
 
 /*centralizar*/
 .useraccountclosenotificationcenter1{
@@ -1778,6 +1496,8 @@ width:fit-content;}
 Margin-top: 15%;
 padding: 15px;
 margin-bottom: 2%;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .useraccountclosenotificationbox1 > h3{    
@@ -1792,11 +1512,13 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .useraccountclosenotificationbox2 > h3{
     text-align: center;
-    color: #868686;
+    color: #000;
 }
 
 .useraccountclosenotificationbox2 > form{
@@ -1819,6 +1541,7 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .useraccountclosenotificationbutton1 >a {
@@ -1849,99 +1572,8 @@ margin-bottom: 2%;
 .useraccountclosenotificationbutton2:hover{
     background-color:rgb(71, 177, 106);
 }
-    /*accountclosereprove.html*/ 
 
-/*centralizar*/
-.useraccountclosereprovecenter1{
-    margin: auto;
-    width:50%;
-}
-
-.useraccountclosereprovecenter2{
-    margin: auto;
-    width:fit-content;
-}
-
-
-/*caixa cinza claro*/
-.useraccountclosereprovebox1{
-    background-color: #d6d6d6;
-Margin-top: 15%;
-padding: 15px;
-margin-bottom: 2%;
-}
-
-.useraccountclosereprovebox1 > h3{    
-    text-align: center;
-}
-
-.useraccountclosereprovebox1 > p{    
-    text-align: center;
-}
-
-.useraccountclosereprovebox2{
-    background-color: #ffffff;
-    padding: 15px;
-    height: fit-content;
-}
-
-.useraccountclosereprovebox2 > h3{
-    text-align: center;
-    color: #868686;
-}
-
-.useraccountclosereprovebox2 > form{
-
-    margin: auto;
-    text-align: center;
-}
-
-.useraccountclosereprovebox2 > form > input{
-    margin-top: 30px;
-      width: 50%;
-    height: 60px;
-      text-align: center;
-      font-size: 170%;
-}
-
-.useraccountclosereprovebutton1{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.useraccountclosereprovebutton1 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.useraccountclosereprovebutton1:hover{
-    background-color:rgb(183, 85, 85);
-}
-
-
-.useraccountclosereprovebutton2{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.useraccountclosereprovebutton2 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.useraccountclosereprovebutton2:hover{
-    background-color:rgb(71, 177, 106);
-}
-
-    /*accountclosesolicitacao.html*/ 
+ /*accountclosesolicitacao.html*/ 
 
 /*centralizar*/
 
@@ -1966,6 +1598,8 @@ margin-bottom: 2%;
 Margin-top: 15%;
 padding: 15px;
 margin-bottom: 2%;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .useraccountclosesolicitacaobox1 > h3{    
@@ -1980,12 +1614,13 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
-
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
 .useraccountclosesolicitacaobox2 > h3{
     text-align: center;
-    color: #868686;
+    color: #000;
 }
 
 .useraccountclosesolicitacaobox2 > form{
@@ -2013,6 +1648,7 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .useraccountclosesolicitacaobutton1 >a {
@@ -2032,6 +1668,7 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .useraccountclosesolicitacaobutton2 >a {
@@ -2044,55 +1681,58 @@ margin-bottom: 2%;
     background-color:rgb(71, 177, 106);
 }
 
-
-
-
-
-/*userwithdrawconfirm.html*/ 
+    /*accountclosereprove.html*/ 
 
 /*centralizar*/
-.userwithdrawconfirmcenter1{
+.useraccountclosereprovecenter1{
     margin: auto;
     width:50%;
 }
 
-.userwithdrawconfirmcenter2{
+.useraccountclosereprovecenter2{
     margin: auto;
     width:fit-content;
 }
 
 
 /*caixa cinza claro*/
-.userwithdrawconfirmbox1{
+.useraccountclosereprovebox1{
     background-color: #d6d6d6;
 Margin-top: 15%;
 padding: 15px;
 margin-bottom: 2%;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
-.userwithdrawconfirmbox1 > h2{    
+.useraccountclosereprovebox1 > h3{    
     text-align: center;
 }
 
+.useraccountclosereprovebox1 > p{    
+    text-align: center;
+}
 
-.userwithdrawconfirmbox2{
+.useraccountclosereprovebox2{
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
 }
 
-.userwithdrawconfirmbox2 > h3{
+.useraccountclosereprovebox2 > h3{
     text-align: center;
-    color: #868686;
+    color: #000;
 }
 
-.userwithdrawconfirmbox2 > form{
+.useraccountclosereprovebox2 > form{
 
     margin: auto;
     text-align: center;
 }
 
-.userwithdrawconfirmbox2 > form > input{
+.useraccountclosereprovebox2 > form > input{
     margin-top: 30px;
       width: 50%;
     height: 60px;
@@ -2100,7 +1740,27 @@ margin-bottom: 2%;
       font-size: 170%;
 }
 
-.userwithdrawconfirmbutton1{
+.useraccountclosereprovebutton1{
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.useraccountclosereprovebutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
+}
+
+.useraccountclosereprovebutton1:hover{
+    background-color:rgb(183, 85, 85);
+}
+
+
+.useraccountclosereprovebutton2{
     cursor:pointer;
     padding: 15px;
     border-style: none;
@@ -2108,326 +1768,14 @@ margin-bottom: 2%;
     cursor: pointer;
 }
 
-.userwithdrawconfirmbutton1 >a {
+.useraccountclosereprovebutton2 >a {
   color:#000;
   text-decoration:none;
   font-size:110%;
 }
 
-.userwithdrawconfirmbutton1:hover{
-    background-color:lawngreen;
+.useraccountclosereprovebutton2:hover {
+    background-color: rgb(71, 177, 106);
 }
 
-
-.userwithdrawconfirmbutton2{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
 }
-
-.userwithdrawconfirmbutton2 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.userwithdrawconfirmbutton2:hover{
-    background-color:indianred;
-}
-
-
-    /*userwithdrawvoucher.html*/ 
-
-/*centralizar*/
-.userwithdrawvouchercenter1{
-    margin: auto;
-    width:50%;
-}
-
-.userwithdrawvouchercenter2{
-    margin: auto;
-    width:fit-content;
-}
-
-
-/*caixa cinza claro*/
-.userwithdrawvoucherbox1{
-    background-color: #d6d6d6;
-Margin-top: 15%;
-padding: 15px;
-margin-bottom: 2%;
-}
-
-.userwithdrawvoucherbox1 > h2{    
-    text-align: center;
-}
-
-
-.userwithdrawvoucherbox2{
-    background-color: #ffffff;
-    padding: 15px;
-    height: fit-content;
-}
-
-.userwithdrawvoucherbox2 > h3{
-    text-align: center;
-    color: #868686;
-}
-
-.userwithdrawvoucherbox2 > form{
-
-    margin: auto;
-    text-align: center;
-}
-
-.userwithdrawvoucherbox2 > form > input{
-    margin-top: 30px;
-      width: 50%;
-    height: 60px;
-      text-align: center;
-      font-size: 170%;
-}
-
-.userwithdrawvoucherbutton1{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.userwithdrawvoucherbutton1 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.userwithdrawvoucherbutton1:hover{
-    background-color:lawngreen;
-}
-
-
-.userwithdrawvoucherbutton2{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.userwithdrawvoucherbutton2 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.userwithdrawvoucherbutton2:hover{
-    background-color:indianred;
-}
-
-
-  /*userusers.html*/
-
-
-.userusersbox1{
-    margin: auto;
-    width: 70%;
-    background-color: #d6d6d6;
-Margin-top: 1%;
-padding: 10px;
-}
-.userusersbox1 >h2{
-text-align:center;
-}
-.userusersbox1 >p{
-text-align:center;
-margin-top: 1%;
-}
-
-.useruserstable{
-        margin: auto;
-        width: 70%;
-        background-color: white;
-        text-align: center;
-    }
-    
-.useruserstable > table, tr  th {
-        background-color:#d6d6d6;
-    }
-.useruserstable > table, tr  td a {
-        color:black;
-        text-decoration:none;
-        display:block;
-        background-color:#fff;
-    
-        
-    }
-
-.useruserstable > table, tr  td a:hover{
-        background-color:#0d8331;
-    }
-
-.useruserstable > table, td {
-           border: 1px solid black;
-           border-collapse: collapse;
-         }
-.userusersbutton{
-            margin-right: 20px;
-        
-        }
-.userusersbutton > form{
-            margin-left:15.2%;
-            margin-top:5%;
-        }
-        
-.userusersbutton > form >button{
-            cursor:pointer;
-        padding: 10px;
-        border: none;
-         background-color:#d6d6d6}
-
-
-    
-          /*userusersdetail.html*/
-
-.userusersdetailbox1{
-    margin: auto;
-    width: 70%;
-    background-color: #d6d6d6;
-    Margin-top: 1%;
-    padding: 10px;
-    }
-
-.userusersdetailbox1 > h3 {
-text-align: center;}
-
-
-.userusersdetailbox1 > h4 {
-text-align: center;}
-
-.userusersdetailbox1 > div > h4 {
-text-align: center;}
-
-.userusersdetailbox1 > p {
-margin-top: 5%;
-}
-
-
-.userusersdetailleft{
-float:left;
-width: 50%;
-
-}
-
-.userusersdetailright{
-float:right;
-width: 50%;
-}
-    
-
-.userusersdetailbutton1{
-cursor:pointer;
-padding: 15px;
-border-style: none;
-background-color:#ffff;
-cursor: pointer;
-}
-
-.userusersdetailbutton1 > a{
-text-decoration: none;
-color:#000;
-font-size:120%;
-
-}
-
-.userusersdetailbutton1:hover{
-background-color:indianred;
-}
-
-.userusersdetailbutton2{
-cursor:pointer;
-padding: 15px;
-border-style: none;
-background-color:#ffff;
-cursor: pointer;
-}
-
-.userusersdetailbutton2 > a{
-text-decoration: none;
-color:#000;
-font-size:120%;
-
-}
-
-.userusersdetailbutton2:hover{
-background-color:lawngreen;
-}
-
-.userusersdetailcenter{
-margin:auto;
-width:fit-content;}
-
- /*userextrato.html*/
-
-
- .userextratobox1{
-    margin: auto;
-    width: 70%;
-    background-color: #d6d6d6;
-Margin-top: 1%;
-padding: 10px;
-}
-
-.userextratobox1 >h2{
-text-align:center;
-}
-
-.userextratobox1 >p{
-text-align:center;
-margin-top: 1%;
-}
-
-.userextratotable{
-        margin: auto;
-        width: 70%;
-        background-color: white;
-        text-align: center;
-    }
-    
-.userextratotable > table, tr  th {
-        background-color:#d6d6d6;
-    }
-
-.userextratotable > table, tr  td a {
-        color:black;
-        text-decoration:none;
-        display:block;
-        background-color:#fff;
-    }
-
-.userextratotable > table, tr  td a:hover{
-        background-color:#0d8331;
-    }
-
-.userextratotable > table, td {
-           border: 1px solid black;
-           border-collapse: collapse;
-         }
-.userextratobutton{
-            margin-right: 20px;
-        
-        }
-.userextratobutton > form{
-            margin-left:15.2%;
-            margin-top:5%;
-        }
-        
-.userextratobutton > form >button{
-            cursor:pointer;
-        padding: 10px;
-        border: none;
-         background-color:#d6d6d6}
-         
-    /**//**/
