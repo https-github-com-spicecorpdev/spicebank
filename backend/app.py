@@ -379,14 +379,14 @@ def close_account_solicitation():
     logout_user()
     return render_template('acompanhamento.html'), 200
     
-@app.route('/proceed-close-account', methods = ['POST'])
-@login_required
-def proceed_close_account_solicitation():
-    user = current_user
-    close_account(user)
-    flash('Solicitação de encerramento de conta criada!')
-    logout_user()
-    return render_template('acompanhamento.html'), 200
+# @app.route('/proceed-close-account', methods = ['POST'])
+# @login_required
+# def proceed_close_account_solicitation():
+#     user = current_user
+#     close_account(user)
+#     flash('Solicitação de encerramento de conta criada!')
+#     logout_user()
+#     return render_template('acompanhamento.html'), 200
 
 def close_account(user):
     solicitation= CloseAccountSolicitation(user.account.id, user.name, user.cpf, user.birthDate, user.address.road, user.address.numberHouse, user.address.district, user.address.cep, user.address.city, user.address.state, user.gender, user_id=user.id)

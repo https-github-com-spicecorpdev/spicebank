@@ -1,4 +1,4 @@
--- DROP DATABASE spicebank;
+DROP DATABASE spicebank;
 
 -- Criando estrutura do banco de dados para spicebank
 CREATE DATABASE IF NOT EXISTS `spicebank`;
@@ -105,9 +105,9 @@ CREATE TABLE IF NOT EXISTS `update_user_solicitation` (
 CREATE TABLE IF NOT EXISTS `account_close_solicitation` (
 	id int(11) NOT NULL AUTO_INCREMENT PRIMARY key,
 	id_solicitation int(11) NOT NULL,
-	id_account int(11) DEFAULT NULL,
+	id_account int(11) NOT NULL,
 	name varchar(255) DEFAULT NULL,
-	cpf int(12) DEFAULT NULL,
+	cpf bigint(12) DEFAULT NULL,
 	birthdate date DEFAULT NULL,
 	road varchar(255) DEFAULT NULL,
 	number_house int(11) DEFAULT NULL,
@@ -274,4 +274,3 @@ VALUES(NEXTVAL(account_number), 0, 6, 3, 0, 'CC');
 insert into spicebank.account_solicitation 
 (account_id, id_solicitation, account_type)
 (select idAccount, 2 as id_solicitation, 'Conta Corrente' as account_type from taccount t where t.idAccountUser = 6);
-

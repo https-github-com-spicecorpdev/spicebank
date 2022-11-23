@@ -8,9 +8,6 @@ class Solicitation:
         self.account = account
         self.agency = agency
 
-    def __str__(self):
-        return f'name: {self.name}, cpf: {self.cpf}, secret: {self.password}, status: {self.status}, account:{self.account}, agency:{self.agency}'
-
 class OpenAccountSolicitation:
     def __init__(self, user_id, solicitation_type, account_type):
         self.user_id = user_id
@@ -63,3 +60,6 @@ class SimpleSolicitation:
         self.solicitation_type = solicitation_type
         self.created_time = created_time
         self.updated_time = updated_time
+
+    def __str__(self):
+        return f'id: {self.id}, user_id: {self.user_id}, id_solicitation: {self.id_solicitation}, id_account:{self.id_account}, name: {self.name}, cpf: {self.cpf},  birthdate: {self.birthdate}, road: {self.road}, number_house: {self.number_house},  district: {self.district}, cep: {self.cep}, city: {self.city}, state: {self.state}, genre: {self.genre}, secret: {self.password}, status: {self.status}, account:{self.account}, agency:{self.agency}'
