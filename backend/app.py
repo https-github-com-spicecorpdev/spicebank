@@ -137,7 +137,9 @@ def withdraw():
         message = flash('Preencha um valor para sacar!')
         return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
     else:
-        value = float(request.form['fvalor'])
+        valorStr = request.form['fvalor']
+        valorStr = valorStr.replace("," , ".")
+        value = float(valorStr)
         valor_format = (f'{value:.2f}')
         accountType = accountDatabase.getAccountTypeByAccountNumber(user.accountNumber())
         if value <= 0:
@@ -206,7 +208,9 @@ def deposit():
     if not validate_form(request.form):
         message = flash('Preencha um valor para depositar!')
         return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
-    valor = float(request.form['fvalor'])
+    valorStr = request.form['fvalor']
+    valorStr = valorStr.replace("," , ".")
+    valor = float(valorStr)
     if valor <= 0:
         message = flash('Valor de depósito deve ser maior que R$00,00!')
         return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
@@ -254,9 +258,11 @@ def transfer():
         return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, type=user.account.typeAccount, message=message), 400
     accountForTransfer = request.form['faccountForTransfer']
     agencyForTransfer = request.form['fagencyForTransfer']
-    valor = float(request.form['fvalor'])
-    # valor.replace = "," , "."
-    # logging.info(f'{valor}')
+    valorStr = request.form['fvalor']
+    valorStr = valorStr.replace("," , ".")
+    #logging.info(f'{valorStr}')
+    valor = float(valorStr)
+    logging.info(f'{valor}')
     
     if valor <= 0:
         message = flash('Valor de depósito deve ser maior que R$00,00!')

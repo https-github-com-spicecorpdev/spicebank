@@ -34,7 +34,7 @@
                     <br>
                     <p> Valor a ser transferido: </p>
                     <label for="fvalor"> R$ </label>
-                    <input type="text" id="fvalor" name="fvalor" placeholder="Insira o valor"><br><br>
+                    <input onkeyup="moneyMask(this)" type="text" id="fvalor" name="fvalor" placeholder="Insira o valor"><br><br>
         
                         {% with messages = get_flashed_messages() %}
                         {% if messages %}

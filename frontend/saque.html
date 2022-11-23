@@ -19,7 +19,7 @@
                 <h3> Insira o valor do saque: </h3>
                 <form method="POST" action="/withdraw" name="saque">
                     <label for="fvalor"> R$ </label>
-                    <input type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
+                    <input onkeyup="moneyMask(this)" type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
 
                         {% with messages = get_flashed_messages() %}
                         {% if messages %}
