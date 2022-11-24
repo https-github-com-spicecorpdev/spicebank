@@ -77,12 +77,39 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 </div>
 
 # Product Backlog Total
+|Sprint|Requisitos|
+|------|----------|
+|1|Cadastro de Usuário|
+|1|Login de Usuário|
+|1|Operações de Depósito|
+|1|Operações de Saque|
+|2|Confirmação de Depósito e Saque|
+|2|Comprovante de Depósito e Saque|
+|2|Acompanhamento de Solicitação de Abertura de Conta|
+|3|Extrato do Usuário|
+|3|Alteração de Dados Cadastrais|
+|3|Encerramento de Conta|
+|3|Operações de Transferência|
+|3|Funcionalidades Administrativas do Gerente de Agência|
+|3|Comprovantes de Depósito, Saque e Transferência|
+|3|Definição do Capital Inicial do Banco|
+|3|Funcionalidades do Gerente Geral|
+|4|Cadastro de Gerente de Agência|
+|4|Criação de Agência|
+|4|Gerenciamento de Agências|
+|4|Atribuição de Agência e Conta ao Cadastrar o Usuário|
+|4|Tipos de conta ( Conta Corrente e Conta Poupança)
+|4|Alteração de Taxas Bancárias|
+|4|Juros Compostos|
 
-# Minimum Viable Product(MVP) 3ªSprint
-- Interface de Gerente de Agência
-- Interface de Geral Geral
-- Operações de Tranferência
-- Tipos de conta (Conta corrente e Conta poupança)
+# Minimum Viable Product(MVP) 4ªSprint
+- Cadastro de Gerente de Agência
+- Criação de Agência
+- Gerenciamento de Agências
+- Atribuição de Agência e Conta ao Cadastrar o Usuário
+- Tipos de Conta (Conta Corrente e Conta Poupança)
+- Alteração de Taxas Bancárias
+- Juros Compostos 
 
 Gerente Geral
 <div align="center">
@@ -111,6 +138,6 @@ Foi utilizado o arquivo Product Backlog para validação das estregas de acordo 
   <img src="https://user-images.githubusercontent.com/86271800/194738872-9317607d-e5ab-42dc-8715-4091cf252ed4.png" width=115px>
   <img src="https://user-images.githubusercontent.com/86271800/194738913-a6d23a32-ee53-4958-b62e-bafdb78b79d3.png" width=115px>
   <img src="https://user-images.githubusercontent.com/86271800/194738937-05603160-1c22-490f-ab26-d49f3e87a400.png" width=115px>
-  
+  <img src="https://user-images.githubusercontent.com/86271800/203760512-54a6b091-ccbf-4b20-af20-57d6da50378d.png" width=115px>
 
 
