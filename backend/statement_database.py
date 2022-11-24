@@ -35,3 +35,76 @@ class StatementDatabase:
                 return []
         except mariadb.Error as e:
             logging.error(e)
+
+    #Função para buscar os dados sugeridos
+    def searchStatement(self, pesquisarOperacao, user_id, accountType, dataInicio, dataFinal):
+        cursor = self.db.cursor(dictionary=True)
+        query = ("""
+                    SELECT USR.*, ACCOUNT.*, STRATEMENT.* 
+                    FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+                    INNER JOIN bank_statement AS STRATEMENT ON USR.idUser = STRATEMENT.id_user
+                    WHERE
+                    STRATEMENT.operation LIKE ? AND USR.idUser = ? AND ACCOUNT.account_type = ? AND
+                    date(created_time) between ? and ? order by created_time
+        """)
+        parameters = (pesquisarOperacao, user_id, accountType, dataInicio, dataFinal,)
+        logging.info(f'{parameters}')
+        try:
+            cursor.execute(query, parameters)
+            search_statement = cursor.fetchall()
+            logging.info(f'{search_statement}')
+            if search_statement:
+                return search_statement
+            else:
+                logging.info(f'Nenhum usuário encontrado')
+                return []
+        except mariadb.Error as e:
+            logging.error(e)
+
+    #Função para buscar os dados sugeridos
+    def searchOperation(self, pesquisarOperacao, user_id, accountType):
+        cursor = self.db.cursor(dictionary=True)
+        query = ("""
+                    SELECT USR.*, ACCOUNT.*, STRATEMENT.* 
+                    FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+                    INNER JOIN bank_statement AS STRATEMENT ON USR.idUser = STRATEMENT.id_user
+                    WHERE
+                    STRATEMENT.operation LIKE ? AND USR.idUser = ? AND ACCOUNT.account_type = ? order by created_time
+        """)
+        parameters = (pesquisarOperacao, user_id, accountType,)
+        logging.info(f'{parameters}')
+        try:
+            cursor.execute(query, parameters)
+            search_statement = cursor.fetchall()
+            logging.info(f'{search_statement}')
+            if search_statement:
+                return search_statement
+            else:
+                logging.info(f'Nenhum usuário encontrado')
+                return []
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def searchDate(self, user_id, accountType, dataInicio, dataFinal):
+        cursor = self.db.cursor(dictionary=True)
+        query = ("""
+                    SELECT USR.*, ACCOUNT.*, STRATEMENT.* 
+                    FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+                    INNER JOIN bank_statement AS STRATEMENT ON USR.idUser = STRATEMENT.id_user
+                    WHERE
+                    USR.idUser = ? AND ACCOUNT.account_type = ? AND
+                    date(created_time) between ? and ? order by created_time
+        """)
+        parameters = (user_id, accountType, dataInicio, dataFinal,)
+        logging.info(f'{parameters}')
+        try:
+            cursor.execute(query, parameters)
+            search_statement = cursor.fetchall()
+            logging.info(f'{search_statement}')
+            if search_statement:
+                return search_statement
+            else:
+                logging.info(f'Nenhum usuário encontrado')
+                return []
+        except mariadb.Error as e:
+            logging.error(e)

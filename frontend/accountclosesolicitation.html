@@ -3,40 +3,40 @@
 {% block contents %}
 
     <title> Encerramento de Conta | SpiceBank </title>
-    <body>
-        <br>
-        <br>
-        <div class="useraccountclosesolicitacaocenter1">
+
+    <br>
+    <br>
+    <div class="useraccountclosesolicitacaocenter1">
             
-            <div class="useraccountclosesolicitacaobox1">
-                <h3> Encerramento de conta </h3>
-            </div>
+        <div class="useraccountclosesolicitacaobox1">
+            <h3> Encerramento de conta </h3>
+        </div>
 
-            <div class="useraccountclosesolicitacaobox2">
+        <div class="useraccountclosesolicitacaobox2">
 
-                <h3> Prezado cliente, deseja encerrar sua conta? </h3>
-                <br>
-                <p> Agência: {{ user.account.agency }} /{{ type }}: {{ user.account.account }} </p>
-                <p> Data: {{ date }} </p><br>
-                <p> Saldo atual: R$ {{ "{:,.2f}".format (user.account.balance) }} </p>
-                <br> 
-                <p> Esta ação encerrará sua conta e não será possível acessa-lá novamente.</p>
-                <p> Você tem certeza que deseja encerrar sua conta? </p>
-                <br>
-                <br>
-                <form method="POST" action="/close-account" name="close-account">
-                    <div style="margin: auto">
+            <h3> Prezado cliente, deseja encerrar sua conta? </h3>
+            <br>
+            <p> Agência: {{ user.account.agency }} /{{ type }}: {{ user.account.account }} </p>
+            <p> Data: {{ date }} </p><br>
+            <p> Saldo atual: R$ {{ "{:,.2f}".format (user.account.balance) }} </p>
+            <br> 
+            <p> Esta ação encerrará sua conta e não será possível acessa-lá novamente.</p>
+            <p> Você tem certeza que deseja encerrar sua conta? </p>
+            <br>
+            <br>
+            <form method="POST" action="/close-account" name="close-account">
+                <div style="margin: auto">
                     <button class="useraccountclosesolicitacaobutton2" type="submit"> Encerrar minha conta </button>
-                    </div>
-                </form>
-            </div>   
+                </div>
+            </form>
+        </div>   
         <br>
         <form method="GET" action="{{ url_for('index') }}">
             <div style="margin-left: 0%">
                 <button class="useraccountclosesolicitacaobutton1" type="submit">&#8592 Cancelar e voltar</button>
             </div>
-        </form>    
-
-</body>
+        </form>  
+    </div>  
+    <br>
 
 {% endblock contents %}

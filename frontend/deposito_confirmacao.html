@@ -5,7 +5,9 @@
 
     <title> Confirme seu Depósito | SpiceBank </title>
 
-    <body>
+        <br>
+        <br>
+        <br>
         <div class="userdepositconfirmcenter1">
         
             <div class="userdepositconfirmbox1">
@@ -24,13 +26,14 @@
                 <br>
                 <button class="userdepositconfirmbutton2" type="submit">Confirmar</button>
             </div>
-        </form>
+                </form>
+            <br>
+            <form method="GET" action="{{ url_for('depositform') }}" name="depositform">
+                <div style="margin-left: 0%">
+                    <button class="userdepositconfirmbutton1" type="submit">&#8592 Cancelar e voltar</button>
+                </div>
+            </form>
+        </div>
         <br>
-        <form method="GET" action="{{ url_for('depositform') }}" name="depositform">
-            <div style="margin-left: 0%">
-                <button class="userdepositconfirmbutton1" type="submit">&#8592 Cancelar e voltar</button>
-            </div>
-        </form>
-    </body>
 
 {% endblock contents %}

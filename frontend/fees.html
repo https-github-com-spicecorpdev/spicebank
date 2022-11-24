@@ -1,0 +1,36 @@
+<!-- Tela de definição de fees inicial-->
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/fees.css') }}">
+        <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon">
+        <title> Juros | SpaceBank </title>
+    </head>
+
+    <body class="feesbody"> 
+        
+        <nav class="hgeneralnav"></nav>
+
+        <div class="feescenter1">
+            
+            <div class="feesbox1">  
+                <h3> Defina a taxa de juros Banco SpiceBank </h3>
+            </div>
+
+            <div class="feesbox2"> 
+                <h3> Insira o valor do juros </h3>
+
+                <form method="POST" action="/balanceconfirm">
+                    <input type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
+                    <label for="fvalor"> % </label>
+                    <button class="feesbutton2" type="submit" > Definir </button>
+                </form>
+            </div>
+            <div class="templatedatetime"> {{ date }} </div>
+    </body>
+
+</html> 
