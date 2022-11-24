@@ -108,14 +108,20 @@ def register():
         for i in range(0,len(eliminarCEP)):
             requestCEP = requestCEP.replace(eliminarCEP[i],"")
         if agency_id:
-            address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], requestCEP)
-            user = User(None, request.form['fname'], requestCpf, request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
+
+            account_type = request.form['faccount_type']
+            address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
+            user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
+
             user_id = userDatabase.save(user)
-            solicitationDatabase.open_account_solicitation(user_id, 'Abertura de conta')
-            accountDatabase.create(user_id, agency_id)
+            create_account(user_id, agency_id, account_type)
             return render_template('login.html'), 201
         flash('Nenhuma agência disponível')
         return render_template('cadastro.html'), 200
+
+def create_account(user_id, agency_id, account_type):
+    account_id = accountDatabase.create(user_id, agency_id, account_type)
+    solicitationDatabase.open_account_solicitation(user_id, account_id, 'Abertura de conta')
 
 @app.route('/withdrawform')
 @login_required
@@ -337,13 +343,50 @@ def transferconfirm():
         message = flash('Falha ao transferir')
         return render_template('utransfervoucher.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), saldo=saldoFormatado, type=user.account.typeAccount, message=message), 400
 
-@app.route('/statementform', methods = ['GET'])
+@app.route('/statementform', methods = ['GET', 'POST'])
 @login_required
 def statementForm():
     today = time.strftime('%d/%m/%Y %H:%M:%S')
     user = current_user
+    
     saldo = user.balance()
     statements = statementDatabase.findByUserId(user.id)
+    accountType = accountDatabase.getAccountTypeByAccountNumber(user.accountNumber())
+    logging.info(f'{user.accountNumber()}')
+    logging.info(f'{accountType}')
+    if request.method == "POST":
+        pesquisarOperacao = request.form['pesquisarOperacao']
+        dataInicio = request.form['dataInicio']
+        dataFinal = request.form['dataFinal']
+
+        search_statements = statementDatabase.searchStatement(pesquisarOperacao, user.id, accountType, dataInicio, dataFinal)
+
+        search_operation = statementDatabase.searchOperation(pesquisarOperacao, user.id, accountType)
+
+        search_date = statementDatabase.searchDate(user.id, accountType, dataInicio, dataFinal)
+
+        if search_statements:
+            logging.info(search_statements)
+            return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=search_statements, date=today, type=user.account.typeAccount), 200
+            #return searchStatement
+
+        elif search_operation:
+            return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=search_operation, date=today, type=user.account.typeAccount), 200
+
+        elif search_date:
+          return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=search_date, date=today, type=user.account.typeAccount), 200
+
+        else:
+            if ((pesquisarOperacao == '') and (dataInicio == '') and (dataFinal == '')):
+                logging.info(f'Voltou todas informações!')
+                return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements, date=today, type=user.account.typeAccount), 200
+            else:
+                logging.info(f'Nenhum dado encontrado no extrato!')
+                message = flash('Nenhum dado encontrado no extrato!')
+
+                
+                return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements, date=today, type=user.account.typeAccount, message = message), 200
+                
     return render_template('extrato.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements, date=today, type=user.account.typeAccount), 200
 
 @app.route('/print', methods = ['GET'])
@@ -400,14 +443,14 @@ def close_account_solicitation():
     logout_user()
     return render_template('acompanhamento.html'), 200
     
-@app.route('/proceed-close-account', methods = ['POST'])
-@login_required
-def proceed_close_account_solicitation():
-    user = current_user
-    close_account(user)
-    flash('Solicitação de encerramento de conta criada!')
-    logout_user()
-    return render_template('acompanhamento.html'), 200
+# @app.route('/proceed-close-account', methods = ['POST'])
+# @login_required
+# def proceed_close_account_solicitation():
+#     user = current_user
+#     close_account(user)
+#     flash('Solicitação de encerramento de conta criada!')
+#     logout_user()
+#     return render_template('acompanhamento.html'), 200
 
 def close_account(user):
     solicitation= CloseAccountSolicitation(user.account.id, user.name, user.cpf, user.birthDate, user.address.road, user.address.numberHouse, user.address.district, user.address.cep, user.address.city, user.address.state, user.gender, user_id=user.id)

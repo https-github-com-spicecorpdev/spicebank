@@ -39,16 +39,23 @@ Vide o tópico Banco de Dados para inicialização do banco de dados criado <br>
 1. No terminal, clone o repositório do projeto utilizando o comando: <br>
 `git clone https://github.com/https-github-com-spicecorpdev/spicebank.git`<br>
 1.1 Após realizar o “clone” do repositório, você pode criar um ambiente virtual* seguindo os seguintes comandos no terminal de sua máquina: <br>
-`py-3 -m venv venv(criando um ambiente virtual com o nome venv`<br>
-`python –m venv venv`<br>
+![Windows](https://img.shields.io/badge/Windows-017AD7?style=for-the-badge&logo=windows&logoColor=white)<br>
+`python –m venv venv (criando um ambiente virtual com o nome venv)`<br>
 *Ative o ambiente virtual de sua máquina com o comando:*<br>
 `venv\Scripts\activate`<br>
-**Essa etapa é opcional.*
+**Essa etapa é opcional.* <br>
+![Linux](https://img.shields.io/badge/Linux-E34F26?style=for-the-badge&logo=linux&logoColor=black)<br>
+`python3 -m venv venv (criando um ambiente virtual com o nome venv)`<br>
+*Ative o ambiente virtual de sua máquina com o comando:*<br>
+`env\Scripts\Activate.ps1`<br>
+**Essa etapa é opcional.* <br>
 2. No editor de código de sua preferência, abra a pasta do projeto clonado e instale as bibliotecas necessárias com os comandos:<br>
 `pip install -r requirements.txt`
-3. Se o sistema operacional for **Windows**, executar o arquivo usando o comando:
+3. Se o sistema operacional for **Windows**, executar o arquivo usando o comando:<br>
+![Windows](https://img.shields.io/badge/Windows-017AD7?style=for-the-badge&logo=windows&logoColor=white)<br>
 `$ build.bat`<br>
-Se o sistema operacional for **Linux**, executar o arquivo usando o comando: 
+Se o sistema operacional for **Linux**, executar o arquivo usando o comando:<br>
+![Linux](https://img.shields.io/badge/Linux-E34F26?style=for-the-badge&logo=linux&logoColor=black)<br>
 `$ sh build.sh`<br>
 4. Na pasta “backend/database” o arquivo “db-spicebank.sql” contém o script para criar e executar o banco de dados;
 5. Para inicializar o projeto, entre na pasta “backend” e execute os seguintes comandos, cada comando em um terminal diferente:<br>

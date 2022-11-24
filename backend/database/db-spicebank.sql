@@ -1,4 +1,4 @@
--- DROP DATABASE spicebank;
+DROP DATABASE spicebank;
 
 -- Criando estrutura do banco de dados para spicebank
 CREATE DATABASE IF NOT EXISTS `spicebank`;
@@ -17,8 +17,9 @@ CREATE TABLE IF NOT EXISTS `taccount` (
   `totalbalance` float DEFAULT NULL,
   `idAccountUser` int(11) DEFAULT NULL,
   `agencyUser` int(11) DEFAULT NULL,
+  status ENUM('Pendente','Aprovado','Reprovado', 'Em Análise', 'Encerrado') DEFAULT 'Pendente',
   is_active bool default true,
-  account_type ENUM('CC','CP') default 'CC',
+  account_type ENUM('CC','CP') NOT NULL,
   PRIMARY KEY (`idAccount`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
@@ -66,9 +67,12 @@ CREATE TABLE IF NOT EXISTS `solicitation` (
 CREATE TABLE IF NOT EXISTS `account_solicitation` (
 	id int(11) NOT NULL AUTO_INCREMENT PRIMARY key,
 	id_solicitation int(11) NOT NULL,
+	account_id int (11) not null,
 	account_type ENUM('Conta Corrente','Conta Poupança') default 'Conta Corrente',
 	constraint `fk_solicitation_account_solicitation`
-  	foreign key (`id_solicitation`) references `solicitation`(id)
+  	foreign key (`id_solicitation`) references `solicitation`(id),
+  	constraint `fk_account_solicitation_account`
+  	foreign key (`account_id`) references `taccount`(idAccount)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
 -- Criando estrutura para tabela spicebank.deposit_solicitation
@@ -101,9 +105,9 @@ CREATE TABLE IF NOT EXISTS `update_user_solicitation` (
 CREATE TABLE IF NOT EXISTS `account_close_solicitation` (
 	id int(11) NOT NULL AUTO_INCREMENT PRIMARY key,
 	id_solicitation int(11) NOT NULL,
-	id_account int(11) DEFAULT NULL,
+	id_account int(11) NOT NULL,
 	name varchar(255) DEFAULT NULL,
-	cpf int(12) DEFAULT NULL,
+	cpf bigint(12) DEFAULT NULL,
 	birthdate date DEFAULT NULL,
 	road varchar(255) DEFAULT NULL,
 	number_house int(11) DEFAULT NULL,
@@ -241,15 +245,15 @@ INSERT INTO spicebank.solicitation
 (id_user, status, solicitation_type, created_time, updated_time)
 VALUES(5, 'Pendente', 'Abertura de conta', current_timestamp, null);
 
--- Cria solicitação abertura de conta usuário comum
-insert into spicebank.account_solicitation 
-(id_solicitation, account_type)
-values (1,'Conta Corrente');
-
 -- Cria conta usuário comum
 INSERT INTO spicebank.taccount
 (numberAccount, totalbalance, idAccountUser, agencyUser, is_active, account_type)
 VALUES(NEXTVAL(account_number), 0, 5, 2, 0, 'CC');
+
+-- Cria solicitação abertura de conta usuário comum
+insert into spicebank.account_solicitation
+(account_id, id_solicitation, account_type)
+select (SELECT idAccount from taccount where idAccountUser = 5) account_id, 1, 'Conta Corrente' from dual;
 
 -- Cria usuário comum
 INSERT INTO spicebank.tuser
@@ -261,12 +265,12 @@ INSERT INTO spicebank.solicitation
 (id_user, status, solicitation_type, created_time, updated_time)
 VALUES(6, 'Pendente', 'Abertura de conta', current_timestamp, null);
 
--- Cria solicitação abertura de conta usuário comum
-insert into spicebank.account_solicitation 
-(id_solicitation, account_type)
-values (2,'Conta Corrente');
-
 -- Cria conta usuário comum
 INSERT INTO spicebank.taccount
 (numberAccount, totalbalance, idAccountUser, agencyUser, is_active, account_type)
 VALUES(NEXTVAL(account_number), 0, 6, 3, 0, 'CC');
+
+-- Cria solicitação abertura de conta usuário comum
+insert into spicebank.account_solicitation 
+(account_id, id_solicitation, account_type)
+(select idAccount, 2 as id_solicitation, 'Conta Corrente' as account_type from taccount t where t.idAccountUser = 6);
