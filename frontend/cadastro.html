@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-cadastro.css') }}"> -->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/user_template.css') }}">
+        <script type="text/javascript" src="{{ url_for('static',filename='js/mask.js') }}"></script>
         <!-- <link rel="shortcut icon" href="static/img/cadastro.ico" type="image/x-icon"> -->
         <title>Abra sua conta | SpiceBank</title>
     </head>
@@ -31,7 +32,7 @@
                     <br>
                     <br>
                     <p for="fcpf">CPF:</p>
-                    <input type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf">
+                    <input oninput="mascaraCPF(this)" type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf">
                     <br>
                     <br>
                     <p for="froad">Endereço: Rua/Avenida: </p>
@@ -48,7 +49,7 @@
                     <br>
                     <br>
                     <p for="fcep">CEP:</p>
-                    <input type="text" id="fcep" name="fcep">
+                    <input oninput="mascaraCEP(this)" type="text" id="fcep" name="fcep">
                     <br>
                     <br>
                     <p for="fcity"> Cidade: </p>

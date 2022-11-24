@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `deposit_solicitation` (
 	id int(11) NOT NULL AUTO_INCREMENT PRIMARY key,
 	id_solicitation int(11) NOT NULL,
 	account_number int(11) NOT NULL,
-	deposit_value int(11) NOT NULL,
+	deposit_value float NOT NULL,
 	constraint `fk_solicitation_open_account_solicitation`
   	foreign key (`id_solicitation`) references `solicitation`(id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;

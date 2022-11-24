@@ -7,6 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/user_template.css') }}">
+        <script type="text/javascript" src="{{ url_for('static',filename='js/mask.js') }}"></script>
         <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-login.css') }}">-->
         <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon">
         <title>Acompanhamento | SpiceBank </title>
@@ -30,7 +31,7 @@
             <br>
             <form method="POST" action="/loginAcomp" name="cadastro">
                 <label for="fcpf">CPF:</label>
-                <input type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf"> <br><br>
+                <input oninput="mascaraCPF(this)" type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf"> <br><br>
                 <label for="fpassword">Senha:</label>
                 <input type="password" id="fpassword" name="fpassword"><br><br>
 

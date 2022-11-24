@@ -20,7 +20,7 @@
 
                 <form method="POST" action="/deposit" name="deposit">
                     <label for="fvalor"> R$ </label>
-                    <input type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
+                    <input onkeyup="moneyMask(this)" type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
 
                         {% with messages = get_flashed_messages() %}
                         {% if messages %}
