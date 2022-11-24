@@ -15,7 +15,7 @@ O objetivo do projeto é criar um sistema para gerenciamento de transações em 
 - Banco de Dados
 - Product Backlog Atual
 - Product Backlog Total
-- Minimum Viable Product(MVP) 3ªSprint
+- Minimum Viable Product(MVP) 4ªSprint
 - Cronograma de Entregas
 - Tecnologias Utilizadas
 
