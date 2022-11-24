@@ -1,3 +1,5 @@
+
+
 *{
     margin: 0 auto;
     padding: 0;
@@ -19,9 +21,9 @@ color: #fff;
 
 @media screen and (max-width: 750px) { 
     .justify{
-        float: none;
-        width: 100%;
-    }
+    float: none;
+    width: 100%;
+}
 .templatedatetime{
 position:fixed;
 top:15px;
@@ -145,11 +147,7 @@ top:15px;
      background-color: #f5f5f5;
     transition: background .4s;}
 
-
-
-
-
-    /*RESPONSIVIDADE MENU LATERAL*/
+                /*RESPONSIVIDADE MENU LATERAL*/
 
 @media screen and (max-width: 750px) {
 
@@ -319,21 +317,19 @@ top:15px;
 .admhomebox1 > p{ 
     margin-top: 5%;
 }
-    /*RESPONSIVIDADE ADMHOME.HTML*/
+            /*RESPONSIVIDADE ADMHOME.HTML*/
 
-    @media screen and (max-width: 750px) {
+@media screen and (max-width: 750px) {
 
-        .admhomebox1{
-            margin: auto;
-            width: 75%;
+    .admhomebox1{
+        margin: auto;
+        width: 75%;
         Margin-top: 15%;
         padding: 10px;
-        }
+}
+}
 
-
-    }
-
-/*admsolicitations.html*/
+                    /*admsolicitations.html*/
 
 .admsolicitationsbox1{
     margin: auto;
@@ -412,40 +408,45 @@ margin-top: 1%;
         .admsolicitationsbutton > form >button{
           margin-top:10%;}
       
-      .admsolicitationsbox1{
+  .admsolicitationsbox1{
     margin: auto;
-        margin-top:1%;
-    width: 100%;
+    width: 80%;
+    background-color: #d6d6d6;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius:5px 5px 0px  0px;
+    Margin-top: 8%;
+    padding: 10px;
 }
 
       .admsolicitationsbutton > form{
-            margin-left:0px;
+            margin-left:10%;
             margin-top:5%;
         }
               
 .admsolicitationsbutton > form >button{
-        padding: 15px;}
-
-      .admsolicitationstable{
-        width:100%;
-      }
+        padding: 10px;}
       
-    }
-
-
-
+.admsolicitationstable{
+        margin: auto;
+        width: 80%;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+        border-radius: 0px 0px 5px 5px;
+        background-color: white;
+        text-align: center;
+}
+}
 
             /*admapprovedatachange.html*/
 
 .admapprovedatachangebox1{
-            margin: auto;
-            width: 70%;
-            background-color: #d6d6d6;
-            Margin-top: 1%;
-            padding: 10px;
-            box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
-            border-radius: 5px;
-            }
+    margin: auto;
+    width: 70%;
+    background-color: #d6d6d6;
+    Margin-top: 8%;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
+}
 
 .admapprovedatachangebox1 > h3 {
     text-align: center;}
@@ -490,12 +491,13 @@ margin-top: 1%;
 .admapprovedatachangebutton2{
     text-decoration: none;
     color:#000;
-  font-size:120%;
-      cursor:pointer;
+    font-size:120%;
+    cursor:pointer;
     padding: 15px;
     border-style: none;
     background-color:#ffff;
     cursor: pointer;
+    margin:25px;
 
 }
 
@@ -508,13 +510,28 @@ margin-top: 1%;
   width:fit-content;
 }
 
+            /*responsividade admapprovedatachange.html*/
+
+ @media screen and (max-width: 750px) {
+    .admapprovedatachangebox1{
+      margin: auto;
+      width: 70%;
+      background-color: #d6d6d6;
+      Margin-top: 20%;
+      padding: 10px;
+      box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+      border-radius: 5px;
+  }
+  }
+  
+
             /*admapprovedeleteaccount.html*/
 
 .admapprovedeleteaccountbox1{
     margin: auto;
     width: 70%;
     background-color: #d6d6d6;
-    Margin-top: 1%;
+    Margin-top: 10%;
     padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
     border-radius: 5px;
@@ -552,6 +569,7 @@ margin-top: 1%;
     border-style: none;
     background-color:#ffff;
     cursor: pointer;
+    margin-bottom : 20%
 }
 
 .admapprovedeleteaccountbutton1 > a {
@@ -567,10 +585,11 @@ margin-top: 1%;
     
 .admapprovedeleteaccountbutton2{
     cursor:pointer;
-    padding: 15px;
+    padding: 11px;
     border-style: none;
     background-color:#ffff;
     cursor: pointer;
+    margin-bottom : 20%
 }
 
 .admapprovedeleteaccountbutton2 > a {
@@ -601,100 +620,18 @@ margin-top: 1%;
         margin:auto;
         width:fit-content;
     }
+            /*responsividade admapprovedeleteaccount.html*/
 
-
-    /*admwithdraw.html*/ 
-
-/*centralizar*/
-.admwithdraw{
-    margin: auto;
-    width:50%;
+@media screen and (max-width: 750px) {
+    .admapprovedeleteaccountbox1{
+        margin: auto;
+        width: 70%;
+        background-color: #d6d6d6;
+        Margin-top: 20%;
+        padding: 10px;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+        border-radius: 5px;
 }
-
-.admwithdraw{
-    margin: auto;
-    width:fit-content;
-}
-
-
-
-/*caixa cinza claro*/
-.admwithdrawbox1{
-    background-color: #d6d6d6;
-Margin-top: 15%;
-padding: 15px;
-margin-bottom: 2%;
-box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
-border-radius: 5px;
-}
-
-.admwithdrawbox1 > h2{    
-    text-align: center;
-}
-
-
-.admwithdrawbox2{
-    background-color: #ffffff;
-    padding: 15px;
-    height: fit-content;
-    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
-    border-radius: 5px;
-}
-
-.admwithdrawbox2 > h3{
-    text-align: center;
-    color: #868686;
-}
-
-.admwithdrawbox2 > form{
-
-    margin: auto;
-    text-align: center;
-}
-
-.admwithdrawbox2 > form > input{
-    margin-top: 30px;
-      width: 50%;
-    height: 60px;
-      text-align: center;
-      font-size: 170%;
-}
-
-.admwithdrawbutton1{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.admwithdrawbutton1 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.admwithdrawbutton1:hover{
-    background-color:lawngreen;
-}
-
-
-.admwithdrawbutton2{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.admwithdrawbutton2 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.admwithdrawbutton2:hover{
-    background-color:indianred;
 }
     
 
@@ -714,8 +651,8 @@ border-radius: 5px;
 
 /*caixa cinza claro*/
 .admdepositconfirmbox1{
-    background-color: #d6d6d6;
-Margin-top: 15%;
+background-color: #d6d6d6;
+Margin-top: 20%;
 padding: 15px;
 margin-bottom: 2%;
 box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
@@ -748,10 +685,10 @@ border-radius: 5px 5px 0px 0px;
 
 .admdepositconfirmbox2 > form > input{
     margin-top: 30px;
-      width: 50%;
+    width: 50%;
     height: 60px;
-      text-align: center;
-      font-size: 170%;
+    text-align: center;
+    font-size: 170%;
 }
 
 .admdepositconfirmbutton1{
@@ -760,6 +697,7 @@ border-radius: 5px 5px 0px 0px;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    margin-top:8%;
 }
 
 .admdepositconfirmbutton1 >a {
@@ -790,108 +728,35 @@ border-radius: 5px 5px 0px 0px;
 .admdepositconfirmbutton2:hover{
     background-color:lawngreen;
 }
+/*responsividade admdepositconfirm.html*/
 
-
-
-    /*admwithdrawconfirm.html*/ 
-
-/*centralizar*/
-.admwithdrawconfirmcenter1{
-    margin: auto;
-    width:50%;
-}
-
-.admwithdrawconfirmcenter2{
-    margin: auto;
-    width:fit-content;
-}
-
-
-/*caixa cinza claro*/
-.admwithdrawconfirmbox1{
+@media screen and (max-width: 750px) {
+.admdepositconfirmbox1{
     background-color: #d6d6d6;
-Margin-top: 15%;
-padding: 15px;
-margin-bottom: 2%;
-border-radius: 5px 5px 0px 0px;
-}
+    Margin-top: 35%;
+    padding: 15px;
+    margin-bottom: 2%;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px 5px 0px 0px;
+    }
 
-.admwithdrawconfirmbox1 > h2{    
-    text-align: center;
-}
-
-
-.admwithdrawconfirmbox2{
+.admdepositconfirmbox2{
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
-    border-radius:  0px 0px 5px 5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 0px 0px 5px 5px;
+}
 }
 
-.admwithdrawconfirmbox2 > h3{
-    text-align: center;
-    color: #868686;
-}
-
-.admwithdrawconfirmbox2 > form{
-
-    margin: auto;
-    text-align: center;
-}
-
-.admwithdrawconfirmbox2 > form > input{
-    margin-top: 30px;
-      width: 50%;
-    height: 60px;
-      text-align: center;
-      font-size: 170%;
-}
-
-.admwithdrawconfirmbutton1{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.admwithdrawconfirmbutton1 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.admwithdrawconfirmbutton1:hover{
-    background-color:lawngreen;
-}
-
-
-.admwithdrawconfirmbutton2{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.admwithdrawconfirmbutton2 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.admwithdrawconfirmbutton2:hover{
-    background-color: lawngreen;
-}
-
-  /*admusers.html*/
+                        /*admusers.html*/
 
 
 .admusersbox1{
     margin: auto;
     width: 70%;
     background-color: #d6d6d6;
-    Margin-top: 1%;
+    Margin-top: 5%;
     padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
     border-radius: 5px 5px 0px 0px ;
@@ -956,14 +821,14 @@ margin-top: 1%;
 
         .admusersbutton > form {
         Margin-top: 15%;
-        margin-left:0;
+        margin-left:15%;
         }
 
       .admusersbox1{
-        width:100%;
+        width:70%;
       }
       .admuserstable{
-        width:100%;
+        width:70%;
       }
     }
     
@@ -1075,26 +940,28 @@ width:fit-content;}
   list-style:none;
 }
 
-
-    /*RESPONSIVIDADE ADMUSERSDETAIL.HTML*/
+            /*RESPONSIVIDADE ADMUSERSDETAIL.HTML*/
 
 @media screen and (max-width: 750px) {
-
     .admusersdetailbox1{
-        margin: auto;
-        width: 75%;
-        Margin-top: 15%;
-        }
+    margin: auto;
+    width: 75%;
+    background-color: #d6d6d6;
+    Margin-top: 16%;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
+}
 }
 
 
               /*admprofile.html*/
-
-.admprofilebox1{
+             
+ .admprofilebox1{
     margin: auto;
     width: 70%;
     background-color: #d6d6d6;
-    Margin-top: 1%;
+    Margin-top: 10%;
     padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
     border-radius: 5px;
@@ -1139,76 +1006,71 @@ width:fit-content;}
     border-style:none;
     padding:5px;
     width:100%;
-              
+}
             
-            }
+.admprofileleft{
+    float:left;
+    width: 45%;
+ }
             
+    .admprofileright{
+    float:right;
+    width: 45%;
+}
             
-            .admprofileleft{
-            float:left;
-            width: 45%;
-            }
-            
-            .admprofileright{
-            float:right;
-            width: 45%;
-            }
-            
-            .admprofileright > input{
-              border-radius: 5px;
-              width: 100%;
-              border-style:none;
-              padding:5px
-            }
+    .admprofileright > input{
+    border-radius: 5px;
+    width: 100%;
+    border-style:none;
+    padding:5px
+}
                 
+    .admprofilebutton1{
+    text-align:center;
+    margin-top:2%;
+}
+    .admprofilebutton1 > button{
+    cursor: pointer;
+    border-style:none;
+    padding:14px;
+}
             
-            .admprofilebutton1{
-              text-align:center;
-               margin-top:2%;
-            }
+    .admprofilebutton1 >button:hover{
+    background-color:lawngreen;
+}
             
-            .admprofilebutton1 > button{
-              cursor: pointer;
-              border-style:none;
-              padding:14px;
-            }
+    .admprofilebutton2{
+    text-align:center;
+    margin-top:2%;
+}
             
-            .admprofilebutton1 >button:hover{
-            background-color:lawngreen;
-            }
+    .admprofilebutton2 > button{
+    cursor: pointer;
+    border-style:none;
+    padding:15px;
+}
             
-            .admprofilebutton2{
-              text-align:center;
-              margin-top:2%;
-            }
+    .admprofilebutton2 >button:hover{
+    background-color:indianred;
+}
             
-            .admprofilebutton2 > button{
-              cursor: pointer;
-              border-style:none;
-              padding:15px;
-            }
+    .admprofilecenter{
+    margin:auto;
+    width:fit-content;}
             
-            .admprofilebutton2 >button:hover{
-            background-color:indianred;
-            }
+    /*RESPONSIVIDADE admprofile.HTML*/
             
-            .admprofilecenter{
-            margin:auto;
-            width:fit-content;}
-            
-            
-                /*RESPONSIVIDADE admprofile.HTML*/
-            
-                @media screen and (max-width: 750px) {
-            
-                    .admprofilebox1{
-                        margin: auto;
-                        width: 75%;
-                    Margin-top: 15%;
-                    }
-            
-            
-                }
+@media screen and (max-width: 750px) {
+    .admprofilebox1{
+        margin: auto;
+        width: 70%;
+        background-color: #d6d6d6;
+        margin-top: 20%;
+        padding: 10px;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
+}
+}
             
             
 
@@ -1219,7 +1081,7 @@ width:fit-content;}
     margin: auto;
     width: 70%;
     background-color: #d6d6d6;
-    Margin-top: 1%;
+    Margin-top: 5%;
     padding: 10px;
     border-radius:5px 5px 0px 0px ;
 }
@@ -1230,7 +1092,7 @@ text-align:center;
 
 .admextratobox1 >p{
 text-align:center;
-margin-top: 1%;
+margin-top: 1.5%;
 }
 
 .admextratotable{
@@ -1270,14 +1132,32 @@ margin-top: 1%;
 
 
 .admextratobutton2 {
-  margin-top:5%;
+  margin-top:10%;
   display:inline-block;
         }
         
 .admextratobutton2 > button{
-            cursor:pointer;
+        cursor:pointer;
         padding: 10px;
         border: none;
          background-color:#d6d6d6}
-         
+
+            /*Responsividade admextrato.html*/
+
+@media screen and (max-width: 750px) {
+    .admextratobox1{
+      margin: auto;
+      width: 70%;
+      background-color: #d6d6d6;
+      Margin-top: 10%;
+      padding: 10px;
+      border-radius:5px 5px 0px 0px ;
+  }
+    .admextratobutton2 {
+    margin-top:20%;
+    display:inline-block;
+  }
+  }
     /**//**/
+
+
