@@ -51,9 +51,11 @@ Vide o tópico Banco de Dados para inicialização do banco de dados criado <br>
 **Essa etapa é opcional.* <br>
 2. No editor de código de sua preferência, abra a pasta do projeto clonado e instale as bibliotecas necessárias com os comandos:<br>
 `pip install -r requirements.txt`
-3. Se o sistema operacional for **Windows**, executar o arquivo usando o comando:
+3. Se o sistema operacional for **Windows**, executar o arquivo usando o comando:<br>
+![Windows](https://img.shields.io/badge/Windows-017AD7?style=for-the-badge&logo=windows&logoColor=white)<br>
 `$ build.bat`<br>
-Se o sistema operacional for **Linux**, executar o arquivo usando o comando: 
+Se o sistema operacional for **Linux**, executar o arquivo usando o comando:<br>
+![Linux](https://img.shields.io/badge/Linux-E34F26?style=for-the-badge&logo=linux&logoColor=black)<br>
 `$ sh build.sh`<br>
 4. Na pasta “backend/database” o arquivo “db-spicebank.sql” contém o script para criar e executar o banco de dados;
 5. Para inicializar o projeto, entre na pasta “backend” e execute os seguintes comandos, cada comando em um terminal diferente:<br>
