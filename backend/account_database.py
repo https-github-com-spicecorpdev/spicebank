@@ -8,24 +8,59 @@ class AccountDatabase:
         self.db = connection
         logging.info('Repositório de contas inicializado!')
 
-    def create(self, userId, agency_id):
+    def create(self, userId, agency_id, account_type):
         cursor = self.db.cursor()
         query = """
-            INSERT INTO taccount (numberAccount, totalbalance, idAccountUser, agencyUser, is_active) values (next value for account_number, 0, ?,?, 0);
+            INSERT INTO taccount (numberAccount, totalbalance, idAccountUser, agencyUser, is_active, account_type) values (next value for account_number, 0, ?,?, 0, ?);
         """
-        parameters = (userId, agency_id)
+        parameters = (userId, agency_id, account_type,)
         cursor.execute(query, parameters)
         self.db.commit()
+        return cursor.lastrowid
 
-    def activate_account(self, accountNumber):
+    def update_account_status_by_solicitation_id(self, solicitation_id, status):
+        logging.info(f'atualizando solicitacao {solicitation_id} para {status}')
+        is_active = False
         cursor = self.db.cursor()
-        query = "UPDATE taccount SET is_active = true WHERE numberAccount = ?"
-        parameters = (accountNumber,)
+        if status == 'Aprovado':
+            is_active = True
+        query = """
+        update taccount set status = ?, is_active = ?
+        where idAccount = (
+            select account_id from account_solicitation where id_solicitation = ?
+        );
+        """
+        parameters = (status, is_active, solicitation_id,)
         try:
             cursor.execute(query, parameters)
             self.db.commit()
         except mariadb.Error as e:
             logging.error(e)
+
+    def activate_account_by_solicitation_id(self, id):
+        return self.update_account_status_by_solicitation_id(id, 'Aprovado')
+
+    def update_close_account_status_by_solicitation_id(self, solicitation_id, status):
+        logging.info(f'atualizando solicitacao {solicitation_id} para {status}')
+        is_active = False
+        cursor = self.db.cursor()
+        if status == 'Aprovado':
+            is_active = True
+        query = """
+        update taccount set status = ?, is_active = ?
+        where idAccount = (
+            select id_account from account_close_solicitation where id_solicitation = ?
+        );
+        """
+        parameters = (status, is_active, solicitation_id,)
+        try:
+            cursor.execute(query, parameters)
+            self.db.commit()
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def deactivate_account_by_solicitation_id(self, id):
+        return self.update_close_account_status_by_solicitation_id(id, 'Encerrado')
 
     def updateBalanceByAccountNumber(self, balance, accountNumber):
         cursor = self.db.cursor()

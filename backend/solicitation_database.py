@@ -48,7 +48,7 @@ class SolicitationDatabase:
         except mariadb.Error as e:
             logging.error(e)
 
-    def find_solicitations_by_general_manager(self, registrationNumber):
+    def find_solicitations_by_general_manager(self):
         cursor = self.db.cursor(dictionary=True)
         query = """
             SELECT USR.*, ACCOUNT.*, s.*
@@ -56,9 +56,8 @@ class SolicitationDatabase:
        inner join solicitation s on USR.idUser = s.id_user 
        where  s.status = 'Pendente' ;
         """
-        parameters = (registrationNumber)
         try:
-            cursor.execute(query, parameters)
+            cursor.execute(query,)
             solicitations_from_db = cursor.fetchall()
             if solicitations_from_db:
                 return solicitations_from_db
@@ -116,20 +115,20 @@ class SolicitationDatabase:
         except mariadb.Error as e:
             logging.error(e)
 
-    def open_account_solicitation(self, user_id, solicitation_type, account_type='Conta Corrente'):
+    def open_account_solicitation(self, user_id, account_id, solicitation_type, account_type='Conta Corrente'):
         cursor = self.db.cursor()
         solicitation_query = """
             INSERT INTO solicitation (id_user, status, solicitation_type) VALUES(?, 'Pendente', ?)
         """
         account_solicitation_query = """
-            INSERT INTO account_solicitation (id_solicitation, account_type) VALUES(?, ?)
+            INSERT INTO account_solicitation (id_solicitation, account_id, account_type) VALUES(?, ?, ?)
         """
         solicitation_parameters = (user_id, solicitation_type,)
 
         try:
             cursor.execute(solicitation_query, solicitation_parameters)
             self.db.commit()
-            account_solicitation_parameters = (cursor.lastrowid, account_type)
+            account_solicitation_parameters = (cursor.lastrowid, account_id, account_type)
             cursor.execute(account_solicitation_query, account_solicitation_parameters)
             self.db.commit()
             
@@ -235,6 +234,12 @@ class SolicitationDatabase:
         solicitation_query = """
             INSERT INTO solicitation (id_user, status, solicitation_type) VALUES(?, 'Pendente', ?)
         """
+        account_number_query = """
+            select s.id, a.idAccount, a.numberAccount, u.idUser from tuser u 
+            inner join taccount a on a.idAccountUser = u.idUser 
+            inner join solicitation s on s.id_user = u.idUser
+            where s.id = ?;
+        """
         close_account_solicitation_query = """
             INSERT INTO account_close_solicitation
             (id_solicitation, id_account, name, cpf, birthdate, road, number_house, district, cep, city, state, genre)
@@ -244,7 +249,12 @@ class SolicitationDatabase:
         try:
             cursor.execute(solicitation_query, solicitation_parameters)
             self.db.commit()
-            close_account_solicitation_parameters = (cursor.lastrowid, solicitation.id_account, solicitation.name, solicitation.cpf, solicitation.birthdate, solicitation.road, solicitation.number_house, solicitation.district, solicitation.cep, solicitation.city, solicitation.state, solicitation.genre,)
+            id_solicitation = cursor.lastrowid
+            parameters = (id_solicitation, )
+            cursor.execute(account_number_query, parameters)
+            result= cursor.fetchone()
+            id_account = result[1]
+            close_account_solicitation_parameters = (id_solicitation, id_account, solicitation.name, solicitation.cpf, solicitation.birthdate, solicitation.road, solicitation.number_house, solicitation.district, solicitation.cep, solicitation.city, solicitation.state, solicitation.genre,)
             cursor.execute(close_account_solicitation_query, close_account_solicitation_parameters)
             self.db.commit()
             logging.info('Solicitação de encerramento de conta criada!')

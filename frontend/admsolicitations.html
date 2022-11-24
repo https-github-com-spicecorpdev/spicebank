@@ -35,24 +35,30 @@
         <td>
             <p style="color: gray">Aprovar</p>
         </td>
-        
+        {% elif manager.is_general_manager() %}
+        <td>
+            <a href="{{ url_for('account_approval_by_general_manager',user_id=solicitacao.idUser, acao='aprovar', id=solicitacao.id, type=solicitacao.solicitation_type) }}"
+                class="admsolicitationsaprovar">
+                Aprovar
+            </a>
+        </td>
         {% else %}
         <td>
-            <a
-                href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='aprovar', id=solicitacao.id, type=solicitacao.solicitation_type) }}" class="admsolicitationsaprovar">
+            <a href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='aprovar', id=solicitacao.id, type=solicitacao.solicitation_type) }}"
+                class="admsolicitationsaprovar">
                 Aprovar
             </a>
         </td>
         {% endif %}
         <td>
-            <a
-                href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='reprovar', id=solicitacao.id,type=solicitacao.solicitation_type)}}" class="admsolicitationsreprovar">
+            <a href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='reprovar', id=solicitacao.id,type=solicitacao.solicitation_type)}}"
+                class="admsolicitationsreprovar">
                 Reprovar
             </a>
         </td>
         <td>
-            <a
-                href="{{ url_for('details',user_id=solicitacao.idUser, solicitation_id=solicitacao.id,type=solicitacao.solicitation_type)}}" class="admsolicitationsdetalhes">
+            <a href="{{ url_for('details',user_id=solicitacao.idUser, solicitation_id=solicitacao.id,type=solicitacao.solicitation_type)}}"
+                class="admsolicitationsdetalhes">
                 Detalhes
             </a>
         </td>
