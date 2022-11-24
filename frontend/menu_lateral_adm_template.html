@@ -16,8 +16,10 @@
     {% block nav %}
 
     <nav class="admnav">
-
-
+       
+<div class="admnavitem">
+    <input type="checkbox"  id="navcheck1">
+    <label for="navcheck1"> <i class="fa-solid fa-bars"></i> MENU</label>
         <ul>
             <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
 
@@ -32,10 +34,17 @@
                 <li><a href="/admagencymanagers"><i class="fa-solid fa-users"></i>Gerentes de agência</a></li>
             {% endif %}
         </ul>
+</div>
 
     </nav>
 
     <div class="admnavdiv">
+        <div class="templatedatetime">
+            {{ date }}
+            {% if manager.is_general_manager() %}
+            Capital: R${{ "{:,.2f}".format(balance) }}
+            {% endif %}
+        </div>
         <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
     </div>
     {% endblock %}
@@ -43,9 +52,9 @@
 
     {% block justify %}
     <div class="justify">
-        <div class="templatedatetime">{{ date }}</div>
-        {% block contents %}
 
+        {% block contents %}
+        
         {% endblock contents %}
     </div>
     {% endblock justify%}

@@ -20,6 +20,11 @@ def current_time():
     return {'date': time.strftime('%d/%m/%Y %H:%M:%S')}
 
 @app.context_processor
+def current_balance():
+    balance = bankDatabase.find_capital_by_id(1)
+    return {'balance': balance}
+
+@app.context_processor
 def current_manager():
     manager = current_user
     return {'manager': manager}
@@ -96,7 +101,7 @@ def loginGerente():
 def solicitacao(user_id,action,id,type):
     manager=current_user
     if type=='Abertura de conta':
-        account_approval(manager, user_id, action, id)
+        account_approval(user_id, action, id)
     elif type== 'Confirmação de depósito':
         deposit_approval(user_id, action, id)
         logging.info(f'ID: {user_id}, id_solicitation: {id}')
@@ -110,26 +115,19 @@ def solicitacao(user_id,action,id,type):
 @app.route('/aprovar/<user_id>/<acao>/<id>/<type>/account/approval',methods = ['GET','POST'])
 @login_required
 def account_approval_by_general_manager(user_id,acao,id,type):
-    agency_manager_id = request.form['fmanager']
-    manager = managerDatabase.findById(agency_manager_id)
-    if manager:
-        if type=='Abertura de conta':
-            account_approval(manager, user_id, acao, id)
-    solicitations=solicitationDatabase.find_by_work_agency_id(current_user.workAgency)
+    if type=='Abertura de conta':
+            account_approval(user_id, acao, id)
+    solicitations=solicitationDatabase.find_solicitations_by_general_manager(current_user.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations, manager = current_user), 200
 
 @app.route('/admsolicitations', methods = ['GET'])
 @login_required
 def solicitations():
     manager= current_user
-    solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
-    return render_template('admsolicitations.html', solicitacoes=solicitations), 200
-
-@app.route('/admsolicitationsgeral', methods = ['GET'])
-@login_required
-def solicitations_geral():
-    manager= current_user
-    solicitations=solicitationDatabase.find_solicitations_by_general_manager(manager.registrationNumber)
+    if manager.is_general_manager():
+        solicitations=solicitationDatabase.find_solicitations_by_general_manager(manager.registrationNumber)
+    else:
+        solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations), 200
 
 @app.route('/adm')
@@ -139,19 +137,17 @@ def adm():
     users=userDatabase.find_all_users(manager)
     return render_template('admusers.html', users = users, manager = manager), 200
 
-@app.route('/admagencycreation', methods = ['GET'])
-@login_required
-def admagencycreation():
-    managers = managerDatabase.find_all_agency_manager_without_work_agency()
-    return render_template('admagencycreation.html', managers = managers), 200
-
 @app.route('/admagencycreation', methods = ['POST'])
 @login_required
+def admagencycreation():
+    #managers = managerDatabase.find_all_agency_manager_without_work_agency()
+    agencyDatabase.create_agency(1)
+    flash (f'Agência criada com sucesso!')
+    return render_template('admagencycreation.html'), 200
+
+@app.route('/admagencycreation', methods = ['GET'])
+@login_required
 def perform_admagency_creation():
-    agency_id = agencyDatabase.create_agency(1)
-    manager_id = request.form['fmanager']
-    logging.info(f'agency {agency_id}, manager {manager_id}')
-    managerDatabase.update_work_agency_id_by_maganer_id(agency_id, manager_id)
     agencies = agencyDatabase.find_all_agencies()
     return render_template('admagency.html', agencies = agencies), 200
 
@@ -166,7 +162,8 @@ def admagencymanagers():
 @app.route('/admmanagercreation')
 @login_required
 def admmanagercreation():
-    return render_template('admcreatemanager.html'), 200
+    agencies= agencyDatabase.find_empty_agencies()
+    return render_template('admcreatemanager.html',agencies=agencies), 200
 
 @app.route('/admregistermanager', methods = ['POST'])
 @login_required
@@ -180,8 +177,8 @@ def admregistermanager():
         return render_template('admcreatemanager.html'), 400
     else:
         address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
-        user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
-        managerDatabase.save_user_manager(user)
+        manager = Manager(request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'],-1, request.form['fagency'], 2, address=address)
+        managerDatabase.save_user_manager(manager)
         return redirect(url_for('index')), 200
 
 @app.route('/<user_id>/admuserdetails')
@@ -322,10 +319,11 @@ def withdrawConfirm(user_id, value):
     statement = Statement('D', 'Aprovado', userId=user.id, balance=user.balance(), deposit=0, withdraw=value, date=today)
     statementDatabase.save(statement)
 
-def account_approval(manager, user_id, action, id):
+def account_approval(user_id, action, id):
     if action =='aprovar':
         app.logger.info(f'Aprovando a solicitação do usuario {user_id}')
-        accountDatabase.create(user_id,manager.workAgency)
+        user = userDatabase.findById(user_id)
+        accountDatabase.activate_account(user.accountNumber())
         solicitationDatabase.update_status_by_id(id,'Aprovado') 
     else:
         app.logger.info(f'Reprovando a solicitação do usuario {user_id}')

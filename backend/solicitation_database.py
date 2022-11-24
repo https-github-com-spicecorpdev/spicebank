@@ -34,7 +34,7 @@ class SolicitationDatabase:
             SELECT USR.*, ACCOUNT.*, s.*
        FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
        inner join solicitation s on USR.idUser = s.id_user 
-       where  s.status = 'Pendente' and (ACCOUNT.agencyUser = ? or solicitation_type in ('Abertura de conta', 'Encerrar conta'));
+       where  s.status = 'Pendente' and ACCOUNT.agencyUser = ?;
         """
         parameters = (work_agency_id,)
         try:

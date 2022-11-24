@@ -60,7 +60,11 @@ def loginAcomp():
     if not validate_form(request.form):
         message = flash('Preencha todos os campos!')
         return render_template('acompanhamento.html', message=message), 400
-    solicitation = userDatabase.findSolicitationByCpfAndPassword(request.form['fcpf'], request.form['fpassword'])
+    requestCpf = request.form['fcpf']
+    eliminar = ".-"
+    for i in range(0,len(eliminar)):
+        requestCpf = requestCpf.replace(eliminar[i],"")
+    solicitation = userDatabase.findSolicitationByCpfAndPassword(requestCpf, request.form['fpassword'])
     if solicitation:
         if solicitation.status == "Aprovado":
             message = flash(f'Agência: {solicitation.agency} / Conta: {solicitation.account}')
@@ -89,16 +93,29 @@ def register():
     if not validate_form(request.form):
         message = flash('Preencha todos os campos!')
         return render_template('cadastro.html', message=message), 400
-    if userExists(request.form['fcpf']):
-        requestCpf = request.form['fcpf']
+    requestCpf = request.form['fcpf']
+    eliminar = ".-"
+    for i in range(0,len(eliminar)):
+        requestCpf = requestCpf.replace(eliminar[i],"")
+    logging.info(f"{requestCpf}")
+    if userExists(requestCpf):
         message = flash(f'CPF {requestCpf} com cadastro já existente!')
         return render_template('cadastro.html', message=message), 400
     else:
-        address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
-        user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
-        user_id = userDatabase.save(user)
-        solicitationDatabase.open_account_solicitation(user_id, 'Abertura de conta')
-        return render_template('login.html'), 201
+        agency_id = agencyDatabase.find_next_agency_id_by_amount_users()
+        requestCEP = request.form['fcep']
+        eliminarCEP = "-"
+        for i in range(0,len(eliminarCEP)):
+            requestCEP = requestCEP.replace(eliminarCEP[i],"")
+        if agency_id:
+            address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], requestCEP)
+            user = User(None, request.form['fname'], requestCpf, request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
+            user_id = userDatabase.save(user)
+            solicitationDatabase.open_account_solicitation(user_id, 'Abertura de conta')
+            accountDatabase.create(user_id, agency_id)
+            return render_template('login.html'), 201
+        flash('Nenhuma agência disponível')
+        return render_template('cadastro.html'), 200
 
 @app.route('/withdrawform')
 @login_required
@@ -120,10 +137,16 @@ def withdraw():
         message = flash('Preencha um valor para sacar!')
         return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
     else:
-        value = float(request.form['fvalor'])
+        valorStr = request.form['fvalor']
+        valorStr = valorStr.replace("," , ".")
+        value = float(valorStr)
         valor_format = (f'{value:.2f}')
+        accountType = accountDatabase.getAccountTypeByAccountNumber(user.accountNumber())
         if value <= 0:
             message = flash('Valor de saque deve ser maior que R$00,00!')
+            return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
+        elif ((value > saldo) and (accountType == 'CP')):
+            message = flash('Valor inserido maior que o saldo da conta')
             return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
         try:
             cursor = connection.cursor()
@@ -131,10 +154,10 @@ def withdraw():
             parameters = (1,)
             cursor.execute(query, parameters)
             bankBalance = float(cursor.fetchone()[0])
-            if bankBalance >= value:
+            if (bankBalance >= value):
                 return render_template('saque_confirmacao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=valor_format, date=today, type=user.account.typeAccount), 200
             else:
-                message = flash('Valor maior que o saldo disponível!')
+                message = flash('Valor maior que o saldo do banco disponível!')
                 return render_template('saque.html', agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
         except mariadb.Error as e:
             logging.error(e)
@@ -185,7 +208,9 @@ def deposit():
     if not validate_form(request.form):
         message = flash('Preencha um valor para depositar!')
         return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
-    valor = float(request.form['fvalor'])
+    valorStr = request.form['fvalor']
+    valorStr = valorStr.replace("," , ".")
+    valor = float(valorStr)
     if valor <= 0:
         message = flash('Valor de depósito deve ser maior que R$00,00!')
         return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
@@ -233,7 +258,12 @@ def transfer():
         return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, type=user.account.typeAccount, message=message), 400
     accountForTransfer = request.form['faccountForTransfer']
     agencyForTransfer = request.form['fagencyForTransfer']
-    valor = float(request.form['fvalor'])
+    valorStr = request.form['fvalor']
+    valorStr = valorStr.replace("," , ".")
+    #logging.info(f'{valorStr}')
+    valor = float(valorStr)
+    logging.info(f'{valor}')
+    
     if valor <= 0:
         message = flash('Valor de depósito deve ser maior que R$00,00!')
         return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, type=user.account.typeAccount, message=message), 400

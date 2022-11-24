@@ -6,32 +6,35 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-cadastro.css') }}"> -->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/user_template.css') }}">
+        <script type="text/javascript" src="{{ url_for('static',filename='js/mask.js') }}"></script>
         <!-- <link rel="shortcut icon" href="static/img/cadastro.ico" type="image/x-icon"> -->
-        <title>Abra sua conta | SpiceBank</title>
+        <title> Abra sua conta | SpiceBank </title>
     </head>
 
-    <body class="userbodyregistration"> 
+    <body class="userbodyregistration">
         <nav class="husernav"></nav>
-
+        
         <div class="userregistrationcenter">
-
+            <br>
+            <br>
             <div class="userregistrationbox1">
                 <h2> Abra sua conta! <h2>
-            </div> <!-- userregistrationbox1 -->    
+            </div>    
     
             <div class="userregistrationbox2">
                 <h3> Insira seus dados: </h3>
-
+                <p> Preencha todos os campos! </p>
                 <br>
                 <form method="POST" action="/register" name="cadastro">
                     <p for="fname">Nome:</p>
                     <input type="text" id="fname" name="fname">
                     <br>
                     <br>
+
                     <p for="fcpf">CPF:</p>
-                    <input type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf">
+                    
+                    <input oninput="mascaraCPF(this)" type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf">
                     <br>
                     <br>
                     <p for="froad">Endereço: Rua/Avenida: </p>
@@ -48,7 +51,7 @@
                     <br>
                     <br>
                     <p for="fcep">CEP:</p>
-                    <input type="text" id="fcep" name="fcep">
+                    <input oninput="mascaraCEP(this)" type="text" id="fcep" name="fcep">
                     <br>
                     <br>
                     <p for="fcity"> Cidade: </p>
@@ -56,7 +59,7 @@
                     <br>
                     <br>
                     <div>
-                        <p for="fstate" class="form-p mb-0">Estado:* </p>
+                        <p for="fstate" class="form-p mb-0">Estado: </p>
                         <select id="fstate" name="fstate" class="form-select">
                             <option selected="" value="">Selecione o Estado (UF)</option>
                             <option value="Acre">Acre</option>
@@ -90,29 +93,29 @@
                     </div>  
                     
                     <br>
-                    <div>
+                    <div class="birthdate">
                         <p for="fbirthdate">Data de Nascimento: <input type="date" id="fbirthdate" name="fbirthdate"></p>
                     </div>    
                     <br>
                     
                     <div>
-                        <p for="fgenre" class="form-p mb-0">Gênero:* </p>
+                        <p for="fgenre" class="form-p mb-0">Gênero: </p>
                         <select id="fgenre" name="fgenre" class="form-select">
-                            <option selected="" value="">Qual gênero você se identifica?</option>
+                            <option selected="" value="">Selecione</option>
                             <option value="M">Masculino</option>
                             <option value="F">Feminino</option>
                             <option value="O">Outros</option>
                         </select>
                     </div>  
                     <br>
-                    <!-- <div>
-                        <p for="" class="form-p mb-0">Tipo de Conta:* </p>
+                    <div>
+                        <p for="" class="form-p mb-0">Tipo de Conta: </p>
                         <select id=" " name=" " class="form-select">
-                            <option selected="" value="">Escolha:</option>
+                            <option selected="" value="">Selecione</option>
                             <option value="CC">Corrente</option>
                             <option value="CP">Poupança</option>
                         </select> 
-                    </div> -->
+                    </div>
                     <br>
                     <p for="fpassword">Senha:</p>
                     <input type="password" id="fpassword" name="fpassword">
@@ -131,8 +134,7 @@
                         {% block body %}{% endblock %}
                     </p>
                     <br>
-                    <br>
-                    <div class="userregistrationbutton1">
+                    <div class="userregistrationbutton5">
                         <button type="submit">Efetuar Cadastro</button>
                     </div>
                 </form>
@@ -143,6 +145,8 @@
                     </form>
                 </div>
             </div>
-        </div> <!--userregistrationcenter-->
+        </div>
+        <br>
+        <br>
     </body>
 </html>
