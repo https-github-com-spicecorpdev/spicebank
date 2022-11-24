@@ -3,9 +3,7 @@
 {% block contents %}
 
 <div class="admprofilebox1">
-    <form method="POST" action="/admregistermanager">
-        
-            
+    <form method="POST" action="/admregistermanager">   
                 <p for="fagency" class="form-p mb-0"> Atribua uma agência </p>
                 <select id="fagency" name="fagency" class="form-select">
                     <option selected="" value="">Selecione a agência para este gerente:</option>
@@ -13,38 +11,38 @@
                         <option value="{{ agency.id }}">{{ agency.number }}</option>
                     {% endfor %}
                 </select>
-        <p for="fname">Nome:</p>
-        <input type="text" id="fname" name="fname">
+        <p class="admmanagerright" for="fname">Nome:</p>
+        <input class="admmanagerright" type="text" id="fname" name="fname">
         <br>
         <br>
-        <p for="fcpf">CPF:</p>
-        <input type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf">
+        <p class="admmanagerleft" for="fcpf">CPF:</p>
+        <input class="admmanagerleft" type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf">
         <br>
         <br>
-        <p for="froad">Endereço: Rua/Avenida: </p>
-        <input type="text" id="froad" name="froad">
+        <p class="admmanagerright" for="froad">Endereço: Rua/Avenida: </p>
+        <input class="admmanagerright" type="text" id="froad" name="froad">
         <br>
         <br>
-        <p for="fnumberHouse">Número: </p>
-        <input type="text" id="fnumberHouse" name="fnumberHouse">
+        <p class="admmanagerleft" for="fnumberHouse">Número: </p>
+        <input class="admmanagerleft" type="text" id="fnumberHouse" name="fnumberHouse">
         <br>
         <br>                 
             
-        <p for="fdistrict">Bairro: </p>
-        <input type="text" id="fdistrict" name="fdistrict">
+        <p class="admmanagerright" for="fdistrict">Bairro: </p>
+        <input class="admmanagerright" type="text" id="fdistrict" name="fdistrict">
         <br>
         <br>
-        <p for="fcep">CEP:</p>
-        <input type="text" id="fcep" name="fcep">
+        <p class="admmanagerleft" for="fcep">CEP:</p>
+        <input class="admmanagerleft" type="text" id="fcep" name="fcep">
         <br>
         <br>
-        <p for="fcity"> Cidade: </p>
-        <input type="text" id="fcity" name="fcity">
+        <p class="admmanagerright" for="fcity"> Cidade: </p>
+        <input class="admmanagerright" type="text" id="fcity" name="fcity">
         <br>
         <br>
         <div>
-            <p for="fstate" class="form-p mb-0">Estado:* </p>
-            <select id="fstate" name="fstate" class="form-select">
+            <p class="admmanagerleft" for="fstate" class="form-p mb-0">Estado:* </p>
+            <select class="admmanagerleft" id="fstate" name="fstate" class="form-select">
                 <option selected="" value="">Selecione o Estado (UF)</option>
                 <option value="Acre">Acre</option>
                 <option value="Alagoas">Alagoas</option>
@@ -78,13 +76,14 @@
         
         <br>
         <div>
-            <p for="fbirthdate">Data de Nascimento: <input type="date" id="fbirthdate" name="fbirthdate"></p>
+            <p class="admmanagerright" for="fbirthdate">Data de Nascimento: 
+            <input class="admmanagerright" type="date" id="fbirthdate" name="fbirthdate"></p>
         </div>    
         <br>
         
         <div>
-            <p for="fgenre" class="form-p mb-0">Gênero:* </p>
-            <select id="fgenre" name="fgenre" class="form-select">
+            <p class="admmanagerleft" for="fgenre" class="form-p mb-0">Gênero:* </p>
+            <select class="admmanagerleft" id="fgenre" name="fgenre" class="form-select">
                 <option selected="" value="">Qual gênero você se identifica?</option>
                 <option value="M">Masculino</option>
                 <option value="F">Feminino</option>
@@ -119,12 +118,12 @@
         </p>
         <br>
         <br>
-        <div class="userregistrationbutton1">
+        <div class="admmanagerbutton1">
             <button type="submit">Efetuar Cadastro</button>
         </div>
     </form>
 
-    <form method="GET" action="{{ url_for('admagencymanagers') }}" class="admprofilebutton2">
+    <form method="GET" action="{{ url_for('admagencymanagers') }}" class="admmanagerbutton2">
         <button type="submit">Voltar</button>
     </form>
 </div>
