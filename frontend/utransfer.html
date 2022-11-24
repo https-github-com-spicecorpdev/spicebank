@@ -5,59 +5,61 @@
 
     <title> Transferência | SpiceBank </title>
 
-    <body>
-        <div class="usertransfercenter1">
+    <br>
+    <br>
+    <br>
+    <div class="usertransfercenter1">
 
-            <div class="usertransferbox1">
-                <h3> Transferência entre Contas </h3>
-                <p> Agência: {{ agencia }} / {{ type }}: {{ conta }} </p>
-                <p> Data: {{ today }} </p>
-                <h3> Saldo atual: {{ saldo }} </h3> 
-            </div>
+        <div class="usertransferbox1">
+            <h3> Transferência entre Contas </h3>
+            <p> Agência: {{ agencia }} / {{ type }}: {{ conta }} </p>
+            <p> Data: {{ today }} </p>
+            <h3> Saldo atual: {{ saldo }} </h3> 
+        </div>
             
-            <div class="usertransferbox2">
-                <h3> Insira os dados para transferência: </h3>
+        <div class="usertransferbox2">
+            <h3> Insira os dados para transferência: </h3>
+            <br>
+            <p> Transferir para: </p>
+            <form method="POST" action="/transfer" name="transfer">
+                <label for="fagencyForTransfer"> Agência: </label>
                 <br>
-                <p> Transferir para: </p>
-                <form method="POST" action="/transfer" name="transfer">
-                    <label for="fagencyForTransfer"> Agência: </label>
-                    <br>
-                    <input type="text" id="fagencyForTransfer" name="fagencyForTransfer" placeholder="0">
-                    <br>
-                    <br>
-                    <br>
-                    <label for="faccountForTransfer"> Conta: </label>
-                    <br>
-                    <input type="text" id="faccountForTransfer" name="faccountForTransfer" placeholder="0000">
-                    <br>
-                    <br>
-                    <br>
-                    <p> Valor a ser transferido: </p>
-                    <label for="fvalor"> R$ </label>
-                    <input type="text" id="fvalor" name="fvalor" placeholder="Insira o valor"><br><br>
+                <input type="text" id="fagencyForTransfer" name="fagencyForTransfer" placeholder="0">
+                <br>
+                <br>
+                <br>
+                <label for="faccountForTransfer"> Conta: </label>
+                <br>
+                <input type="text" id="faccountForTransfer" name="faccountForTransfer" placeholder="0000">
+                <br>
+                <br>
+                <br>
+                <p> Valor a ser transferido: </p>
+                <label for="fvalor"> R$ </label>
+                <input onkeyup="moneyMask(this)" type="text" id="fvalor" name="fvalor" placeholder="Insira o valor"><br><br>
         
-                        {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                    <ul class=flashes>
-                        {% for message in messages %}
-                        <li>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                <ul class=flashes>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
                     {% endif %}
                     {% endwith %}
                     {% block body %}{% endblock %}
-                    <br>
-                    <button class="usertransferbutton2" type="submit"> Transferir </button>
-                </form>
-            </div>
+                <br>
+                <button class="usertransferbutton2" type="submit"> Transferir </button>
+            </form>
+        </div>
     <br>
 
-    <form method="GET" action="{{ url_for('index') }}">
-        <div style="margin-left: 0%;">
-            <button class="usertransferbutton1" type="submit">&#8592 Cancelar e voltar</button>
-        </div>
-    </form>
-    
-<body>
+        <form method="GET" action="{{ url_for('index') }}">
+            <div style="margin-left: 0%;">
+                <button class="usertransferbutton1" type="submit">&#8592 Cancelar e voltar</button>
+            </div>
+        </form>
+    </div>
+    <br>
 
 {% endblock contents %}

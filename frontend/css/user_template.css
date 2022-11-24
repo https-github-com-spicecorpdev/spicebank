@@ -8,14 +8,8 @@
 .justify{
     float: right;
     width: 85%;
-    height:100%;
-}
+    height: 100%;
 
-.templatedatetime{
-    margin: auto;
-    color: #fff;
-    padding:15px;
-    background-color: #062e46;
 }
 
 @media screen and (max-width: 750px) { 
@@ -23,12 +17,20 @@
         float: none;
         width: 100%;
     }
+
     .templatedatetime{
         position:fixed;
         top:15px;
         right:16%;
     }
 }
+
+.templatedatetime{
+    margin: auto;
+    color: #fff;
+    padding-left:15px;
+    background-color: #062e46;
+    }
 
 /*Formatação do Usuário*/
 .userbody{
@@ -81,7 +83,7 @@
       }
       .usernavitem > input {
         display:none;
-      }
+      }      
 
     .usernav{
         padding: 0;
@@ -149,91 +151,84 @@
     
     /*RESPONSIVIDADE MENU LATERAL*/
     
-    @media screen and (max-width: 750px) {
+   /*RESPONSIVIDADE MENU LATERAL*/
 
-        .usernavitem > label{
-            display:block;
-            padding:15px;
-            cursor:pointer;
-            color:#fff;
-          }
-          .usernavitem > input {
-            display:none;
-          }
-            
-            .usernavitem > input:checked ~ ul{
-              height:auto;
-              transform:all;
-            }
+@media screen and (max-width: 750px) {
 
-        .usernav{ padding: 0;
-            background-color: #062e46;
-            position: fixed;
-            top: 0;
-            width: 86%; 
-            height: 50px;
-        }
+    .usernavitem > label{
+  display:block;
+  padding:15px;
+  cursor:pointer;
+  color:#fff;
+}
+
+    .usernavitem > input {
+  display:none;
+}
+  
+  .usernavitem > input:checked ~ ul{
+    height:auto;
+    transform:all;
+  }
     
-        .usernav > div > ul {
-            overflow:hidden;
-            text-transform: uppercase;
-            position: absolute;
-            width: 100%;
-            margin-left:10%;
-            margin-top:50px;
-            top:0;
-            transform: none;
-            height:0;
-            z-index:none;
-            background-color: #062e46;
-            transition: all 0.3s linear;
-             }
-        }
-      
-        .usernav > div > ul > li {
-            display:block;
-            font-size:100%;
-        }
-        
-        .usernav > ul > li > a > i{
-            display:none;
-        }
-        
-        .usernav > ul > li > a{
-            color: #062e46;
-            text-decoration: none; 
-            height:100%;
-            transition: background .4s;
-        }
-        
-        .usernav > ul > li > a:hover{
-            background-color: #f5f5f5;
-            transition: background .4s;
-        }
-            
-        .usernavdiv{
-            height:50px;
-            width:14%;
-            position:fixed;
-            top:0;
-            margin-left:86%;
-        }
-        
-        .usernavdiv > a {
-            text-transform: uppercase;
-            color: #000;
-            text-decoration: none; 
-            padding: 5px;
-            transition: background .4s;
-            height:100%;
-        }
+    .usernav{ padding: 0;
+        background-color: #062e46;
+        position: fixed;
+        top: 0;
+        width: 86%; 
+        height: 50px;
+    }
+
+    .usernav > div >  ul {
+        overflow:hidden;
+      width: 100%;
+      margin-top:50px;
+      top:0;
+      transform: none;
+      height:0;
+        z-index:100%;
+        background-color: #062e46;
     
-        .usernavdiv > a:hover{
-            background-color: #f5f5f5;
-            transition: background .4s;
-        }
+    }
+  
+    .usernav  > div >  ul >li {
+        display:inline;
+        font-size:100%;
+    }
+    
+    .usernav  > div > ul > li > a > i{
+        display:none;
+    }
+    
+    
+    .usernav  > div > ul > li > a:hover{
+        background-color: #f5f5f5;
+        transition: background .4s;
+    }
         
-    /**/
+    .usernavdiv{
+        height:50px;
+        width:14%;
+        top:0;
+        margin-left:86%;
+    }
+    
+    .usernavdiv > a {
+        text-transform: uppercase;
+        color: #000;
+        text-decoration: none; 
+        padding: 5px;
+        transition: background .4s;
+        height:100%;
+    }
+
+    .usernav > div > a:hover{
+        background-color: #f5f5f5;
+        transition: background .4s;
+    }
+}
+    
+/**/
 
 /*login.html*/
 .userbodylogin{
@@ -242,9 +237,29 @@
 }
 
     /*caixa cinza claro*/
+    .userloginbox{
+        background-color: #ffffff;
+        Margin-top: 15%;
+        padding: 15px;
+        margin-bottom: 2%;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+        border-radius: 5px;
+    }
+
+        /*Centralizar*/
+        .userlogincenter{
+            margin: auto;
+            width:30%;
+        }
+        
+    
+    .userloginbox > h2{    
+        text-align: center;
+    }
+    
     .userloginbox1{
         margin: auto;
-        width: 25%;
+        width: 100%;
         background-color: #d6d6d6;
         box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
         border-radius: 5px;
@@ -304,7 +319,7 @@
     @media screen and (max-width: 750px) { 
         .userloginbox1{
           margin: auto;
-          width: 75%;
+          width: 100%;
           background-color: #d6d6d6;
           Margin-top: 10%;
           padding: 40px;
@@ -329,6 +344,7 @@
     .userregistrationbox1{
         background-color: #ffffff;
         Margin-top: 15%;
+        width: 100%;
         padding: 15px;
         margin-bottom: 2%;
         box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
@@ -357,6 +373,10 @@
         color: #000;
     }
     
+    .userregistrationbox2 > p {
+        text-align: center;
+    }
+
     .userregistrationbox2 > form{
     
         margin: auto;
@@ -371,16 +391,35 @@
         text-align:center;
         padding:15px;    
     }
-    
+    .userregistrationbox2 > form > div > select{
+        border-style:none;
+        padding:5px;
+        width:35%;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+    .userregistrationbox2 > form > div > input{
+        border-style: none;
+    }
+
+    .birthdate > p > input {
+        border-style:none;
+        padding:5px;
+        width:35%;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+
     /*Botões*/
-    .userregistrationbutton1 > button {
+    .userregistrationbutton5 > button {
         background-color:#ffff;
         border-style:none;
         border-radius: 5px;
         padding:15px;
         cursor:pointer;
     }
-    .userregistrationbutton1 > button:hover{
+    .userregistrationbutton5 > button:hover{
         background-color:#7c9faf;
     }
     
@@ -407,7 +446,7 @@
         @media screen and (max-width: 750px) { 
             .userregistrationbox1{
                 margin: auto;
-                width: 75%;
+                width: 100%;
                 background-color: #ffffff;
                 Margin-top: 10%;
                 padding: 40px;
@@ -423,10 +462,28 @@
         font-family: 'Montserrat', sans-serif;
     }
     
+        /*Centralizar*/
+        .useracompanhamentocenter{
+            margin: auto;
+            width:30%;
+        }
+    
+        .useracompanhamentobox{
+            background-color: #ffffff;
+            Margin-top: 15%;
+            padding: 15px;
+            margin-bottom: 2%;
+            box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+            border-radius: 5px;
+        }
+
+        .useracompanhamentobox > h2{
+            text-align: center; }
+    
         /*caixa cinza claro*/
         .useracompanhamentobox1{
             margin: auto;
-            width: 25%;
+            width: 100%;
             background-color: #d6d6d6;
         Margin-top: 10%;
         padding: 40px;
@@ -473,12 +530,11 @@
             border-style:none;
             padding:15px;
             cursor:pointer;
+            border-radius: 5px;
         }
         
         .useracompanhamentobutton2 > form > button:hover{
-                    background-color:#7c9faf;
-                    border-radius: 5px;
-            
+                    background-color:#7c9faf;            
         }
         
               /*RESPONSIVIDADE DA TELA ACOMPANHAMENTO.HTML*/
@@ -486,7 +542,7 @@
         @media screen and (max-width: 750px) { 
             .useracompanhamentobox1{
               margin: auto;
-              width: 75%;
+              width: 100%;
               background-color: #d6d6d6;
               Margin-top: 10%;
               padding: 40px;
@@ -603,15 +659,12 @@
     Margin-top: 5%;
     padding: 10px;
     border-radius: 5px;
+    top: 50%;
 }
 
 /*tamanho número do saldo*/
 .userhomebox2 > h2{ 
-    text-align: center;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-}
+    text-align: center;}
 
     /*RESPONSIVIDADE HOME.HTML*/
 
@@ -625,6 +678,25 @@
         padding: 10px;
         }
 }
+.userhomebox1 > p{ 
+    margin-top: 5%;
+}
+
+/*caixa que contém o número do saldo*/
+.userhomebox2{
+    width: 100%;
+    height: 90px;
+    background-color: #d6d6d6;
+    Margin-top: 5%;
+    padding: 10px;
+    border-radius: 5px;
+    top: 50%;
+}
+
+/*tamanho número do saldo*/
+.userhomebox2 > h2{ 
+    text-align: center;
+    margin-top: 5% }
 /**/
 
  /*deposito.html*/ 
@@ -1472,9 +1544,10 @@ width:fit-content;}
 
         .datachangebox1{
             margin: auto;
-            width: 75%;
+            width: 100%;
         Margin-top: 15%;
         }
+    }
 
 /*accountclosenotificationo.html*/ 
 
@@ -1777,5 +1850,4 @@ margin-bottom: 2%;
 .useraccountclosereprovebutton2:hover {
     background-color: rgb(71, 177, 106);
 }
-
-}
+ 

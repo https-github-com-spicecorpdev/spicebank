@@ -5,7 +5,9 @@
 
     <title> Depósito | SpiceBank </title>
 
-    <body>
+        <br>
+        <br>
+        <br>
         <div class="userdepositcenter1">
         
             <div class="userdepositbox1">
@@ -20,7 +22,7 @@
 
                 <form method="POST" action="/deposit" name="deposit">
                     <label for="fvalor"> R$ </label>
-                    <input type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
+                    <input onkeyup="moneyMask(this)" type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
 
                         {% with messages = get_flashed_messages() %}
                         {% if messages %}
@@ -32,16 +34,17 @@
                         {% endif %}
                         {% endwith %}
                         {% block body %}{% endblock %}
-                        <button class="userdepositbutton2" type="submit">Depositar</button>
-                    </form>
+                    <button class="userdepositbutton2" type="submit">Depositar</button>
+                </form>
             </div>
         <br>
 
-        <form method="GET" action="{{ url_for('index') }}">
-            <div style="margin-left: 0%;">
-                <button class="userdepositbutton1" type="submit">&#8592 Cancelar e voltar</button>
-            </div>
-        </form>
-    </body>
+            <form method="GET" action="{{ url_for('index') }}">
+                <div style="margin-left: 0%;">
+                    <button class="userdepositbutton1" type="submit">&#8592 Cancelar e voltar</button>
+                </div>
+            </form>
+        </div>
+        <br>
 
 {% endblock contents %}

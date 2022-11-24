@@ -4,7 +4,6 @@
 {% block contents %}
 
     <title> Home | SpiceBank </title>
-    <body>
     
         <div class="userhomebox1">
             <h3> Olá, {{ name }}! </h3>
@@ -16,7 +15,6 @@
                 <h2> R$ {{ "{:,.2f}".format(saldo) }} </h2>
             </div>
         </div>
-
-    </body>
-
+        <br>
+        
 {% endblock contents %}

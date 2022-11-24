@@ -7,56 +7,58 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/user_template.css') }}">
-        <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-login.css') }}">-->
+        <input oninput="mascaraCEP(this)" type="text" id="fcep" name="fcep">
         <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon">
         <title>Acompanhamento | SpiceBank </title>
     </head>
 
     <body class="userbodyacompanhamento">
-        
+        <br>
         <nav class="husernav">
             <ul>
                 <li><a href="/"> Entrar na sua Conta </a></li>
             </ul>
         </nav>
 
-        <!--<div class="center">
-            <img src="static/img/logo-banco.png" alt="logo banco">
-        </div>
-        <hr color="#00BFFF"> -->
+        <div class="useracompanhamentocenter">
+            <div class="useracompanhamentobox">
+                <h2> Acompanhe sua solicitação! </h2>
+            </div>
 
-        <div class="useracompanhamentobox1">
-            <h2> Acompanhe sua solicitação! </h2>
-            <br>
-            <form method="POST" action="/loginAcomp" name="cadastro">
-                <label for="fcpf">CPF:</label>
-                <input type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf"> <br><br>
-                <label for="fpassword">Senha:</label>
-                <input type="password" id="fpassword" name="fpassword"><br><br>
+            <div class="useracompanhamentobox1">
+                <form method="POST" action="/loginAcomp" name="cadastro">
+                    <label for="fcpf">CPF (Somente números):</label>
+                    <input oninput="mascaraCPF(this)" type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf"> <br><br>
+                    <label for="fpassword">Senha:</label>
+                    <input type="password" id="fpassword" name="fpassword"><br><br>
 
-                <label>
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <ul class=flashes>
-                    {% for message in messages %}
-                    <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-                {% endwith %}
-                {% block body %}{% endblock %}</label>
+                    <label>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <ul class=flashes>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                    {% block body %}{% endblock %}</label>
 
-                <div class="useracompanhamentobutton1">
-                    <button type="submit">Login</button>
-                </div>
-            </form>
-            <br>
-            <div class="useracompanhamentobutton2">
-                <form method="GET" action="{{ url_for('index') }}">
-                    <button type="submit">Voltar</button>
+                    <div class="useracompanhamentobutton1">
+                        <button type="submit">Login</button>
+                    </div>
                 </form>
+                <br>
+                <div class="useracompanhamentobutton2">
+                    <form method="GET" action="{{ url_for('index') }}">
+                        <button type="submit">Voltar</button>
+                    </form>
+                </div>
             </div>
         </div>
+        <br>
+        <br>
+
     </body>
 
 </html>

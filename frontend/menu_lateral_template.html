@@ -10,17 +10,17 @@
         <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="{{ url_for('static',filename='js/mask.js') }}"></script>
         {% endblock %}
     </head>
     
     <body class="userbody">
+    
     {% block nav %}
-
         <nav class="usernav">
-
             <div class="usernavitem">
-            <input type="checkbox"  id="navcheck1">
-            <label for="navcheck1"> <i class="fa-solid fa-bars"></i> MENU</label>
+                <input type="checkbox" id="navcheck1">
+                <label for="navcheck1"> <i class="fa-solid fa-bars"></i> MENU</label>
                 <ul>
                     <li><a href="/"><i class="fa-solid fa-house"></i>Home</a></li>
                     <li><a href="/depositform"><i class="fas fa-money-bill-wave"></i>Depósito</a></li>
@@ -34,23 +34,19 @@
         </nav>
 
         <div class="usernavdiv">
-            <div class="templatedatetime">
-                {{ date }}
-            </div>
+            <div class="templatedatetime">{{ date }}</div>
             <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
         </div>
-        {% endblock %}
+    {% endblock %}
 
 
-        {% block justify %}
+    {% block justify %}
         <div class="justify">
-            
             {% block contents %}
 
             {% endblock contents %}
         </div>
-
-        {% endblock justify%}
+    {% endblock justify%}
 
     </body>
 </html>
