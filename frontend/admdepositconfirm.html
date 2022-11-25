@@ -7,7 +7,7 @@
     <div class="admdepositconfirmbox1">
         <h2>DEPÓSITO</h2>
         <p>Agência: {{ user.account.agency }} / Conta: {{ user.account.account }}</p>
-        <p>Saldo: R${{ user.account.balance }}</p>
+        <p>Saldo: R${{ "{:,.2f}".format (user.account.balance) }}</p>
     </div>
 
     <div class="admdepositconfirmbox2">

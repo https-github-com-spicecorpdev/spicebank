@@ -77,6 +77,7 @@ top:15px;
   display:none;
   padding:15px;
   cursor:pointer;
+  border-radius: 5px;
 }
 .admnavitem > input {
   display:none;
@@ -153,6 +154,7 @@ top:15px;
   display:block;
   padding:15px;
   cursor:pointer;
+  border-radius: 5px;
   color:#fff;
 }
 .admnavitem > input {
@@ -259,6 +261,7 @@ top:15px;
     border-style:none;
     padding:15px;
     cursor:pointer;
+    border-radius: 5px;
 }
 
 
@@ -276,6 +279,7 @@ top:15px;
     border-style:none;
     padding:15px;
     cursor:pointer;
+    border-radius: 5px;
 }
 
 .admloginbutton2 > form > button:hover{
@@ -335,7 +339,7 @@ top:15px;
     background-color: #d6d6d6;
     box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
     border-radius:5px 5px 0px  0px;
-    Margin-top: 5%;
+    Margin-top: 1%;
     padding: 10px;
 }
 .admsolicitationsbox1 >h2{
@@ -379,7 +383,8 @@ margin-top: 1%;
         }
         
 .admsolicitationsbutton > form >button{
-            cursor:pointer;
+        cursor:pointer;
+        border-radius: 5px;
         padding: 10px;
         border: none;
          background-color:#d6d6d6}
@@ -474,11 +479,13 @@ margin-top: 1%;
             
 .admapprovedatachangebutton1{
     cursor:pointer;
+    border-radius: 5px;
     padding: 15px;
     border-style: none;
     background-color:#ffff;
     cursor: pointer;
-      text-decoration: none;
+    border-radius: 5px;
+    text-decoration: none;
     color:#000;
   font-size:120%;}
 
@@ -490,10 +497,12 @@ margin-top: 1%;
     text-decoration: none;
     color:#000;
     font-size:120%;
+    border-radius: 5px;
     padding: 15px;
     border-style: none;
     background-color:#ffff;
     cursor: pointer;
+    border-radius: 5px;
     margin:25px;
 
 }
@@ -574,10 +583,12 @@ margin-top: 1%;
     
 .admapprovedeleteaccountbutton1{
     cursor:pointer;
+    border-radius: 5px;
     padding: 15px;
     border-style: none;
     background-color:#ffff;
     cursor: pointer;
+    border-radius: 5px;
     margin-bottom : 20%
 }
 
@@ -594,10 +605,12 @@ margin-top: 1%;
     
 .admapprovedeleteaccountbutton2{
     cursor:pointer;
+    border-radius: 5px;
     padding: 11px;
     border-style: none;
     background-color:#ffff;
     cursor: pointer;
+    border-radius: 5px;
     margin-bottom : 20%
 }
 
@@ -615,10 +628,12 @@ margin-top: 1%;
 
 .admapprovedeleteaccountbutton3{
     cursor:pointer;
+    border-radius: 5px;
     padding: 15px;
     border-style: none;
     background-color:#ffff;
     cursor: pointer;
+    border-radius: 5px;
     }
 
   .admapprovedeleteaccountbutton3:hover{
@@ -702,10 +717,12 @@ border-radius: 5px 5px 0px 0px;
 
 .admdepositconfirmbutton1{
     cursor:pointer;
+    border-radius: 5px;
     padding: 15px;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius: 5px;
     margin-top:8%;
 }
 
@@ -722,7 +739,9 @@ border-radius: 5px 5px 0px 0px;
 
 .admdepositconfirmbutton2{
     cursor:pointer;
+    border-radius: 5px;
     padding: 15px;
+    border-radius: 5px;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
@@ -814,7 +833,7 @@ margin-top: 1%;
         }
 .admusersbutton > form{
             margin-left:15.2%;
-            margin-top:4%;
+            margin-top:5%;
         }
        
 .admusersbutton2>form>button {
@@ -826,6 +845,7 @@ margin-top: 1%;
         
 .admusersbutton > form >button{
         cursor:pointer;
+        border-radius: 5px;
         padding: 10px;
         border: none;
         background-color:#d6d6d6}
@@ -924,6 +944,7 @@ width: 45%;}
 
 .admusersdetailbutton1 > button{
   cursor: pointer;
+  border-radius: 5px;
   border-style:none;
   padding:14px;
 }
@@ -939,6 +960,7 @@ background-color:lawngreen;
 
 .admusersdetailbutton2 > button{
   cursor: pointer;
+  border-radius: 5px;
   border-style:none;
   padding:15px;
 }
@@ -977,7 +999,7 @@ width:fit-content;}
     margin: auto;
     width: 70%;
     background-color: #d6d6d6;
-    Margin-top: 8%;
+    Margin-top: 10%;
     padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
     border-radius: 5px;
@@ -1047,6 +1069,7 @@ width:fit-content;}
 }
     .admprofilebutton1 > button{
     cursor: pointer;
+    border-radius: 5px;
     border-style:none;
     padding:14px;
 }
@@ -1062,6 +1085,7 @@ width:fit-content;}
             
     .admprofilebutton2 > button{
     cursor: pointer;
+    border-radius: 5px;
     border-style:none;
     padding:15px;
 }
@@ -1142,6 +1166,7 @@ width:fit-content;}
         
 .admextratobutton1 > button{
     cursor:pointer;
+    border-radius: 5px;
     padding: 10px;
     border: none;
     background-color:#d6d6d6}
@@ -1155,6 +1180,7 @@ width:fit-content;}
         
 .admextratobutton2 > button{
         cursor:pointer;
+        border-radius: 5px;
         padding: 10px;
         border: none;
          background-color:#d6d6d6}
