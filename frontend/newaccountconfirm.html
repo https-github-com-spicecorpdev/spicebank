@@ -1,0 +1,31 @@
+<!-- Tela de Confirmação de Solicitação de Abertura de Nova Conta do Usuário -->
+{% extends "menu_lateral_template.html" %}
+
+{% block contents %}
+
+    <title> Nova Conta | SpiceBank </title>
+
+        <br>
+        <br>
+        <br>
+        <div class="userdepositconfirmcenter1">
+    
+            <div class="useraccountclosereprovebox1">
+                <h3> Solicitação de Abertura de Conta </h3>
+            </div>
+
+            <div class="useraccountclosereprovebox2">
+                <h3> {{ name }}, sua solicitação de abertura de conta {{INSERIR O TIPO DE CONTA}} foi enviada com sucesso. </h3>
+            <br>                
+        </div>
+        <br>
+        <form method="GET" action="{{ url_for('index') }}">
+            <div style="margin-left: 0%;">
+                <button class="useraccountclosereprovebutton1" type="submit">&#8592 voltar</button>
+            </div>
+        </form>
+    </div>
+    <br>
+    
+
+{% endblock contents %}

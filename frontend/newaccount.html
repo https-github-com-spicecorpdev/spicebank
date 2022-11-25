@@ -1,0 +1,53 @@
+<!-- Tela de Solicitação de Nova Conta -->
+{% extends "menu_lateral_template.html" %}
+
+{% block contents %}
+
+    <title> Nova Conta | SpiceBank </title>
+
+    <br>
+    <br>
+    <br>
+    <div class="usernewaccoutcenter1">
+    
+        <div class="usernewaccountbox1">
+            <h3> Abrir Nova Conta </h3>
+        </div>
+
+        <div class="admapprovedeleteaccountbox1">
+            <h4> {{ name }}, confirme os dados abaixo para solicitar abertura de nova conta.</h4>
+            <div>
+                <p>Nome: {{ user.name }} </p>
+                <p>Gênero: {{ user.gender }}</p>
+                <p class="admapprovedeleteaccountright">data de nascimento: {{ user.birthDate }}</p>
+                <p class="admapprovedeleteaccountleft">cpf: {{ user.cpf }}</p>
+                <br><br><br>
+                <h4>Endereço</h4>
+                <p class="admapprovedatachangeright">Estado: {{ user.address.state }}</p>
+                <p class="admapprovedatachangeleft">cidade: {{ user.address.city }}</p>
+                <p>Bairro: {{ user.address.district }}</p>
+                <p>Rua/Avenida {{ user.address.road }}</p>
+                <p class="admapprovedatachangeright">CEP: {{ user.address.cep }}</p>
+                <p class="admapprovedatachangeleft">Número {{ user.address.numberHouse }}</p>
+            </div>
+                <br><br><br>
+        
+                <div class="admapprovedeleteaccountcenter">
+                    <form
+                        action="">
+                        <button type="submit" class="admapprovedeleteaccountbutton1">
+                            Abrir Nova Conta
+                        </button>
+                    </form>
+                    {% endif %}
+        
+                    <form
+                        action="">
+                        <button type="submit" class="admapprovedeleteaccountbutton2">Voltar</button>
+                    </form>
+        
+                </div>
+        
+            </div>
+
+{% endblock contents %}
