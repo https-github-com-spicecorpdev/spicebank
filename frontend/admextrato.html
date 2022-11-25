@@ -3,7 +3,7 @@
 {% block contents %}
 
     <form method="GET" action="{{ url_for('index') }}" class="admextratobutton1">
-        <button type="submit">&#8592 Ok</button>
+        <button type="submit">&#8592 Voltar</button>
 </form>
 
 <form method="GET" action="{{ url_for('print', user_id=user.id) }}" target="_blank" class="admextratobutton2">
@@ -13,7 +13,7 @@
     <div class="admextratobox1">
         <h2>EXTRATO</h2> <br>
          <p>{{ user.name }}</p>
- <p>Agência: {{ user.account.agency }} / {{ user.account.type }}:{{ user.account.account }}</p>
+ <p>Agência: {{ user.account.agency }} / CC: {{ user.account.type }}:{{ user.account.account }}</p>
  <p>Data:{{ date }}</p>
  <h3>Saldo: R$ {{ "{:,.2f}".format(user.account.balance) }}</h3>
     </div>

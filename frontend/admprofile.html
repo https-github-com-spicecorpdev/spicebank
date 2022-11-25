@@ -28,7 +28,6 @@
                 <option value="F">Feminino</option>
                 {% endif %}
             </select>
-
             <br><br>
             <h4>Endereço</h4>
             <label for="froad">Endereço: Rua/Avenida: </label>
@@ -71,7 +70,7 @@
                     <option value="Sergipe">Sergipe</option>
                     <option value="Tocantins">Tocantins</option>
                 </select>
-            </div>
+        </div>
             <div class="admprofileright">
                 <label for="fcep">CEP:</label>
                 <input type="text" id="fcep" name="fcep" value="{{ user.address.cep }}"> <br><br>
@@ -86,8 +85,7 @@
     <form method="GET" action="{{ url_for('index') }}" class="admprofilebutton2">
         <button type="submit">Voltar</button>
     </form>
-
-    <br><br><br>
+    </div>
     <div class="admprofileleft">
         <label>
             {% with messages = get_flashed_messages() %}
@@ -105,5 +103,5 @@
     <br>
 
 </div>
-
+<br><br><br><br>
 {% endblock contents %}

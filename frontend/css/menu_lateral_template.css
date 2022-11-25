@@ -228,10 +228,21 @@ top:15px;
 
     /*LoginGerente.html*/
 
-    /*caixa cinza claro*/
+.center{
+    background-color: #ffffff;
+    Margin-top: 15%;
+    padding: 15px;
+    margin-bottom: -8%;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
+    width:30%;
+    text-align: center;
+}
+
+   /*caixa cinza claro*/
 .admloginbox1{
     margin: auto;
-    width: 25%;
+    width: 30%;
     background-color: #d6d6d6;
     box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
     border-radius: 5px;
@@ -248,7 +259,7 @@ top:15px;
     margin:auto;
     width:100%;
     border-style:none;
-  border-radius: 5px;
+    border-radius: 5px;
     text-align:center;
     padding:15px;
     
@@ -259,11 +270,13 @@ top:15px;
     border-style:none;
     padding:15px;
     cursor:pointer;
+    border-radius: 5px;
+    width: 130px;
 }
 
 
 .admloginbutton1 > button:hover{
-            background-color:#678a5c87;
+    background-color:#678a5c87;
 }
 
 
@@ -272,14 +285,14 @@ top:15px;
     margin-top:5%;
 }
 .admloginbutton2 > form > button{
-        background-color:#ffff;
+    background-color:#ffff;
     border-style:none;
     padding:15px;
     cursor:pointer;
 }
 
 .admloginbutton2 > form > button:hover{
-            background-color:#678a5c87;
+    background-color:#678a5c87;
 }
 
       /*RESPONSIVIDADE DA TELA ADMLOGIN.HTML*/
@@ -386,11 +399,11 @@ margin-top: 1%;
 
 
 .admsolicitationsaprovar:hover{
-  background-color:lawngreen;
+  background-color:#39692ba1;
 }
 
 .admsolicitationsreprovar:hover{
-  background-color:indianred;
+  background-color:rgba(226, 26, 26, 0.725);
 }
 
 .admsolicitationsdetalhes:hover{
@@ -483,7 +496,7 @@ margin-top: 1%;
   font-size:120%;}
 
 .admapprovedatachangebutton1:hover{
-    background-color: lawngreen;
+    background-color: #39692ba1;
 }
 
 .admapprovedatachangebutton2{
@@ -499,7 +512,7 @@ margin-top: 1%;
 }
 
 .admapprovedatachangebutton2:hover{
-    background-color:indianred;
+    background-color:rgba(226, 26, 26, 0.725);
 }
 
 .admapprovedatachangecenter{
@@ -516,7 +529,7 @@ margin-top: 1%;
     background-color:#ffff;
 }
 .admapprovedatachangebutton4:hover{
-    background-color: indianred;
+    background-color: rgba(226, 26, 26, 0.725);
 }
 
             /*responsividade admapprovedatachange.html*/
@@ -588,7 +601,7 @@ margin-top: 1%;
 }
 
 .admapprovedeleteaccountbutton1:hover{
-    background-color:lawngreen;
+    background-color:#39692ba1;
   }
     
     
@@ -610,7 +623,7 @@ margin-top: 1%;
 
 
 .admapprovedeleteaccountbutton2:hover{
-     background-color:indianred;
+     background-color:rgba(226, 26, 26, 0.725);
   }
 
 .admapprovedeleteaccountbutton3{
@@ -716,7 +729,7 @@ border-radius: 5px 5px 0px 0px;
 }
 
 .admdepositconfirmbutton1:hover{
-    background-color:indianred;
+    background-color:rgba(226, 26, 26, 0.725);
 }
 
 
@@ -735,7 +748,7 @@ border-radius: 5px 5px 0px 0px;
 }
 
 .admdepositconfirmbutton2:hover{
-    background-color:lawngreen;
+    background-color:#39692ba1;
 }
 /*responsividade admdepositconfirm.html*/
 
@@ -854,7 +867,7 @@ margin-top: 1%;
     margin: auto;
     width: 70%;
     background-color: #d6d6d6;
-    Margin-top: 1%;
+    Margin-top: 5%;
     padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
     border-radius: 5px;
@@ -929,7 +942,7 @@ width: 45%;}
 }
 
 .admusersdetailbutton1 >button:hover{
-background-color:lawngreen;
+background-color:#39692ba1;
 }
 
 .admusersdetailbutton2{
@@ -944,7 +957,7 @@ background-color:lawngreen;
 }
 
 .admusersdetailbutton2 >button:hover{
-background-color:indianred;
+background-color:rgba(226, 26, 26, 0.725);
 }
 
 .admusersdetailcenter{
@@ -1052,7 +1065,7 @@ width:fit-content;}
 }
             
     .admprofilebutton1 >button:hover{
-    background-color:lawngreen;
+    background-color:#39692ba1;
 }
             
     .admprofilebutton2{
@@ -1067,7 +1080,7 @@ width:fit-content;}
 }
             
     .admprofilebutton2 >button:hover{
-    background-color:indianred;
+    background-color:rgba(226, 26, 26, 0.725);
 }
             
     .admprofilecenter{
@@ -1249,7 +1262,7 @@ width:fit-content;}
 }
             
     .admmanagerbutton1 >button:hover{
-    background-color:lawngreen;
+    background-color:#39692ba1;
 }
             
     .admmanagerbutton2{
@@ -1265,7 +1278,7 @@ width:fit-content;}
 }
             
   .admmanagerbutton2 >button:hover{
-  background-color:indianred;
+  background-color:rgba(226, 26, 26, 0.725);
 }
             
     /*RESPONSIVIDADE admcreatemanager.HTML*/
