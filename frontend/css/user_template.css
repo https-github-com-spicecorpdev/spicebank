@@ -236,6 +236,12 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+.img1{
+    margin-top:7%;
+    position:absolute;
+    z-index:-1;
+}
+
     /*caixa cinza claro*/
     .userloginbox{
         background-color: #ffffff;
@@ -244,6 +250,7 @@
         margin-bottom: 2%;
         box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
         border-radius: 5px;
+        z-index:100;
     }
 
         /*Centralizar*/
@@ -324,6 +331,14 @@
           Margin-top: 10%;
           padding: 40px;
     }
+
+        .userlogincenter{
+            width:60%;
+        }
+
+        .img1{
+            display:none;
+        }
     
     }
 
@@ -339,6 +354,13 @@
         margin: auto;
         width:30%;
     }
+
+.img2{
+    margin-top:10%;
+    position:fixed;
+    z-index:-1;
+    width:40%;
+}
     
     /*caixa cinza claro*/
     .userregistrationbox1{
@@ -444,6 +466,12 @@
      /*RESPONSIVIDADE DA TELA CADASTRO*/
         
         @media screen and (max-width: 750px) { 
+            .userregistrationcenter{
+                width:70%;
+            }
+
+            .img2{display:none;}
+            
             .userregistrationbox1{
                 margin: auto;
                 width: 100%;
