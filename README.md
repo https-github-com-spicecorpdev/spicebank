@@ -47,7 +47,7 @@ Vide o tópico Banco de Dados para inicialização do banco de dados criado <br>
 ![Linux](https://img.shields.io/badge/Linux-E34F26?style=for-the-badge&logo=linux&logoColor=black)<br>
 `python3 -m venv venv (criando um ambiente virtual com o nome venv)`<br>
 *Ative o ambiente virtual de sua máquina com o comando:*<br>
-`env\Scripts\Activate.ps1`<br>
+`venv\Scripts\Activate.ps1`<br>
 **Essa etapa é opcional.* <br>
 2. No editor de código de sua preferência, abra a pasta do projeto clonado e instale as bibliotecas necessárias com os comandos:<br>
 `pip install -r requirements.txt`
