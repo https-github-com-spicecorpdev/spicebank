@@ -140,11 +140,8 @@ Foi utilizado o arquivo Product Backlog para validação das estregas de acordo 
 - Entrega IV 27/11
 
 # Tecnologias Utilizadas
-  <img src="https://user-images.githubusercontent.com/86271800/194738779-f117d6f3-852b-40c1-a5ea-8fec628c3a15.png" width=115px>
-  <img src="https://user-images.githubusercontent.com/86271800/194738843-7a2b8a5c-e9e1-48ba-88ac-d0a880f98878.png" width=115px>
-  <img src="https://user-images.githubusercontent.com/86271800/194738872-9317607d-e5ab-42dc-8715-4091cf252ed4.png" width=115px>
-  <img src="https://user-images.githubusercontent.com/86271800/194738913-a6d23a32-ee53-4958-b62e-bafdb78b79d3.png" width=115px>
-  <img src="https://user-images.githubusercontent.com/86271800/194738937-05603160-1c22-490f-ab26-d49f3e87a400.png" width=115px>
-  <img src="https://user-images.githubusercontent.com/86271800/203760512-54a6b091-ccbf-4b20-af20-57d6da50378d.png" width=115px>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/203990136-e8180ca8-5d29-47f8-bd73-ceb408293a45.png" width="1000px", height="610px", />
+</div>
 
 
