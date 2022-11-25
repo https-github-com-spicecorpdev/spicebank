@@ -141,7 +141,7 @@ Foi utilizado o arquivo Product Backlog para validação das estregas de acordo 
 
 # :floppy_disk: Tecnologias Utilizadas
 <div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/203990136-e8180ca8-5d29-47f8-bd73-ceb408293a45.png" width="1000px", height="610px", />
+<img src="https://user-images.githubusercontent.com/86271800/203990136-e8180ca8-5d29-47f8-bd73-ceb408293a45.png" width="1000px", height="580px", />
 </div>
 
 
