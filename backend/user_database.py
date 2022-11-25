@@ -32,6 +32,48 @@ class UserDatabase:
         else:
             logging.info(f'Usuário com o id: {id} não encontrado!')
             return None
+    
+    def findById_and_id_solicitation(self, id):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+            select account.*, s.*, u.*,a.* from account_solicitation account 
+            inner join solicitation s on s.id  = account.id_solicitation
+            inner join taccount a on a.idAccount = account.account_id 
+            inner join tuser u on u.idUser = a.idAccountUser 
+            where account.id_solicitation = ? ;
+        """
+        parameters = (id,)
+        cursor.execute(query, parameters) 
+        userFromDB = cursor.fetchone()
+        if userFromDB:
+            address = Address(userFromDB['roadUser'], userFromDB['numberHouseUser'], userFromDB['districtUser'], userFromDB['cityUser'], userFromDB['stateUser'], userFromDB['cepUser'])
+            account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'], typeAccount=userFromDB['account_type'])
+            return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], userFromDB['passwordUser'], userFromDB['birthdateUser'], userFromDB['genreUser'], account=account, address=address)
+        else:
+            logging.info(f'Usuário com o id: {id} não encontrado!')
+            return None
+
+    def findByIdAndNumberAccount(self, id, numberAccount):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+        SELECT USR.*, ACCOUNT.* 
+       FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+       WHERE USR.idUser = ? and ACCOUNT.numberAccount = ?
+       union    
+        SELECT USR.*, ACCOUNT.* 
+       FROM tuser AS USR right JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+       WHERE USR.idUser = ? and ACCOUNT.numberAccount = ? ;
+        """
+        parameters = (id,numberAccount,id,numberAccount,)
+        cursor.execute(query, parameters) 
+        userFromDB = cursor.fetchone()
+        if userFromDB:
+            address = Address(userFromDB['roadUser'], userFromDB['numberHouseUser'], userFromDB['districtUser'], userFromDB['cityUser'], userFromDB['stateUser'], userFromDB['cepUser'])
+            account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'], typeAccount=userFromDB['account_type'])
+            return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], userFromDB['passwordUser'], userFromDB['birthdateUser'], userFromDB['genreUser'], account=account, address=address)
+        else:
+            logging.info(f'Usuário com o id: {id} não encontrado!')
+            return None
 
     def findByManagerId(self, id):
         cursor = self.db.cursor(dictionary=True)

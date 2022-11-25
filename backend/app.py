@@ -21,6 +21,7 @@ def current_time():
 @login_required
 def index():
     user = current_user
+    logging.info(f'{user}')
     today = time.strftime('%d/%m/%Y %H:%M:%S')
     return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today, type=user.account.typeAccount), 200
 
@@ -41,6 +42,7 @@ def login():
     user = userDatabase.findByAgencyAccountAndPassword(request.form['fagency'],request.form['faccount'], request.form['fpassword'])
     if user:
         login_user(user)
+        logging.info(f'{user}')
         return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today, type=user.account.typeAccount), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
@@ -121,7 +123,22 @@ def register():
 
 def create_account(user_id, agency_id, account_type):
     account_id = accountDatabase.create(user_id, agency_id, account_type)
-    solicitationDatabase.open_account_solicitation(user_id, account_id, 'Abertura de conta')
+    if account_type=='CP':
+        solicitationDatabase.open_account_solicitation(user_id, account_id, 'Abertura de conta', 'Conta Poupança')
+    else:
+        solicitationDatabase.open_account_solicitation(user_id, account_id, 'Abertura de conta', 'Conta Corrente')
+
+@app.route('/new_account', methods = ['GET','POST'])
+def new_account():
+    user=current_user
+    if request.method == "POST":
+        if user.account.typeAccount=='CC':
+            create_account(user.id, user.account.agency, 'CP')
+            return render_template('newaccountconfirm.html',user=user), 200
+        else:
+            create_account(user.id, user.account.agency, 'CC')
+            return render_template('newaccountconfirm.html',user=user), 200
+    return render_template('newaccount.html',user=user), 200
 
 @app.route('/withdrawform')
 @login_required
@@ -262,8 +279,6 @@ def transfer():
     if not validate_form(request.form):
         message = flash('Preencha todos os campos para transferir!')
         return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, type=user.account.typeAccount, message=message), 400
-    accountForTransfer = request.form['faccountForTransfer']
-    agencyForTransfer = request.form['fagencyForTransfer']
     valorStr = request.form['fvalor']
     valorStr = valorStr.replace("," , ".")
     #logging.info(f'{valorStr}')

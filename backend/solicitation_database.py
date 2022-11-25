@@ -26,7 +26,7 @@ class SolicitationDatabase:
                 logging.info(f'Nenhuma solicitação com id {id} encontrado!')
                 return None
         except mariadb.Error as e:
-            logging.error(e)
+            logging.error
 
     def find_by_work_agency_id(self, work_agency_id):
         cursor = self.db.cursor(dictionary=True)
@@ -34,7 +34,7 @@ class SolicitationDatabase:
             SELECT USR.*, ACCOUNT.*, s.*
        FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
        inner join solicitation s on USR.idUser = s.id_user 
-       where  s.status = 'Pendente' and ACCOUNT.agencyUser = ?;
+       where  s.status = 'Pendente' and account.status='Pendente' and ACCOUNT.agencyUser = ? ;
         """
         parameters = (work_agency_id,)
         try:
@@ -51,10 +51,11 @@ class SolicitationDatabase:
     def find_solicitations_by_general_manager(self):
         cursor = self.db.cursor(dictionary=True)
         query = """
-            SELECT USR.*, ACCOUNT.*, s.*
+         SELECT USR.*, ACCOUNT.*, s.*
        FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
        inner join solicitation s on USR.idUser = s.id_user 
-       where  s.status = 'Pendente' ;
+       where  s.status = 'Pendente' and account.is_active = 0 or (s.solicitation_type ='Confirmação de depósito' and s.status = 'Pendente' and account.status='Pendente') 
+       or (s.solicitation_type ='Alteração de dados' and s.status = 'Pendente');
         """
         try:
             cursor.execute(query,)
@@ -115,7 +116,7 @@ class SolicitationDatabase:
         except mariadb.Error as e:
             logging.error(e)
 
-    def open_account_solicitation(self, user_id, account_id, solicitation_type, account_type='Conta Corrente'):
+    def open_account_solicitation(self, user_id, account_id, solicitation_type, account_type):
         cursor = self.db.cursor()
         solicitation_query = """
             INSERT INTO solicitation (id_user, status, solicitation_type) VALUES(?, 'Pendente', ?)
@@ -128,7 +129,7 @@ class SolicitationDatabase:
         try:
             cursor.execute(solicitation_query, solicitation_parameters)
             self.db.commit()
-            account_solicitation_parameters = (cursor.lastrowid, account_id, account_type)
+            account_solicitation_parameters = (cursor.lastrowid, account_id, account_type,)
             cursor.execute(account_solicitation_query, account_solicitation_parameters)
             self.db.commit()
             

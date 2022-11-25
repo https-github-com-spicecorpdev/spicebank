@@ -181,16 +181,21 @@ def admregistermanager():
         managerDatabase.save_user_manager(manager)
         return redirect(url_for('index')), 200
 
-@app.route('/<user_id>/admuserdetails')
+
+@app.route('/<user_id>/<numberAccount>/admuserdetails')
 @login_required
-def adm_user_details(user_id):
+def adm_user_details(user_id,numberAccount):
     manager = current_user
-    user = userDatabase.findById(user_id)
-    target_manager = managerDatabase.find_by_user_id(user.id)
+    user = userDatabase.findByIdAndNumberAccount(user_id,numberAccount)
+    target_manager = managerDatabase.find_by_user_id_and_registration_number(user_id,numberAccount)
     if target_manager:
-        return render_template('admagencymanagerdetail.html', target_manager = target_manager, manager = manager), 200
+        aniversario = manager.birthDate
+        birthDate = aniversario.strftime("%d/%m/%Y")
+        return render_template('admagencymanagerdetail.html', target_manager = target_manager, manager = manager, birthDate=birthDate), 200
     else:
-        return render_template('admusersdetail.html', user = user, manager = manager), 200
+        aniversario = user.birthDate
+        birthDate = aniversario.strftime("%d/%m/%Y")
+        return render_template('admusersdetail.html', user = user, manager = manager,birthDate=birthDate ), 200
 
 @app.route('/admagency', methods = ['GET'])
 @login_required
@@ -205,6 +210,8 @@ def admagency():
 def admprofile():
     manager=current_user
     today = time.strftime('%d/%m/%Y %H:%M:%S')
+    aniversario = manager.birthDate
+    birthDate = aniversario.strftime("%d/%m/%Y")
     user = userDatabase.findById(manager.id)
     logging.info(f'{user}')
     if request.method == 'POST':
@@ -215,7 +222,7 @@ def admprofile():
         flash('Dados alterados com sucesso!')
         return render_template('admhome.html', date=today), 200
     # return redirect(url_for('adm')), 200
-    return render_template('admprofile.html', user = user), 200
+    return render_template('admprofile.html', user = user, birthDate=birthDate), 200
 
 @app.route('/admprofilegeneral', methods = ['POST', 'GET'])
 @login_required
@@ -251,6 +258,7 @@ def adm_edit_data_user(user_id):
 @login_required
 def details(user_id,solicitation_id,type):
     manager=current_user
+    logging.info(f'{solicitation_id}')
     if type == 'Alteração de dados cadastrais':
         update_user_solicitation = solicitationDatabase.find_update_user_solicitation_by_id_solicitation(solicitation_id, user_id)
         user = userDatabase.findById(user_id)
@@ -264,10 +272,10 @@ def details(user_id,solicitation_id,type):
         solicitation = solicitationDatabase.find_deposit_solicitation_by_id_solicitation(solicitation_id)
         return render_template('admdepositconfirm.html', user = user, solicitation = solicitation, manager = manager), 200
     elif type == 'Abertura de conta':
-        open_account_solicitation = solicitationDatabase.find_open_account_solicitation_by_id(solicitation_id)
-        user = userDatabase.findById(user_id)
+        user = userDatabase.findById_and_id_solicitation(solicitation_id)
+        logging.info(f'{user}')
         managers = managerDatabase.find_all_agency_manager()
-        return render_template('admdetailsuserapprove.html', solicitation=open_account_solicitation, user=user, managers = managers,  manager = manager), 200
+        return render_template('admdetailsuserapprove.html', user=user, managers = managers,  manager = manager), 200
     else:
         solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
         return render_template('admsolicitations.html', solicitacoes=solicitations, manager = manager), 200

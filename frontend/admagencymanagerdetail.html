@@ -11,7 +11,7 @@
             <input type="text" id="fname" name="fname" value="{{ target_manager.name }}" > <br><br>
             <p class="admusersdetaileft">CPF: {{ target_manager.cpf }} </p>
             <br>
-            <p class="admusersdetailright">Data de Nascimento: {{ target_manager.birthDate }} </p>
+            <p class="admusersdetailright">Data de Nascimento: {{ birthDate }} </p>
             <label for="fgenre" class="form-label mb-0"class="admusersdetailright">Gênero</label>
             <select id="fgenre" name="fgenre" class="form-select">
                 {%if target_manager.gender == 'M': %}  
