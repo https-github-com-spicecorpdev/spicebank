@@ -8,11 +8,12 @@
     <div>
         <p>Nome: {{ user.name }} </p>
         <p>Gênero: {{ user.gender }}</p>
+        <p>CPF: {{ user.cpf }}</p>
         <br><br>
         <h4>Endereço</h4>
         <br><br>
         <p class="admapprovedatachangeright">Estado: {{ user.address.state }}</p>
-        <p class="admapprovedatachangeleft">cidade: {{ user.address.city }}</p>
+        <p class="admapprovedatachangeleft">Cidade: {{ user.address.city }}</p>
         <p>Bairro: {{ user.address.district }}</p>
         <p>Rua/Avenida: {{ user.address.road }}</p>
         <p class="admapprovedatachangeright">CEP: {{ user.address.cep }}</p>
@@ -32,7 +33,7 @@
 
         <div class="admapprovedatachangecenter">
             <form method="GET" action="{{ url_for('solicitations') }}">
-                <button class="admdepositconfirmbutton1" type="submit">Voltar</button>
+                <button class="admapprovedatachangebutton4" type="submit">Voltar</button>
             </form>
         </div>
 

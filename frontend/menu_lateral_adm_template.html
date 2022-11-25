@@ -42,6 +42,7 @@
         <div class="templatedatetime">
             {{ date }}
             {% if manager.is_general_manager() %}
+            <br>
             Capital: R${{ "{:,.2f}".format(balance) }}
             {% endif %}
         </div>
