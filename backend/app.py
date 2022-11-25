@@ -1,4 +1,4 @@
-from flask import request, render_template, flash
+from flask import request, render_template, flash, redirect
 from flask_login import login_user, current_user, login_required, logout_user
 import mariadb
 from . import create_app, get_connection, get_repositories
@@ -41,7 +41,8 @@ def login():
     user = userDatabase.findByAgencyAccountAndPassword(request.form['fagency'],request.form['faccount'], request.form['fpassword'])
     if user:
         login_user(user)
-        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today), 200
+        return redirect("{{ url_for('/') }}"), 200
+        #return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('login.html', message=message), 400
@@ -94,19 +95,12 @@ def register():
         message = flash('Preencha todos os campos!')
         return render_template('cadastro.html', message=message), 400
     requestCpf = request.form['fcpf']
-    eliminar = ".-"
-    for i in range(0,len(eliminar)):
-        requestCpf = requestCpf.replace(eliminar[i],"")
-    logging.info(f"{requestCpf}")
     if userExists(requestCpf):
         message = flash(f'CPF {requestCpf} com cadastro já existente!')
         return render_template('cadastro.html', message=message), 400
     else:
         agency_id = agencyDatabase.find_next_agency_id_by_amount_users()
         requestCEP = request.form['fcep']
-        eliminarCEP = "-"
-        for i in range(0,len(eliminarCEP)):
-            requestCEP = requestCEP.replace(eliminarCEP[i],"")
         if agency_id:
 
             account_type = request.form['faccount_type']
@@ -122,6 +116,24 @@ def register():
 def create_account(user_id, agency_id, account_type):
     account_id = accountDatabase.create(user_id, agency_id, account_type)
     solicitationDatabase.open_account_solicitation(user_id, account_id, 'Abertura de conta')
+
+@app.route('/new_account', methods = ['GET','POST'])
+def new_account():
+    user=current_user
+    if request.method == "POST":
+        if user.account.typeAccount=='CC':
+            create_account(user.id, user.account.agency, 'CP')
+            return render_template('newaccountconfirm.html',user=user), 200
+        else:
+            create_account(user.id, user.account.agency, 'CC')
+            return render_template('newaccountconfirm.html',user=user), 200
+    return render_template('newaccount.html',user=user), 200
+
+#@app.route('/create_new_account', methods = ['GET'])
+#def create_new_account():
+    #user=current_user
+    #return render_template('newaccountconfirm.html',user=user), 200
+
 
 @app.route('/withdrawform')
 @login_required

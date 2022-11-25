@@ -15,7 +15,7 @@
         </div>
 
         <div class="admapprovedeleteaccountbox1">
-            <h4> {{ name }}, confirme os dados abaixo para solicitar abertura de nova conta.</h4>
+            <h4> {{ user.name }}, confirme os dados abaixo para solicitar abertura de nova conta.</h4>
             <div>
                 <p>Nome: {{ user.name }} </p>
                 <p>Gênero: {{ user.gender }}</p>
@@ -29,20 +29,23 @@
                 <p>Rua/Avenida {{ user.address.road }}</p>
                 <p class="admapprovedatachangeright">CEP: {{ user.address.cep }}</p>
                 <p class="admapprovedatachangeleft">Número {{ user.address.numberHouse }}</p>
+                {% if user.account.typeAccount == 'CC': %}
+                <p class="admapprovedatachangeleft">Tipo da conta solicitada: Conta Poupança </p>
+                {% else: %}
+                <p class="admapprovedatachangeleft">Tipo da conta solicitada: Conta Corrente </p>
+                {% endif %}
             </div>
                 <br><br><br>
         
                 <div class="admapprovedeleteaccountcenter">
                     <form
-                        action="">
+                    method="POST" action="{{ url_for('new_account') }}">
                         <button type="submit" class="admapprovedeleteaccountbutton1">
                             Abrir Nova Conta
                         </button>
                     </form>
-                    {% endif %}
-        
                     <form
-                        action="">
+                        action="{{ url_for('index') }}">
                         <button type="submit" class="admapprovedeleteaccountbutton2">Voltar</button>
                     </form>
         
