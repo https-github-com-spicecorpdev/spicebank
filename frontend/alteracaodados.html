@@ -20,7 +20,7 @@
                     <br>
                     <p class="datachangeleft">CPF: {{ user.cpf }} </p>
                     <br>
-                    <p class="datachangeright">Data de Nascimento: {{ user.birthDate }} </p>
+                    <p class="datachangeright">Data de Nascimento: {{ birthDate }} </p>
                     <label for="fgenre" class="form-label mb-0">Gênero*</label>
                     <select id="fgenre" name="fgenre" class="form-select">
                         {%if user.gender == 'M': %}  
@@ -59,7 +59,7 @@
                     <div class="datachangeleft">
                         <label for="fstate" class="form-label mb-0">Estado</label>
                             <select id="fstate" name="fstate" class="form-select">
-                                <option selected="" value="">Selecione o Estado (UF)</option>
+                                <option selected="" value="{{ user.address.state }}">{{ user.address.state }}</option>
                                 <option value="Acre">Acre</option>
                                 <option value="Alagoas">Alagoas</option>
                                 <option value="Amapá">Amapá</option>

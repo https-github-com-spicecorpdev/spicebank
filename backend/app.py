@@ -41,7 +41,7 @@ def login():
     user = userDatabase.findByAgencyAccountAndPassword(request.form['fagency'],request.form['faccount'], request.form['fpassword'])
     if user:
         login_user(user)
-        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today), 200
+        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today, type=user.account.typeAccount), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('login.html', message=message), 400
@@ -110,8 +110,8 @@ def register():
         if agency_id:
 
             account_type = request.form['faccount_type']
-            address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], request.form['fcep'])
-            user = User(None, request.form['fname'], request.form['fcpf'], request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
+            address = Address(request.form['froad'], request.form['fnumberHouse'], request.form['fdistrict'], request.form['fcity'], request.form['fstate'], requestCEP)
+            user = User(None, request.form['fname'], requestCpf, request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
 
             user_id = userDatabase.save(user)
             create_account(user_id, agency_id, account_type)
@@ -303,7 +303,7 @@ def transferconfirm():
     userForTransfer = request.form['fuserForTransfer'] #nome do usuário que está recebendo
     valor = float(request.form['fvalor'])
     valor_format = (f'{valor:.2f}')
-    today = request.form['fdataAtual']
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     accountUserT = request.form['faccountUserT'] #conta do usuário que está enviando
     agencyUserT = request.form['fagencyUserT'] #agência do usuário que está recebendo
     idPeoplefis = request.form['fidPeoplefis'] #id do usuário que está recebendo
@@ -408,7 +408,9 @@ def follow_up_statements(user_id):
 @login_required
 def update_user_data():
     user=current_user
-    return render_template('alteracaodados.html', user=user), 200
+    aniversario = user.birthDate
+    birthDate = aniversario.strftime("%d/%m/%Y")
+    return render_template('alteracaodados.html', user=user, birthDate=birthDate), 200
 
 @app.route('/update_user_data', methods = ['POST'])
 @login_required
