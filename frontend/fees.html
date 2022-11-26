@@ -13,22 +13,35 @@
 
     <body class="feesbody"> 
         
-        <nav class="hgeneralnav"></nav>
+        <nav class="feesnav"></nav>
 
         <div class="feescenter1">
             
             <div class="feesbox1">  
-                <h3> Defina a taxa de juros Banco SpiceBank </h3>
+                <h3> Defina a taxa de juros do banco </h3>
             </div>
 
             <div class="feesbox2"> 
                 <h3> Insira o valor do juros </h3>
 
                 <form method="POST" action="/balanceconfirm">
-                    <input type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
+                    <input type="text" id="fvalor" name="fvalor" placeholder="00,00">
                     <label for="fvalor"> % </label>
+                    <br><br>
                     <button class="feesbutton2" type="submit" > Definir </button>
                 </form>
+                <!-- <p>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <ul class=flashes>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                    {% block body %}{% endblock %}
+                </p>--> 
             </div>
             <div class="templatedatetime"> {{ date }} </div>
     </body>

@@ -33,9 +33,9 @@ color: #000;
     font-family: 'Montserrat', sans-serif;
 }
 
-    /*Barra de navegação HORIZONTAL do gerente (login)*/
+    /*Barra verde de cima*/
 
-    .hgeneralnav{
+    .feesnav{
       padding: 0;
       background-color: #0d3b1b;
       position: fixed;
@@ -43,7 +43,7 @@ color: #000;
       width: 100%; 
       height: 7%;
     }
-    .hgeneralnav >  ul {
+    .feesnav >  ul {
         text-transform: uppercase;
         position: absolute;
         width: 100%;
@@ -51,11 +51,11 @@ color: #000;
         transform: translateY(-50%);
        }
     
-    .hgeneralnav > ul > li > a > i{
+    .feesnav > ul > li > a > i{
         padding: 7%;
        }
     
-    .hgeneralnav > ul > li > a{
+    .feesnav > ul > li > a{
         color: #0d3b1b;
         text-decoration: none; 
         padding: 5px;
@@ -63,18 +63,19 @@ color: #000;
         margin-right:5%;
         transition: background .4s;}
     
-    .hgeneralnav > ul > li > a:hover{
+    .feesnav > ul > li > a:hover{
         background-color: #f5f5f5;
         transition: background .4s;}
 
     /**/
 
-    /*fees.html*/
+            /*fees.html*/
 
 /*centralizar*/
 .feescenter1{
     margin: auto;
     width:30%;
+
 }
 
 .feescenter2{
@@ -84,11 +85,14 @@ color: #000;
 
 
 /*caixa cinza claro*/
+
 .feesbox1{
-    background-color: #d6d6d6;
-Margin-top: 15%;
+background-color: #d6d6d6;
+Margin-top: 45%;
 padding: 15px;
 margin-bottom: 2%;
+width:400px;
+border-radius:5px;
 }
 
 .feesbox1 > h3{    
@@ -103,6 +107,8 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+    width:400px;
+    border-radius:5px;
 }
 
 .feesbox2 > h3{
@@ -110,60 +116,32 @@ margin-bottom: 2%;
     color: #868686;
 }
 
-.feesbox2 > form{
-
+.feesbox2 > form {
     margin: auto;
     text-align: center;
+    font-size: 120%;
 }
 
 .feesbox2 > form > input{
     margin-top: 30px;
-      width: 50%;
-    height: 60px;
+      width: 150px;
+      height: 60px;
       text-align: center;
-      font-size: 170%;
+      font-size: 180% !important;
 }
-
-.feesbutton1{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.feesbutton1 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.feesbutton1:hover{
-    background-color:rgb(183, 85, 85);
-}
-
 
 .feesbutton2{
     cursor:pointer;
     padding: 15px;
     border-style: none;
     background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.feesbutton2 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
+    width:100px;
+    border-radius:5px;
+    margin-right:20px;
 }
 
 .feesbutton2:hover{
-    background-color:rgb(71, 177, 106);
-}
-
-.generalbutton1{
-    text-align:center;
-    margin-top:5%;
+    background-color:#39692ba1;
 }
 
       /*RESPONSIVIDADE DA TELA fees.HTML*/
@@ -195,11 +173,14 @@ margin-bottom: 2%;
 
 
 /*caixa cinza claro*/
+
 .feesconfirmbox1{
-    background-color: #d6d6d6;
-Margin-top: 15%;
+background-color: #d6d6d6;
+Margin-top: 45%;
 padding: 15px;
 margin-bottom: 2%;
+width:400px;
+border-radius:5px;
 }
 
 .feesconfirmbox1 > h3{    
@@ -214,6 +195,8 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+    width:400px;
+    border-radius:5px;
 }
 
 .feesconfirmbox2 > h3{
@@ -229,27 +212,30 @@ margin-bottom: 2%;
 
 .feesconfirmbox2 > form > input{
     margin-top: 30px;
-      width: 50%;
-    height: 60px;
+      width: 150px;
+      height: 60px;
       text-align: center;
-      font-size: 170%;
+      font-size: 180% !important;
 }
 
-.feesconfirmbutton1{
+.feesbutton1{
     cursor:pointer;
     padding: 15px;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius:5px;
+    margin-left: 7%;
+    width:180px;
 }
 
-.feesconfirmbutton1 >a {
+.feesbutton1 >a {
   color:#000;
   text-decoration:none;
   font-size:110%;
 }
 
-.feesconfirmbutton1:hover{
+.feesbutton1:hover{
     background-color:rgb(183, 85, 85);
 }
 
@@ -259,7 +245,9 @@ margin-bottom: 2%;
     padding: 15px;
     border-style: none;
     background-color:#d6d6d6;
-    cursor: pointer;
+    width:100px;
+    border-radius:5px;
+    margin-right:20px;
 }
 
 .feesconfirmbutton2 >a {
@@ -269,7 +257,7 @@ margin-bottom: 2%;
 }
 
 .feesconfirmbutton2:hover{
-    background-color:rgb(71, 177, 106);
+    background-color:#39692ba1;
 }
 
 
@@ -280,7 +268,7 @@ margin-bottom: 2%;
         .feescenter1{
           margin: auto;
           width: 75%;
-          background-color: #d6d6d6;
+          background-color: #6b8064;
           Margin-top: 10%;
           padding: 40px;
     }
