@@ -16,6 +16,7 @@ O objetivo do projeto é criar um sistema para gerenciamento de transações em 
 - Product Backlog Atual
 - Product Backlog Total
 - Minimum Viable Product(MVP) 4ªSprint
+- Demonstração do Projeto
 - Cronograma de Entregas
 - Tecnologias Utilizadas
 
@@ -118,18 +119,14 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 - Alteração de Taxas Bancárias
 - Juros Compostos 
 
-Gerente Geral
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/200212216-c498c5db-f595-4f19-ad5d-a271d366e817.png" width="1000px", height="500px", />
-</div>
-Gerente de agência
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/200212224-1082ad47-c162-419a-b1bc-320cb24e74c1.png" width="1000px", height="500px", />
-</div>
-Usuário comum
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/200212229-4ec75752-a0c0-43b9-8e12-5ed6ad4e3b62.png" width="1000px", height="500px", />
-</div>
+# :computer: Demonstração do Projeto
+
+Sprint 1
+
+![imf](https://user-images.githubusercontent.com/86271800/204110059-bc073f2a-2011-46e4-b778-1549d5a95e67.gif)
+
+Sprint 2
+
 
 
 # :calendar: Cronograma de Entregas* 
