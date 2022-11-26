@@ -172,6 +172,13 @@ CREATE TABLE IF NOT EXISTS `manager` (
   foreign key (`bank_id`) references `bank`(`id`)
 ) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
+CREATE TABLE `spicebank`.`datesystem` (
+  `iddateSystem` INT NOT NULL AUTO_INCREMENT,
+  `datetimeSystem` DATETIME NULL,
+  PRIMARY KEY (`iddateSystem`));
+
+INSERT INTO `spicebank`.`datesystem` (`datetimeSystem`) VALUES ('0000-00-00 00:00:00');
+
 -- Cria capital do banco
 INSERT INTO `bank`(capital) VALUES(0);
 

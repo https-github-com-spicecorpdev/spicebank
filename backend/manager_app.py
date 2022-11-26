@@ -11,7 +11,7 @@ import time
 
 app, login_manager = create_manager_app()
 
-accountDatabase, statementDatabase, solicitationDatabase, bankDatabase, userDatabase, agencyDatabase = get_repositories()
+accountDatabase, statementDatabase, solicitationDatabase, bankDatabase, userDatabase, agencyDatabase, dateTimeDatabase = get_repositories()
 
 managerDatabase = get_manager_repositories()
 
