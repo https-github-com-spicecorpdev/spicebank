@@ -39,6 +39,12 @@
 }
 
 /*Barra de navegação HORIZONTAL do usuário (login)*/
+.img4{
+    height:100%;
+    margin-left:45%;
+    margin-right:45%;
+}
+
 .husernav{
     padding: 0;
     background-color: #062e46;
@@ -75,6 +81,12 @@
 }
 
     /*Barra de navegação lateral do usuário*/
+
+.img3{
+      width:35%;
+     margin-top:10%;
+     margin-left:32.5%;
+     margin-right:32.5%}
 
     .usernavitem > label{
         display:none;
@@ -154,7 +166,18 @@
    /*RESPONSIVIDADE MENU LATERAL*/
 
 @media screen and (max-width: 750px) {
-
+.img4{
+    height:100%;
+    margin-left:10%;
+}
+    
+.img3{
+    position:absolute;
+    margin-top:0px;
+      width:10%;
+     margin-left:45%;
+     margin-right:45%}
+    
     .usernavitem > label{
   display:block;
   padding:15px;

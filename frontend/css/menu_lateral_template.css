@@ -24,7 +24,7 @@ color: #fff;
 }
 .templatedatetime{
 position:fixed;
-top:15px;
+top:5px;
   right:16%;
 }
 }
@@ -37,6 +37,11 @@ top:15px;
 }
 
     /*Barra de navegação HORIZONTAL do gerente (login)*/
+    .img4{
+        height:100%;
+        margin-left:45%;
+        margin-right:45%;
+    }
 
     .hadmnav{
       padding: 0;
@@ -72,6 +77,13 @@ top:15px;
 
 
     /*Barra de navegação lateral do gerente (verde)*/
+
+    
+.img3{
+    width:35%;
+   margin-top:10%;
+   margin-left:32.5%;
+   margin-right:32.5%}
 
 .admnavitem > label{
   display:none;
@@ -149,7 +161,16 @@ top:15px;
                 /*RESPONSIVIDADE MENU LATERAL*/
 
 @media screen and (max-width: 750px) {
-
+    .img4{
+        height:100%;
+        margin-left:10%;
+    }
+    .img3{
+        position:absolute;
+        margin-top:0px;
+          width:10%;
+         margin-left:45%;
+         margin-right:45%}
 .admnavitem > label{
   display:block;
   padding:15px;
