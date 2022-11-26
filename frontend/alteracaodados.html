@@ -21,7 +21,7 @@
                     <p class="datachangeleft">CPF: {{ user.cpf }} </p>
                     <br>
                     <p class="datachangeright">Data de Nascimento: {{ user.birthDate }} </p>
-                    <label for="fgenre" class="form-label mb-0">Gênero*</label>
+                    <label for="fgenre" class="form-label mb-0">Gênero</label>
                     <select id="fgenre" name="fgenre" class="form-select">
                         {%if user.gender == 'M': %}  
                             <option value="{{ user.gender }}">Masculino</option>
@@ -123,7 +123,7 @@
         <br>
         <div>
             <form method="GET" action="{{ url_for('index') }}">
-                <button class="datachangebutton2" type="submit">Voltar</button>
+                <button class="datachangebutton2" type="submit">&#8592 Voltar</button>
             </form>
         </div>
         <br>

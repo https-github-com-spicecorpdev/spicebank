@@ -5,31 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- <link rel="shortcut icon" href="static/img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo_home.css') }}"> -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/user_template.css') }}">
     <script src="https://kit.fontawesome.com/e90eaadb0c.js" crossorigin="anonymous"></script>
-
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/estilo-login.css') }}"> -->
-    <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static/img/LOGO_BANCO.png" type="image/x-icon">
     <title> Acompanhamento | SpiceBank</title>
 </head>
 
 <body class="userbodyhacompanhamento">
 
-    <nav class="husernav"></nav>
-    <!-- <div class="linha-cabeçalho">
-        <p style="padding-left: 60px;">Solicitações</p>
-    </div> -->
+    <nav class="husernav">
+        <img src="static/img/LOGO_BANCO_EXT.png" alt="logo do banco" class="img4">
+    </nav>
 
-    <!-- <div class="center">
-        <img src="static/img/logo-banco.png" alt="logo banco">
-    </div> 
-    <hr color="#00BFFF"> -->
-
-
-<!--Se solicitação de abertura de conta existir:-->
     <div class="userhacompanhamentobox1">
             <h2> Olá, {{ solicitation.name }}! </h2>
             <br>
@@ -42,15 +29,7 @@
             {% endif %}
             {% endwith %}
             {% block body %}{% endblock %}
-    
-
-        <!-- <div class="center">
-            {% if statements %}
-            <form method="GET" action="{{ url_for('follow_up_statements', user_id=solicitation.user_id) }}" target="_blank">
-                <button type="submit">Verificar extrato da conta</button>
-            </form>
-            {% endif %} -->
-
+            <br>
             <div class="userhacompanhamentobutton2">
                 <form method="GET" action="/logout">
                     <button type="submit">Sair</button>
