@@ -121,13 +121,14 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 
 # :computer: Demonstração do Projeto
 
-Sprint 1
+Sprint 1<br>
 
-![imf](https://user-images.githubusercontent.com/86271800/204110059-bc073f2a-2011-46e4-b778-1549d5a95e67.gif)
+![imf](https://user-images.githubusercontent.com/86271800/204110059-bc073f2a-2011-46e4-b778-1549d5a95e67.gif)<br>
 
-Sprint 2
+Sprint 2<br>
+![imf](https://user-images.githubusercontent.com/86271800/204110765-4ba06c09-6a0f-4a8b-bea1-21f7d057dc3d.gif)<br> 
 
-
+Sprint 3
 
 # :calendar: Cronograma de Entregas* 
 Foi utilizado o arquivo Product Backlog para validação das estregas de acordo com as prioridades do cliente, sendo elas: 
