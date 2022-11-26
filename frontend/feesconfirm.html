@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <generalmeta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/fees.css') }}">
         <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon">
         <title> Confirme o Juros | SpaceBank </title>
@@ -13,7 +13,7 @@
 
     <body class="feesbody"> 
         
-        <nav class="feesnav"></nav>
+        <nav class="hgenralnav"></nav>
 
         <div class="feescenter1">
         
@@ -22,10 +22,10 @@
             </div>
 
             <div class="feesconfirmbox2"> 
-                <form method="POST">
+                <form method="POST" action="{{ url_for('fees_confirm') }}">
                     <p>Valor do juros: </p>
-                    <input type="text" id="fvalor" name="fvalor" readonly="readonly" value= {{ valor }}>
-                    <label for="fvalo">%</label>
+                    <input type="text" id="" name="" readonly="" value= {{}}>
+                    <label for="">%</label>
                     <br><br>
                 <button class="feesconfirmbutton2" type="submit">Confirmar</button>
             </div>
