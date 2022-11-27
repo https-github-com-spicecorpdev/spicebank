@@ -157,7 +157,7 @@ box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
     .feescenter1{
       margin: auto;
       width: 75%;
-      background-color: #d6d6d6;
+      background-color: #6b8064;
       Margin-top: 10%;
       padding: 40px;
 }
@@ -210,7 +210,7 @@ box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
     width:400px;
     border-radius:5px;
     box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
-  margin-top:10%;
+    margin-top:10%;
 }
 
 .feesconfirmbox2 > h3{
@@ -229,7 +229,6 @@ box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
       width: 150px;
       height: 60px;
       text-align: center;
-      font-size: 180% !important;
 }
 
 .feesbutton1{

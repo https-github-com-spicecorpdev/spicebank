@@ -33,7 +33,7 @@ color: #000;
     font-family: 'Montserrat', sans-serif;
 }
 
-    /*Barra de navegação HORIZONTAL do gerente (login)*/
+    /*Barra verde de cima*/
     .img4{
         height:100%;
         margin-left:45%;
@@ -97,10 +97,13 @@ color: #000;
 
 /*caixa cinza claro*/
 .capitalbox1{
-    background-color: #d6d6d6;
-Margin-top: 15%;
+background-color: #d6d6d6;
+Margin-top:40%;
 padding: 15px;
 margin-bottom: 2%;
+width:400px;
+border-radius:5px;
+box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
 }
 
 .capitalbox1 > h3{    
@@ -115,6 +118,10 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+    width:400px;
+    border-radius:5px;
+    margin-top:10%;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
 }
 
 .capitalbox2 > h3{
@@ -130,28 +137,10 @@ margin-bottom: 2%;
 
 .capitalbox2 > form > input{
     margin-top: 30px;
-      width: 50%;
+    width: 150px;
     height: 60px;
-      text-align: center;
-      font-size: 170%;
-}
-
-.capitalbutton1{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.capitalbutton1 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.capitalbutton1:hover{
-    background-color:rgb(183, 85, 85);
+    text-align: center;
+    font-size: 170%;
 }
 
 
@@ -161,21 +150,13 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
-}
-
-.capitalbutton2 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
+    width:100px;
+    border-radius:5px;
+    margin-left:20px;
 }
 
 .capitalbutton2:hover{
-    background-color:rgb(71, 177, 106);
-}
-
-.generalbutton1{
-    text-align:center;
-    margin-top:5%;
+    background-color:#39692ba1;
 }
 
       /*RESPONSIVIDADE DA TELA CAPITAL.HTML*/
@@ -184,7 +165,7 @@ margin-bottom: 2%;
     .capitalcenter1{
       margin: auto;
       width: 75%;
-      background-color: #d6d6d6;
+      background-color: #6b8064;
       Margin-top: 10%;
       padding: 40px;
 }
@@ -208,10 +189,13 @@ margin-bottom: 2%;
 
 /*caixa cinza claro*/
 .capitalconfirmbox1{
-    background-color: #d6d6d6;
-Margin-top: 15%;
+background-color: #d6d6d6;
+Margin-top: 40%;
 padding: 15px;
 margin-bottom: 2%;
+width:400px;
+border-radius:5px;
+box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
 }
 
 .capitalconfirmbox1 > h3{    
@@ -226,6 +210,10 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+    width:400px;
+    border-radius:5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    margin-top:10%;
 }
 
 .capitalconfirmbox2 > h3{
@@ -241,10 +229,10 @@ margin-bottom: 2%;
 
 .capitalconfirmbox2 > form > input{
     margin-top: 30px;
-      width: 50%;
+    width: 50%;
     height: 60px;
-      text-align: center;
-      font-size: 170%;
+    text-align: center;
+    font-size: 170%;
 }
 
 .capitalconfirmbutton1{
@@ -253,6 +241,9 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius:5px;
+    margin-left: 15%;
+    width:180px;
 }
 
 .capitalconfirmbutton1 >a {
@@ -272,6 +263,9 @@ margin-bottom: 2%;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    width:100px;
+    border-radius:5px;
+    margin-left:20px;
 }
 
 .capitalconfirmbutton2 >a {
@@ -281,7 +275,7 @@ margin-bottom: 2%;
 }
 
 .capitalconfirmbutton2:hover{
-    background-color:rgb(71, 177, 106);
+    background-color:#39692ba1;
 }
 
 
@@ -292,9 +286,12 @@ margin-bottom: 2%;
         .capitalcenter1{
           margin: auto;
           width: 75%;
-          background-color: #d6d6d6;
+          background-color: #6b8064;
           Margin-top: 10%;
           padding: 40px;
     }
+        .capitalconfirmbutton1{
+          margin-left:7%;
+        }
     }
     
