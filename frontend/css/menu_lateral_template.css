@@ -411,8 +411,16 @@ margin-top: 1%;
          background-color:#d6d6d6}
 
 
+
+.admsolicitationsaprovar{
+  background-color:white;
+  color:gray;
+  cursor:unset
+}
+
 .admsolicitationsaprovar:hover{
-  background-color:lawngreen;
+  background-color:white;
+  color:gray;
 }
 
 .admsolicitationsreprovar:hover{
