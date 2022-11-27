@@ -31,7 +31,8 @@ def unauthorized():
 
 @login_manager.user_loader
 def load_user(user_id):
-    return userDatabase.findByIdaccount(user_id)
+    logging.info(f'LOAD{user_id}')
+    return userDatabase.findById(user_id)
 
 @app.route('/login', methods = ['POST'])
 def login():
@@ -39,11 +40,11 @@ def login():
     if not validate_form(request.form):
             message = flash('Preencha todos os campos!')
             return render_template('login.html', message=message), 400
-    account = userDatabase.findByAgencyAccountAndPassword(request.form['fagency'],request.form['faccount'], request.form['fpassword'])
-    if account:
-        login_user(account)
-        logging.info(f'{account}')
-        return render_template('home.html', name=account.user.name, agencia=account.agency, conta=account.account, saldo=account.balance, date=today, type=account.typeAccount), 200
+    user = userDatabase.findByAgencyAccountAndPassword(request.form['fagency'],request.form['faccount'], request.form['fpassword'])
+    if user:
+        login_user(user)
+        logging.info(f'{user}')
+        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today, type=user.account.typeAccount), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('login.html', message=message), 400
@@ -77,7 +78,7 @@ def loginAcomp():
             return render_template('homeAcomp.html', solicitation=solicitation, message=message, statements=None), 200
         elif solicitation.status == "Encerrado":
             statements = statementDatabase.findByUserId(solicitation.user_id)
-            message = flash('Sua conta foi encerrada. Você pode verificar o extrato clicando no botão abaixo:')
+            message = flash('Sua conta foi encerrada.')
             return render_template('homeAcomp.html', solicitation=solicitation, message=message, statements=statements), 200
         else:
             message = flash('Aguardando análise de solicitação.')
@@ -116,13 +117,20 @@ def register():
             user = User(None, request.form['fname'], requestCpf, request.form['fpassword'], request.form['fbirthdate'], request.form['fgenre'], address=address)
 
             user_id = userDatabase.save(user)
-            create_account(user_id, agency_id, account_type)
+            create_account(user_id, account_type)
             return render_template('login.html'), 201
         flash('Nenhuma agência disponível')
         return render_template('cadastro.html'), 200
 
-def create_account(user_id, agency_id, account_type):
-    account_id = accountDatabase.create(user_id, agency_id, account_type)
+# def create_account(user_id, agency_id, account_type):
+#     account_id = accountDatabase.create(user_id, agency_id, account_type)
+#     if account_type=='CP':
+#         solicitationDatabase.open_account_solicitation(user_id, account_id, 'Abertura de conta', 'Conta Poupança')
+#     else:
+#         solicitationDatabase.open_account_solicitation(user_id, account_id, 'Abertura de conta', 'Conta Corrente')
+
+def create_account(user_id, account_type):
+    account_id = accountDatabase.create(user_id, account_type)
     if account_type=='CP':
         solicitationDatabase.open_account_solicitation(user_id, account_id, 'Abertura de conta', 'Conta Poupança')
     else:
@@ -133,10 +141,10 @@ def new_account():
     user=current_user
     if request.method == "POST":
         if user.account.typeAccount=='CC':
-            create_account(user.id, user.account.agency, 'CP')
+            create_account(user.id, 'CP')
             return render_template('newaccountconfirm.html',user=user), 200
         else:
-            create_account(user.id, user.account.agency, 'CC')
+            create_account(user.id, 'CC')
             return render_template('newaccountconfirm.html',user=user), 200
     return render_template('newaccount.html',user=user), 200
 
@@ -438,7 +446,7 @@ def open_update_user_data_solicitation():
     solicitation= UpdateDataSolicitation(request.form ['fname'], request.form ['froad'], request.form ['fnumberHouse'], request.form ['fdistrict'], request.form ['fcep'], request.form ['fcity'], request.form ['fstate'], request.form ['fgenre'], user_id=user.id)
     solicitationDatabase.open_update_data_solicitation(user.id, solicitation)
     flash('Solicitação de alteração realizada com sucesso')
-    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today), 200
+    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today, type=user.account.typeAccount), 200
 
 @app.route('/close-account', methods = ['GET'])
 @login_required
@@ -473,6 +481,7 @@ def close_account(user):
     solicitation= CloseAccountSolicitation(user.account.id, user.name, user.cpf, user.birthDate, user.address.road, user.address.numberHouse, user.address.district, user.address.cep, user.address.city, user.address.state, user.gender, user_id=user.id)
     solicitationDatabase.open_close_account_solicitation(user.id, solicitation)
     solicitation_id = solicitationDatabase.find_solicitation_id_by_user_id_and_solicitation_type(user.id, 'Abertura de conta')
+    accountDatabase.analysis_account_by_solicitation_id(solicitation_id)
     solicitationDatabase.update_status_by_id(solicitation_id, 'Em Análise')
     accountDatabase.inactivate_account(user.accountNumber())
 

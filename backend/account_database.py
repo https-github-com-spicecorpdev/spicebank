@@ -8,12 +8,12 @@ class AccountDatabase:
         self.db = connection
         logging.info('Repositório de contas inicializado!')
 
-    def create(self, userId, agency_id, account_type):
+    def create(self, userId, account_type):
         cursor = self.db.cursor()
         query = """
-            INSERT INTO taccount (numberAccount, totalbalance, idAccountUser, agencyUser, is_active, account_type) values (next value for account_number, 0, ?,?, 0, ?);
+            INSERT INTO taccount (numberAccount, totalbalance, idAccountUser, agencyUser, is_active, account_type) values (next value for account_number, 0, ?,next value for agency_number, 0, ?);
         """
-        parameters = (userId, agency_id, account_type,)
+        parameters = (userId, account_type,)
         cursor.execute(query, parameters)
         self.db.commit()
         return cursor.lastrowid
@@ -61,6 +61,15 @@ class AccountDatabase:
 
     def deactivate_account_by_solicitation_id(self, id):
         return self.update_close_account_status_by_solicitation_id(id, 'Encerrado')
+
+    def reproval_account_by_solicitation_id(self, id):
+        return self.update_account_status_by_solicitation_id(id, 'Reprovado')
+
+    def pending_account_by_solicitation_id(self, id):
+        return self.update_account_status_by_solicitation_id(id, 'Pendente')
+
+    def analysis_account_by_solicitation_id(self, id):
+        return self.update_account_status_by_solicitation_id(id, 'Em Análise')
 
     def updateBalanceByAccountNumber(self, balance, accountNumber):
         cursor = self.db.cursor()

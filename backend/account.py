@@ -1,12 +1,11 @@
 class Account:
-    def __init__(self, id=None, accountNumber=None, userAgency=None, totalBalance=None, typeAccount=None, status = 'Pendente', user  = None):
+    def __init__(self, id=None, accountNumber=None, userAgency=None, totalBalance=None, typeAccount=None, status = 'Pendente'):
         self.id = id
         self.account = accountNumber
         self.agency = userAgency
         self.balance = totalBalance
         self.typeAccount = typeAccount
         self.status = status
-        self.user = user
         
     
     def withdraw(self, value):
@@ -15,17 +14,5 @@ class Account:
     def deposit(self, value):
         self.balance = self.balance + value
     
-    def is_authenticated(self):
-        return True
-    
-    def is_active(self):
-        return True
-
-    def is_anonymous(self):
-        return False
-    
-    def get_id(self):
-        return str(self.id)
-
     def __str__(self):
-        return f'Id: {self.id}, account: {self.account}, agency: {self.agency}, balance: {self.balance}, typeAccount: {self.typeAccount}, status: {self.status}, user: {self.user}'
+        return f'Id: {self.id}, account: {self.account}, agency: {self.agency}, balance: {self.balance}, typeAccount: {self.typeAccount}, status: {self.status}'

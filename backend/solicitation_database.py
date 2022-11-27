@@ -50,13 +50,12 @@ class SolicitationDatabase:
 
     def find_solicitations_by_general_manager(self):
         cursor = self.db.cursor(dictionary=True)
-        query = """
-         SELECT USR.*, ACCOUNT.*, s.*
-       FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
-       inner join solicitation s on USR.idUser = s.id_user 
-       where  s.status = 'Pendente' and ACCOUNT.is_active = 0 or (s.solicitation_type ='Confirmação de depósito' and s.status = 'Pendente' and ACCOUNT.status='Pendente') 
-       or (s.solicitation_type ='Alteração de dados' and s.status = 'Pendente');
-        """
+        query =  """
+        SELECT USR.*, ACCOUNT.*, s.*
+            FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+            inner join solicitation s on USR.idUser = s.id_user 
+            where  s.status = 'Pendente' ;
+       """
         try:
             cursor.execute(query,)
             solicitations_from_db = cursor.fetchall()

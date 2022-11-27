@@ -53,18 +53,18 @@ class UserDatabase:
             logging.info(f'Usuário com o id: {id} não encontrado!')
             return None
 
-    def findByIdAndNumberAccount(self, id, numberAccount):
+    def findByIdAndNumberAccount(self, id):
         cursor = self.db.cursor(dictionary=True)
         query = """
         SELECT USR.*, ACCOUNT.* 
        FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
-       WHERE USR.idUser = ? and ACCOUNT.numberAccount = ?
+       WHERE ACCOUNT.numberAccount = ?
        union    
         SELECT USR.*, ACCOUNT.* 
        FROM tuser AS USR right JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
-       WHERE USR.idUser = ? and ACCOUNT.numberAccount = ? ;
+       WHERE ACCOUNT.numberAccount = ? ;
         """
-        parameters = (id,numberAccount,id,numberAccount,)
+        parameters = (id,id,)
         cursor.execute(query, parameters) 
         userFromDB = cursor.fetchone()
         if userFromDB:
@@ -148,6 +148,26 @@ class UserDatabase:
         except mariadb.Error as e:
             logging.error(e)
 
+    # def findByAgencyAccountAndPassword(self, agency, account, password):
+    #     cursor = self.db.cursor(dictionary=True)
+    #     query = """
+    #         SELECT USR.*, ACCOUNT.* 
+    #         FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+    #         WHERE ACCOUNT.agencyUser = ?
+    #         AND ACCOUNT.numberAccount = ?
+    #         AND USR.passwordUser = ?
+    #         AND ACCOUNT.is_active = true 
+    #     """
+    #     parameters = (agency, account, password)
+    #     cursor.execute(query, parameters)
+    #     userFromDB = cursor.fetchone()
+    #     if userFromDB:
+    #         user =  User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], password, userFromDB['birthdateUser'], userFromDB['genreUser'])
+    #         return Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'], typeAccount=userFromDB['account_type'], user=user)
+    #     else:
+    #         logging.info(f'Usuário não encontrado!')
+    #         return None
+
     def findByAgencyAccountAndPassword(self, agency, account, password):
         cursor = self.db.cursor(dictionary=True)
         query = """
@@ -162,8 +182,8 @@ class UserDatabase:
         cursor.execute(query, parameters)
         userFromDB = cursor.fetchone()
         if userFromDB:
-            user =  User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], password, userFromDB['birthdateUser'], userFromDB['genreUser'])
-            return Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'], typeAccount=userFromDB['account_type'], user=user)
+            account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'], typeAccount=userFromDB['account_type'])
+            return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], password, userFromDB['birthdateUser'], userFromDB['genreUser'], account=account)
         else:
             logging.info(f'Usuário não encontrado!')
             return None
