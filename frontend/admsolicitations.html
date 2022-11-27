@@ -31,7 +31,7 @@
         <td>{{ solicitacao.nameUser }}</td>
         <td>{{ solicitacao.solicitation_type }}</td>
         <td>{{ solicitacao.status }}</td>
-        {% if solicitacao.solicitation_type == 'Encerrar conta' %}
+        {% if solicitacao.solicitation_type == 'Encerrar conta' or  solicitacao.solicitation_type == 'Confirmação de depósito' or  solicitacao.solicitation_type == 'Alteração de dados cadastrais' %}
         <td>
             <p style="color: gray">Aprovar</p>
         </td>

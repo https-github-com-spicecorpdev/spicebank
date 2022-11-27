@@ -75,6 +75,28 @@ class UserDatabase:
             logging.info(f'Usuário com o id: {id} não encontrado!')
             return None
 
+    def findByIdaccount(self, idAccount):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+         SELECT USR.*, ACCOUNT.* 
+            FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+            WHERE ACCOUNT.idAccount  = ?
+            union    
+                SELECT USR.*, ACCOUNT.* 
+            FROM tuser AS USR right JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+            WHERE ACCOUNT.idAccount  = ?;
+        """
+        parameters = (idAccount,idAccount,)
+        cursor.execute(query, parameters) 
+        userFromDB = cursor.fetchone()
+        if userFromDB:
+            address = Address(userFromDB['roadUser'], userFromDB['numberHouseUser'], userFromDB['districtUser'], userFromDB['cityUser'], userFromDB['stateUser'], userFromDB['cepUser'])
+            account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'], typeAccount=userFromDB['account_type'])
+            return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], userFromDB['passwordUser'], userFromDB['birthdateUser'], userFromDB['genreUser'], account=account, address=address)
+        else:
+            logging.info(f'Usuário com o id: {id} não encontrado!')
+            return None
+
     def findByManagerId(self, id):
         cursor = self.db.cursor(dictionary=True)
         query = """
@@ -140,8 +162,8 @@ class UserDatabase:
         cursor.execute(query, parameters)
         userFromDB = cursor.fetchone()
         if userFromDB:
-            account = Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'], typeAccount=userFromDB['account_type'])
-            return User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], password, userFromDB['birthdateUser'], userFromDB['genreUser'], account=account)
+            user =  User(userFromDB['idUser'], userFromDB['nameUser'], userFromDB['cpfUser'], password, userFromDB['birthdateUser'], userFromDB['genreUser'])
+            return Account(id=userFromDB['idUser'],accountNumber=userFromDB['numberAccount'], userAgency=userFromDB['agencyUser'], totalBalance=userFromDB['totalbalance'], typeAccount=userFromDB['account_type'], user=user)
         else:
             logging.info(f'Usuário não encontrado!')
             return None

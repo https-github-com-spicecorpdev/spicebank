@@ -34,7 +34,7 @@ class SolicitationDatabase:
             SELECT USR.*, ACCOUNT.*, s.*
        FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
        inner join solicitation s on USR.idUser = s.id_user 
-       where  s.status = 'Pendente' and account.status='Pendente' and ACCOUNT.agencyUser = ? ;
+       where  s.status = 'Pendente' and ACCOUNT.status='Pendente' and ACCOUNT.agencyUser = ? ;
         """
         parameters = (work_agency_id,)
         try:
@@ -54,7 +54,7 @@ class SolicitationDatabase:
          SELECT USR.*, ACCOUNT.*, s.*
        FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
        inner join solicitation s on USR.idUser = s.id_user 
-       where  s.status = 'Pendente' and account.is_active = 0 or (s.solicitation_type ='Confirmação de depósito' and s.status = 'Pendente' and account.status='Pendente') 
+       where  s.status = 'Pendente' and ACCOUNT.is_active = 0 or (s.solicitation_type ='Confirmação de depósito' and s.status = 'Pendente' and ACCOUNT.status='Pendente') 
        or (s.solicitation_type ='Alteração de dados' and s.status = 'Pendente');
         """
         try:

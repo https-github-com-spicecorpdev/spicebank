@@ -31,7 +31,7 @@ def unauthorized():
 
 @login_manager.user_loader
 def load_user(user_id):
-    return userDatabase.findById(user_id)
+    return userDatabase.findByIdaccount(user_id)
 
 @app.route('/login', methods = ['POST'])
 def login():
@@ -39,11 +39,11 @@ def login():
     if not validate_form(request.form):
             message = flash('Preencha todos os campos!')
             return render_template('login.html', message=message), 400
-    user = userDatabase.findByAgencyAccountAndPassword(request.form['fagency'],request.form['faccount'], request.form['fpassword'])
-    if user:
-        login_user(user)
-        logging.info(f'{user}')
-        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today, type=user.account.typeAccount), 200
+    account = userDatabase.findByAgencyAccountAndPassword(request.form['fagency'],request.form['faccount'], request.form['fpassword'])
+    if account:
+        login_user(account)
+        logging.info(f'{account}')
+        return render_template('home.html', name=account.user.name, agencia=account.agency, conta=account.account, saldo=account.balance, date=today, type=account.typeAccount), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('login.html', message=message), 400
