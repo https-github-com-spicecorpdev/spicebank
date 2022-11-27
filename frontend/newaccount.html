@@ -15,39 +15,41 @@
         </div>
 
         <div class="usernewaccountbox2">
-            <h4> {{ name }}, confirme os dados abaixo para solicitar abertura de nova conta.</h4>
+            <h3> {{ user.name }}, confirme os dados abaixo para solicitar abertura de nova conta.</h3>
             <div>
-                <p> Nome: {{ user.name }} </p>
-                <p> Gênero: {{ user.gender }}</p>
-                <p class="usernewaccountright"> Data de Nascimento: {{ user.birthDate }}</p>
-                <p class="usernewaccountleft"> CPF: {{ user.cpf }}</p>
+                <p>Nome: {{ user.name }} </p>
+                <p>Gênero: {{ user.gender }}</p>
+                <p class="usernewaccountright">Data de nascimento: {{ birthDate }}</p>
+                <p class="usernewaccountleft">CPF: {{ user.cpf }}</p>
                 <br><br><br>
                 <h4>Endereço</h4>
-                <p class="usernewaccountright"> Estado: {{ user.address.state }}</p>
-                <p class="usernewaccountleft"> Cidade: {{ user.address.city }}</p>
-                <p> Bairro: {{ user.address.district }}</p>
-                <p> Rua/Avenida {{ user.address.road }}</p>
-                <p class="usernewaccountright"> CEP: {{ user.address.cep }}</p>
-                <p class="usernewaccountleft"> Número {{ user.address.numberHouse }}</p>
+                <p class="usernewaccountright">Estado: {{ user.address.state }}</p>
+                <p class="usernewaccountleft">Cidade: {{ user.address.city }}</p>
+                <p>Bairro: {{ user.address.district }}</p>
+                <p>Rua/Avenida {{ user.address.road }}</p>
+                <p class="usernewaccountright">CEP: {{ user.address.cep }}</p>
+                <p class="usernewaccountleft">Número {{ user.address.numberHouse }}</p>
+                {% if user.account.typeAccount == 'CC': %}
+                <br>
+                <br>
+                <p>Tipo da conta solicitada: Conta Poupança </p>
+                {% else: %}
+                <p>Tipo da conta solicitada: Conta Corrente </p>
+                {% endif %}
             </div>
-                <br><br><br>
+                <br>
+            <form method="POST" action="{{ url_for('new_account') }}">
+                <button class="usernewaccountsolicitationbutton1" type="submit">Abrir Nova Conta</button>
+            </form>
+        </div>
+        <br>
+        <form action="{{ url_for('index') }}">
+            <div style="margin-left: 0%;">
+                <button class="usernewaccountsolicitationbutton2" type="submit">&#8592 Voltar</button>
+            </div>
+        </form>
         
-                <div class="usernewaccountsolicitationcenter">
-                    <form
-                        action="">
-                        <button type="submit" class="usernewaccountsolicitationbutton1">
-                            Abrir Nova Conta
-                        </button>
-                    </form>
-                    {% endif %}
-                    </div>
-
-                    <form
-                        action="">
-                        <button type="submit" class="admapprovedeleteaccountbutton2">&#8592 Voltar</button>
-                    </form>
-            </div>
-            <br>
-            <br>
+    </div>
+    <br>
 
 {% endblock contents %}
