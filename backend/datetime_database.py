@@ -43,7 +43,7 @@ class DateTimeDatabase:
     def backday(self):
         cursor = self.db.cursor(dictionary=True)
         query = """
-            update datesystem set datetimeSystem = 0 where iddateSystem = 2;
+            update datesystem set datetimeSystem = 0 where iddateSystem = 1;
         """
         try:
             cursor.execute(query)
