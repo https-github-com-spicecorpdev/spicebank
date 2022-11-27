@@ -482,6 +482,9 @@ margin-top: 1%;
 .admapprovedatachangebox1 > div > h4 {
     text-align: center;}
 
+.admapprovedatachangebox1 > div > h3 {
+    text-align: center;}
+
 .admapprovedatachangebox1 > p {
     margin-top: 5%;
 }
@@ -805,7 +808,7 @@ border-radius: 5px 5px 0px 0px;
     margin: auto;
     width: 70%;
     background-color: #d6d6d6;
-    Margin-top: 5%;
+    Margin-top: 2%;
     padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
     border-radius: 5px 5px 0px 0px ;
@@ -852,16 +855,25 @@ margin-top: 1%;
             margin-right: 20px;
         
         }
-.admusersbutton > form{
+.admusersbutton{
             margin-left:15.2%;
             margin-top:5%;
+  display:inline-block;
         }
-       
+
+  .admusersbutton2{
+    display:inline-block;
+  }
+  
 .admusersbutton2>form>button {
-        width:70px !important;
-         padding: 10px;
-         margin-left:14.9%;
-         margin-top:30px;
+        width:70px;
+        padding: 10px;
+        cursor:pointer;
+        border-radius: 5px;
+        padding: 10px;
+        border: none;
+        display:inline-block;
+        background-color:#d6d6d6
  }
         
 .admusersbutton > form >button{
@@ -869,6 +881,7 @@ margin-top: 1%;
         border-radius: 5px;
         padding: 10px;
         border: none;
+        display:inline-block;
         background-color:#d6d6d6}
 
 
@@ -877,7 +890,7 @@ margin-top: 1%;
     @media screen and (max-width: 750px) {
 
         .admusersbutton > form {
-        Margin-top: 15%;
+        Margin-top: 40%;
         margin-left:15%;
         }
 
