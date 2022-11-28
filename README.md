@@ -70,6 +70,8 @@ Se o sistema operacional for **Linux**, executar o arquivo usando o comando:<br>
 |----|---------|-----|
 |Gerente Geral|1000|123|
 |Gerente de agência|1001|123|
+|Gerente de agência|1002|123|
+|Gerente de agência|1003|123|
 
 
 ## :open_file_folder: Arquivos build
@@ -130,6 +132,10 @@ Sprint 2<br>
 
 Sprint 3<br>
 ![3](https://user-images.githubusercontent.com/86271800/204111448-64353335-95c1-4a31-9127-2194f93c1030.gif)<br> 
+
+Sprint 4<br>
+![4](https://user-images.githubusercontent.com/86271800/204175906-9177b161-945a-4ca7-b691-f7f497a19d02.gif)<br> 
+
 
 # :calendar: Cronograma de Entregas* 
 Foi utilizado o arquivo Product Backlog para validação das estregas de acordo com as prioridades do cliente, sendo elas: 
