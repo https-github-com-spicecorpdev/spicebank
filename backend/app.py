@@ -225,10 +225,10 @@ def deposit():
     valorStr = request.form['fvalor']
     valorStr = valorStr.replace("," , ".")
     valor = float(valorStr)
-    if valor <= 0:
+    if valor <= 0.0:
         message = flash('Valor de depósito deve ser maior que R$00,00!')
         return render_template('deposito.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, message=message, date=today, type=user.account.typeAccount), 400
-    if valor >= 0:
+    if valor >= 0.0:
         value = (f'{valor:.2f}')
         return render_template('deposito_confirmacao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), valor=value, date=today, type=user.account.typeAccount), 200
 
@@ -438,9 +438,9 @@ def open_update_user_data_solicitation():
 def close_account():
     user=current_user
     today = time.strftime('%d/%m/%Y %H:%M:%S')
-    if user.balance() > 0:
+    if int(user.balance()) > int(0.0):
         return render_template('accountclosenotification.html', user=user, date=today, type=user.account.typeAccount), 200
-    elif user.balance() < 0:
+    elif int(user.balance()) < int(0.0):
         return render_template('accountclosereprove.html', user=user, date=today, type=user.account.typeAccount), 200
     return render_template('accountclosesolicitation.html', user=user, date=today, type=user.account.typeAccount), 200
 
