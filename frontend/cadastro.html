@@ -7,13 +7,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/user_template.css') }}">
+        <link rel="shortcut icon" href="static/img/LOGO_BANCO.png" type="image/x-icon">
         <script type="text/javascript" src="{{ url_for('static',filename='js/mask.js') }}"></script>
-        <!-- <link rel="shortcut icon" href="static/img/cadastro.ico" type="image/x-icon"> -->
         <title> Abra sua conta | SpiceBank </title>
     </head>
 
     <body class="userbodyregistration">
-        <nav class="husernav"></nav>
+        <nav class="husernav">
+        <img src="static/img/LOGO_BANCO_EXT.png" alt="logo do banco" class="img4"></nav>
+        <img src="static/img/investor.png" alt="" class="img2">
         
         <div class="userregistrationcenter">
             <br>
@@ -37,7 +39,8 @@
                     <input oninput="mascaraCPF(this)" type="text" id="fcpf" placeholder="000.000.000-00" name="fcpf">
                     <br>
                     <br>
-                    <p for="froad">Endereço: Rua/Avenida: </p>
+                    <p for="froad">Endereço:</p>
+                    <p> Rua/Avenida: </p>
                     <input type="text" id="froad" name="froad">
                     <br>
                     <br>
@@ -59,9 +62,9 @@
                     <br>
                     <br>
                     <div>
-                        <p for="fstate" class="form-p mb-0">Estado: </p>
+                        <p for="fstate" class="form-p mb-0">Estado (UF): </p>
                         <select id="fstate" name="fstate" class="form-select">
-                            <option selected="" value="">Selecione o Estado (UF)</option>
+                            <option selected="" value="">Selecione: </option>
                             <option value="Acre">Acre</option>
                             <option value="Alagoas">Alagoas</option>
                             <option value="Amapá">Amapá</option>
@@ -94,7 +97,8 @@
                     
                     <br>
                     <div class="birthdate">
-                        <p for="fbirthdate">Data de Nascimento: <input type="date" id="fbirthdate" name="fbirthdate"></p>
+                        <p for="fbirthdate">Data de Nascimento:</p>
+                        <input type="date" id="fbirthdate" name="fbirthdate">
                     </div>    
                     <br>
                     
@@ -110,7 +114,7 @@
                     <br>
                     <div>
 
-                        <p for="faccount_type" class="form-p mb-0">Tipo de Conta:* </p>
+                        <p for="faccount_type" class="form-p mb-0">Tipo de Conta: </p>
                         <select id="faccount_type" name="faccount_type" class="form-select">
                             <option selected="" value="">Escolha:</option>
 
@@ -143,7 +147,7 @@
                 
                 <div class="userregistrationbutton2">
                     <form method="GET" action="{{ url_for('index') }}">
-                        <button type="submit">Voltar</button>
+                        <button type="submit">&#8592 Voltar</button>
                     </form>
                 </div>
             </div>

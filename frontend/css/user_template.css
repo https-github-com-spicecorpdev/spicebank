@@ -39,6 +39,12 @@
 }
 
 /*Barra de navegação HORIZONTAL do usuário (login)*/
+.img4{
+    height:100%;
+    margin-left:45%;
+    margin-right:45%;
+}
+
 .husernav{
     padding: 0;
     background-color: #062e46;
@@ -75,6 +81,12 @@
 }
 
     /*Barra de navegação lateral do usuário*/
+
+.img3{
+      width:35%;
+     margin-top:10%;
+     margin-left:32.5%;
+     margin-right:32.5%}
 
     .usernavitem > label{
         display:none;
@@ -154,7 +166,18 @@
    /*RESPONSIVIDADE MENU LATERAL*/
 
 @media screen and (max-width: 750px) {
-
+.img4{
+    height:100%;
+    margin-left:10%;
+}
+    
+.img3{
+    position:absolute;
+    margin-top:0px;
+      width:10%;
+     margin-left:45%;
+     margin-right:45%}
+    
     .usernavitem > label{
   display:block;
   padding:15px;
@@ -236,6 +259,12 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+.img1{
+    margin-top:7%;
+    position:absolute;
+    z-index:-1;
+}
+
     /*caixa cinza claro*/
     .userloginbox{
         background-color: #ffffff;
@@ -244,6 +273,7 @@
         margin-bottom: 2%;
         box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
         border-radius: 5px;
+        z-index:100;
     }
 
         /*Centralizar*/
@@ -289,6 +319,7 @@
         padding:15px;
         cursor:pointer;
         border-radius: 5px;
+        width: 130px;
     }
     
     .userloginbutton1 > button:hover{
@@ -307,6 +338,7 @@
         padding:15px;
         cursor:pointer;
         border-radius: 5px;
+        width: 130px;
     }
     
     .userloginbutton2 > form > button:hover{
@@ -324,6 +356,14 @@
           Margin-top: 10%;
           padding: 40px;
     }
+
+        .userlogincenter{
+            width:60%;
+        }
+
+        .img1{
+            display:none;
+        }
     
     }
 
@@ -339,6 +379,13 @@
         margin: auto;
         width:30%;
     }
+
+.img2{
+    margin-top:10%;
+    position:fixed;
+    z-index:-1;
+    width:40%;
+}
     
     /*caixa cinza claro*/
     .userregistrationbox1{
@@ -402,7 +449,7 @@
         border-style: none;
     }
 
-    .birthdate > p > input {
+    .birthdate > input {
         border-style:none;
         padding:5px;
         width:35%;
@@ -418,6 +465,7 @@
         border-radius: 5px;
         padding:15px;
         cursor:pointer;
+        width: 130px;
     }
     .userregistrationbutton5 > button:hover{
         background-color:#7c9faf;
@@ -435,6 +483,7 @@
                 padding:15px;
                 cursor:pointer;
                 border-radius: 5px;
+                width: 130px;
                 }   
     
     .userregistrationbutton2 > form > button:hover{
@@ -444,6 +493,12 @@
      /*RESPONSIVIDADE DA TELA CADASTRO*/
         
         @media screen and (max-width: 750px) { 
+            .userregistrationcenter{
+                width:70%;
+            }
+
+            .img2{display:none;}
+            
             .userregistrationbox1{
                 margin: auto;
                 width: 100%;
@@ -512,6 +567,7 @@
             padding:15px;
             cursor:pointer;
             border-radius: 5px;
+            width: 130px;
         }
         
         
@@ -531,6 +587,7 @@
             padding:15px;
             cursor:pointer;
             border-radius: 5px;
+            width: 130px;
         }
         
         .useracompanhamentobutton2 > form > button:hover{
@@ -607,6 +664,7 @@
         padding:15px;
         cursor:pointer;
         border-radius: 5px;
+        width: 130px;
     }
     
     .userhacompanhamentobutton2 > form > button:hover{
@@ -786,6 +844,7 @@ margin-bottom: 2%;
     background-color:#d6d6d6;
     cursor: pointer;
     border-radius: 5px;
+    width: 130px;
 }
 
 .userdepositbutton2 >a {
@@ -886,6 +945,7 @@ margin-bottom: 2%;
     background-color:#d6d6d6;
     cursor: pointer;
     border-radius: 5px;
+    width: 130px;
 }
 
 .userdepositconfirmbutton2 > a {
@@ -985,6 +1045,7 @@ margin-bottom: 2%;
     background-color:#d6d6d6;
     cursor: pointer;
     border-radius: 5px;
+    width: 130px;
 }
 
 .usersaquebutton2 >a {
@@ -1084,6 +1145,7 @@ margin-bottom: 2%;
     background-color:#d6d6d6;
     cursor: pointer;
     border-radius: 5px;
+    width: 130px;
 }
 
 .usersaqueconfirmbutton2 >a {
@@ -1187,6 +1249,7 @@ margin-bottom: 2%;
     background-color:#d6d6d6;
     cursor: pointer;
     border-radius: 5px;
+    width: 130px;
 }
 
 .usertransferbutton2 >a {
@@ -1286,6 +1349,7 @@ margin-bottom: 2%;
     background-color:#d6d6d6;
     cursor: pointer;
     border-radius: 5px;
+    width: 130px;
 }
 
 .usertransferconfirmbutton2 >a {
@@ -1318,6 +1382,34 @@ text-align:center;
 .userextratobox1 >p{
 text-align:center;
 margin-top: 1%;
+}
+
+.form-group > select{
+    border-style:none;
+    padding:5px;
+    width:35%;
+    border-radius: 5px;
+    background-color: #fff;
+}
+.form-group > input{
+    border-style:none;
+    padding:5px;
+    width:35%;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.form-group > button {
+    background-color:#ffff;
+    border-style:none;
+    border-radius: 5px;
+    padding:15px;
+    cursor:pointer;
+    width: 130px;
+}
+
+.form-group > button:hover{
+    background-color:#959595;
 }
 
 .userextratotable{
@@ -1364,8 +1456,12 @@ padding: 10px;
 border: none;
  background-color:#d6d6d6;
     border-radius: 5px;
+    width: 130px;
 }
 
+.userextratobutton1 > button:hover{
+    background-color:#959595;
+}
 
  .userextratobutton2 {
     margin-top:5%;
@@ -1378,6 +1474,12 @@ border: none;
           border: none;
            background-color:#d6d6d6;
     border-radius: 5px;
+    width: 130px;
+}
+
+
+.userextratobutton2 > button:hover{
+  background-color:#959595;
   }
 
 /**/
@@ -1499,6 +1601,7 @@ width: 45%;
     cursor: pointer;
     border-style:none;
     padding:14px;
+    width: 130px;
 }
 
 .datachangebutton1 > button{
@@ -1521,6 +1624,7 @@ background-color:rgb(71, 177, 106);
     background-color:#d6d6d6;
     cursor: pointer;
     border-radius: 5px;
+    width: 130px;
 }
 
 .datachangebutton2 >a {
@@ -1615,6 +1719,7 @@ margin-bottom: 2%;
     background-color:#d6d6d6;
     cursor: pointer;
     border-radius: 5px;
+    width: 130px;
 }
 
 .useraccountclosenotificationbutton1 >a {
@@ -1722,6 +1827,7 @@ margin-bottom: 2%;
     background-color:#d6d6d6;
     cursor: pointer;
     border-radius: 5px;
+    width: 130 px;
 }
 
 .useraccountclosesolicitacaobutton1 >a {
@@ -1742,6 +1848,7 @@ margin-bottom: 2%;
     background-color:#d6d6d6;
     cursor: pointer;
     border-radius: 5px;
+    width: 130px;
 }
 
 .useraccountclosesolicitacaobutton2 >a {
@@ -1820,6 +1927,7 @@ margin-bottom: 2%;
     background-color:#d6d6d6;
     cursor: pointer;
     border-radius: 5px;
+    width: 130px;
 }
 
 .useraccountclosereprovebutton1 >a {
@@ -1851,3 +1959,212 @@ margin-bottom: 2%;
     background-color: rgb(71, 177, 106);
 }
  
+
+
+/*newaccount.html*/
+
+.usernewaccoutcenter1 {
+    margin: auto;
+    width: 50%;
+}
+
+
+.usernewaccountbox1 {
+    background-color: #d6d6d6;
+    Margin-top: 15%;
+    padding: 15px;
+    margin-bottom: 2%;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
+}
+
+.usernewaccountbox1 > h3 {    
+    text-align: center;
+}
+
+.uusernewaccountbox1 > p {    
+    text-align: center;
+}
+
+.usernewaccountbox2{
+    margin: auto;
+    width: 100%;
+    background-color: #fff;
+    Margin-top: 10%;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
+}
+
+.admapprovedeleteaccountbox1 > h3 {
+    text-align: center;
+}
+
+.admapprovedeleteaccountbox1 > h4 {
+    text-align: center;
+}
+
+.admapprovedeleteaccountbox1 > div > h4 {
+    text-align: center;
+}
+
+.admapprovedeleteaccountbox1  > p {
+    margin-top: 5%;
+}
+
+.usernewaccountright {
+    float:right;
+    width: 50%;
+}
+
+.usernewaccountleft {
+    float:left;
+    width: 50%;
+}
+
+.usernewaccountsolicitationcenter {
+    margin:auto;
+    width:fit-content;
+    cursor:pointer;
+    border-radius: 5px;
+    padding: 15px;
+    border-style: none;
+    background-color:#ffff;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom : 20%
+}
+
+.usernewaccountsolicitationbutton1 > a {
+    color:#000;
+    text-decoration:none;
+    font-size:110%;
+}
+
+.usernewaccountsolicitationbutton1:hover{
+    background-color:rgb(71, 177, 106);
+}
+        
+.usernewaccountsolicitationbutton2{
+    cursor:pointer;
+    border-radius: 5px;
+    padding: 11px;
+    border-style: none;
+    background-color:#ffff;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom : 20%
+}
+
+.usernewaccountsolicitationbutton2 > a {
+    color:#000;
+    text-decoration:none;
+    font-size:110%;
+}
+
+.usernewaccountsolicitationbutton2 > button:hover{
+    background-color:#959595;
+}
+
+ /*responsividade newaccount.html*/
+
+@media screen and (max-width: 750px) {
+    .usernewaccountcenter1{
+        margin: auto;
+        width: 70%;
+        background-color: #d6d6d6;
+        Margin-top: 20%;
+        padding: 10px;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+        border-radius: 5px;
+    }
+}
+    
+
+
+/*newaccountconfirm.html*/
+
+.usernewaccountconfirmcenter1{
+    margin: auto;
+    width:50%;
+}
+
+.usernewaccountconfirmbox1{
+    background-color: #d6d6d6;
+    Margin-top: 15%;
+    padding: 15px;
+    margin-bottom: 2%;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
+}
+
+.usernewaccountconfirmbox1 > h3 {    
+    text-align: center;
+}
+
+.usernewaccountconfirmbox1 > p{    
+    text-align: center;
+}
+
+.usernewaccountconfirmbox2 {
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    border-radius: 5px;
+}
+
+.usernewaccountconfirmbox2 > h3 {
+    text-align: center;
+    color: #000;
+}
+
+.usernewaccountconfirmbox2 > form {
+    margin: auto;
+    text-align: center;
+}
+
+.usernewaccountconfirmbox2 > form > input {
+    margin-top: 30px;
+    width: 50%;
+    height: 60px;
+    text-align: center;
+    font-size: 170%;
+}
+
+
+.usernewaccountconfirmbutton1 {
+    cursor:pointer;
+    padding: 15px;
+    border-style: none;
+    background-color:#d6d6d6;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 130px;
+}
+
+.usernewaccountconfirmbutton1 > a {
+    color:#000;
+    text-decoration:none;
+    font-size:110%;
+}
+
+.usernewaccountconfirmbutton1:hover{
+    background-color:rgb(183, 85, 85);
+}
+
+ /*responsividade newaccountconfirm.html*/
+
+@media screen and (max-width: 750px) {
+    .usernewaccountconfirmcenter1{
+        margin: auto;
+        width: 70%;
+        background-color: #d6d6d6;
+        Margin-top: 20%;
+        padding: 10px;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+        border-radius: 5px;
+    }
+}
+
+/**/

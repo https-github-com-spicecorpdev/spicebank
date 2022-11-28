@@ -11,22 +11,25 @@
         <title> Juros | SpaceBank </title>
     </head>
 
+
     <body class="feesbody"> 
         
-        <nav class="hgeneralnav"></nav>
-
+        <nav class="hgeneralnav">
+            <img src="static/img/LOGO_BANCO_EXT.png" alt="logo do banco" class="img4">
+        </nav>
         <div class="feescenter1">
             
             <div class="feesbox1">  
-                <h3> Defina a taxa de juros Banco SpiceBank </h3>
+                <h3> Defina a taxa de juros do banco </h3>
             </div>
 
             <div class="feesbox2"> 
                 <h3> Insira o valor do juros </h3>
 
                 <form method="POST" action="/balanceconfirm">
-                    <input type="text" id="fvalor" name="fvalor" placeholder="00,00"><br><br>
+                    <input type="text" id="fvalor" name="fvalor" placeholder="00,00">
                     <label for="fvalor"> % </label>
+                    <br><br>
                     <button class="feesbutton2" type="submit" > Definir </button>
                 </form>
             </div>

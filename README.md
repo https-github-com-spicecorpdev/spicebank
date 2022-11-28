@@ -1,12 +1,12 @@
-# Spicebank
+# :money_with_wings: Spicebank
 ## Introdução
 Este repositório é utilizado para compartilhar o desenvolvimento e entregas do projeto integrado das disciplinas “Design Digital ”, “Desenvolvimento Web I” e “Engenharia de Software I”, realizado na Faculdade de Tecnologia de São José dos Campos (FATEC) - Professor Jassen Vidal. 
 
-## Objetivo
+## :dart: Objetivo
 
 O objetivo do projeto é criar um sistema para gerenciamento de transações em um banco digital fictício, visando monitorar e controlar operações bancárias de um banco digital, reduzindo as interações presenciais.
 
-# Índice
+# :book: Índice
 - Introdução
 - Objetivo
 - Equipe
@@ -16,10 +16,11 @@ O objetivo do projeto é criar um sistema para gerenciamento de transações em 
 - Product Backlog Atual
 - Product Backlog Total
 - Minimum Viable Product(MVP) 4ªSprint
+- Demonstração do Projeto
 - Cronograma de Entregas
 - Tecnologias Utilizadas
 
-# Equipe
+# :busts_in_silhouette: Equipe
 ||Integrantes|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194735815-b3fc4048-bce9-4a70-af44-36583c8ca0e7.png" width=115></div>|<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194737247-64ed8ec4-2b71-46ff-8d22-539b4015d7be.png" width=115></div>|
 |--|-----------|------|--------|
 |<div align="center"><img src="https://user-images.githubusercontent.com/86271800/194735729-e1a6aea7-ec46-4318-83b1-51a4958f6fc1.jpeg" width=50></div>|**Aline Cristiane Correa Costa**|<div align="center">[GitHub](https://github.com/acorreac)</div>|<div align="center">[Linkedin](www.linkedin.com/in/alinecorrea)</div>|
@@ -32,7 +33,7 @@ O objetivo do projeto é criar um sistema para gerenciamento de transações em 
 
 
 
-## Instruções
+## :scroll: Instruções
 ### Para utilizar o projeto será necessário seguir os seguintes passos:
 Tenha instalado em sua máquina o Python 3.10 e o MariaDB 10.11; <br>
 Vide o tópico Banco de Dados para inicialização do banco de dados criado <br>
@@ -71,19 +72,19 @@ Se o sistema operacional for **Linux**, executar o arquivo usando o comando:<br>
 |Gerente de agência|1001|123|
 
 
-## Arquivos build
+## :open_file_folder: Arquivos build
 O build é um arquivo que contém os comandos necessários para copiar arquivos HTML, CSS, imagens para pasta backend na qual se faz necessário tais arquivos para a correta execução e visualização da aplicação.
 
 
-### Banco de Dados
+### :bar_chart: Banco de Dados
 Os passos para a utilização do banco de dados estão na pasta backend/database no arquivo commands-sql.txt
 
-# Product Backlog Atual
+# :pencil: Product Backlog Atual
 <div align="center">
 <img src="https://user-images.githubusercontent.com/86271800/203446332-0b6a6e9f-4f2e-4083-aac6-2c9e8d1d1341.png" width="1000px", height="610px", />
 </div>
 
-# Product Backlog Total
+# :pencil: Product Backlog Total
 |Sprint|Requisitos|
 |------|----------|
 |1|Cadastro de Usuário|
@@ -109,7 +110,7 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 |4|Alteração de Taxas Bancárias|
 |4|Juros Compostos|
 
-# Minimum Viable Product(MVP) 4ªSprint
+# :triangular_flag_on_post: Minimum Viable Product(MVP) 4ªSprint
 - Cadastro de Gerente de Agência
 - Criação de Agência
 - Gerenciamento de Agências
@@ -118,33 +119,28 @@ Os passos para a utilização do banco de dados estão na pasta backend/database
 - Alteração de Taxas Bancárias
 - Juros Compostos 
 
-Gerente Geral
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/200212216-c498c5db-f595-4f19-ad5d-a271d366e817.png" width="1000px", height="500px", />
-</div>
-Gerente de agência
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/200212224-1082ad47-c162-419a-b1bc-320cb24e74c1.png" width="1000px", height="500px", />
-</div>
-Usuário comum
-<div align="center">
-<img src="https://user-images.githubusercontent.com/86271800/200212229-4ec75752-a0c0-43b9-8e12-5ed6ad4e3b62.png" width="1000px", height="500px", />
-</div>
+# :computer: Demonstração do Projeto
 
+Sprint 1<br>
 
-# Cronograma de Entregas* 
+![1](https://user-images.githubusercontent.com/86271800/204110059-bc073f2a-2011-46e4-b778-1549d5a95e67.gif)<br>
+
+Sprint 2<br>
+![2](https://user-images.githubusercontent.com/86271800/204110765-4ba06c09-6a0f-4a8b-bea1-21f7d057dc3d.gif)<br> 
+
+Sprint 3<br>
+![3](https://user-images.githubusercontent.com/86271800/204111448-64353335-95c1-4a31-9127-2194f93c1030.gif)<br> 
+
+# :calendar: Cronograma de Entregas* 
 Foi utilizado o arquivo Product Backlog para validação das estregas de acordo com as prioridades do cliente, sendo elas: 
 - Entrega I 18/9
 - Entrega II 9/10
 - Entrega III 6/11
 - Entrega IV 27/11
 
-# Tecnologias Utilizadas
-  <img src="https://user-images.githubusercontent.com/86271800/194738779-f117d6f3-852b-40c1-a5ea-8fec628c3a15.png" width=115px>
-  <img src="https://user-images.githubusercontent.com/86271800/194738843-7a2b8a5c-e9e1-48ba-88ac-d0a880f98878.png" width=115px>
-  <img src="https://user-images.githubusercontent.com/86271800/194738872-9317607d-e5ab-42dc-8715-4091cf252ed4.png" width=115px>
-  <img src="https://user-images.githubusercontent.com/86271800/194738913-a6d23a32-ee53-4958-b62e-bafdb78b79d3.png" width=115px>
-  <img src="https://user-images.githubusercontent.com/86271800/194738937-05603160-1c22-490f-ab26-d49f3e87a400.png" width=115px>
-  <img src="https://user-images.githubusercontent.com/86271800/203760512-54a6b091-ccbf-4b20-af20-57d6da50378d.png" width=115px>
+# :floppy_disk: Tecnologias Utilizadas
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86271800/203990136-e8180ca8-5d29-47f8-bd73-ceb408293a45.png" width="1000px", height="500px", />
+</div>
 
 

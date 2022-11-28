@@ -11,9 +11,12 @@
         <title> Confirme o Juros | SpaceBank </title>
     </head>
 
+
     <body class="feesbody"> 
         
-        <nav class="hgeneralnav"></nav>
+        <nav class="hgeneralnav">
+            <img src="static/img/LOGO_BANCO_EXT.png" alt="logo do banco" class="img4">
+        </nav>
 
         <div class="feescenter1">
         
@@ -24,11 +27,11 @@
             <div class="feesconfirmbox2"> 
                 <form method="POST" action="{{ url_for('fees_confirm') }}">
                     <p>Valor do juros: </p>
-                    <input type="text" id=" " name=" " readonly=" " value= {{ }}>
-                    <label for=" ">%</label><br>
-                <br>
+                    <input type="text" id="" name="" readonly="" value= {{}}>
+                    <label for="">%</label>
+                    <br><br>
                 <button class="feesconfirmbutton2" type="submit">Confirmar</button>
-                </div>
+            </div>
             </form>
             <br>
             <form method="GET" action="/feesconfirm" name=" ">
@@ -37,6 +40,7 @@
                 </div>
             </form>
             <div class="templatedatetime"> {{ date }} </div>
+        </div>
     </body>
 
 </html> 

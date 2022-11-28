@@ -7,17 +7,20 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/user_template.css') }}">
-        <!-- <link rel="shortcut icon" href="static/img/login.ico" type="image/x-icon"> -->
+        <link rel="shortcut icon" href="static/img/LOGO_BANCO.png" type="image/x-icon">
         <title> Login | SpiceBank </title>
     </head>
 
     <body class="userbodylogin">
         <br>        
         <nav class="husernav">
+            <img src="static/img/LOGO_BANCO_EXT.png" alt="logo do banco" class="img4">
             <ul>
                 <li> <a href="acompanhamentoform">Acompanhar Solicitação</a> </li>
             </ul>
         </nav>
+
+        <img src="static/img/CreativeThinking.png" alt="" class="img1">
 
         <div class="userlogincenter">
             
@@ -45,12 +48,11 @@
                     {% endif %}
                     {% endwith %}
                     {% block body %}{% endblock %}</label>
-
+                    <br>
                     <div class="userloginbutton1">
                         <button type="submit">Login</button>
                     </div>
                 </form>
-                <br>
 
                 <div class="userloginbutton2">
                     <form action="/registerform">

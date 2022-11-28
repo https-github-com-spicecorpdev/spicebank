@@ -10,13 +10,21 @@
         <br>
 
         <form method="GET" action="{{ url_for('index') }}" class="userextratobutton1">
-            <button type="submit">&#8592 voltar</button>
+            <button type="submit">&#8592 Voltar</button>
         </form>
 
         <form method="GET" action="{{ url_for('print') }}" target="_blank" class="userextratobutton2">
             <button type="submit">Imprimir</button>
         </form>
-        
+
+        <div class="userextratobox1">
+            <h2> Extrato </h2>
+            <br>
+            <p> {{ nome }} </p>
+            <p> Agência: {{ agencia }}/ {{ type }}: {{ conta }} </p>
+            <P> Data: {{ date }} </p>
+            <h3> Saldo: R$ {{ "{:,.2f}".format(saldo) }} </h3>
+            <br>
         <form method="POST" action="">
             <div class='col-sm-4'>
                 <div class='form-group'>
@@ -28,7 +36,7 @@
                     </select>
                 </div>
             </div>
-
+            <br>
             <div class='col-sm-4'>
                 <div class='form-group'>
                     <label>Selecione um período</label>
@@ -37,22 +45,13 @@
                     <input type="date" name='dataFinal'>
                 </div>
             </div>
-
-
-            <div class='form-group text-right'>
+            <br>
+            <div class='form-group'>
                 <button name='buscar' id='buscar' type='submit'>
                 &nbsp;&nbsp;Buscar</button>
             </div>
 
         </form>
-            
-        <div class="userextratobox1">
-            <h2> Extrato </h2>
-            <br>
-            <p> {{ nome }} </p>
-            <p> Agência: {{ agencia }}/ {{ type }}: {{ conta }} </p>
-            <P> Data: {{ date }} </p>
-            <h3> Saldo: R$ {{ "{:,.2f}".format(saldo) }} </h3>
         </div>
         <br>
         <label>

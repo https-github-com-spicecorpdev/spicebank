@@ -10,6 +10,7 @@
   height:100%;
 }
 
+
 @media screen and (max-width: 750px) { 
     .justify{
         float: none;
@@ -33,8 +34,12 @@ color: #000;
     font-family: 'Montserrat', sans-serif;
 }
 
-    /*Barra de navegação HORIZONTAL do gerente (login)*/
-
+    /*Barra verde de cima*/
+    .img4{
+        height:100%;
+        margin-left:45%;
+        margin-right:45%;
+    }
     .hgeneralnav{
       padding: 0;
       background-color: #0d3b1b;
@@ -69,12 +74,13 @@ color: #000;
 
     /**/
 
-    /*fees.html*/
+            /*fees.html*/
 
 /*centralizar*/
 .feescenter1{
     margin: auto;
     width:30%;
+
 }
 
 .feescenter2{
@@ -84,11 +90,15 @@ color: #000;
 
 
 /*caixa cinza claro*/
+
 .feesbox1{
-    background-color: #d6d6d6;
-Margin-top: 15%;
+background-color: #d6d6d6;
+Margin-top: 45%;
 padding: 15px;
 margin-bottom: 2%;
+width:400px;
+border-radius:5px;
+box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
 }
 
 .feesbox1 > h3{    
@@ -103,6 +113,10 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+    width:400px;
+    border-radius:5px;
+    margin-top:10%;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
 }
 
 .feesbox2 > h3{
@@ -110,60 +124,31 @@ margin-bottom: 2%;
     color: #868686;
 }
 
-.feesbox2 > form{
-
+.feesbox2 > form {
     margin: auto;
     text-align: center;
+    font-size: 120%;
 }
 
 .feesbox2 > form > input{
     margin-top: 30px;
-      width: 50%;
-    height: 60px;
+      width: 150px;
+      height: 60px;
       text-align: center;
-      font-size: 170%;
 }
-
-.feesbutton1{
-    cursor:pointer;
-    padding: 15px;
-    border-style: none;
-    background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.feesbutton1 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
-}
-
-.feesbutton1:hover{
-    background-color:rgb(183, 85, 85);
-}
-
 
 .feesbutton2{
     cursor:pointer;
     padding: 15px;
     border-style: none;
     background-color:#d6d6d6;
-    cursor: pointer;
-}
-
-.feesbutton2 >a {
-  color:#000;
-  text-decoration:none;
-  font-size:110%;
+    width:100px;
+    border-radius:5px;
+    margin-right:20px;
 }
 
 .feesbutton2:hover{
-    background-color:rgb(71, 177, 106);
-}
-
-.generalbutton1{
-    text-align:center;
-    margin-top:5%;
+    background-color:#39692ba1;
 }
 
       /*RESPONSIVIDADE DA TELA fees.HTML*/
@@ -176,6 +161,10 @@ margin-bottom: 2%;
       Margin-top: 10%;
       padding: 40px;
 }
+.img4{
+        height:100%;
+        margin-left:10%;
+    }
 }
 
 
@@ -195,11 +184,15 @@ margin-bottom: 2%;
 
 
 /*caixa cinza claro*/
+
 .feesconfirmbox1{
-    background-color: #d6d6d6;
-Margin-top: 15%;
+background-color: #d6d6d6;
+Margin-top: 45%;
 padding: 15px;
 margin-bottom: 2%;
+width:400px;
+border-radius:5px;
+box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
 }
 
 .feesconfirmbox1 > h3{    
@@ -214,6 +207,10 @@ margin-bottom: 2%;
     background-color: #ffffff;
     padding: 15px;
     height: fit-content;
+    width:400px;
+    border-radius:5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+  margin-top:10%;
 }
 
 .feesconfirmbox2 > h3{
@@ -229,27 +226,30 @@ margin-bottom: 2%;
 
 .feesconfirmbox2 > form > input{
     margin-top: 30px;
-      width: 50%;
-    height: 60px;
+      width: 150px;
+      height: 60px;
       text-align: center;
-      font-size: 170%;
+      font-size: 180% !important;
 }
 
-.feesconfirmbutton1{
+.feesbutton1{
     cursor:pointer;
     padding: 15px;
     border-style: none;
     background-color:#d6d6d6;
     cursor: pointer;
+    border-radius:5px;
+    margin-left: 7%;
+    width:180px;
 }
 
-.feesconfirmbutton1 >a {
+.feesbutton1 >a {
   color:#000;
   text-decoration:none;
   font-size:110%;
 }
 
-.feesconfirmbutton1:hover{
+.feesbutton1:hover{
     background-color:rgb(183, 85, 85);
 }
 
@@ -259,7 +259,9 @@ margin-bottom: 2%;
     padding: 15px;
     border-style: none;
     background-color:#d6d6d6;
-    cursor: pointer;
+    width:100px;
+    border-radius:5px;
+    margin-right:20px;
 }
 
 .feesconfirmbutton2 >a {
@@ -269,7 +271,7 @@ margin-bottom: 2%;
 }
 
 .feesconfirmbutton2:hover{
-    background-color:rgb(71, 177, 106);
+    background-color:#39692ba1;
 }
 
 
@@ -280,9 +282,13 @@ margin-bottom: 2%;
         .feescenter1{
           margin: auto;
           width: 75%;
-          background-color: #d6d6d6;
+          background-color: #6b8064;
           Margin-top: 10%;
           padding: 40px;
+    }
+        .img4{
+          height:100%;
+          margin-left:10%;
     }
     }
     

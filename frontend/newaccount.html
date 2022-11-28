@@ -13,16 +13,16 @@
         <div class="usernewaccountbox1">
             <h3> Abrir Nova Conta </h3>
         </div>
-
         <div class="admapprovedeleteaccountbox1">
             <h4> {{ user.name }}, confirme os dados abaixo para solicitar abertura de nova conta.</h4>
             <div>
-                <p>Nome: {{ user.name }} </p>
-                <p>Gênero: {{ user.gender }}</p>
-                <p class="admapprovedeleteaccountright">data de nascimento: {{ user.birthDate }}</p>
-                <p class="admapprovedeleteaccountleft">cpf: {{ user.cpf }}</p>
+                <p> Nome: {{ user.name }} </p>
+                <p> Gênero: {{ user.gender }}</p>
+                <p class="usernewaccountright"> Data de Nascimento: {{ user.birthDate }}</p>
+                <p class="usernewaccountleft"> CPF: {{ user.cpf }}</p>
                 <br><br><br>
                 <h4>Endereço</h4>
+
                 <p class="admapprovedatachangeright">Estado: {{ user.address.state }}</p>
                 <p class="admapprovedatachangeleft">cidade: {{ user.address.city }}</p>
                 <p>Bairro: {{ user.address.district }}</p>
@@ -37,8 +37,9 @@
             </div>
                 <br><br><br>
         
-                <div class="admapprovedeleteaccountcenter">
+                <div class="usernewaccountsolicitationcenter">
                     <form
+
                     method="POST" action="{{ url_for('new_account') }}">
                         <button type="submit" class="admapprovedeleteaccountbutton1">
                             Abrir Nova Conta
@@ -49,10 +50,10 @@
                     <form
                     action="{{ url_for('index') }}">
                         <button type="submit" class="admapprovedeleteaccountbutton2">Voltar</button>
+
                     </form>
-        
-                </div>
-        
             </div>
+            <br>
+            <br>
 
 {% endblock contents %}
