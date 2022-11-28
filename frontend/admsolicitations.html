@@ -44,20 +44,20 @@
         </td>
         {% else %}
         <td>
-            <a href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='aprovar', id=solicitacao.id, type=solicitacao.solicitation_type) }}"
+            <a href="{{ url_for('solicitacao',user_id=solicitacao.idUser, account_id=solicitacao.id_account, action='aprovar', id=solicitacao.id, type=solicitacao.solicitation_type) }}"
                 class="admsolicitationsaprovar">
                 Aprovar
             </a>
         </td>
         {% endif %}
         <td>
-            <a href="{{ url_for('solicitacao',user_id=solicitacao.idUser, action='reprovar', id=solicitacao.id,type=solicitacao.solicitation_type)}}"
+            <a href="{{ url_for('solicitacao',user_id=solicitacao.idUser, account_id=solicitacao.id_account, action='reprovar', id=solicitacao.id,type=solicitacao.solicitation_type)}}"
                 class="admsolicitationsreprovar">
                 Reprovar
             </a>
         </td>
         <td>
-            <a href="{{ url_for('details',user_id=solicitacao.idUser, solicitation_id=solicitacao.id,type=solicitacao.solicitation_type)}}"
+            <a href="{{ url_for('details',user_id=solicitacao.idUser, account_id=solicitacao.id_account, solicitation_id=solicitacao.id,type=solicitacao.solicitation_type)}}"
                 class="admsolicitationsdetalhes">
                 Detalhes
             </a>

@@ -19,7 +19,7 @@
         <br><br><br>
 
         <div class="admdepositconfirmcenter2">
-            <form method="POST" action="{{ url_for('solicitacao',user_id=user.id, action='aprovar', id=solicitation.id_solicitation, type='Confirmação de depósito') }}">
+            <form method="POST" action="{{ url_for('solicitacao',user_id=user.id, account_id=solicitation.account_number, action='aprovar', id=solicitation.id_solicitation, type='Confirmação de depósito') }}">
                 <button class="admdepositconfirmbutton2" type="submit">
                     Confirmar
                 </button>

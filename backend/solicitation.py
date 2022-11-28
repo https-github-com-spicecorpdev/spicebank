@@ -53,13 +53,14 @@ class CloseAccountSolicitation:
         self.genre = genre
 
 class SimpleSolicitation:
-    def __init__(self, id_user, status, solicitation_type, created_time, updated_time, id=None):
+    def __init__(self, id_account, id_user, status, solicitation_type, created_time, updated_time, id=None):
         self.id = id
         self.id_user = id_user
         self.status = status
         self.solicitation_type = solicitation_type
         self.created_time = created_time
         self.updated_time = updated_time
+        self.id_account = id_account
 
     def __str__(self):
         return f'id: {self.id}, user_id: {self.user_id}, id_solicitation: {self.id_solicitation}, id_account:{self.id_account}, name: {self.name}, cpf: {self.cpf},  birthdate: {self.birthdate}, road: {self.road}, number_house: {self.number_house},  district: {self.district}, cep: {self.cep}, city: {self.city}, state: {self.state}, genre: {self.genre}, secret: {self.password}, status: {self.status}, account:{self.account}, agency:{self.agency}'

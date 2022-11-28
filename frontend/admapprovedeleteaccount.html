@@ -26,7 +26,7 @@
         <div class="admapprovedeleteaccountcenter">
             {% if user.account.balance == 0 %}
             <form
-                action="{{ url_for('solicitacao',user_id=user.id, action='aprovar', id=solicitation.id, type=solicitation.solicitation_type) }}">
+                action="{{ url_for('solicitacao',user_id=user.id, account_id=solicitation.id_account, action='aprovar', id=solicitation.id, type=solicitation.solicitation_type) }}">
                 <button type="submit" class="admapprovedeleteaccountbutton1">
                     Aprovar
                 </button>
@@ -41,7 +41,7 @@
             {% endif %}
 
             <form
-                action="{{ url_for('solicitacao',user_id=user.id, action='reprovar', id=solicitation.id,type=solicitation.solicitation_type)}}">
+                action="{{ url_for('solicitacao',user_id=user.id, account_id=solicitation.id_account, action='reprovar', id=solicitation.id,type=solicitation.solicitation_type)}}">
                 <button type="submit" class="admapprovedeleteaccountbutton2">Reprovar</button>
             </form>
 

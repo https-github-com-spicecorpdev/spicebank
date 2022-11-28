@@ -20,7 +20,7 @@ class SolicitationDatabase:
             cursor.execute(query, parameters)
             result = cursor.fetchone()
             if result:
-                solicitation = SimpleSolicitation(result['id_user'], result['status'], result['solicitation_type'], result['created_time'], result['updated_time'], id=result['id'])
+                solicitation = SimpleSolicitation(result['id_account'], result['id_user'], result['status'], result['solicitation_type'], result['created_time'], result['updated_time'], id=result['id'])
                 return solicitation
             else:
                 logging.info(f'Nenhuma solicitação com id {id} encontrado!')
@@ -79,19 +79,21 @@ class SolicitationDatabase:
         except mariadb.Error as e:
             logging.error(e)
 
-    def find_solicitation_id_by_user_id_and_solicitation_type(self,user_id, type):
+    def find_solicitation_id_by_account_id_and_solicitation_type(self,account_id, type):
         cursor = self.db.cursor(dictionary=True)
-        query = """select * from solicitation 
-                   where id_user = ?
-                   AND solicitation_type = ?;"""
-        parameters = (user_id, type,)
+        query = """
+                   select * from solicitation 
+                   where id_account = ?
+                   AND solicitation_type = ?;
+                """
+        parameters = (account_id, type,)
         try:
             cursor.execute(query, parameters)
             result= cursor.fetchone()
             if result:
                 return result['id']
             else:
-                logging.info (f'Solicitação com o user_id: {user_id} não encontrado!')
+                logging.info (f'Solicitação com o account_id: {account_id} não encontrado!')
                 return None
         except mariadb.Error as e:
             logging.error(e)
@@ -229,7 +231,7 @@ class SolicitationDatabase:
         except mariadb.Error as e:
             logging.error(e)
 
-    def open_close_account_solicitation(self, user_id, solicitation):
+    def open_close_account_solicitation(self, user_id, solicitation, account_id):
         cursor = self.db.cursor()
         solicitation_query = """
             INSERT INTO solicitation (id_user, id_account, status, solicitation_type) VALUES(?, ?, 'Pendente', ?)
@@ -238,23 +240,23 @@ class SolicitationDatabase:
             select s.id, a.idAccount, a.numberAccount, u.idUser from tuser u 
             inner join taccount a on a.idAccountUser = u.idUser 
             inner join solicitation s on s.id_user = u.idUser
-            where s.id = ?;
+            where s.id = ? and s.id_account = ?;
         """
         close_account_solicitation_query = """
             INSERT INTO account_close_solicitation
             (id_solicitation, id_account, name, cpf, birthdate, road, number_house, district, cep, city, state, genre)
             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """
-        solicitation_parameters = (user_id, solicitation.id_account, 'Encerrar conta',)
+        solicitation_parameters = (user_id, account_id, 'Encerrar conta',)
         try:
             cursor.execute(solicitation_query, solicitation_parameters)
             self.db.commit()
             id_solicitation = cursor.lastrowid
-            parameters = (id_solicitation, )
+            parameters = (id_solicitation, account_id,)
             cursor.execute(account_number_query, parameters)
             result= cursor.fetchone()
             id_account = result[1]
-            close_account_solicitation_parameters = (id_solicitation, id_account, solicitation.name, solicitation.cpf, solicitation.birthdate, solicitation.road, solicitation.number_house, solicitation.district, solicitation.cep, solicitation.city, solicitation.state, solicitation.genre,)
+            close_account_solicitation_parameters = (id_solicitation, account_id, solicitation.name, solicitation.cpf, solicitation.birthdate, solicitation.road, solicitation.number_house, solicitation.district, solicitation.cep, solicitation.city, solicitation.state, solicitation.genre,)
             cursor.execute(close_account_solicitation_query, close_account_solicitation_parameters)
             self.db.commit()
             logging.info('Solicitação de encerramento de conta criada!')

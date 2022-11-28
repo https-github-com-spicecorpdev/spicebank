@@ -96,9 +96,9 @@ def loginGerente():
         flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('loginGerente.html'), 400
 
-@app.route('/<user_id>/<action>/<id>/<type>/solicitacao',methods = ['GET','POST'])
+@app.route('/<user_id>/<account_id>/<action>/<id>/<type>/solicitacao',methods = ['GET','POST'])
 @login_required
-def solicitacao(user_id,action,id,type):
+def solicitacao(user_id,account_id,action,id,type):
     manager=current_user
     if type=='Abertura de conta':
         account_approval(user_id, action, id)
@@ -108,7 +108,7 @@ def solicitacao(user_id,action,id,type):
     elif type== 'Alteração de dados cadastrais':
         update_user_approval(user_id, action, id)
     elif type == 'Encerrar conta':
-        close_account_approval(user_id, action, id)
+        close_account_approval(user_id, account_id, action, id)
     solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
     return render_template('admsolicitations.html', solicitacoes=solicitations, manager = manager), 200
 
@@ -123,7 +123,7 @@ def account_approval_by_general_manager(user_id,acao,id,type):
 @app.route('/admsolicitations', methods = ['GET'])
 @login_required
 def solicitations():
-    manager= current_user
+    manager = current_user
     if manager.is_general_manager():
         solicitations=solicitationDatabase.find_solicitations_by_general_manager()
     else:
@@ -266,21 +266,21 @@ def adm_edit_data_user(user_id):
     if request.method == 'POST':
         return render_template('admhome.html',manager=manager), 200
 
-@app.route('/<user_id>/<solicitation_id>/<type>/details')
+@app.route('/<user_id>/<account_id>/<solicitation_id>/<type>/details')
 @login_required
-def details(user_id,solicitation_id,type):
+def details(user_id, account_id,solicitation_id,type):
     manager=current_user
     logging.info(f'{solicitation_id}')
     if type == 'Alteração de dados cadastrais':
         update_user_solicitation = solicitationDatabase.find_update_user_solicitation_by_id_solicitation(solicitation_id, user_id)
-        user = userDatabase.findById(user_id)
+        user = userDatabase.find_by_account_id(account_id)
         return render_template('admapprovedatachange.html', solicitation=update_user_solicitation, user=user, manager = manager), 200
     elif type == 'Encerrar conta':
         solicitation = solicitationDatabase.find_by_id(solicitation_id)
-        user = userDatabase.findById(user_id)
+        user = userDatabase.find_by_account_id(account_id)
         return render_template('admapprovedeleteaccount.html', user = user, solicitation = solicitation, manager = manager), 200
     elif type =='Confirmação de depósito':
-        user = userDatabase.findById(user_id)
+        user = userDatabase.find_by_account_id(account_id)
         solicitation = solicitationDatabase.find_deposit_solicitation_by_id_solicitation(solicitation_id)
         return render_template('admdepositconfirm.html', user = user, solicitation = solicitation, manager = manager), 200
     elif type == 'Abertura de conta':
@@ -349,16 +349,16 @@ def update_user_approval(user_id, action, id):
         logging.info(f'Reprovando a solicitação de alteração de dados do usuario {user_id}')
         solicitationDatabase.update_status_by_id(id,'Reprovado')
 
-def close_account_approval(user_id, action, id):
+def close_account_approval(user_id, account_id, action, id):
     if action == 'aprovar':
-        logging.info(f'ID: {id}')
+        logging.info(f'SID: {id} ACCOUNT ID: {account_id}')
         solicitationDatabase.update_status_by_id(id, 'Aprovado')
-        open_account_solicitation_id = solicitationDatabase.find_solicitation_id_by_user_id_and_solicitation_type(user_id, 'Abertura de Conta')
+        open_account_solicitation_id = solicitationDatabase.find_solicitation_id_by_account_id_and_solicitation_type(account_id, 'Abertura de Conta')
         solicitationDatabase.update_status_by_id(open_account_solicitation_id, 'Encerrado')
         accountDatabase.deactivate_account_by_solicitation_id(id)
     else:
         logging.info(f'Reprovando a solicitação de encerramento de conta do usuario {user_id}')
-        open_account_solicitation_id = solicitationDatabase.find_solicitation_id_by_user_id_and_solicitation_type(user_id, 'Abertura de Conta')
+        open_account_solicitation_id = solicitationDatabase.find_solicitation_id_by_account_id_and_solicitation_type(account_id, 'Abertura de Conta')
         solicitationDatabase.update_status_by_id(open_account_solicitation_id, 'Aprovado')
         solicitationDatabase.update_status_by_id(id,'Reprovado')
         accountDatabase.update_account_status_by_close_account_solicitation_id(id, 'Aprovado')
