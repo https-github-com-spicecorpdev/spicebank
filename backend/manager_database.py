@@ -48,9 +48,27 @@ class ManagerDatabase:
         query= """
         SELECT TUSER.*, MANAGER.*
         FROM manager as  MANAGER
-        INNER JOIN tuser as TUSER ON MANAGER.id_user = TUSER.idUser WHERE TUSER.idUser = ?;
+        INNER JOIN tuser as TUSER ON MANAGER.id_user = TUSER.idUser 
+        WHERE TUSER.idUser = ?;
         """
         parameters = (user_id, )
+        cursor.execute(query, parameters)
+        manager_from_db = cursor.fetchone()
+        if manager_from_db:
+            address = Address(manager_from_db['roadUser'], manager_from_db['numberHouseUser'], manager_from_db['districtUser'], manager_from_db['cityUser'], manager_from_db['stateUser'], manager_from_db['cepUser'])
+            return Manager(manager_from_db['nameUser'], manager_from_db['cpfUser'], manager_from_db['passwordUser'], manager_from_db['birthdateUser'], manager_from_db['genreUser'], manager_from_db['registration_number'], manager_from_db['work_agency_id'], manager_from_db['profile_user'], userId=manager_from_db['idUser'], managerId=manager_from_db['id'], address=address)
+        else:
+            logging.info(f'Gerente de Agência com o id: {user_id} não encontrado!')
+            return None
+
+    def find_by_user_id_and_registration_number(self, user_id,registration_number):
+        cursor=self.db.cursor(dictionary=True)
+        query= """
+        SELECT TUSER.*, MANAGER.*
+        FROM manager as  MANAGER
+        INNER JOIN tuser as TUSER ON MANAGER.id_user = TUSER.idUser WHERE TUSER.idUser = ? and MANAGER.registration_number= ?;
+        """
+        parameters = (user_id,registration_number, )
         cursor.execute(query, parameters)
         manager_from_db = cursor.fetchone()
         if manager_from_db:

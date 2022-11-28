@@ -15,7 +15,7 @@
 
         <p>Origem: {{ user.name }}</p>
         <p>Agência:{{ user.account.agency }} / Conta: {{ user.account.account }}</p> <br>
-        <h3 for="fvalor">Valor: R$ {{ solicitation.deposit_value }}</h3>
+        <h3 for="fvalor">Valor: R$ {{ "{:,.2f}".format(solicitation.deposit_value) }}</h3>
         <br><br><br>
 
         <div class="admdepositconfirmcenter2">

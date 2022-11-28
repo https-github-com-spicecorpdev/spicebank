@@ -13,7 +13,7 @@ class AccountDatabase:
         query = """
             INSERT INTO taccount (numberAccount, totalbalance, idAccountUser, agencyUser, is_active, account_type) values (next value for account_number, 0, ?,?, 0, ?);
         """
-        parameters = (userId, agency_id, account_type,)
+        parameters = (userId, agency_id,account_type,)
         cursor.execute(query, parameters)
         self.db.commit()
         return cursor.lastrowid
@@ -40,7 +40,7 @@ class AccountDatabase:
     def activate_account_by_solicitation_id(self, id):
         return self.update_account_status_by_solicitation_id(id, 'Aprovado')
 
-    def update_close_account_status_by_solicitation_id(self, solicitation_id, status):
+    def update_account_status_by_close_account_solicitation_id(self, solicitation_id, status):
         logging.info(f'atualizando solicitacao {solicitation_id} para {status}')
         is_active = False
         cursor = self.db.cursor()
@@ -60,7 +60,16 @@ class AccountDatabase:
             logging.error(e)
 
     def deactivate_account_by_solicitation_id(self, id):
-        return self.update_close_account_status_by_solicitation_id(id, 'Encerrado')
+        return self.update_account_status_by_close_account_solicitation_id(id, 'Encerrado')
+
+    def reprove_account_by_solicitation_id(self, id):
+        return self.update_account_status_by_solicitation_id(id, 'Reprovado')
+
+    def pending_account_by_solicitation_id(self, id):
+        return self.update_account_status_by_solicitation_id(id, 'Pendente')
+
+    def analysis_account_by_solicitation_id(self, id):
+        return self.update_account_status_by_solicitation_id(id, 'Em Análise')
 
     def updateBalanceByAccountNumber(self, balance, accountNumber):
         cursor = self.db.cursor()
@@ -156,5 +165,25 @@ class AccountDatabase:
         try:
             cursor.execute(query, parameters)
             self.db.commit()
+        except mariadb.Error as e:
+            logging.error(e)
+
+
+    def find_by_account_number(self, account_number):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+        SELECT USR.*, ACCOUNT.* 
+        FROM tuser AS USR INNER JOIN taccount AS ACCOUNT ON idUser = idAccountUser 
+        WHERE numberAccount = ?
+        """
+        parameters = (account_number,)
+        try:
+            cursor.execute(query, parameters)
+            accountFromDB = cursor.fetchone()
+            if accountFromDB:
+                return Account(id=accountFromDB['idAccount'],accountNumber=accountFromDB['numberAccount'], userAgency=accountFromDB['agencyUser'], totalBalance=accountFromDB['totalbalance'], typeAccount=accountFromDB['account_type'])
+            else:
+                logging.info(f'Conta {account_number} não encontrada!')
+                return None
         except mariadb.Error as e:
             logging.error(e)

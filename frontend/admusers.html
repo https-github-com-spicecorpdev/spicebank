@@ -31,13 +31,13 @@
         <td>{{ user.numberAccount }}</td>
         <td>
             <a
-                href="{{ url_for('statement_user', user_id=user.idUser)}}">
+                href="{{ url_for('statement_user', account_id=user.idAccount)}}">
                 Extrato
             </a>
         </td>
         <td>
             <a
-                href="{{ url_for('adm_user_details',user_id=user.idUser)}}">
+                href="{{ url_for('adm_user_details', account_id=user.idAccount)}}">
                 Detalhes
             </a>
         </td>

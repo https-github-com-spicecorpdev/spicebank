@@ -13,6 +13,6 @@ class Account:
    
     def deposit(self, value):
         self.balance = self.balance + value
-
+    
     def __str__(self):
         return f'Id: {self.id}, account: {self.account}, agency: {self.agency}, balance: {self.balance}, typeAccount: {self.typeAccount}, status: {self.status}'

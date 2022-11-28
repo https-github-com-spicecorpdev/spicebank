@@ -13,7 +13,7 @@
             <input type="text" id="fname" name="fname" value="{{ user.name }}" > <br><br>
             <p class="admusersdetaileft">CPF: {{ user.cpf }} </p>
             <br>
-            <p class="admusersdetailright">Data de Nascimento: {{ user.birthDate }} </p>
+            <p class="admusersdetailright">Data de Nascimento: {{ birthDate }} </p>
             <label for="fgenre" class="form-label mb-0"class="admusersdetailright">Gênero</label>
             <select id="fgenre" name="fgenre" class="form-select">
                 {%if user.gender == 'M': %}  
