@@ -84,7 +84,7 @@ def loginGerente():
     if not validate_form(request.form):
         flash('Preencha todos os campos!')
         return render_template('loginGerente.html'), 400
-    manager = managerDatabase.findByRegistrationNumberAndPassword (request.form['fmatricula'], request.form['fpassword'],)
+    manager = managerDatabase.findByRegistrationNumberAndPassword(request.form['fmatricula'], request.form['fpassword'],)
     if manager:
         login_user(manager)
         if manager.is_general_manager():
@@ -155,9 +155,8 @@ def perform_admagency_creation():
 @app.route('/admagencymanagers', methods = ['GET'])
 @login_required
 def admagencymanagers():
-    manager = current_user
     managers = managerDatabase.find_all_agency_manager()
-    return render_template('admmanagers.html', managers = managers, manager = manager), 200
+    return render_template('admmanagers.html', managers = managers), 200
 
 @app.route('/admmanagercreation')
 @login_required
@@ -181,21 +180,34 @@ def admregistermanager():
         managerDatabase.save_user_manager(manager)
         return redirect(url_for('index')), 200
 
-
-@app.route('/<user_id>/<numberAccount>/admuserdetails')
+@app.route('/<user_id>/admmanagerdetails')
 @login_required
-def adm_user_details(user_id,numberAccount):
+def adm_manager_details(user_id):
     manager = current_user
-    user = userDatabase.findByIdAndNumberAccount(user_id,numberAccount)
-    target_manager = managerDatabase.find_by_user_id_and_registration_number(user_id,numberAccount)
+    user = userDatabase.findById(user_id)
+    target_manager = managerDatabase.find_by_user_id(user_id)
     if target_manager:
         aniversario = manager.birthDate
         birthDate = aniversario.strftime("%d/%m/%Y")
-        return render_template('admagencymanagerdetail.html', target_manager = target_manager, manager = manager, birthDate=birthDate), 200
+        return render_template('admagencymanagerdetail.html', target_manager = target_manager, birthDate=birthDate), 200
     else:
         aniversario = user.birthDate
         birthDate = aniversario.strftime("%d/%m/%Y")
-        return render_template('admusersdetail.html', user = user, manager = manager,birthDate=birthDate ), 200
+        return render_template('admusersdetail.html', user = user, birthDate=birthDate), 200
+
+@app.route('/<account_id>/admuserdetails')
+@login_required
+def adm_user_details(account_id):
+    user = userDatabase.find_by_account_id(account_id)
+    target_manager = managerDatabase.find_by_user_id(user.id)
+    if target_manager:
+        aniversario = user.birthDate
+        birthDate = aniversario.strftime("%d/%m/%Y")
+        return render_template('admagencymanagerdetail.html', target_manager = target_manager, birthDate=birthDate), 200
+    else:
+        aniversario = user.birthDate
+        birthDate = aniversario.strftime("%d/%m/%Y")
+        return render_template('admusersdetail.html', user = user, birthDate=birthDate), 200
 
 @app.route('/admagency', methods = ['GET'])
 @login_required
@@ -280,21 +292,21 @@ def details(user_id,solicitation_id,type):
         solicitations=solicitationDatabase.find_by_work_agency_id(manager.workAgency)
         return render_template('admsolicitations.html', solicitacoes=solicitations, manager = manager), 200
 
-@app.route('/<user_id>/statement', methods = ['GET'])
+@app.route('/<account_id>/statement', methods = ['GET'])
 @login_required
-def statement_user(user_id):
-    logging.info(f'statement_user::({user_id})')
+def statement_user(account_id):
+    logging.info(f'statement_account_id::({account_id})')
     manager = current_user
-    user = userDatabase.findById(user_id)
-    statements = statementDatabase.findByUserId(user.id)
+    user = userDatabase.find_by_account_id(account_id)
+    statements = statementDatabase.find_by_account_id(account_id)
     return render_template('admextrato.html', user = user, extratos=statements, manager = manager), 200
 
-@app.route('/<user_id>/print', methods = ['GET'])
+@app.route('/<account_id>/print', methods = ['GET'])
 @login_required
-def print(user_id):
+def print(account_id):
     manager = current_user
-    user = userDatabase.findById(user_id)
-    statements = statementDatabase.findByUserId(user_id)
+    user = userDatabase.find_by_account_id(account_id)
+    statements = statementDatabase.find_by_account_id(account_id)
     return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements, manager = manager), 200
 
 def account_approval(user_id, action, id):
@@ -304,23 +316,24 @@ def account_approval(user_id, action, id):
         solicitationDatabase.update_status_by_id(id,'Aprovado')
     else:
         app.logger.info(f'Reprovando a solicitação do usuario {user_id}')
-        accountDatabase.reproval_account_by_solicitation_id(id, 'Reprovado')
+        accountDatabase.reprove_account_by_solicitation_id(id)
         solicitationDatabase.update_status_by_id(id,'Reprovado')
 
 def deposit_approval(user_id, action, solicitations_id):
     deposit_solicitation= solicitationDatabase.find_deposit_solicitation_by_id_solicitation(solicitations_id)
     account_balance=accountDatabase.getBalanceByAccountNumber(deposit_solicitation.account_number)
+    target_account = accountDatabase.find_by_account_number(deposit_solicitation.account_number)
     if action =='aprovar':
         app.logger.info(f'Aprovando a solicitação de depósito do usuario {user_id}')
         total_balance= account_balance + deposit_solicitation.deposit_value
         bank_id = 1
         accountDatabase.updateBalanceByAccountNumber(total_balance, deposit_solicitation.account_number)
         bankDatabase.update_bank_balance(bank_id, deposit_solicitation.deposit_value)
-        statement = Statement('C', 'Aprovado', userId=user_id, balance=total_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
+        statement = Statement('C', 'Aprovado', accountId=target_account.id, balance=total_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
         statementDatabase.save(statement)
         solicitationDatabase.update_status_by_id(solicitations_id,'Aprovado') 
     else:
-        statement = Statement('', 'Reprovado', userId=user_id, balance=account_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
+        statement = Statement('', 'Reprovado', accountId=target_account.id, balance=account_balance, deposit=deposit_solicitation.deposit_value, withdraw=0,)
         statementDatabase.save(statement)
         solicitationDatabase.update_status_by_id(solicitations_id,'Reprovado')
         app.logger.info(f'Reprovando a solicitação de depósito do usuario {user_id}')
@@ -348,9 +361,7 @@ def close_account_approval(user_id, action, id):
         open_account_solicitation_id = solicitationDatabase.find_solicitation_id_by_user_id_and_solicitation_type(user_id, 'Abertura de Conta')
         solicitationDatabase.update_status_by_id(open_account_solicitation_id, 'Aprovado')
         solicitationDatabase.update_status_by_id(id,'Reprovado')
-        accountDatabase.activate_account_by_solicitation_id(id)
-        user = userDatabase.findById(user_id)
-        accountDatabase.activate_account(user.accountNumber())
+        accountDatabase.update_account_status_by_close_account_solicitation_id(id, 'Aprovado')
 
 def validate_form(form):
     for key in form:

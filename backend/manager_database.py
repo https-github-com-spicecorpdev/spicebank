@@ -48,7 +48,8 @@ class ManagerDatabase:
         query= """
         SELECT TUSER.*, MANAGER.*
         FROM manager as  MANAGER
-        INNER JOIN tuser as TUSER ON MANAGER.id_user = TUSER.idUser WHERE TUSER.idUser = ?;
+        INNER JOIN tuser as TUSER ON MANAGER.id_user = TUSER.idUser 
+        WHERE TUSER.idUser = ?;
         """
         parameters = (user_id, )
         cursor.execute(query, parameters)

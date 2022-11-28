@@ -32,9 +32,10 @@ class SolicitationDatabase:
         cursor = self.db.cursor(dictionary=True)
         query = """
             SELECT USR.*, ACCOUNT.*, s.*
-       FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
-       inner join solicitation s on USR.idUser = s.id_user 
-       where  s.status = 'Pendente' and ACCOUNT.status='Pendente' and ACCOUNT.agencyUser = ? ;
+            FROM tuser AS USR 
+            left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
+            inner join solicitation s on ACCOUNT.idAccount = s.id_account
+            where  s.status = 'Pendente' and ACCOUNT.agencyUser = ? ;
         """
         parameters = (work_agency_id,)
         try:
@@ -51,10 +52,9 @@ class SolicitationDatabase:
     def find_solicitations_by_general_manager(self):
         cursor = self.db.cursor(dictionary=True)
         query =  """
-        SELECT USR.*, ACCOUNT.*, s.*
-            FROM tuser AS USR left JOIN taccount AS ACCOUNT ON USR.idUser = ACCOUNT.idAccountUser
-            inner join solicitation s on USR.idUser = s.id_user 
-            where  s.status = 'Pendente' ;
+        select s.*, t.* from solicitation s
+        left join tuser t on t.idUser = s.id_user
+        where  s.status = 'Pendente';
        """
         try:
             cursor.execute(query,)
@@ -118,12 +118,12 @@ class SolicitationDatabase:
     def open_account_solicitation(self, user_id, account_id, solicitation_type, account_type):
         cursor = self.db.cursor()
         solicitation_query = """
-            INSERT INTO solicitation (id_user, status, solicitation_type) VALUES(?, 'Pendente', ?)
+            INSERT INTO solicitation (id_user, id_account, status, solicitation_type) VALUES(?, ?, 'Pendente', ?)
         """
         account_solicitation_query = """
             INSERT INTO account_solicitation (id_solicitation, account_id, account_type) VALUES(?, ?, ?)
         """
-        solicitation_parameters = (user_id, solicitation_type,)
+        solicitation_parameters = (user_id, account_id, solicitation_type,)
 
         try:
             cursor.execute(solicitation_query, solicitation_parameters)
@@ -136,15 +136,15 @@ class SolicitationDatabase:
         except mariadb.Error as e:
             logging.error(e)
 
-    def open_deposit_solicitation(self, user_id, account_number, solicitation_type, value):
+    def open_deposit_solicitation(self, user_id, account_number, solicitation_type, value, account_id):
         cursor = self.db.cursor()
         solicitation_query = """
-            INSERT INTO solicitation (id_user, status, solicitation_type) VALUES(?, 'Pendente', ?)
+            INSERT INTO solicitation (id_user, id_account, status, solicitation_type) VALUES(?, ?, 'Pendente', ?)
         """
         deposit_solicitation_query = """
             INSERT INTO deposit_solicitation (id_solicitation, account_number, deposit_value) VALUES(?, ?, ?)
         """
-        solicitation_parameters = (user_id, solicitation_type,)
+        solicitation_parameters = (user_id, account_id, solicitation_type,)
 
         try:
             cursor.execute(solicitation_query, solicitation_parameters)
@@ -190,17 +190,17 @@ class SolicitationDatabase:
         except mariadb.Error as e:
             logging.error(e)
 
-    def open_update_data_solicitation(self,user_id,solicitation ):
+    def open_update_data_solicitation(self,user_id,solicitation, account_id):
         cursor = self.db.cursor()
         solicitation_query = """
-            INSERT INTO solicitation (id_user, status, solicitation_type) VALUES(?, 'Pendente', ?)
+            INSERT INTO solicitation (id_user, id_account, status, solicitation_type) VALUES(?, ?, 'Pendente', ?)
         """
         update_data_solicitation_query = """
             INSERT INTO update_user_solicitation
             (id_solicitation, name, road, number_house, district, cep, city, state, genre)
             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);
         """
-        solicitation_parameters = (user_id,'Alteração de dados cadastrais' ,)
+        solicitation_parameters = (user_id, account_id, 'Alteração de dados cadastrais',)
 
         try:
             cursor.execute(solicitation_query, solicitation_parameters)
@@ -232,7 +232,7 @@ class SolicitationDatabase:
     def open_close_account_solicitation(self, user_id, solicitation):
         cursor = self.db.cursor()
         solicitation_query = """
-            INSERT INTO solicitation (id_user, status, solicitation_type) VALUES(?, 'Pendente', ?)
+            INSERT INTO solicitation (id_user, id_account, status, solicitation_type) VALUES(?, ?, 'Pendente', ?)
         """
         account_number_query = """
             select s.id, a.idAccount, a.numberAccount, u.idUser from tuser u 
@@ -245,7 +245,7 @@ class SolicitationDatabase:
             (id_solicitation, id_account, name, cpf, birthdate, road, number_house, district, cep, city, state, genre)
             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """
-        solicitation_parameters = (user_id, 'Encerrar conta',)
+        solicitation_parameters = (user_id, solicitation.id_account, 'Encerrar conta',)
         try:
             cursor.execute(solicitation_query, solicitation_parameters)
             self.db.commit()
