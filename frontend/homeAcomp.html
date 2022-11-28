@@ -13,30 +13,48 @@
 
 <body class="userbodyhacompanhamento">
 
-    <nav class="husernav">
-        <img src="static/img/LOGO_BANCO_EXT.png" alt="logo do banco" class="img4">
-    </nav>
+    <nav class="husernav"></nav>
 
+    <!--Se solicitação de abertura de conta existir:-->
+    {% for account in accounts %}
     <div class="userhacompanhamentobox1">
-            <h2> Olá, {{ solicitation.name }}! </h2>
-            <br>
-            Status da conta: {{ solicitation.status }}<br>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                {{ message }}<br>
-                {% endfor %}
-            {% endif %}
-            {% endwith %}
-            {% block body %}{% endblock %}
-            <br>
-            <div class="userhacompanhamentobutton2">
-                <form method="GET" action="/logout">
-                    <button type="submit">Sair</button>
-                </form>
-            </div>    
+        <h2> Olá, {{ account.nameUser }}! </h2>
+        <br>
+        Status da conta: {{ account.status }}<br>
+        <div class="center"></div>
+        {% if account.status == 'Aprovado'%}
+        {% if account.account_type == 'CC'%}
+            <p>Tipo de conta: Conta Corrente</p>
+        {% else %}
+            <p>Tipo de conta: Conta Poupança</p>
+        {% endif %}
+            <p>Agência: {{ account.agencyUser }} / Conta: {{ account.numberAccount }}</p>
+            <p>Guarde sua agência e conta!</p>
+
+        {% elif account.status == 'Reprovado'%}
+            <p>Solicitação de abertura de conta recusada, entre em contato conosco!</p>
+
+        {% elif account.status == 'Encerrado' %}
+            <p>Sua conta foi encerrada.</p>
+            <form method="GET" action="{{ url_for('follow_up_statements', account_id=account.idAccount) }}"
+                target="_blank">
+                <button type="submit">Verificar extrato da conta</button>
+            </form>
+        {% else %}
+            <p>Aguardando análise de solicitação.</p>
+        {% endif %}
+        </div>
+
+    </div>
+    {% endfor %}
+
+    <div class="center">
+        <div class="userhacompanhamentobutton2">
+            <form method="GET" action="/logout">
+                <button type="submit">Sair</button>
+            </form>
         </div>
     </div>
-
 </body>
+
 </html>

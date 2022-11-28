@@ -7,6 +7,9 @@ class Manager(User):
         self.managerId = managerId
         self.profile= profile
 
+    def get_id(self):
+        return str(self.id)
+
     def __str__(self):
         return f'MANAGER: managerId: {self.managerId}, name: {self.name}, cpf: {self.cpf}, secret: {self.password}, nascimento:{self.birthDate}, genero: {self.gender} :: account {self.account}, registrationNumber: {self.registrationNumber}, workAgency: {self.workAgency}, profileUser: {self.profile}'
 

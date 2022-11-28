@@ -6,7 +6,7 @@
         <button type="submit">&#8592 Ok</button>
 </form>
 
-<form method="GET" action="{{ url_for('print', user_id=user.id) }}" target="_blank" class="admextratobutton2">
+<form method="GET" action="{{ url_for('print', account_id=user.account.id) }}" target="_blank" class="admextratobutton2">
     <button type="submit">Imprimir</button>
 </form>
         

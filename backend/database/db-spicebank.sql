@@ -1,4 +1,4 @@
-DROP DATABASE spicebank;
+--DROP DATABASE spicebank;
 
 -- Criando estrutura do banco de dados para spicebank
 CREATE DATABASE IF NOT EXISTS `spicebank`;
@@ -55,12 +55,15 @@ CREATE TABLE IF NOT EXISTS `tuser` (
 CREATE TABLE IF NOT EXISTS `solicitation` (
 	id int(11) NOT NULL AUTO_INCREMENT PRIMARY key,
 	id_user int(11) NOT NULL,
+	id_account int(11) not null,
 	status ENUM('Pendente','Aprovado','Reprovado', 'Em Análise', 'Encerrado'),
 	solicitation_type ENUM('Encerrar conta','Abertura de conta','Alteração de dados cadastrais','Confirmação de depósito'),
 	created_time datetime NOT NULL default current_timestamp,
 	updated_time datetime on update current_timestamp,
 	constraint `fk_tuser_solicitation`
-  	foreign key (`id_user`) references `tuser`(idUser)
+  	foreign key (`id_user`) references `tuser`(idUser),
+  	constraint `fk_taccount_solicitation`
+  	foreign key (`id_account`) references `taccount`(idAccount)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
 -- Criando estrutura para tabela spicebank.account_solicitation
@@ -125,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `account_close_solicitation` (
 -- Criando estrutura para tabela spicebank.bank_statement
 CREATE TABLE IF NOT EXISTS `bank_statement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) NOT NULL, 
+  `id_account` int(11) NOT NULL, 
   `balance` float(11) NOT NULL,
   `deposit` float(11) DEFAULT NULL,
   `withdraw` float(11) DEFAULT NULL,
@@ -134,9 +137,10 @@ CREATE TABLE IF NOT EXISTS `bank_statement` (
   updated_time datetime on update current_timestamp,
   `operation` varchar(1) not null,
   PRIMARY KEY (`id`),
-  constraint `fk_tuser_bank_statement`
-  foreign key (`id_user`) references `tuser`(idUser)
+  constraint `fk_taccount_bank_statement`
+  foreign key (`id_account`) references `taccount`(idAccount)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+
 
 -- Criando estrutura para tabela spicebank.bank
 CREATE TABLE `bank`(
@@ -240,15 +244,16 @@ INSERT INTO spicebank.tuser
 (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
 VALUES('Aline', 12345678901, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'F', '123');
 
--- Cria solicitação abertura de conta usuário comum
-INSERT INTO spicebank.solicitation
-(id_user, status, solicitation_type, created_time, updated_time)
-VALUES(5, 'Pendente', 'Abertura de conta', current_timestamp, null);
-
 -- Cria conta usuário comum
 INSERT INTO spicebank.taccount
 (numberAccount, totalbalance, idAccountUser, agencyUser, is_active, account_type)
 VALUES(NEXTVAL(account_number), 0, 5, 2, 0, 'CC');
+
+
+-- Cria solicitação abertura de conta usuário comum
+INSERT INTO spicebank.solicitation
+(id_user, id_account, status, solicitation_type, created_time, updated_time)
+VALUES(5, 1, 'Pendente', 'Abertura de conta', current_timestamp, null);
 
 -- Cria solicitação abertura de conta usuário comum
 insert into spicebank.account_solicitation
@@ -260,17 +265,17 @@ INSERT INTO spicebank.tuser
 (nameUser, cpfUser, roadUser, numberHouseUser, districtUser, cepUser, cityUser, stateUser, birthdateUser, genreUser, passwordUser)
 VALUES('Gabriela', 1000009012, 'fatec', 1, 'fatec', 1, 'fatec', 'São Paulo', '2022-01-01', 'F', '123');
 
--- Cria solicitação abertura de conta usuário comum
-INSERT INTO spicebank.solicitation
-(id_user, status, solicitation_type, created_time, updated_time)
-VALUES(6, 'Pendente', 'Abertura de conta', current_timestamp, null);
-
 -- Cria conta usuário comum
 INSERT INTO spicebank.taccount
 (numberAccount, totalbalance, idAccountUser, agencyUser, is_active, account_type)
 VALUES(NEXTVAL(account_number), 0, 6, 3, 0, 'CC');
 
 -- Cria solicitação abertura de conta usuário comum
+INSERT INTO spicebank.solicitation
+(id_user, id_account,status, solicitation_type, created_time, updated_time)
+VALUES(6, 2,'Pendente', 'Abertura de conta', current_timestamp, null);
+
+-- Cria solicitação abertura de conta usuário comum
 insert into spicebank.account_solicitation 
 (account_id, id_solicitation, account_type)
-(select idAccount, 2 as id_solicitation, 'Conta Corrente' as account_type from taccount t where t.idAccountUser = 6);
+(select idAccount, 2 as id_solicitation, 'Conta Corrente' as account_type from taccount t where t.idAccountUser = 6);     

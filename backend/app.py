@@ -21,6 +21,7 @@ def current_time():
 @login_required
 def index():
     user = current_user
+    logging.info(f'{user}')
     today = time.strftime('%d/%m/%Y %H:%M:%S')
     return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today, type=user.account.typeAccount), 200
 
@@ -30,7 +31,7 @@ def unauthorized():
 
 @login_manager.user_loader
 def load_user(user_id):
-    return userDatabase.findById(user_id)
+    return userDatabase.find_by_account_id(user_id)
 
 @app.route('/login', methods = ['POST'])
 def login():
@@ -41,7 +42,8 @@ def login():
     user = userDatabase.findByAgencyAccountAndPassword(request.form['fagency'],request.form['faccount'], request.form['fpassword'])
     if user:
         login_user(user)
-        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today), 200
+        logging.info(f'{user}')
+        return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today, type=user.account.typeAccount), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('login.html', message=message), 400
@@ -64,22 +66,9 @@ def loginAcomp():
     eliminar = ".-"
     for i in range(0,len(eliminar)):
         requestCpf = requestCpf.replace(eliminar[i],"")
-    solicitation = userDatabase.findSolicitationByCpfAndPassword(requestCpf, request.form['fpassword'])
-    if solicitation:
-        if solicitation.status == "Aprovado":
-            message = flash(f'Agência: {solicitation.agency} / Conta: {solicitation.account}')
-            message = flash('Guarde sua agência e conta!')
-            return render_template('homeAcomp.html', solicitation=solicitation, message=message, statements=None), 200
-        elif solicitation.status == "Reprovado":
-            message = flash('Solicitação de abertura de conta recusada, entre em contato conosco!')
-            return render_template('homeAcomp.html', solicitation=solicitation, message=message, statements=None), 200
-        elif solicitation.status == "Encerrado":
-            statements = statementDatabase.findByUserId(solicitation.user_id)
-            message = flash('Sua conta foi encerrada. Você pode verificar o extrato clicando no botão abaixo:')
-            return render_template('homeAcomp.html', solicitation=solicitation, message=message, statements=statements), 200
-        else:
-            message = flash('Aguardando análise de solicitação.')
-            return render_template('homeAcomp.html', solicitation=solicitation, message=message, statements=None), 200
+    accounts = userDatabase.find_all_accounts_by_cpf_and_password(requestCpf, request.form['fpassword'])
+    if accounts:
+        return render_template('homeAcomp.html', accounts=accounts, statements=None), 200
     else:
         message = flash(f'Login inválido, verifique os dados de acesso!')
     return render_template('acompanhamento.html', message=message), 400
@@ -121,7 +110,23 @@ def register():
 
 def create_account(user_id, agency_id, account_type):
     account_id = accountDatabase.create(user_id, agency_id, account_type)
-    solicitationDatabase.open_account_solicitation(user_id, account_id, 'Abertura de conta')
+    if account_type=='CP':
+        solicitationDatabase.open_account_solicitation(user_id, account_id, 'Abertura de conta', 'Conta Poupança')
+    else:
+        solicitationDatabase.open_account_solicitation(user_id, account_id, 'Abertura de conta', 'Conta Corrente')
+
+
+@app.route('/new_account', methods = ['GET','POST'])
+def new_account():
+    user=current_user
+    if request.method == "POST":
+        if user.account.typeAccount=='CC':
+            create_account(user.id, user.account.agency, 'CP')
+            return render_template('newaccountconfirm.html',user=user), 200
+        else:
+            create_account(user.id, user.account.agency, 'CC')
+            return render_template('newaccountconfirm.html',user=user), 200
+    return render_template('newaccount.html',user=user), 200
 
 @app.route('/withdrawform')
 @login_required
@@ -187,7 +192,7 @@ def withdrawConfirm():
         cursor.execute(query, parameters)
         current_user.account.withdraw(value)
         accountDatabase.updateBalanceByAccountNumber(current_user.balance(), current_user.accountNumber())
-        statement = Statement('D', 'Aprovado', userId=current_user.id, balance=current_user.balance(), deposit=0, withdraw=value, date=today)
+        statement = Statement('D', 'Aprovado', accountId=current_user.account.id, balance=current_user.balance(), deposit=0, withdraw=value, date=today)
         statementDatabase.save(statement)
         return render_template('comprovante_saque.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=valor_format, date=today, type=current_user.account.typeAccount), 200
     except mariadb.Error as e:
@@ -231,9 +236,10 @@ def depositconfirm():
     valor = float(request.form['fvalor'])
     today = time.strftime('%d/%m/%Y %H:%M:%S')
     try:
-        statement = Statement('C', 'Pendente', userId=current_user.id, balance=current_user.balance(), deposit=valor, withdraw=0,)
+        statement = Statement('C', 'Pendente', accountId=current_user.account.id, balance=current_user.balance(), deposit=valor, withdraw=0,)
         statementDatabase.save(statement)
-        solicitationDatabase.open_deposit_solicitation(current_user.id, current_user.accountNumber(), 'Confirmação de Depósito', valor)
+        account = accountDatabase.find_by_account_number(current_user.accountNumber())
+        solicitationDatabase.open_deposit_solicitation(current_user.id, current_user.accountNumber(), 'Confirmação de Depósito', valor, account.id)
         depositedValue=(f'{valor:.2f}')
         return render_template('comprovante_deposito.html', name=current_user.name, agencia=current_user.agency(), conta=current_user.accountNumber(), valor=depositedValue, date=today, type=current_user.account.typeAccount), 200
     except mariadb.Error as e:
@@ -262,8 +268,6 @@ def transfer():
     if not validate_form(request.form):
         message = flash('Preencha todos os campos para transferir!')
         return render_template('utransfer.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldoFormatado, today=today, type=user.account.typeAccount, message=message), 400
-    accountForTransfer = request.form['faccountForTransfer']
-    agencyForTransfer = request.form['fagencyForTransfer']
     valorStr = request.form['fvalor']
     valorStr = valorStr.replace("," , ".")
     #logging.info(f'{valorStr}')
@@ -303,7 +307,7 @@ def transferconfirm():
     userForTransfer = request.form['fuserForTransfer'] #nome do usuário que está recebendo
     valor = float(request.form['fvalor'])
     valor_format = (f'{valor:.2f}')
-    today = request.form['fdataAtual']
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
     accountUserT = request.form['faccountUserT'] #conta do usuário que está enviando
     agencyUserT = request.form['fagencyUserT'] #agência do usuário que está recebendo
     idPeoplefis = request.form['fidPeoplefis'] #id do usuário que está recebendo
@@ -319,14 +323,15 @@ def transferconfirm():
             newBalance = bankBalance - valor
             logging.info(f'{newBalance}')
             accountDatabase.updateBalanceByAccountNumber(newBalance, accountUserT)
-            statement = Statement('T', userId=current_user.id, balance=newBalance, situation='Aprovado', deposit=0, withdraw=valor, date=today)
+            statement = Statement('T', accountId=current_user.account.id, balance=newBalance, situation='Aprovado', deposit=0, withdraw=valor, date=today)
             statementDatabase.save(statement)
        
             #depositar na conta do usuário que está recebendo
             bankBalanceRece = accountDatabase.getBalanceByIdAccount(transferForPeople)
             newBalanceRece = bankBalanceRece + valor
             accountDatabase.updateBalanceByIdAccount(newBalanceRece, transferForPeople)
-            statement = Statement('T', userId=idPeoplefis, situation='Aprovado', balance=newBalanceRece, deposit=valor, withdraw=0, date=today)
+            target_account = accountDatabase.find_by_account_number(numberAccountT)
+            statement = Statement('T', accountId=target_account.id, situation='Aprovado', balance=newBalanceRece, deposit=valor, withdraw=0, date=today)
             statementDatabase.save(statement)
             return render_template('utransfervoucher.html', name=current_user.name, nameTransfer=userForTransfer, receNumberAccount=accountUserT, agencia=current_user.agency(), conta=current_user.accountNumber(), data=today, valor=valor_format, userForTransfer=userForTransfer, accountUserT=accountUserT, agencyUserT=agencyUserT, idPeoplefis=idPeoplefis, numberAccountT=numberAccountT, dataAtual=today, type=user.account.typeAccount), 200
         else:
@@ -350,7 +355,7 @@ def statementForm():
     user = current_user
     
     saldo = user.balance()
-    statements = statementDatabase.findByUserId(user.id)
+    statements = statementDatabase.find_by_account_id(user.account.id)
     accountType = accountDatabase.getAccountTypeByAccountNumber(user.accountNumber())
     logging.info(f'{user.accountNumber()}')
     logging.info(f'{accountType}')
@@ -394,21 +399,23 @@ def statementForm():
 def print():
     today = time.strftime('%d/%m/%Y %H:%M:%S')
     user = current_user
-    statements = statementDatabase.findByUserId(user.id)
+    statements = statementDatabase.find_by_account_id(user.account.id)
     return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements, date=today, type=user.account.typeAccount), 200
 
-@app.route('/<user_id>/print', methods = ['GET'])
-def follow_up_statements(user_id):
+@app.route('/<account_id>/print', methods = ['GET'])
+def follow_up_statements(account_id):
     today = time.strftime('%d/%m/%Y %H:%M:%S')
-    user = userDatabase.findById(user_id)
-    statements = statementDatabase.findByUserId(user.id)
+    user = userDatabase.find_by_account_id(account_id)
+    statements = statementDatabase.find_by_account_id(account_id)
     return render_template('extrato_impressao.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), extratos=statements, date=today, type=user.account.typeAccount), 200
 
 @app.route('/update_user_data', methods = ['GET'])
 @login_required
 def update_user_data():
     user=current_user
-    return render_template('alteracaodados.html', user=user), 200
+    aniversario = user.birthDate
+    birthDate = aniversario.strftime("%d/%m/%Y")
+    return render_template('alteracaodados.html', user=user, birthDate=birthDate), 200
 
 @app.route('/update_user_data', methods = ['POST'])
 @login_required
@@ -419,9 +426,9 @@ def open_update_user_data_solicitation():
         message = flash('Preencha todos os campos!')
         return render_template('alteracaodados.html', user=user), 200
     solicitation= UpdateDataSolicitation(request.form ['fname'], request.form ['froad'], request.form ['fnumberHouse'], request.form ['fdistrict'], request.form ['fcep'], request.form ['fcity'], request.form ['fstate'], request.form ['fgenre'], user_id=user.id)
-    solicitationDatabase.open_update_data_solicitation(user.id, solicitation)
+    solicitationDatabase.open_update_data_solicitation(user.id, solicitation, user.account.id)
     flash('Solicitação de alteração realizada com sucesso')
-    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today), 200
+    return render_template('home.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=user.balance(), date=today, type=user.account.typeAccount), 200
 
 @app.route('/close-account', methods = ['GET'])
 @login_required
@@ -456,6 +463,7 @@ def close_account(user):
     solicitation= CloseAccountSolicitation(user.account.id, user.name, user.cpf, user.birthDate, user.address.road, user.address.numberHouse, user.address.district, user.address.cep, user.address.city, user.address.state, user.gender, user_id=user.id)
     solicitationDatabase.open_close_account_solicitation(user.id, solicitation)
     solicitation_id = solicitationDatabase.find_solicitation_id_by_user_id_and_solicitation_type(user.id, 'Abertura de conta')
+    accountDatabase.analysis_account_by_solicitation_id(solicitation_id)
     solicitationDatabase.update_status_by_id(solicitation_id, 'Em Análise')
     accountDatabase.inactivate_account(user.accountNumber())
 

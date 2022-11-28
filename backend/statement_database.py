@@ -8,8 +8,8 @@ class StatementDatabase:
 
     def save(self, statement):
         cursor = self.db.cursor()
-        query = "INSERT INTO bank_statement (id_user, balance, deposit, withdraw, operation, situation) values (?, ?, ?, ?, ?, ?)"
-        parameters = (statement.userId, statement.balance, statement.deposit, statement.withdraw, statement.operation, statement.situation)
+        query = "INSERT INTO bank_statement (id_account, balance, deposit, withdraw, operation, situation) values (?, ?, ?, ?, ?, ?)"
+        parameters = (statement.accountId, statement.balance, statement.deposit, statement.withdraw, statement.operation, statement.situation)
         try:
             cursor.execute(query, parameters)
             self.db.commit()
@@ -32,6 +32,25 @@ class StatementDatabase:
                 return statementsFromDB
             else:
                 logging.info(f'Nenhum dado encontrado no extrato!')
+                return []
+        except mariadb.Error as e:
+            logging.error(e)
+
+    def find_by_account_id(self, account_id):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+            SELECT *
+            FROM bank_statement
+            WHERE id_account = ?
+        """
+        parameters = (account_id,)
+        try:
+            cursor.execute(query, parameters)
+            statementsFromDB = cursor.fetchall()
+            if statementsFromDB:
+                return statementsFromDB
+            else:
+                logging.info(f'Não há extrato para a conta {account_id}')
                 return []
         except mariadb.Error as e:
             logging.error(e)
