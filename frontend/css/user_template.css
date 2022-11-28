@@ -1960,56 +1960,59 @@ margin-bottom: 2%;
 }
  
 
-
 /*newaccount.html*/
 
-.usernewaccoutcenter1 {
+/*centralizar*/
+.usernewaccoutcenter1{
     margin: auto;
-    width: 50%;
+    width:50%;
 }
 
 
-.usernewaccountbox1 {
+/*caixa cinza claro*/
+.usernewaccountbox1{
     background-color: #d6d6d6;
-    Margin-top: 15%;
-    padding: 15px;
-    margin-bottom: 2%;
-    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+Margin-top: 15%;
+padding: 15px;
+margin-bottom: 2%;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
     border-radius: 5px;
 }
 
-.usernewaccountbox1 > h3 {    
+.usernewaccountbox1 > h3{    
     text-align: center;
 }
 
-.uusernewaccountbox1 > p {    
+.usernewaccountbox1 > p{    
     text-align: center;
 }
 
 .usernewaccountbox2{
-    margin: auto;
-    width: 100%;
-    background-color: #fff;
-    Margin-top: 10%;
-    padding: 10px;
-    box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
+    background-color: #ffffff;
+    padding: 15px;
+    height: fit-content;
+        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
     border-radius: 5px;
 }
 
-.admapprovedeleteaccountbox1 > h3 {
+.usernewaccountbox2 > h3{
+    text-align: center;
+    color: #000;
+}
+
+.usernewaccountbox2 > form{
+
+    margin: auto;
     text-align: center;
 }
 
-.admapprovedeleteaccountbox1 > h4 {
-    text-align: center;
-}
-
-.admapprovedeleteaccountbox1 > div > h4 {
-    text-align: center;
-}
-
-.admapprovedeleteaccountbox1  > p {
-    margin-top: 5%;
+.usernewaccountbox2 > form > input{
+    margin-top: 30px;
+      width: 50%;
+    height: 60px;
+      text-align: center;
+      font-size: 170%;
+    border-radius: 5px;
 }
 
 .usernewaccountright {
@@ -2022,53 +2025,49 @@ margin-bottom: 2%;
     width: 50%;
 }
 
-.usernewaccountsolicitationcenter {
-    margin:auto;
-    width:fit-content;
+.usernewaccountsolicitationbutton1{
     cursor:pointer;
-    border-radius: 5px;
     padding: 15px;
     border-style: none;
-    background-color:#ffff;
+    background-color:#d6d6d6;
     cursor: pointer;
     border-radius: 5px;
-    margin-bottom : 20%
+    width: 130px;
 }
 
-.usernewaccountsolicitationbutton1 > a {
-    color:#000;
-    text-decoration:none;
-    font-size:110%;
+.usernewaccountsolicitationbutton1 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
 }
 
 .usernewaccountsolicitationbutton1:hover{
     background-color:rgb(71, 177, 106);
 }
-        
+
 .usernewaccountsolicitationbutton2{
     cursor:pointer;
-    border-radius: 5px;
-    padding: 11px;
+    padding: 15px;
     border-style: none;
-    background-color:#ffff;
+    background-color:#d6d6d6;
     cursor: pointer;
     border-radius: 5px;
-    margin-bottom : 20%
+    width: 130px;
 }
 
-.usernewaccountsolicitationbutton2 > a {
-    color:#000;
-    text-decoration:none;
-    font-size:110%;
+.usernewaccountsolicitationbutton2 >a {
+  color:#000;
+  text-decoration:none;
+  font-size:110%;
 }
 
-.usernewaccountsolicitationbutton2 > button:hover{
+.usernewaccountsolicitationbutton2:hover{
     background-color:#959595;
 }
 
  /*responsividade newaccount.html*/
 
-@media screen and (max-width: 750px) {
+ @media screen and (max-width: 750px) {
     .usernewaccountcenter1{
         margin: auto;
         width: 70%;
@@ -2079,7 +2078,7 @@ margin-bottom: 2%;
         border-radius: 5px;
     }
 }
-    
+
 
 
 /*newaccountconfirm.html*/
@@ -2119,6 +2118,10 @@ margin-bottom: 2%;
     color: #000;
 }
 
+.usernewaccountconfirmbox2 > p {    
+    text-align: center;
+}
+
 .usernewaccountconfirmbox2 > form {
     margin: auto;
     text-align: center;
@@ -2150,7 +2153,7 @@ margin-bottom: 2%;
 }
 
 .usernewaccountconfirmbutton1:hover{
-    background-color:rgb(183, 85, 85);
+    background-color:#959595;
 }
 
  /*responsividade newaccountconfirm.html*/
@@ -2159,11 +2162,7 @@ margin-bottom: 2%;
     .usernewaccountconfirmcenter1{
         margin: auto;
         width: 70%;
-        background-color: #d6d6d6;
-        Margin-top: 20%;
-        padding: 10px;
-        box-shadow: rgba(0, 0, 0, 0.15) 8px 8px 2px;
-        border-radius: 5px;
+        Margin-top: 15%;
     }
 }
 
