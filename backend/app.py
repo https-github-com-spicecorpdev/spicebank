@@ -8,6 +8,8 @@ from .statement import Statement
 from .solicitation import CloseAccountSolicitation, UpdateDataSolicitation
 import time
 import logging
+from datetime import date
+import datetime
 
 app, login_manager = create_app()
 connection= get_connection()
@@ -472,6 +474,89 @@ def close_account(user):
     solicitationDatabase.update_status_by_id(solicitation_id, 'Em Análise')
     logging.info(f'Inativando conta {account.account}')
     accountDatabase.inactivate_account(account.account)
+
+def numOfDays(date1, date2):
+    return (date2-date1).days
+     
+@app.route('/alterardiaform', methods = ['GET', 'POST'])
+@login_required
+def alterardiaform():
+    today = time.strftime('%d/%m/%Y %H:%M:%S')
+    user = current_user
+    saldo = user.balance()
+    statements = statementDatabase.findByUserId(user.id)
+    accountType = accountDatabase.getAccountTypeByAccountNumber(user.accountNumber())
+    logging.info(f'{user.accountNumber()}')
+    logging.info(f'{accountType}')
+    # if request.method == "POST":
+    #     dataSelecionada = request.form['dataSelecionada']
+    #     logging.info(f'{dataSelecionada}')
+    #     if ((dataSelecionada == None) or (dataSelecionada == '')):
+    #         voltarinicio = dateTimeDatabase.backday()
+    #     else:
+    #         alterday = dateTimeDatabase.alterday(dataSelecionada)
+    if request.method == "POST":
+        if saldo < 0 and accountType == 'CC':
+            taxa = userDatabase.find_taxa('cheque especial')
+            logging.info(f'{taxa}')
+            logging.info(f'{date.today()}')
+            date1 = date.today()
+            date2 = request.form["dataSelecionada"]
+            date2 = datetime.datetime.strptime(date2,'%Y-%m-%d').date()
+            logging.info(f'{date2}')
+            logging.info(f'{date2}')
+            n=numOfDays(date1, date2)
+            logging.info(f'{n}')
+            juros = float(taxa)
+            juros = juros / 12
+            juros = juros / 100
+            conta = saldo
+            logging.info(f'{conta}')
+            if n > 0:
+                for i in range(n):
+                    taxa = juros * conta
+                    conta = taxa + conta
+                    logging.info(f'{"para n = ",i," a soma é: ", juros, conta}')
+            logging.info(f'{conta}')
+
+            return render_template('alterarday.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements, date=today, type=user.account.typeAccount, juros=conta, message=None), 200
+
+        elif accountType == 'CP':
+            #d1 = datetime.datetime(2023,11,29)
+            taxa = userDatabase.find_taxa('poupanca')
+            d1 = request.form["dataSelecionada"]
+            d1 = datetime.datetime.strptime(d1,'%Y-%m-%d').date()
+            d2 = date.today()
+
+            diff = d1 - d2
+
+            days = diff.days
+            months, days = days // 30, days % 30
+
+            logging.info(f'{months}')
+
+
+            #juros = float( input("Juros (em %) para esse produto: ") )
+            juros = float(taxa)
+            juros = juros / 12
+            juros = juros / 100
+            conta = saldo
+            if months > 0:
+                for i in range(months):
+                    taxa = juros * conta
+                    conta = taxa + conta
+                    logging.info(f'{"para n = ",i," a soma é: ", juros, conta}')
+                return render_template('alterarday.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements, date=today, type=user.account.typeAccount, juros=conta, message=None), 200
+            else:
+                message = flash("Para a conta poupança render, deve passar-se pelo menos 1 mês!")
+
+                return render_template('alterarday.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements, date=today, type=user.account.typeAccount, juros=None, message=message), 200
+
+        else:
+            message = flash('Simule somente quando seu valor estiver negativo')
+            return render_template('alterarday.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements, date=today, type=user.account.typeAccount, juros=None, message=message), 200
+
+    return render_template('alterarday.html', name=user.name, agencia=user.agency(), conta=user.accountNumber(), saldo=saldo, extratos=statements, date=today, type=user.account.typeAccount, juros=None, message=None), 200
 
 def userExists(cpf):
     return userDatabase.findByCpf(cpf)

@@ -330,3 +330,21 @@ class UserDatabase:
         except mariadb.Error as e:
             logging.error(e)
         return self.findIdByUser(user)
+
+    def find_taxa(self, tipotaxa):
+        cursor = self.db.cursor(dictionary=True)
+        query = """
+            select * from taxas
+            where tiptaxa = ?
+        """
+        parameters = (tipotaxa,)
+        try:
+            cursor.execute(query, parameters)
+            result= cursor.fetchone()
+            if result:
+                return result['valortaxa']
+            else:
+                logging.info (f'Taxa não encontrada!')
+                return None
+        except mariadb.Error as e:
+            logging.error(e)

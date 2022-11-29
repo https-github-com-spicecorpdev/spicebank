@@ -1,0 +1,58 @@
+<!-- Tela de Extrato Usuário -->
+{% extends "menu_lateral_template.html" %}
+
+{% block contents %}
+
+    <title>Extrato | SpiceBank</title>
+        
+        <br>
+        <br>
+        <br>
+
+        <form method="POST" action="" class="userextratobutton2">
+            <div class='col-sm-4'>
+                <div class='form-group'>
+                    <label>Selecione a data</label>
+                    <input type="date" name='dataSelecionada'>
+                </div>
+            </div>
+            <button type="submit">Alterar</button>
+        </form>
+
+        <form method="POST" action="" class="userextratobutton2">
+            <input type="hidden" name='dataSelecionada'>
+            <button type="submit">Voltar a data Atual</button>
+        </form>
+
+        <div class="userhomebox1">
+            <h3> Olá, {{ name }}! </h3>
+            <p> Data: {{ date }} </p>
+            <p> Agência: {{ agencia }} / {{ type }}: {{ conta}} </p>
+            <h4> Saldo disponível: </p>
+        
+            <div class="userhomebox2">
+                <h2> R$ {{ "{:,.2f}".format(saldo) }} </h2>
+            </div>
+        </div>
+        <br>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block body %}{% endblock %}
+        {% if juros != None %}
+        <div class="userhomebox1">
+            <h4> Valor a pagar: </p>
+                <div class="userhomebox2">
+                    <h2> R$ {{ "{:,.2f}".format(juros) }} </h2>
+                </div>
+        </div>
+        {% endif %}
+        <br>
+    
+{% endblock contents %}
